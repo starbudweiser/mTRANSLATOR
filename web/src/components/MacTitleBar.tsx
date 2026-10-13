@@ -1,0 +1,194 @@
+/**
+ * Barre de titre et d'en-tête macOS native pour mTRANSLATOR
+ * En-tête d'application avec logo livre "A", titre "mTRANSLATOR" et sélecteur interactif de langue
+ * permettant de changer la langue des traductions et la localisation globale de l'interface.
+ * La barre de titre est celle de la fenêtre macOS native ; « Fermer le fichier » et « À propos »
+ * sont dans les menus natifs (python_app/mtranslator_app.py).
+ */
+
+import React, { useState, useRef, useEffect } from 'react';
+import { ModFileMeta, GameEngine } from '../types';
+import { BookLogo } from './BookLogo';
+import { ArrowRight, HardDrive, X, Check, HelpCircle, ChevronDown, Globe, CheckCircle2 } from 'lucide-react';
+import { useI18n } from '../i18n/LanguageContext';
+import { SupportedLocale } from '../i18n/types';
+
+interface MacTitleBarProps {
+  meta: ModFileMeta;
+  modifiedCount: number;
+  isFileLoaded: boolean;
+  onSelectGame: (game: GameEngine) => void;
+  onSave: () => void;
+  onCloseFile: () => void;
+  onOpenAbout?: () => void;
+}
+
+export const MacTitleBar: React.FC<MacTitleBarProps> = ({
+  meta,
+  modifiedCount,
+  isFileLoaded,
+  onSave,
+  onCloseFile,
+  onOpenAbout,
+}) => {
+  const { t, sourceLang, targetLang, targetLocale, setTargetLanguage, languages } = useI18n();
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
+  const langMenuRef = useRef<HTMLDivElement>(null);
+
+  // Fermer le menu lors d'un clic en dehors
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (langMenuRef.current && !langMenuRef.current.contains(e.target as Node)) {
+        setIsLangMenuOpen(false);
+      }
+    };
+    if (isLangMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isLangMenuOpen]);
+
+  // Récupérer le drapeau actuel
+  const currentLangObj = languages.find((l) => l.code === targetLocale);
+
+  return (
+    <div className="flex flex-col select-none z-20">
+      {/* En-tête de l'application (la barre de titre est celle de la fenêtre macOS) */}
+      <div className="h-11 bg-[#181818] border-b border-[#2e2e2e] flex items-center justify-between px-4">
+        {/* Côté gauche : Logo livre A + Titre + Sous-titre */}
+        <div className="flex items-center space-x-2.5">
+          {/* Badge logo ambré avec lettre A */}
+          <button
+            type="button"
+            onClick={onOpenAbout}
+            className="w-6 h-6 rounded bg-[#d97706]/30 border border-[#f59e0b]/70 flex items-center justify-center p-0.5 shadow-sm hover:scale-105 transition-transform"
+            title="mTRANSLATOR macOS"
+          >
+            <BookLogo size={16} className="text-[#fbbf24]" />
+          </button>
+
+          <button
+            type="button"
+            onClick={onOpenAbout}
+            className="text-left flex items-center space-x-2 hover:opacity-90 transition-opacity"
+            title={t('app.aboutTitle')}
+          >
+            <span className="font-bold text-white text-[13px] tracking-tight">
+              {t('app.title')}
+            </span>
+            <span className="text-[12px] text-[#aaaaaa]">
+              {t('app.subtitle')}
+            </span>
+          </button>
+        </div>
+
+        {/* Côté droit : Informations du fichier actif et sélecteur interactif de langue */}
+        <div className="flex items-center space-x-3">
+          {isFileLoaded && (
+            <div className="flex items-center space-x-2 text-xs">
+              <span className="font-mono text-[11px] text-[#38bdf8] bg-[#0c3a52] px-2 py-0.5 rounded border border-[#0369a1]/40 flex items-center space-x-1">
+                <HardDrive className="w-3 h-3" />
+                <span className="truncate max-w-[160px]">{meta.fileName}</span>
+              </span>
+
+              {modifiedCount > 0 ? (
+                <button
+                  type="button"
+                  onClick={onSave}
+                  className="text-[10px] text-[#fbbf24] bg-[#3f2a0c]/80 px-1.5 py-0.5 rounded border border-[#f59e0b] hover:bg-[#3f2a0c] transition-colors"
+                  title="Cliquer pour sauvegarder (⌘S)"
+                >
+                  {t('app.modified', { count: modifiedCount })}
+                </button>
+              ) : (
+                <span className="text-[10px] text-[#4ade80] flex items-center space-x-1">
+                  <Check className="w-3 h-3" />
+                  <span>{t('app.ready')}</span>
+                </span>
+              )}
+
+              {/* Bouton pour revenir à la page d'accueil / dropzone */}
+              <button
+                type="button"
+                onClick={onCloseFile}
+                className="px-2 py-0.5 bg-[#222222] hover:bg-[#333333] text-[#aaaaaa] hover:text-white rounded border border-[#333333] text-[11px] transition-colors flex items-center space-x-1"
+                title="Fermer le fichier actuel et revenir à l'écran de dépôt"
+              >
+                <X className="w-3 h-3" />
+                <span>{t('app.home')}</span>
+              </button>
+            </div>
+          )}
+
+          {/* SÉLECTEUR INTERACTIF DE LANGUE DES TRADUCTIONS (English ➔ Français, Deutsch, etc.) */}
+          <div className="relative" ref={langMenuRef}>
+            <button
+              type="button"
+              onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+              className="flex items-center space-x-2 text-xs text-[#dddddd] bg-[#1e1e1e] hover:bg-[#262626] px-2.5 py-1 rounded border border-[#333333] hover:border-[#38bdf8] transition-all shadow-xs group"
+              title="Cliquez pour changer la langue des traductions et la localisation de l'application"
+            >
+              <span className="text-sm leading-none">{currentLangObj?.flag || '🇫🇷'}</span>
+              <span className="text-[#aaaaaa]">{sourceLang}</span>
+              <ArrowRight className="w-3 h-3 text-[#38bdf8] group-hover:translate-x-0.5 transition-transform" />
+              <span className="font-semibold text-white">{targetLang}</span>
+              <ChevronDown className={`w-3 h-3 text-[#aaaaaa] transition-transform duration-200 ${isLangMenuOpen ? 'rotate-180 text-[#38bdf8]' : ''}`} />
+            </button>
+
+            {/* Menu Popover macOS déroulant */}
+            {isLangMenuOpen && (
+              <div className="absolute right-0 top-full mt-1.5 w-64 bg-[#1e1e1e] border border-[#333333] rounded-lg shadow-2xl py-2 z-50 text-xs text-[#dddddd] animate-in fade-in slide-in-from-top-1 duration-150">
+                <div className="px-3 py-1.5 border-b border-[#2e2e2e] mb-1">
+                  <div className="flex items-center space-x-1.5 text-white font-medium text-[11px]">
+                    <Globe className="w-3.5 h-3.5 text-[#38bdf8]" />
+                    <span>{t('app.targetLanguage')}</span>
+                  </div>
+                  <p className="text-[10px] text-[#aaaaaa] mt-0.5 leading-snug">
+                    Définit la langue cible des traductions, localise l'interface et configure les nouveaux dictionnaires SST.
+                  </p>
+                </div>
+
+                <div className="max-h-60 overflow-y-auto custom-scrollbar px-1">
+                  {languages.map((lang) => {
+                    const isSelected = lang.code === targetLocale;
+                    return (
+                      <button
+                        key={lang.code}
+                        type="button"
+                        onClick={() => {
+                          setTargetLanguage(lang.code);
+                          setIsLangMenuOpen(false);
+                        }}
+                        className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded text-left transition-colors ${
+                          isSelected
+                            ? 'bg-[#0369a1]/20 text-[#38bdf8] font-medium'
+                            : 'hover:bg-[#2c2c2c] text-[#dddddd]'
+                        }`}
+                      >
+                        <div className="flex items-center space-x-2">
+                          <span className="text-base leading-none">{lang.flag}</span>
+                          <div>
+                            <span className="text-[12px]">{lang.name}</span>
+                            <span className="text-[10px] text-[#666666] ml-1.5 font-mono">({lang.code})</span>
+                          </div>
+                        </div>
+                        {isSelected && <Check className="w-3.5 h-3.5 text-[#38bdf8]" />}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="px-3 pt-2 mt-1.5 border-t border-[#2e2e2e] text-[10px] text-[#666666] flex items-center justify-between">
+                  <span>Source : {sourceLang}</span>
+                  <span className="text-[#38bdf8] font-mono">mTRANSLATOR</span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
