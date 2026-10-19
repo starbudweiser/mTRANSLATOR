@@ -29,3 +29,6 @@ logs/
 
 # Rust
 core/target/
+
+# Notes personnelles
+PASSATION_*.md
