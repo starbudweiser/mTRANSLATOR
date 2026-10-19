@@ -59,6 +59,14 @@ img.save("${ICON_ICNS}", format="ICNS")
 PY
 fi
 
+# Cœur Rust (xtcore) embarqué dans l'app.
+if command -v cargo &>/dev/null; then
+    echo "Compilation du cœur Rust (xtcore)..."
+    (cd core && cargo build --release)
+fi
+XTCORE_BIN="core/target/release/xtcore"
+[ -x "$XTCORE_BIN" ] || { echo "ERREUR : $XTCORE_BIN introuvable (installer Rust : rustup)."; exit 1; }
+
 mkdir -p "$BUILD_TMP"
 rm -rf "$APP_FINAL"
 
@@ -73,6 +81,7 @@ pyinstaller \
     --icon "${ROOT}/${ICON_ICNS}" \
     --add-data "${ROOT}/${ICON_PNG}:." \
     --add-data "${ROOT}/${WEB_DIST}:dist" \
+    --add-binary "${ROOT}/${XTCORE_BIN}:." \
     --hidden-import webview \
     --osx-bundle-identifier "com.mtranslator.macos" \
     --name "$APP_NAME" \

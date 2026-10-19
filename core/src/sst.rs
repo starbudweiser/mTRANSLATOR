@@ -44,8 +44,10 @@ fn ser_sig<S: serde::Serializer>(s: &Sig, z: S) -> Result<S::Ok, S::Error> {
 }
 
 impl Entry {
+    /// Traduction complète : le bit « validé » n'étant jamais enregistré, une entrée
+    /// sauvegardée sans statut partiel ni en attente est une traduction validée.
     pub fn is_validated(&self) -> bool {
-        self.params & (params::TRANSLATED | params::VALIDATED) != 0 && self.params & (params::PENDING | params::INCOMPLETE) == 0
+        self.params & (params::PENDING | params::INCOMPLETE) == 0
     }
 }
 

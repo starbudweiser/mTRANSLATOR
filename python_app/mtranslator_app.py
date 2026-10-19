@@ -119,6 +119,31 @@ def translate_google_gtx(text: str, target_lang: str = 'fr') -> str:
     return BETESDA_GLOSSARY.get(text.strip(), text)
 
 
+# Cœur Rust (xtcore) : formats ESP/strings/SST/BSA/PEX et heuristique. Sous-commandes autorisées.
+XTCORE_COMMANDS = {'extract', 'translate', 'apply', 'sst', 'search', 'archive-list', 'archive-extract', 'pex'}
+
+
+def find_xtcore():
+    """Binaire xtcore : embarqué dans l'app compilée, sinon build local de core/."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    candidates = [os.path.join(getattr(sys, '_MEIPASS', here), 'xtcore'),
+                  os.path.join(here, '..', 'core', 'target', 'release', 'xtcore')]
+    return next((c for c in candidates if os.path.isfile(c) and os.access(c, os.X_OK)), None)
+
+
+def run_xtcore(args, timeout=600):
+    exe = find_xtcore()
+    if not exe:
+        return {'error': 'xtcore introuvable (cargo build --release dans core/)'}, 500
+    if not args or args[0] not in XTCORE_COMMANDS or not all(isinstance(a, str) for a in args):
+        return {'error': 'Commande xtcore refusée'}, 400
+    proc = subprocess.run([exe, *args], capture_output=True, text=True, timeout=timeout)
+    try:
+        return json.loads(proc.stdout), (200 if proc.returncode == 0 else 422)
+    except json.JSONDecodeError:
+        return {'error': (proc.stderr or proc.stdout or 'réponse vide').strip()[:2000]}, 500
+
+
 def create_mtranslator_handler(web_directory: str):
     class MTranslatorRequestHandler(http.server.SimpleHTTPRequestHandler):
         def __init__(self, *args, **kwargs):
@@ -141,7 +166,8 @@ def create_mtranslator_handler(web_directory: str):
 
         def do_GET(self):
             if self.path == '/api/health':
-                self.send_json({'status': 'ok', 'version': VERSION, 'platform': sys.platform})
+                self.send_json({'status': 'ok', 'version': VERSION, 'platform': sys.platform,
+                                'xtcore': bool(find_xtcore())})
                 return
 
             file_path = os.path.join(web_directory, self.path.split('?')[0].lstrip('/'))
@@ -150,6 +176,19 @@ def create_mtranslator_handler(web_directory: str):
             super().do_GET()
 
         def do_POST(self):
+            if self.path == '/api/xtcore':
+                # En-tête personnalisé : bloque les requêtes envoyées par d'autres sites (pré-vérification CORS).
+                if self.headers.get('X-mTRANSLATOR') != '1':
+                    self.send_json({'error': 'En-tête X-mTRANSLATOR requis'}, 403)
+                    return
+                try:
+                    content_length = int(self.headers.get('Content-Length', 0))
+                    payload = json.loads(self.rfile.read(content_length).decode('utf-8'))
+                    result, status = run_xtcore(payload.get('args', []))
+                    self.send_json(result, status)
+                except Exception as e:
+                    self.send_json({'error': str(e)}, 500)
+                return
             if self.path != '/api/translate/batch':
                 self.send_json({'error': 'Route inconnue'}, 404)
                 return
