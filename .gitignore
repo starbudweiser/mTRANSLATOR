@@ -26,3 +26,6 @@ logs/
 # Secrets
 .env.*
 !.env.example
+
+# Rust
+core/target/
