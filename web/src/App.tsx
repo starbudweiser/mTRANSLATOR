@@ -445,7 +445,7 @@ export default function App() {
     if (!pluginPath) return;
     const rows = records
       .filter((r) => r.xtId !== undefined && r.target.trim() && r.target !== r.source)
-      .map((r) => ({ id: r.xtId as number, dest: r.target }));
+      .map((r) => ({ id: r.xtId as number, dest: r.target, source: r.source }));
     if (!rows.length) {
       showToast('Aucune traduction à exporter (textes identiques à la VO).');
       return;

@@ -139,7 +139,7 @@ export const xt = {
       ['write', plugin, '--out', out, ...opt('sst', sst)],
       JSON.stringify(rows),
     ),
-  sstExport: (plugin: string, out: string, rows: Array<{ id: number; dest: string }>) =>
+  sstExport: (plugin: string, out: string, rows: Array<{ id: number; dest: string; source?: string }>) =>
     xtcore<{ entries: number; written: string; backup: string | null }>(['sst-export', plugin, '--out', out], JSON.stringify(rows)),
   txt: (file: string, lang = 'french') => xtcore<XtTxt>(['txt', file, ...opt('lang', lang)]),
   txtTranslate: (file: string, dict: string) =>

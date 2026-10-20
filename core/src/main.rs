@@ -274,6 +274,9 @@ fn cmd_sst_export(a: &Args) -> Result<Value> {
     struct Row {
         id: usize,
         dest: String,
+        /// Texte d'origine vu par l'interface : le plugin a pu être réécrit traduit depuis.
+        #[serde(default)]
+        source: Option<String>,
     }
     let p = a.path(1)?;
     let out = PathBuf::from(a.req("out")?);
@@ -282,8 +285,12 @@ fn cmd_sst_export(a: &Args) -> Result<Value> {
     let mut sst = Sst { version: 8, masters: l.plugin.masters(), ..Default::default() };
     for r in &rows {
         let s = l.items.get(r.id).with_context(|| format!("chaîne {} inconnue", r.id))?;
-        if s.text != r.dest {
-            sst.entries.push(entry_for(s, &r.dest, params::TRANSLATED | params::VALIDATED));
+        let mut e = entry_for(s, &r.dest, params::TRANSLATED | params::VALIDATED);
+        if let Some(src) = &r.source {
+            e.source = src.clone();
+        }
+        if e.source != r.dest {
+            sst.entries.push(e);
         }
     }
     let backup = backup(&out)?;
