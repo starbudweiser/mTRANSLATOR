@@ -142,10 +142,10 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               </button>
               <span className="w-px h-6 bg-[#333333] mx-1" />
               <div className="flex items-center bg-[#222222] border border-[#333333] rounded-md p-0.5" role="group" aria-label="Lignes affichées">
-                <button type="button" className={seg(onlyTodo)} onClick={() => onFilterChange({ ...filter, status: 'untranslated', onlyWarnings: false, recordType: '' })}>
+                <button type="button" className={seg(onlyTodo)} onClick={() => onFilterChange({ ...filter, status: 'untranslated', onlyWarnings: false, recordType: 'all' })}>
                   À traduire ({stats.untranslated})
                 </button>
-                <button type="button" className={seg(!onlyTodo)} onClick={() => onFilterChange({ ...filter, status: 'all', onlyWarnings: false, recordType: '' })}>
+                <button type="button" className={seg(!onlyTodo)} onClick={() => onFilterChange({ ...filter, status: 'all', onlyWarnings: false, recordType: 'all' })}>
                   Tout ({stats.total})
                 </button>
               </div>
@@ -349,7 +349,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               <button
                 type="button"
                 onClick={() => {
-                  onFilterChange({ ...filter, status: 'all', onlyWarnings: false, recordType: '' });
+                  onFilterChange({ ...filter, status: 'all', onlyWarnings: false, recordType: 'all' });
                   setShowFilterMenu(false);
                 }}
                 className={`w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between ${filter.status === 'all' && !filter.onlyWarnings ? 'text-[#38bdf8] font-semibold' : ''}`}
