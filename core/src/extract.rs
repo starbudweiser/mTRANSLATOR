@@ -8,6 +8,7 @@ use crate::esp::{Field, Plugin};
 use crate::game::{Proc, RecordDef};
 use crate::strings::StringsSet;
 use crate::text::{ansi, string_hash, Codepage};
+use crate::vmad;
 use crate::{sig_str, Sig};
 use anyhow::{bail, Result};
 use rayon::prelude::*;
@@ -30,6 +31,16 @@ pub struct EspString {
     pub str_id: u32,
     pub not_null: bool,
     pub text: String,
+    /// Chaîne d'une propriété de script (champ `VMAD`) : verrouillée par défaut dans xTranslator.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub vmad: Option<VmadRef>,
+}
+
+#[derive(Clone, Debug, Serialize)]
+pub struct VmadRef {
+    pub off: usize,
+    pub script: String,
+    pub prop: String,
 }
 
 /// `sanitizeFormID` : neutralise l'index de chargement (y compris ESL/ESH de Starfield).
@@ -130,7 +141,8 @@ pub fn extract(plugin: &Plugin, ctx: &Context) -> Result<Vec<EspString>> {
             let defs: Vec<Option<&RecordDef>> = (0..fields.len())
                 .map(|i| if tes4 { matches!(&fields[i].sig, b"CNAM" | b"SNAM").then_some(&TES4_DEF) } else { match_def(ctx.defs, &r.sig, &fields, i) })
                 .collect();
-            if defs.iter().all(Option::is_none) {
+            let has_vmad = !tes4 && fields.iter().any(|f| &f.sig == b"VMAD" && !f.data.is_empty());
+            if defs.iter().all(Option::is_none) && !has_vmad {
                 return Ok(Vec::new());
             }
             let is_str: Vec<bool> = defs.iter().map(Option::is_some).collect();
@@ -170,7 +182,11 @@ pub fn extract(plugin: &Plugin, ctx: &Context) -> Result<Vec<EspString>> {
                     str_id,
                     not_null: d.not_null,
                     text: ctx.cp.decode(bytes),
+                    vmad: None,
                 });
+            }
+            if has_vmad {
+                out.extend(vmad_strings(r.form_id, &r.sig, ri, &fields, &edid));
             }
             Ok(out)
         })
@@ -182,6 +198,37 @@ pub fn extract(plugin: &Plugin, ctx: &Context) -> Result<Vec<EspString>> {
     Ok(all)
 }
 
+/// Chaînes des champs VMAD (`GetVMADStrings`) : clé = nom EDID + « _ » + propriété.
+fn vmad_strings(form_id: u32, rec: &Sig, ri: usize, fields: &[Field], edid: &str) -> Vec<EspString> {
+    let name = if edid.is_empty() { format!("[{:08X}]", sanitize_form_id(form_id)) } else { edid.to_owned() };
+    let mut out = Vec::new();
+    for (fi, f) in fields.iter().enumerate().filter(|(_, f)| &f.sig == b"VMAD" && !f.data.is_empty()) {
+        for v in vmad::decode(&f.data, rec).unwrap_or_default() {
+            if v.bytes.is_empty() {
+                continue;
+            }
+            out.push(EspString {
+                id: 0,
+                rec_idx: ri,
+                field_idx: fi,
+                form_id,
+                rec: sig_str(rec),
+                field: "VMAD".into(),
+                edid: edid.to_owned(),
+                rhash: string_hash(&format!("{name}_{}", v.prop)),
+                index: 0,
+                index_max: 0,
+                list: 0,
+                str_id: 0,
+                not_null: false,
+                text: String::from_utf8_lossy(&v.bytes).into_owned(),
+                vmad: Some(VmadRef { off: v.off, script: v.script, prop: v.prop }),
+            });
+        }
+    }
+    out
+}
+
 /// Réinjecte des traductions. Plugin localisé : modifie les tables `strings` ;
 /// sinon réécrit les champs (enregistrements recompressés si besoin).
 pub fn apply(plugin: &mut Plugin, strings: Option<&mut StringsSet>, items: &[(&EspString, &str)], cp: &Codepage) -> Result<usize> {
@@ -190,29 +237,38 @@ pub fn apply(plugin: &mut Plugin, strings: Option<&mut StringsSet>, items: &[(&E
         cp.encode(t)
     };
     let localized = plugin.is_localized();
-    let (loc, inline): (Vec<_>, Vec<_>) = items.iter().partition(|(s, _)| localized && s.rec_idx != 0);
+    let (scripts, items): (Vec<_>, Vec<_>) = items.iter().partition(|(s, _)| s.vmad.is_some());
+    let (loc, inline): (Vec<_>, Vec<_>) = items.into_iter().partition(|(s, _)| localized && s.rec_idx != 0);
     if !loc.is_empty() {
         let Some(set) = strings else { bail!("plugin localisé : fichiers .strings requis") };
         for (s, t) in &loc {
             set.files[s.list.min(2) as usize].set(s.str_id, encode(s, t));
         }
     }
-    let mut by_rec: BTreeMap<usize, Vec<(usize, Vec<u8>)>> = BTreeMap::new();
+    let mut by_rec: BTreeMap<usize, (Vec<(usize, Vec<u8>)>, BTreeMap<usize, Vec<(usize, &str)>>)> = BTreeMap::new();
     for (s, t) in &inline {
         let mut b = encode(s, t);
         b.push(0);
-        by_rec.entry(s.rec_idx).or_default().push((s.field_idx, b));
+        by_rec.entry(s.rec_idx).or_default().0.push((s.field_idx, b));
+    }
+    for (s, t) in &scripts {
+        let off = s.vmad.as_ref().map_or(0, |v| v.off);
+        by_rec.entry(s.rec_idx).or_default().1.entry(s.field_idx).or_default().push((off, *t));
     }
     let mut recs = plugin.records_mut();
-    for (ri, changes) in by_rec {
+    for (ri, (changes, vmads)) in by_rec {
         let r = recs.get_mut(ri).ok_or_else(|| anyhow::anyhow!("enregistrement {ri} introuvable"))?;
         let mut fields = r.fields()?;
         for (fi, data) in changes {
             fields.get_mut(fi).ok_or_else(|| anyhow::anyhow!("champ {fi} introuvable"))?.data = data;
         }
+        for (fi, ch) in vmads {
+            let f = fields.get_mut(fi).ok_or_else(|| anyhow::anyhow!("champ {fi} introuvable"))?;
+            f.data = vmad::rewrite(&f.data, &ch)?;
+        }
         r.set_fields(fields);
     }
-    Ok(items.len())
+    Ok(inline.len() + loc.len() + scripts.len())
 }
 
 #[cfg(test)]
@@ -282,6 +338,29 @@ mod tests {
         apply(&mut p, Some(&mut set), &[(&s[0], "Moi"), (&s[1], "Lame")], &ctx.cp).unwrap();
         let s2 = extract(&Plugin::parse(&p.to_bytes()).unwrap(), &Context { strings: Some(&set), ..ctx }).unwrap();
         assert_eq!((s2[0].text.as_str(), s2[1].text.as_str()), ("Moi", "Lame"));
+    }
+
+    #[test]
+    fn vmad_extract_and_apply() {
+        let defs = Game::SkyrimSE.record_defs();
+        let ctx = Context { defs: &defs, cp: Codepage::default(), strings: None };
+        let mut p = sample(false);
+        if let crate::esp::Node::Group(g) = &mut p.nodes[1] {
+            if let crate::esp::Node::Record(r) = &mut g.children[0] {
+                let mut f = r.fields().unwrap();
+                f.push(field("VMAD", &crate::vmad::tests::sample()));
+                r.set_fields(f);
+            }
+        }
+        let s = extract(&p, &ctx).unwrap();
+        let v: Vec<_> = s.iter().filter(|x| x.vmad.is_some()).collect();
+        assert_eq!(v.iter().map(|x| x.text.as_str()).collect::<Vec<_>>(), vec!["Hello there", "One"]); // WEAP : pas de fragments
+        assert_eq!(v[0].rhash, string_hash("MyBlade_Greeting"));
+        assert_eq!(v[0].field, "VMAD");
+        apply(&mut p, None, &[(v[0], "Bonjour"), (&s[0], "Épée")], &ctx.cp).unwrap();
+        let s2 = extract(&Plugin::parse(&p.to_bytes()).unwrap(), &ctx).unwrap();
+        let t: Vec<_> = s2.iter().map(|x| x.text.as_str()).collect();
+        assert_eq!(t, vec!["Épée", "Une lame.", "Bonjour", "One"]);
     }
 
     #[test]

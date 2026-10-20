@@ -120,7 +120,8 @@ def translate_google_gtx(text: str, target_lang: str = 'fr') -> str:
 
 
 # Cœur Rust (xtcore) : formats ESP/strings/SST/BSA/PEX et heuristique. Sous-commandes autorisées.
-XTCORE_COMMANDS = {'extract', 'translate', 'apply', 'write', 'sst', 'search', 'archive-list', 'archive-extract', 'pex'}
+XTCORE_COMMANDS = {'extract', 'translate', 'apply', 'write', 'sst', 'search', 'archive-list', 'archive-extract', 'pex',
+                   'txt', 'txt-translate', 'txt-write'}
 
 
 def find_xtcore():

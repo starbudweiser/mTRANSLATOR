@@ -19,6 +19,8 @@ restent sous **MPL‑2.0** (voir `data/LICENSE-xTranslator-MPL2.txt`).
 | `heuristic` | recherche approchante (distance de mots), index inversé sans perte, rayon |
 | `archive` | BSA v103/104/105 (zlib/LZ4) et BA2 GNRL v1/2/3/7/8 |
 | `pex` | scripts Papyrus : analyse du bytecode, littéraux traduisibles, réécriture de la table |
+| `vmad` | chaînes des propriétés de scripts (champ `VMAD`, Skyrim et FO4), réécriture du champ |
+| `customtxt` | textes MCM `Interface/Translations/*.txt` et autres types de `customTxtDefinition.txt` |
 
 ## Ligne de commande (sorties JSON)
 
@@ -30,7 +32,14 @@ target/release/xtcore apply Plugin.esp --sst traduction.sst --out Plugin_fr.esp
 target/release/xtcore search --dict UserDictionaries/SkyrimSE --text "Iron Sword"
 target/release/xtcore archive-list Mod.bsa
 target/release/xtcore pex script.pex
+target/release/xtcore txt Mod_ENGLISH.txt                 # MCM : chaînes + nom de sortie Mod_FRENCH.txt
+target/release/xtcore txt-translate Mod_ENGLISH.txt --dict UserDictionaries/SkyrimSE
+echo '[{"id":0,"dest":"Titre"}]' | target/release/xtcore txt-write Mod_ENGLISH.txt --out Mod_FRENCH.txt
 ```
+
+Chaînes VMAD : extraites avec `"vmad": {off, script, prop}` (clé SST = champ `VMAD`, hachage de
+« EDID_propriété »). Comme dans xTranslator elles sont verrouillées par défaut : `translate` les ignore
+sauf avec `--vmad`, `apply` ne les reprend que par clé exacte.
 
 Le jeu est détecté d'après l'en-tête du plugin (`--game` pour forcer).
 
@@ -47,9 +56,15 @@ Résultats de référence (20/10/2026) :
 - Skyrim.esm localisé : 67 181 chaînes en 0,6 s ;
 - heuristique : 105 436 requêtes contre 377 693 entrées en ≈1 s (46× plus rapide que le parcours
   exhaustif, résultats identiques) ;
-- 60 BSA (13 985 fichiers) et 3 000 scripts PEX sans erreur.
+- 60 BSA (13 985 fichiers) et 3 000 scripts PEX sans erreur ;
+- VMAD : 2 183 plugins, 65 995 champs, 3 423 chaînes, réécriture identique (1 champ tronqué ignoré,
+  comme xTranslator) ;
+- MCM : 261 fichiers `Interface/Translations`, tous reconnus, 30 841 chaînes, réécriture identique.
 
 ## Écarts volontaires avec xTranslator
+
+- Textes : la classe de détection du type (`mcmDecider`) n'est pas publiée ; on retient le type
+  (hors repli) qui reconnaît le plus de lignes. Les fins de ligne d'origine sont conservées.
 
 - La correspondance « identique » de l'heuristique vérifie le texte en plus du hachage 32 bits
   (xTranslator acceptait les collisions FNV).

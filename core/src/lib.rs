@@ -17,6 +17,7 @@
 //! - [`pex`] scripts Papyrus compilés
 
 pub mod archive;
+pub mod customtxt;
 pub mod dict;
 pub mod esp;
 pub mod extract;
@@ -27,6 +28,7 @@ pub mod pex;
 pub mod sst;
 pub mod strings;
 pub mod text;
+pub mod vmad;
 
 pub type Sig = [u8; 4];
 

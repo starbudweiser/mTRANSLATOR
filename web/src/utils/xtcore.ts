@@ -12,6 +12,25 @@ export interface XtString {
   list: number;
   str_id: number;
   text: string;
+  /** Chaîne d'une propriété de script Papyrus (champ VMAD). */
+  vmad?: { off: number; script: string; prop: string };
+}
+
+export interface XtTxtString {
+  id: number;
+  line: number;
+  index: number;
+  index_max: number;
+  key: string;
+  text: string;
+}
+
+export interface XtTxt {
+  kind: string;
+  encoding: string;
+  output_name: string;
+  count: number;
+  strings: XtTxtString[];
 }
 
 export interface XtExtract {
@@ -109,15 +128,23 @@ const opt = (k: string, v?: string) => (v ? [`--${k}`, v] : []);
 export const xt = {
   extract: (plugin: string, lang = 'french', game?: string) =>
     xtcore<XtExtract>(['extract', plugin, ...opt('lang', lang), ...opt('game', game)]),
-  translate: (plugin: string, dict: string, o: { sst?: string; out?: string; maxLd?: number; lang?: string } = {}) =>
+  translate: (plugin: string, dict: string, o: { sst?: string; out?: string; maxLd?: number; lang?: string; vmad?: boolean } = {}) =>
     xtcore<XtTranslate>([
-      'translate', plugin, '--dict', dict, '--full',
+      'translate', plugin, '--dict', dict, '--full', ...(o.vmad ? ['--vmad'] : []),
       ...opt('sst', o.sst), ...opt('out', o.out), ...opt('max-ld', o.maxLd?.toString()), ...opt('lang', o.lang),
     ]),
   apply: (plugin: string, sst: string, out: string) => xtcore<{ strict: number; by_text: number }>(['apply', plugin, '--sst', sst, '--out', out]),
   write: (plugin: string, out: string, rows: Array<{ id: number; dest: string }>, sst?: string) =>
     xtcore<{ strings: number; written_count: number; written: string; backup: string | null }>(
       ['write', plugin, '--out', out, ...opt('sst', sst)],
+      JSON.stringify(rows),
+    ),
+  txt: (file: string, lang = 'french') => xtcore<XtTxt>(['txt', file, ...opt('lang', lang)]),
+  txtTranslate: (file: string, dict: string) =>
+    xtcore<{ strings: number; results: XtTranslate['results'] }>(['txt-translate', file, '--dict', dict]),
+  txtWrite: (file: string, out: string, rows: Array<{ id: number; dest: string }>) =>
+    xtcore<{ strings: number; written_count: number; written: string; backup: string | null }>(
+      ['txt-write', file, '--out', out],
       JSON.stringify(rows),
     ),
   search: (dict: string, text: string, top = 10, rec?: string, field?: string) =>

@@ -268,3 +268,111 @@ fn archives_and_pex_sample() {
     bad.iter().take(5).for_each(|e| println!("  {e}"));
     assert!(bad.is_empty());
 }
+
+/// Chaînes VMAD : relecture/réécriture à l'identique et comparaison aux entrées VMAD
+/// des SST de xTranslator (FormID + hachage « EDID_propriété » + texte source).
+#[test]
+fn vmad_real_files() {
+    if !enabled() {
+        return;
+    }
+    let mut esps = Vec::new();
+    files(Path::new(MODS), &["esp", "esm", "esl"], &mut esps, usize::MAX);
+    let stats: Vec<(usize, usize, usize, usize, Vec<String>)> = esps
+        .par_iter()
+        .filter_map(|p| {
+            let pl = Plugin::load(p).ok()?;
+            let (mut fields, mut broken, mut strs, mut non_utf8, mut bad) = (0, 0, 0, 0, Vec::new());
+            for r in pl.records() {
+                let Ok(fs) = r.fields() else { continue };
+                for f in fs.iter().filter(|f| &f.sig == b"VMAD" && !f.data.is_empty()) {
+                    fields += 1;
+                    let Some(v) = xtcore::vmad::decode(&f.data, &r.sig) else { broken += 1; continue };
+                    strs += v.len();
+                    let same: Option<Vec<(usize, &str)>> = v.iter().map(|x| std::str::from_utf8(&x.bytes).ok().map(|t| (x.off, t))).collect();
+                    match same {
+                        Some(ch) => {
+                            if xtcore::vmad::rewrite(&f.data, &ch).ok().as_deref() != Some(&f.data[..]) {
+                                bad.push(format!("{} {:08X}", p.display(), r.form_id));
+                            }
+                        }
+                        None => non_utf8 += 1,
+                    }
+                }
+            }
+            let _ = non_utf8;
+            Some((fields, broken, strs, non_utf8, bad))
+        })
+        .collect();
+    let (f, b, s, n): (usize, usize, usize, usize) = stats.iter().fold((0, 0, 0, 0), |a, x| (a.0 + x.0, a.1 + x.1, a.2 + x.2, a.3 + x.3));
+    let bad: Vec<&String> = stats.iter().flat_map(|x| &x.4).collect();
+    println!("VMAD : {} plugins, {f} champs, {b} ignorés, {s} chaînes, {n} champs non UTF-8, {} écarts de réécriture", esps.len(), bad.len());
+    bad.iter().take(5).for_each(|x| println!("  {x}"));
+    assert!(bad.is_empty());
+
+    // Comparaison aux SST
+    let mut ssts = Vec::new();
+    files(Path::new(DICT), &["sst"], &mut ssts, usize::MAX);
+    let by_name: HashMap<String, PathBuf> = ssts
+        .into_iter()
+        .filter_map(|p| Some((p.file_name()?.to_str()?.to_lowercase().strip_suffix("_english_french.sst")?.to_string(), p)))
+        .collect();
+    let g = Game::SkyrimSE;
+    let defs = g.record_defs();
+    let (mut total, mut found, mut plugins) = (0usize, 0usize, 0usize);
+    for p in &esps {
+        let stem = p.file_stem().unwrap().to_string_lossy().to_lowercase();
+        let Some(sp) = by_name.get(&stem) else { continue };
+        let Ok(sst) = Sst::load(sp) else { continue };
+        let es: Vec<_> = sst.entries.iter().filter(|e| &e.field == b"VMAD" && e.params & xtcore::sst::params::OLD_DATA == 0).collect();
+        if es.is_empty() {
+            continue;
+        }
+        let Ok(pl) = Plugin::load(p) else { continue };
+        if pl.is_localized() {
+            continue;
+        }
+        let Ok(items) = extract::extract(&pl, &Context { defs: &defs, cp: g.codepage("french"), strings: None }) else { continue };
+        let keys: std::collections::HashSet<_> = items.iter().filter(|s| s.vmad.is_some()).map(|s| (extract::sanitize_form_id(s.form_id), s.rhash, string_hash(&s.text))).collect();
+        found += es.iter().filter(|e| keys.contains(&(extract::sanitize_form_id(e.form_id), e.rhash, string_hash(&e.source)))).count();
+        total += es.len();
+        plugins += 1;
+    }
+    println!("VMAD dans les SST : {plugins} plugins, {total} entrées, {found} retrouvées");
+    if total > 50 {
+        assert!(found as f64 / total as f64 > 0.9, "correspondance VMAD trop faible");
+    }
+}
+
+/// Fichiers MCM `Interface/Translations/*.txt` : type reconnu et réécriture à l'identique.
+#[test]
+fn mcm_real_files() {
+    if !enabled() {
+        return;
+    }
+    let mut v = Vec::new();
+    files(Path::new(MODS), &["txt"], &mut v, usize::MAX);
+    v.retain(|p| p.to_string_lossy().to_lowercase().contains("interface/translations/"));
+    let mut kinds: HashMap<String, usize> = HashMap::new();
+    let (mut strings, mut bad, mut utf16) = (0usize, Vec::new(), 0usize);
+    for p in &v {
+        let b = std::fs::read(p).unwrap();
+        match xtcore::customtxt::parse(&b, None) {
+            Ok(d) => {
+                *kinds.entry(d.kind.clone()).or_default() += 1;
+                strings += d.strings.len();
+                if d.encoding == xtcore::customtxt::Encoding::Utf16 {
+                    utf16 += 1;
+                    if d.kind == "mcm" && d.rebuild(&[]).unwrap() != b {
+                        bad.push(format!("diff {}", p.display()));
+                    }
+                }
+            }
+            Err(e) => bad.push(format!("{}: {e}", p.display())),
+        }
+    }
+    println!("MCM : {} fichiers ({utf16} UTF-16), types {kinds:?}, {strings} chaînes, {} problèmes", v.len(), bad.len());
+    bad.iter().take(5).for_each(|b| println!("  {b}"));
+    assert!(bad.is_empty());
+    assert!(kinds.get("mcm").copied().unwrap_or(0) * 10 >= v.len() * 9, "MCM mal reconnus");
+}

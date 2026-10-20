@@ -16,7 +16,7 @@ use xtcore::heuristic::Item;
 use xtcore::sst::{params, Entry, Sst};
 use xtcore::strings::StringsSet;
 use xtcore::text::string_hash;
-use xtcore::{archive::Archive, pex, sig};
+use xtcore::{archive::Archive, customtxt, pex, sig};
 
 const USAGE: &str = "xtcore <commande> [options]
   extract <plugin>                        chaînes traduisibles
@@ -28,6 +28,9 @@ const USAGE: &str = "xtcore <commande> [options]
   search --dict <dossier> --text <texte>  recherche heuristique
   archive-list <bsa|ba2>  |  archive-extract <archive> <chemin> <sortie>
   pex <script.pex> [--set id=texte… --out <fichier>]
+  txt <fichier> [--type mcm|res|…]        textes MCM (Interface/Translations) et autres textes
+  txt-translate <fichier> --dict <dossier> traduction auto d'un texte (exacte + heuristique)
+  txt-write <fichier> --out <fichier>     écrit un texte traduit (JSON [{id, dest}] sur l'entrée standard)
 options : --game skyrim|sse|fo4|starfield  --lang french  --source english  --pair english_french
           --max-ld <score> (défaut 1.0)  --top <n>  --same-ref";
 
@@ -166,9 +169,12 @@ fn cmd_translate(a: &Args) -> Result<Value> {
     let max_ld: f32 = a.get("max-ld").map(str::parse).transpose()?.unwrap_or(1.0);
     let same_ref = a.get("same-ref").is_some();
     let t = Instant::now();
+    // Chaînes de scripts (VMAD) : verrouillées par défaut, traduites seulement avec --vmad.
+    let with_vmad = a.get("vmad").is_some();
     let queries: Vec<Item> = l.items.iter().map(|s| Item::new(&s.text, "", sig(&s.rec), sig(&s.field))).collect();
-    let exact: Vec<Option<String>> = queries.iter().map(|q| dict.exact(q).map(|c| c.dest.clone())).collect();
-    let todo: Vec<usize> = (0..queries.len()).filter(|&i| exact[i].is_none()).collect();
+    let skip = |i: usize| l.items[i].vmad.is_some() && !with_vmad;
+    let exact: Vec<Option<String>> = queries.iter().enumerate().map(|(i, q)| if skip(i) { None } else { dict.exact(q).map(|c| c.dest.clone()) }).collect();
+    let todo: Vec<usize> = (0..queries.len()).filter(|&i| exact[i].is_none() && !skip(i)).collect();
     let todo_q: Vec<Item> = todo.iter().map(|&i| queries[i].clone()).collect();
     let best = dict.index.best_batch(&todo_q, same_ref);
     let mut heur: HashMap<usize, (String, f32)> = HashMap::new();
@@ -223,7 +229,7 @@ fn cmd_apply(a: &Args) -> Result<Value> {
         if let Some(d) = strict.get(&(sanitize_form_id(s.form_id), s.rhash, h, sig(&s.field), s.index)) {
             n_strict += 1;
             tr.push((s, d));
-        } else if let Some(d) = by_text.get(&(h, sig(&s.rec), sig(&s.field))) {
+        } else if let Some(d) = by_text.get(&(h, sig(&s.rec), sig(&s.field))).filter(|_| s.vmad.is_none()) {
             n_text += 1;
             tr.push((s, d));
         }
@@ -252,14 +258,7 @@ fn cmd_write(a: &Args) -> Result<Value> {
             tr.push((s, r.dest.as_str()));
         }
     }
-    let backup = if out.exists() {
-        let t = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)?.as_secs();
-        let b = PathBuf::from(format!("{}.{t}.bak", out.display()));
-        std::fs::copy(&out, &b)?;
-        Some(b.display().to_string())
-    } else {
-        None
-    };
+    let backup = backup(&out)?;
     if let Some(sst_out) = a.get("sst") {
         let mut sst = Sst { version: 8, masters: l.plugin.masters(), ..Default::default() };
         sst.entries = tr.iter().map(|(s, d)| entry_for(s, d, params::TRANSLATED | params::VALIDATED)).collect();
@@ -267,6 +266,72 @@ fn cmd_write(a: &Args) -> Result<Value> {
     }
     let written = save_output(a, &mut l, &p, &tr)?;
     Ok(json!({"strings": items.len(), "written_count": tr.len(), "written": written, "backup": backup}))
+}
+
+/// Copie de sauvegarde horodatée d'un fichier qui va être écrasé.
+fn backup(out: &Path) -> Result<Option<String>> {
+    if !out.exists() {
+        return Ok(None);
+    }
+    let t = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)?.as_secs();
+    let b = PathBuf::from(format!("{}.{t}.bak", out.display()));
+    std::fs::copy(out, &b)?;
+    Ok(Some(b.display().to_string()))
+}
+
+fn load_txt(a: &Args) -> Result<(PathBuf, customtxt::Doc)> {
+    let p = a.path(1)?;
+    let doc = customtxt::parse(&std::fs::read(&p)?, a.get("type"))?;
+    Ok((p, doc))
+}
+
+fn cmd_txt(a: &Args) -> Result<Value> {
+    let (p, doc) = load_txt(a)?;
+    let name = p.file_name().unwrap_or_default().to_string_lossy();
+    let out = customtxt::output_name(&name, a.get("lang").unwrap_or("french"), doc.suffix);
+    Ok(json!({"kind": doc.kind, "encoding": doc.encoding, "output_name": out, "count": doc.strings.len(), "strings": doc.strings}))
+}
+
+fn cmd_txt_translate(a: &Args) -> Result<Value> {
+    let (_, doc) = load_txt(a)?;
+    let (dict, dinfo) = load_dict(a)?;
+    let max_ld: f32 = a.get("max-ld").map(str::parse).transpose()?.unwrap_or(1.0);
+    let any = sig("****");
+    let queries: Vec<Item> = doc.strings.iter().map(|s| Item::new(&s.text, "", any, any)).collect();
+    let mut rows = Vec::new();
+    let mut todo = Vec::new();
+    for (i, q) in queries.iter().enumerate() {
+        match dict.exact(q) {
+            Some(c) => rows.push(json!({"id": i, "kind": "exact", "dest": c.dest})),
+            None => todo.push(i),
+        }
+    }
+    let todo_q: Vec<Item> = todo.iter().map(|&i| queries[i].clone()).collect();
+    for (i, h) in todo.iter().zip(dict.index.best_batch(&todo_q, false)) {
+        if let Some(h) = h.filter(|h| h.ld <= max_ld) {
+            rows.push(json!({"id": i, "kind": "heuristic", "ld": h.ld, "dest": dict.index.items[h.idx].dest}));
+        }
+    }
+    Ok(json!({"dict": dinfo, "strings": doc.strings.len(), "results": rows}))
+}
+
+fn cmd_txt_write(a: &Args) -> Result<Value> {
+    #[derive(serde::Deserialize)]
+    struct Row {
+        id: usize,
+        dest: String,
+    }
+    let (_, doc) = load_txt(a)?;
+    let out = PathBuf::from(a.req("out")?);
+    let rows: Vec<Row> = serde_json::from_reader(std::io::stdin()).context("JSON attendu sur l'entrée standard")?;
+    let tr: Vec<(usize, &str)> = rows.iter().filter(|r| doc.strings.get(r.id).is_some_and(|s| s.text != r.dest)).map(|r| (r.id, r.dest.as_str())).collect();
+    let bytes = doc.rebuild(&tr)?;
+    let backup = backup(&out)?;
+    if let Some(dir) = out.parent() {
+        std::fs::create_dir_all(dir)?;
+    }
+    std::fs::write(&out, bytes)?;
+    Ok(json!({"strings": doc.strings.len(), "written_count": tr.len(), "written": out.display().to_string(), "backup": backup}))
 }
 
 fn cmd_sst(a: &Args) -> Result<Value> {
@@ -339,6 +404,9 @@ fn main() {
         Some("archive-list") => cmd_archive(&a, false),
         Some("archive-extract") => cmd_archive(&a, true),
         Some("pex") => cmd_pex(&a),
+        Some("txt") => cmd_txt(&a),
+        Some("txt-translate") => cmd_txt_translate(&a),
+        Some("txt-write") => cmd_txt_write(&a),
         _ => {
             eprintln!("{USAGE}");
             std::process::exit(2);

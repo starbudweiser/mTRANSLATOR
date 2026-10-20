@@ -108,6 +108,8 @@ export default function App() {
   // Cœur Rust xtcore (app macOS) : plugin ouvert par son chemin, repli sur les parseurs TS sinon
   const [xtReady, setXtReady] = useState(false);
   const [pluginPath, setPluginPath] = useState<string | null>(null);
+  // Texte MCM ou autre texte ouvert par xtcore (null : plugin) et nom de sortie proposé
+  const [txtDoc, setTxtDoc] = useState<{ kind: string; outputName: string } | null>(null);
   useEffect(() => {
     xtcoreAvailable().then(setXtReady);
   }, []);
@@ -127,7 +129,11 @@ export default function App() {
   }, [records]);
 
   // Calcul des statistiques
-  const stats = useMemo(() => calculateStats(records), [records]);
+  const stats = useMemo(
+    () => calculateStats(filter.showScripts ? records : records.filter((r) => !r.locked)),
+    [records, filter.showScripts]
+  );
+  const scriptCount = useMemo(() => records.filter((r) => r.locked).length, [records]);
 
   // Nombre de modifications non enregistrées
   const modifiedCount = useMemo(() => {
@@ -143,6 +149,9 @@ export default function App() {
   const displayedRecords = useMemo(() => {
     return records
       .filter((r) => {
+        // Chaînes de scripts (VMAD) : verrouillées tant que l'option n'est pas active
+        if (r.locked && !filter.showScripts) return false;
+
         // Filtre par statut
         if (filter.onlyWarnings) {
           if (!r.tagWarnings || r.tagWarnings.length === 0) return false;
@@ -403,7 +412,12 @@ export default function App() {
   const savePluginWithXt = async () => {
     if (!pluginPath) return;
     const dir = pluginPath.slice(0, pluginPath.lastIndexOf('/'));
-    const out = await pickFile({ mode: 'save', title: 'Enregistrer le plugin traduit', defaultName: meta.fileName, directory: dir }).catch(
+    const out = await pickFile({
+      mode: 'save',
+      title: txtDoc ? 'Enregistrer le texte traduit' : 'Enregistrer le plugin traduit',
+      defaultName: txtDoc ? txtDoc.outputName : meta.fileName,
+      directory: dir,
+    }).catch(
       (err) => {
         showToast(`Sélecteur natif indisponible : ${err.message}`);
         return null;
@@ -415,7 +429,7 @@ export default function App() {
       .map((r) => ({ id: r.xtId as number, dest: r.target }));
     setLoadingProgress({ percent: 50, message: `Écriture de ${out.split('/').pop()}…` });
     try {
-      const res = await xt.write(pluginPath, out, rows);
+      const res = txtDoc ? await xt.txtWrite(pluginPath, out, rows) : await xt.write(pluginPath, out, rows);
       setRecords((prev) => prev.map((r) => ({ ...r, modified: false })));
       setMeta((prev) => ({ ...prev, lastSaved: new Date().toLocaleString() }));
       showToast(`${res.written_count.toLocaleString()} traduction(s) écrite(s) dans ${out.split('/').pop()}${res.backup ? ' (ancienne version en .bak)' : ''}.`);
@@ -435,6 +449,7 @@ export default function App() {
     setFileHandle(null);
     setOriginalBuffer(null);
     setPluginPath(null);
+    setTxtDoc(null);
     setMeta(sample.meta);
     setRecords(sample.records);
     setSelectedId(sample.records[0]?.id || null);
@@ -446,6 +461,7 @@ export default function App() {
   const handleCloseFile = () => {
     setFileHandle(null);
     setPluginPath(null);
+    setTxtDoc(null);
     setOriginalBuffer(null);
     setIsFileLoaded(false);
     showToast("Fermeture du projet. Prêt pour un nouveau fichier.");
@@ -656,7 +672,15 @@ export default function App() {
     const dict = getXtDict();
     setLoadingProgress({ percent: 30, message: `Recherche dans les dictionnaires SST (${dict.split('/').pop()})…` });
     try {
-      const res = await xt.translate(pluginPath, dict);
+      const res = txtDoc
+        ? await xt.txtTranslate(pluginPath, dict).then((t) => ({
+            ...t,
+            exact: t.results.filter((r) => r.kind === 'exact').length,
+            heuristic: t.results.filter((r) => r.kind === 'heuristic').length,
+            search_ms: 0,
+            written: null,
+          }))
+        : await xt.translate(pluginPath, dict, { vmad: filter.showScripts });
       const byId = new Map(res.results.filter((r) => matchType === 'fuzzy' || r.kind === 'exact').map((r) => [r.id, r]));
       let appliedCount = 0;
       setRecords((prev) =>
@@ -853,6 +877,7 @@ export default function App() {
       const buffer = await file.arrayBuffer();
       setOriginalBuffer(buffer);
       setPluginPath(null);
+      setTxtDoc(null);
       if (handle !== undefined) {
         setFileHandle(handle);
       }
@@ -905,6 +930,7 @@ export default function App() {
         status: 'untranslated',
         modified: false,
         validated: false,
+        ...(s.vmad ? { locked: true, notes: `Script ${s.vmad.script} · propriété ${s.vmad.prop}` } : {}),
       }));
       if (recs.length === 0) {
         showToast('Aucune chaîne traduisible trouvée dans ce plugin.');
@@ -915,10 +941,55 @@ export default function App() {
       setOriginalBuffer(null);
       setPluginPath(path);
       setMeta((prev) => ({ ...prev, fileName, fileType: ext, game: GAME_NAMES[res.game], encoding: 'UTF-8' }));
+      const scripts = recs.filter((r) => r.locked).length;
+      setTxtDoc(null);
+      setRecords(recs);
+      setSelectedId((recs.find((r) => !r.locked) ?? recs[0]).id);
+      setIsFileLoaded(true);
+      showToast(
+        `${(recs.length - scripts).toLocaleString()} chaînes extraites de ${fileName} (${res.localized ? 'localisé, ' : ''}${res.game})` +
+          (scripts ? `, ${scripts.toLocaleString()} chaîne(s) de scripts masquée(s) (filtre « Chaînes de scripts »).` : '.')
+      );
+    } catch (err: any) {
+      showToast(`Lecture impossible : ${err.message}`);
+    } finally {
+      setLoadingProgress(null);
+    }
+  };
+
+  // Ouverture d'un texte MCM (Interface/Translations/*.txt) ou d'un autre texte par xtcore
+  const openTxtWithXt = async (path: string) => {
+    const fileName = path.split('/').pop() || path;
+    setLoadingProgress({ percent: 20, message: `Lecture de ${fileName} (xtcore)…` });
+    try {
+      const res = await xt.txt(path);
+      const recType = res.kind.toUpperCase();
+      const recs: ModRecord[] = res.strings.map((s) => ({
+        id: `xt-${s.id}`,
+        xtId: s.id,
+        formId: (s.line + 1).toString().padStart(5, '0'),
+        edid: s.key,
+        recordType: recType,
+        field: res.kind,
+        source: s.text,
+        target: '',
+        status: 'untranslated',
+        modified: false,
+        validated: false,
+      }));
+      if (recs.length === 0) {
+        showToast('Aucune chaîne traduisible trouvée dans ce fichier.');
+        return;
+      }
+      setFileHandle(null);
+      setOriginalBuffer(null);
+      setPluginPath(path);
+      setTxtDoc({ kind: res.kind, outputName: res.output_name });
+      setMeta((prev) => ({ ...prev, fileName, fileType: 'TXT', encoding: 'UTF-8' }));
       setRecords(recs);
       setSelectedId(recs[0].id);
       setIsFileLoaded(true);
-      showToast(`${recs.length.toLocaleString()} chaînes extraites de ${fileName} (${res.localized ? 'localisé, ' : ''}${res.game}).`);
+      showToast(`${recs.length.toLocaleString()} chaînes lues dans ${fileName} (type ${res.kind}, ${res.encoding}).`);
     } catch (err: any) {
       showToast(`Lecture impossible : ${err.message}`);
     } finally {
@@ -932,13 +1003,17 @@ export default function App() {
       try {
         const path = await pickFile({
           mode: 'open',
-          title: 'Ouvrir un plugin',
+          title: 'Ouvrir un plugin ou un texte MCM',
           directory: pluginPath ? pluginPath.slice(0, pluginPath.lastIndexOf('/')) : undefined,
-          fileTypes: ['Plugins Bethesda (*.esp;*.esm;*.esl)', 'Tous les fichiers (*.*)'],
+          fileTypes: ['Plugins Bethesda (*.esp;*.esm;*.esl)', 'Textes MCM et autres (*.txt;*.ini;*.xml)', 'Tous les fichiers (*.*)'],
         });
         if (!path) return;
         if (/\.(esp|esm|esl)$/i.test(path)) {
           await openPluginWithXt(path);
+          return;
+        }
+        if (/\.(txt|ini|xml|csv|json)$/i.test(path)) {
+          await openTxtWithXt(path);
           return;
         }
         showToast('Autre format : choisissez-le à nouveau dans le sélecteur du navigateur.');
@@ -1087,6 +1162,7 @@ export default function App() {
         stats={stats}
         filter={filter}
         recordTypes={recordTypes}
+        scriptCount={scriptCount}
         isFileLoaded={isFileLoaded}
         onFilterChange={setFilter}
         onOpenSample={handleOpenSample}

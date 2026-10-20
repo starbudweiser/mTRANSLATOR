@@ -26,6 +26,7 @@ export interface ModRecord {
   notes?: string;
   field?: string;         // Champ du record (FULL, DESC…) lu par le cœur xtcore
   xtId?: number;         // Identifiant de la chaîne dans l'extraction xtcore
+  locked?: boolean;      // Chaîne de script (VMAD) : masquée tant que le filtre « scripts » est inactif
 }
 
 export type GameEngine = 
@@ -55,6 +56,8 @@ export interface FilterOptions {
   caseSensitive: boolean;
   useRegex: boolean;
   onlyWarnings: boolean;
+  /** Affiche les chaînes de scripts (VMAD), masquées et verrouillées par défaut comme dans xTranslator. */
+  showScripts?: boolean;
 }
 
 export interface DictionaryEntry {

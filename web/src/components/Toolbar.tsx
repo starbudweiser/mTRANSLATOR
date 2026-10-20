@@ -36,6 +36,8 @@ interface ToolbarProps {
   stats: TranslationStats;
   filter: FilterOptions;
   recordTypes: string[];
+  /** Nombre de chaînes de scripts (VMAD) du plugin ouvert. */
+  scriptCount?: number;
   isFileLoaded: boolean;
   onFilterChange: (newFilter: FilterOptions) => void;
   onOpenSample: (sampleKey: 'skyrim' | 'fallout' | 'starfield') => void;
@@ -58,6 +60,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   stats,
   filter,
   recordTypes,
+  scriptCount = 0,
   isFileLoaded,
   onFilterChange,
   onOpenSample,
@@ -333,6 +336,21 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 </span>
                 <span className="text-[10px] text-[#aaaaaa]">{stats.warningsCount}</span>
               </button>
+
+              {scriptCount > 0 && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onFilterChange({ ...filter, showScripts: !filter.showScripts });
+                    setShowFilterMenu(false);
+                  }}
+                  title="Propriétés texte des scripts Papyrus. Souvent des identifiants internes : ne traduire que les textes affichés en jeu."
+                  className={`w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between ${filter.showScripts ? 'text-[#38bdf8] font-semibold' : ''}`}
+                >
+                  <span>{filter.showScripts ? '✓ ' : ''}Chaînes de scripts (VMAD)</span>
+                  <span className="text-[10px] text-[#aaaaaa]">{scriptCount}</span>
+                </button>
+              )}
 
               {recordTypes.length > 0 && (
                 <>
