@@ -43,7 +43,9 @@ interface ToolbarProps {
   onOpenSample: (sampleKey: 'skyrim' | 'fallout' | 'starfield') => void;
   onOpenFileClick: () => void;
   onSave: () => void;
-  onExport: (format: 'SST' | 'TXT' | 'CSV' | 'JSON') => void;
+  onExport: (format: 'SST' | 'TXT' | 'CSV' | 'JSON' | 'XML') => void;
+  /** Import d'un XML xTranslator dans le plugin ouvert. */
+  onImportXml: () => void;
   onOpenDictionaryModal: () => void;
   onOpenAiTranslateModal: () => void;
   onOpenFindReplaceModal: () => void;
@@ -71,6 +73,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onOpenFileClick,
   onSave,
   onExport,
+  onImportXml,
   onOpenDictionaryModal,
   onOpenAiTranslateModal,
   onOpenFindReplaceModal,
@@ -274,6 +277,29 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               >
                 <span>{t('toolbar.exportJson')}</span>
                 <span className="text-[10px] text-[#aaaaaa]">.json</span>
+              </button>
+              <div className="border-t border-[#2e2e2e] my-1" />
+              <button
+                type="button"
+                onClick={() => {
+                  onExport('XML');
+                  setShowSaveMenu(false);
+                }}
+                className="w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between"
+              >
+                <span>{t('toolbar.exportXml')}</span>
+                <span className="text-[10px] text-[#aaaaaa]">.xml</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  onImportXml();
+                  setShowSaveMenu(false);
+                }}
+                className="w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between"
+              >
+                <span>{t('toolbar.importXml')}</span>
+                <span className="text-[10px] text-[#aaaaaa]">.xml</span>
               </button>
             </div>
           )}

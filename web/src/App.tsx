@@ -26,6 +26,7 @@ import {
   sanitizeBethesdaTranslation
 } from './utils/translatorUtils';
 import { localDictStore } from './utils/localDictionaryStore';
+import { exportToXtXml, parseXtXml, matchXtXml } from './utils/xtXml';
 import { parseModFile } from './utils/bethesdaBinaryParser';
 import { translateBatch } from './utils/aiEngine';
 import { xt, xtcoreAvailable, pickFile, getXtDict, ldScore, type XtExtract } from './utils/xtcore';
@@ -113,6 +114,7 @@ export default function App() {
   };
   const [loadingProgress, setLoadingProgress] = useState<{ percent: number; message: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const xmlInputRef = useRef<HTMLInputElement>(null);
 
   // Cœur Rust xtcore (app macOS) : plugin ouvert par son chemin, repli sur les parseurs TS sinon
   const [xtReady, setXtReady] = useState(false);
@@ -540,7 +542,7 @@ export default function App() {
   };
 
   // Export de fichiers
-  const handleExport = (format: 'SST' | 'TXT' | 'CSV' | 'JSON' | 'ESP') => {
+  const handleExport = (format: 'SST' | 'TXT' | 'CSV' | 'JSON' | 'ESP' | 'XML') => {
     const baseName = meta.fileName.replace(/\.[^/.]+$/, '');
 
     if (format === 'ESP') {
@@ -568,11 +570,37 @@ export default function App() {
       const csv = exportToCSV(records);
       triggerFileDownload(csv, `${baseName}_export.csv`, 'text/csv;charset=utf-8');
       showToast('Export CSV terminé.');
+    } else if (format === 'XML') {
+      const xml = exportToXtXml(records, meta.fileName, 'en', targetLocale);
+      const count = (xml.match(/<String /g) || []).length;
+      if (!count) return showToast('Aucune traduction à exporter.');
+      triggerFileDownload(xml, `${baseName}_${targetLocale.toUpperCase()}.xml`, 'application/xml;charset=utf-8');
+      showToast(`Export XML xTranslator terminé (${count.toLocaleString()} traductions).`);
     } else if (format === 'JSON') {
       const jsonStr = JSON.stringify({ meta, records }, null, 2);
       triggerFileDownload(jsonStr, `${baseName}_project.json`, 'application/json;charset=utf-8');
       showToast('Export du projet JSON terminé.');
     }
+  };
+
+  // Import d'un XML xTranslator : traductions appariées par type, champ et FormID, sinon par texte original
+  const handleImportXml = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    const entries = parseXtXml(await file.text());
+    if (!entries.length) return showToast(`${file.name} : aucune entrée xTranslator (<String>) trouvée.`);
+    const matches = matchXtXml(records, entries);
+    setRecords((prev) =>
+      prev.map((r) => {
+        const m = matches.get(r.id);
+        if (!m) return r;
+        const tagWarnings = validateTags(r.source, m.dest);
+        const ok = !m.partial && tagWarnings.length === 0;
+        return { ...r, target: m.dest, status: ok ? 'translated' : 'partial', validated: ok, modified: true, tagWarnings };
+      })
+    );
+    showToast(`${file.name} : ${matches.size.toLocaleString()} ligne(s) traduite(s) sur ${entries.length.toLocaleString()} entrée(s) XML.`);
   };
 
   // Application des dictionnaires SST (100% ou fuzzy)
@@ -1196,6 +1224,8 @@ export default function App() {
         className="hidden"
       />
 
+      <input ref={xmlInputRef} type="file" accept=".xml" onChange={handleImportXml} className="hidden" />
+
       {/* Barre de titre native macOS et en-tête mTRANSLATOR (design Codex) */}
       <MacTitleBar
         meta={meta}
@@ -1225,6 +1255,7 @@ export default function App() {
         onOpenFileClick={handleOpenFile}
         onSave={handleSave}
         onExport={handleExport}
+        onImportXml={() => xmlInputRef.current?.click()}
         onOpenDictionaryModal={() => setIsDictionaryModalOpen(true)}
         onOpenAiTranslateModal={() => setIsAiModalOpen(true)}
         onOpenFindReplaceModal={() => setIsFindReplaceModalOpen(true)}
