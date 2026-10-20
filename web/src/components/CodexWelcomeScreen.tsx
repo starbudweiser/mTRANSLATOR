@@ -117,24 +117,24 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
         )}
       </div>
 
-      {/* Liens centrés en bas de l'accueil : Lots, Dictionnaires, À propos */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center space-x-5">
+      {/* Bas de l'accueil : Lots, À propos, Dictionnaires */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-6">
         {onOpenBatch && (
-          <button type="button" onClick={onOpenBatch} className="text-[11px] text-[#aaaaaa] hover:text-white underline underline-offset-2 flex items-center space-x-1">
-            <Layers className="w-3 h-3 text-[#38bdf8]" />
+          <button type="button" onClick={onOpenBatch} className="flex items-center gap-2 px-4 py-2 bg-[#222222] hover:bg-[#2c2c2c] border border-[#333333] text-[13px] font-medium text-[#dddddd] hover:text-white rounded-md transition-colors hover:border-[#38bdf8]" title="Traduire plusieurs plugins d'un coup">
+            <Layers className="w-4 h-4 text-[#38bdf8]" />
             <span>Lots</span>
           </button>
         )}
-        {onOpenDictionaries && (
-          <button type="button" onClick={onOpenDictionaries} className="text-[11px] text-[#aaaaaa] hover:text-white underline underline-offset-2 flex items-center space-x-1">
-            <BookMarked className="w-3 h-3 text-[#fbbf24]" />
-            <span>{t('toolbar.dictionaries')}</span>
+        {onOpenAbout && (
+          <button type="button" onClick={onOpenAbout} className="text-[12px] text-[#aaaaaa] hover:text-white underline underline-offset-2 flex items-center gap-1">
+            <Info className="w-3.5 h-3.5 text-[#38bdf8]" />
+            <span>{t('app.about')}</span>
           </button>
         )}
-        {onOpenAbout && (
-          <button type="button" onClick={onOpenAbout} className="text-[11px] text-[#aaaaaa] hover:text-white underline underline-offset-2 flex items-center space-x-1">
-            <Info className="w-3 h-3 text-[#38bdf8]" />
-            <span>{t('app.about')}</span>
+        {onOpenDictionaries && (
+          <button type="button" onClick={onOpenDictionaries} className="flex items-center gap-2 px-4 py-2 bg-[#222222] hover:bg-[#2c2c2c] border border-[#333333] text-[13px] font-medium text-[#dddddd] hover:text-white rounded-md transition-colors hover:border-[#fbbf24]" title="Gérer les dictionnaires et la base locale">
+            <BookMarked className="w-4 h-4 text-[#fbbf24]" />
+            <span>{t('toolbar.dictionaries')}</span>
           </button>
         )}
       </div>
