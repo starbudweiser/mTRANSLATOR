@@ -356,13 +356,30 @@ def watch_drops(window):
     from webview.dom import DOMEventHandler
 
     def on_drop(event):
-        for f in event.get('dataTransfer', {}).get('files', []):
+        files = event.get('dataTransfer', {}).get('files', [])
+        log(f"dépôt : {[(f.get('name'), f.get('pywebviewFullPath')) for f in files]}")
+        for f in files:
             path = f.get('pywebviewFullPath')
             if path:
                 window.evaluate_js(f"window.mtranslatorDropPath && window.mtranslatorDropPath({json.dumps(path)})")
                 return
 
-    window.dom.document.events.drop += DOMEventHandler(on_drop, True, False)
+    try:
+        window.dom.document.events.drop += DOMEventHandler(on_drop, True, False)
+        log('glisser-déposer : écoute active')
+    except Exception as e:
+        log(f'glisser-déposer indisponible : {e!r}')
+
+
+LOG_FILE = os.path.expanduser('~/Library/Logs/mTRANSLATOR.log')
+
+
+def log(msg: str):
+    try:
+        with open(LOG_FILE, 'a', encoding='utf-8') as f:
+            f.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} {msg}\n")
+    except OSError:
+        pass
 
 
 def launch_native_window(app_url: str):

@@ -1090,8 +1090,8 @@ export default function App() {
   }, []);
 
   const handleDrop = async (e: React.DragEvent) => {
+    // Pas de stopPropagation : pywebview écoute le dépôt sur le document pour fournir le chemin
     e.preventDefault();
-    e.stopPropagation();
     setIsDraggingOver(false);
 
     let handle: any = null;
