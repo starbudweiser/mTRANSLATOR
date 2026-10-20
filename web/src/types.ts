@@ -24,6 +24,8 @@ export interface ModRecord {
   fuzzyMatch?: number;   // Score de correspondance avec le dictionnaire (ex: 100)
   dictionaryMatch?: string; // Traduction trouvée dans le dictionnaire
   notes?: string;
+  field?: string;         // Champ du record (FULL, DESC…) lu par le cœur xtcore
+  xtId?: number;         // Identifiant de la chaîne dans l'extraction xtcore
 }
 
 export type GameEngine = 

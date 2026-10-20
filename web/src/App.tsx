@@ -27,6 +27,7 @@ import {
 } from './utils/translatorUtils';
 import { localDictStore } from './utils/localDictionaryStore';
 import { parseModFile } from './utils/bethesdaBinaryParser';
+import { xt, xtcoreAvailable, pickFile, getXtDict, ldScore, type XtExtract } from './utils/xtcore';
 import { translateFallbackText } from './data/dictionaryHeuristics';
 import { MacTitleBar } from './components/MacTitleBar';
 import { Toolbar } from './components/Toolbar';
@@ -103,6 +104,13 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [loadingProgress, setLoadingProgress] = useState<{ percent: number; message: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Cœur Rust xtcore (app macOS) : plugin ouvert par son chemin, repli sur les parseurs TS sinon
+  const [xtReady, setXtReady] = useState(false);
+  const [pluginPath, setPluginPath] = useState<string | null>(null);
+  useEffect(() => {
+    xtcoreAvailable().then(setXtReady);
+  }, []);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -372,6 +380,10 @@ export default function App() {
 
   // Sauvegarder : persistance locale + ouverture de la sauvegarde binaire du plugin avec backup horodaté
   const handleSave = () => {
+    if (pluginPath && xtReady) {
+      void savePluginWithXt();
+      return;
+    }
     setRecords((prev) =>
       prev.map((r) => ({
         ...r,
@@ -387,6 +399,33 @@ export default function App() {
     setIsSavePluginModalOpen(true);
   };
 
+  // Enregistrement par xtcore : plugin traduit écrit à l'emplacement choisi (copie .bak si écrasé)
+  const savePluginWithXt = async () => {
+    if (!pluginPath) return;
+    const dir = pluginPath.slice(0, pluginPath.lastIndexOf('/'));
+    const out = await pickFile({ mode: 'save', title: 'Enregistrer le plugin traduit', defaultName: meta.fileName, directory: dir }).catch(
+      (err) => {
+        showToast(`Sélecteur natif indisponible : ${err.message}`);
+        return null;
+      }
+    );
+    if (!out) return;
+    const rows = records
+      .filter((r) => r.xtId !== undefined && r.target.trim() && r.target !== r.source)
+      .map((r) => ({ id: r.xtId as number, dest: r.target }));
+    setLoadingProgress({ percent: 50, message: `Écriture de ${out.split('/').pop()}…` });
+    try {
+      const res = await xt.write(pluginPath, out, rows);
+      setRecords((prev) => prev.map((r) => ({ ...r, modified: false })));
+      setMeta((prev) => ({ ...prev, lastSaved: new Date().toLocaleString() }));
+      showToast(`${res.written_count.toLocaleString()} traduction(s) écrite(s) dans ${out.split('/').pop()}${res.backup ? ' (ancienne version en .bak)' : ''}.`);
+    } catch (err: any) {
+      showToast(`Enregistrement impossible : ${err.message}`);
+    } finally {
+      setLoadingProgress(null);
+    }
+  };
+
   // Chargement d'un des projets d'exemples Bethesda
   const handleOpenSample = (key: 'skyrim' | 'fallout' | 'starfield') => {
     let sample = SAMPLE_SKYRIM_MOD;
@@ -395,6 +434,7 @@ export default function App() {
 
     setFileHandle(null);
     setOriginalBuffer(null);
+    setPluginPath(null);
     setMeta(sample.meta);
     setRecords(sample.records);
     setSelectedId(sample.records[0]?.id || null);
@@ -405,6 +445,7 @@ export default function App() {
   // Fermer le fichier actif pour revenir à l'accueil Codex
   const handleCloseFile = () => {
     setFileHandle(null);
+    setPluginPath(null);
     setOriginalBuffer(null);
     setIsFileLoaded(false);
     showToast("Fermeture du projet. Prêt pour un nouveau fichier.");
@@ -439,7 +480,8 @@ export default function App() {
     const baseName = meta.fileName.replace(/\.[^/.]+$/, '');
 
     if (format === 'ESP') {
-      setIsSavePluginModalOpen(true);
+      if (pluginPath && xtReady) void savePluginWithXt();
+      else setIsSavePluginModalOpen(true);
     } else if (format === 'SST') {
       const xml = exportToSST(records, meta.game, sourceLang, targetLang);
       triggerFileDownload(xml, `${baseName}_${targetLocale.toUpperCase()}.sst`, 'application/xml;charset=utf-8');
@@ -471,6 +513,7 @@ export default function App() {
   // OPTIMISATION HAUT DÉBIT O(1) : Utilise une Map instantanée au lieu d'une recherche linéaire O(N*M)
   // pour éliminer tout freeze lors de l'application de centaines ou milliers de traductions.
   const handleApplyDictionary = (matchType: 'exact' | 'fuzzy') => {
+    if (pluginPath && xtReady) return applyDictionaryXt(matchType);
     let appliedCount = 0;
 
     if (matchType === 'exact') {
@@ -606,6 +649,51 @@ export default function App() {
       return { appliedCount };
     }
   };
+
+  // Traduction automatique par xtcore : dictionnaire = dossier de SST de xTranslator
+  const applyDictionaryXt = async (matchType: 'exact' | 'fuzzy') => {
+    if (!pluginPath) return { appliedCount: 0 };
+    const dict = getXtDict();
+    setLoadingProgress({ percent: 30, message: `Recherche dans les dictionnaires SST (${dict.split('/').pop()})…` });
+    try {
+      const res = await xt.translate(pluginPath, dict);
+      const byId = new Map(res.results.filter((r) => matchType === 'fuzzy' || r.kind === 'exact').map((r) => [r.id, r]));
+      let appliedCount = 0;
+      setRecords((prev) =>
+        prev.map((rec) => {
+          const hit = rec.xtId !== undefined ? byId.get(rec.xtId) : undefined;
+          if (!hit || rec.status === 'translated' || rec.validated) return rec;
+          appliedCount++;
+          const exact = hit.kind === 'exact';
+          const warnings = validateTags(rec.source, hit.dest);
+          return {
+            ...rec,
+            target: hit.dest,
+            status: exact && warnings.length === 0 ? 'translated' : 'partial',
+            modified: true,
+            validated: exact && warnings.length === 0,
+            tagWarnings: warnings,
+            fuzzyMatch: exact ? 100 : ldScore(hit.ld ?? 1),
+            dictionaryMatch: hit.dest,
+          };
+        })
+      );
+      showToast(
+        `xtcore : ${res.exact.toLocaleString()} exacte(s), ${res.heuristic.toLocaleString()} approchante(s) sur ${res.strings.toLocaleString()} chaînes (${res.search_ms} ms).`
+      );
+      return { appliedCount: matchType === 'exact' ? res.exact : res.exact + res.heuristic };
+    } catch (err: any) {
+      showToast(`Traduction xtcore impossible : ${err.message}`);
+      return { appliedCount: 0 };
+    } finally {
+      setLoadingProgress(null);
+    }
+  };
+
+  // Recherche heuristique pour le panneau de suggestions (null hors app macOS)
+  const searchSuggestions = pluginPath && xtReady
+    ? (rec: ModRecord) => xt.search(getXtDict(), rec.source, 8, rec.recordType, rec.field)
+    : undefined;
 
   // Importation d'un dictionnaire personnalisé (ou lot multi-fichiers)
   const handleImportDictionary = (entries: DictionaryEntry[], batchReport?: any) => {
@@ -764,6 +852,7 @@ export default function App() {
       showToast(`Chargement de ${file.name}...`);
       const buffer = await file.arrayBuffer();
       setOriginalBuffer(buffer);
+      setPluginPath(null);
       if (handle !== undefined) {
         setFileHandle(handle);
       }
@@ -792,8 +881,71 @@ export default function App() {
     }
   };
 
+  // Ouverture d'un plugin par le cœur xtcore (chemin donné par le sélecteur natif)
+  const GAME_NAMES: Record<XtExtract['game'], GameEngine> = {
+    Skyrim: 'Skyrim Legendary Edition',
+    SkyrimSE: 'Skyrim Special Edition',
+    Fallout4: 'Fallout 4',
+    Starfield: 'Starfield',
+  };
+  const openPluginWithXt = async (path: string) => {
+    const fileName = path.split('/').pop() || path;
+    setLoadingProgress({ percent: 20, message: `Extraction de ${fileName} (xtcore)…` });
+    try {
+      const res = await xt.extract(path);
+      const recs: ModRecord[] = res.strings.map((s) => ({
+        id: `xt-${s.id}`,
+        xtId: s.id,
+        formId: s.form_id.toString(16).toUpperCase().padStart(8, '0'),
+        edid: s.edid,
+        recordType: s.rec,
+        field: s.field,
+        source: s.text,
+        target: '',
+        status: 'untranslated',
+        modified: false,
+        validated: false,
+      }));
+      if (recs.length === 0) {
+        showToast('Aucune chaîne traduisible trouvée dans ce plugin.');
+        return;
+      }
+      const ext = (fileName.split('.').pop() || 'esp').toUpperCase() as ModFileMeta['fileType'];
+      setFileHandle(null);
+      setOriginalBuffer(null);
+      setPluginPath(path);
+      setMeta((prev) => ({ ...prev, fileName, fileType: ext, game: GAME_NAMES[res.game], encoding: 'UTF-8' }));
+      setRecords(recs);
+      setSelectedId(recs[0].id);
+      setIsFileLoaded(true);
+      showToast(`${recs.length.toLocaleString()} chaînes extraites de ${fileName} (${res.localized ? 'localisé, ' : ''}${res.game}).`);
+    } catch (err: any) {
+      showToast(`Lecture impossible : ${err.message}`);
+    } finally {
+      setLoadingProgress(null);
+    }
+  };
+
   // Ouverture avec File System Access API natif (permet l'accès direct et l'écrasement in-place)
   const handleOpenFile = async () => {
+    if (xtReady) {
+      try {
+        const path = await pickFile({
+          mode: 'open',
+          title: 'Ouvrir un plugin',
+          directory: pluginPath ? pluginPath.slice(0, pluginPath.lastIndexOf('/')) : undefined,
+          fileTypes: ['Plugins Bethesda (*.esp;*.esm;*.esl)', 'Tous les fichiers (*.*)'],
+        });
+        if (!path) return;
+        if (/\.(esp|esm|esl)$/i.test(path)) {
+          await openPluginWithXt(path);
+          return;
+        }
+        showToast('Autre format : choisissez-le à nouveau dans le sélecteur du navigateur.');
+      } catch (err: any) {
+        showToast(`Sélecteur natif indisponible : ${err.message}`);
+      }
+    }
     if (typeof window !== 'undefined' && 'showOpenFilePicker' in window) {
       try {
         const [handle] = await (window as any).showOpenFilePicker({
@@ -982,6 +1134,7 @@ export default function App() {
               showToast('Suggestion du dictionnaire appliquée avec succès !');
             }}
             onApplyExactSstMatches={() => handleApplyDictionary('exact')}
+            onXtTranslate={pluginPath && xtReady ? () => void applyDictionaryXt('fuzzy') : undefined}
             onOpenAiTranslateModal={() => setIsAiModalOpen(true)}
           />
 
@@ -996,6 +1149,7 @@ export default function App() {
             onNextUntranslated={handleNextUntranslated}
             onPrevRecord={handlePrevRecord}
             onNextRecord={handleNextRecord}
+            onSearchSuggestions={searchSuggestions}
           />
 
           {/* Barre de statut macOS inférieure */}
@@ -1036,6 +1190,7 @@ export default function App() {
         onClose={() => setIsDictionaryModalOpen(false)}
         dictionaries={dictionaries}
         onApplyDictionary={handleApplyDictionary}
+        xtMode={Boolean(pluginPath && xtReady)}
         onImportDictionary={handleImportDictionary}
         onResetDictionaries={handleResetDictionaries}
         currentRecords={records}

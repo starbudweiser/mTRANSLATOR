@@ -44,7 +44,9 @@ interface DictionaryModalProps {
   isOpen: boolean;
   onClose: () => void;
   dictionaries: DictionaryEntry[];
-  onApplyDictionary: (matchType: 'exact' | 'fuzzy') => { appliedCount: number };
+  /** Plugin ouvert par xtcore : traduction par les dictionnaires SST du disque. */
+  xtMode?: boolean;
+  onApplyDictionary: (matchType: 'exact' | 'fuzzy') => { appliedCount: number } | Promise<{ appliedCount: number }>;
   onImportDictionary: (entries: DictionaryEntry[], batchReport?: BatchSSTResult) => void;
   onResetDictionaries?: () => void;
   currentRecords?: ModRecord[];
@@ -56,6 +58,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
   onClose,
   dictionaries,
   onApplyDictionary,
+  xtMode = false,
   onImportDictionary,
   onResetDictionaries,
   currentRecords = [],
@@ -181,8 +184,8 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
     }
   };
 
-  const handleApply = (type: 'exact' | 'fuzzy') => {
-    const result = onApplyDictionary(type);
+  const handleApply = async (type: 'exact' | 'fuzzy') => {
+    const result = await onApplyDictionary(type);
     setAppliedMessage(
       `${result.appliedCount} chaîne(s) traduite(s) avec succès (${type === 'exact' ? '100% exact' : 'Fuzzy match > 75%'}). Le dictionnaire local a été scanné en priorité.`
     );
@@ -384,7 +387,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
           </div>
 
           {/* Raccourci rapide d'application de correspondance exacte */}
-          {dictionaries.length > 0 && (
+          {(xtMode || dictionaries.length > 0) && (
             <div className="flex items-center space-x-1.5 py-1">
               <button
                 type="button"
@@ -395,6 +398,17 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                 <Check className="w-3 h-3" />
                 <span>Appliquer exact (100%)</span>
               </button>
+              {xtMode && (
+                <button
+                  type="button"
+                  onClick={() => handleApply('fuzzy')}
+                  className="px-2 py-1 bg-[#f59e0b]/20 hover:bg-[#f59e0b]/30 text-[#fbbf24] border border-[#f59e0b]/40 rounded text-[11px] font-medium flex items-center space-x-1 transition-colors"
+                  title="Correspondances exactes et approchantes (heuristique xTranslator)"
+                >
+                  <Check className="w-3 h-3" />
+                  <span>Exact + approchant</span>
+                </button>
+              )}
             </div>
           )}
         </div>

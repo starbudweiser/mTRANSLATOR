@@ -39,6 +39,13 @@ export interface XtSearchHit {
   field: string;
 }
 
+export interface XtSearch {
+  exact: string | null;
+  candidates: number;
+  search_us: number;
+  results: XtSearchHit[];
+}
+
 export async function xtcoreAvailable(): Promise<boolean> {
   try {
     const r = await fetch('/api/health');
@@ -48,16 +55,54 @@ export async function xtcoreAvailable(): Promise<boolean> {
   }
 }
 
-export async function xtcore<T>(args: string[]): Promise<T> {
-  const r = await fetch('/api/xtcore', {
+const post = (url: string, body: unknown) =>
+  fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-mTRANSLATOR': '1' },
-    body: JSON.stringify({ args }),
+    body: JSON.stringify(body),
   });
+
+export async function xtcore<T>(args: string[], stdin?: string): Promise<T> {
+  const r = await post('/api/xtcore', { args, stdin });
   const data = await r.json();
   if (!r.ok || data.error) throw new Error(data.error ?? `xtcore : erreur ${r.status}`);
   return data as T;
 }
+
+/** Sélecteur de fichier natif (côté Python) : chemin absolu, ou null si annulé. */
+export async function pickFile(o: {
+  mode?: 'open' | 'save' | 'folder';
+  title?: string;
+  defaultName?: string;
+  directory?: string;
+  fileTypes?: string[];
+}): Promise<string | null> {
+  const r = await post('/api/pick-file', o);
+  const data = await r.json();
+  if (!r.ok || data.error) throw new Error(data.error ?? `sélecteur : erreur ${r.status}`);
+  return data.path ?? null;
+}
+
+/** Dictionnaire par défaut : dossier de SST de xTranslator. */
+export const DEFAULT_XT_DICT = '/Volumes/SKYRIM/TOOLS/WINDOWS/_xTranslator/UserDictionaries/SkyrimSE';
+const DICT_KEY = 'mtranslator_xtcore_dict';
+export const getXtDict = () => {
+  try {
+    return localStorage.getItem(DICT_KEY) || DEFAULT_XT_DICT;
+  } catch {
+    return DEFAULT_XT_DICT;
+  }
+};
+export const setXtDict = (dir: string) => {
+  try {
+    localStorage.setItem(DICT_KEY, dir);
+  } catch {
+    // stockage indisponible : réglage non conservé
+  }
+};
+
+/** Score en % affiché pour une distance heuristique (0 = identique, 1 = limite par défaut). */
+export const ldScore = (ld: number) => Math.max(0, Math.min(100, Math.round(100 - ld * 40)));
 
 const opt = (k: string, v?: string) => (v ? [`--${k}`, v] : []);
 
@@ -70,6 +115,11 @@ export const xt = {
       ...opt('sst', o.sst), ...opt('out', o.out), ...opt('max-ld', o.maxLd?.toString()), ...opt('lang', o.lang),
     ]),
   apply: (plugin: string, sst: string, out: string) => xtcore<{ strict: number; by_text: number }>(['apply', plugin, '--sst', sst, '--out', out]),
-  search: (dict: string, text: string, top = 10) =>
-    xtcore<{ exact: string | null; results: XtSearchHit[] }>(['search', '--dict', dict, '--text', text, '--top', String(top)]),
+  write: (plugin: string, out: string, rows: Array<{ id: number; dest: string }>, sst?: string) =>
+    xtcore<{ strings: number; written_count: number; written: string; backup: string | null }>(
+      ['write', plugin, '--out', out, ...opt('sst', sst)],
+      JSON.stringify(rows),
+    ),
+  search: (dict: string, text: string, top = 10, rec?: string, field?: string) =>
+    xtcore<XtSearch>(['search', '--dict', dict, '--text', text, '--top', String(top), ...opt('rec', rec), ...opt('field', field)]),
 };

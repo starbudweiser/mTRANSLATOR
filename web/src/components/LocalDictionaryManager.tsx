@@ -27,7 +27,7 @@ import { parseMultipleSSTFiles, BatchSSTResult } from '../utils/sstParser';
 
 interface LocalDictionaryManagerProps {
   onScanFolderTrigger?: () => void;
-  onApplyDictionary?: (matchType: 'exact' | 'fuzzy') => { appliedCount: number };
+  onApplyDictionary?: (matchType: 'exact' | 'fuzzy') => { appliedCount: number } | Promise<{ appliedCount: number }>;
 }
 
 export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({

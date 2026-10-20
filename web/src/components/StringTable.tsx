@@ -36,6 +36,8 @@ interface StringTableProps {
   dictionaries?: DictionaryEntry[];
   onQuickApplySuggestion?: (recordId: string, suggestion: string) => void;
   onApplyExactSstMatches?: () => void;
+  /** Traduction auto par xtcore (exacte + approchante), app macOS seulement. */
+  onXtTranslate?: () => void;
   onOpenAiTranslateModal?: () => void;
 }
 
@@ -49,6 +51,7 @@ export const StringTable: React.FC<StringTableProps> = ({
   dictionaries = [],
   onQuickApplySuggestion,
   onApplyExactSstMatches,
+  onXtTranslate,
   onOpenAiTranslateModal,
 }) => {
   const { t, targetLang } = useI18n();
@@ -257,7 +260,19 @@ export const StringTable: React.FC<StringTableProps> = ({
               <span>Diagnostic des {untranslatedCount} ligne(s) non traduite(s) :</span>
             </span>
 
-            {exactMatchesCount > 0 && (
+            {onXtTranslate && (
+              <button
+                type="button"
+                onClick={onXtTranslate}
+                className="px-2.5 py-0.5 rounded bg-[#14391f] hover:bg-[#14391f] border border-[#22c55e] text-[#86efac] hover:text-white flex items-center space-x-1 font-medium shadow-sm transition-all cursor-pointer group"
+                title="Traduction automatique par les dictionnaires SST de xTranslator (correspondances exactes et approchantes)"
+              >
+                <BookMarked className="w-3.5 h-3.5 text-[#4ade80] group-hover:scale-110 transition-transform" />
+                <span className="font-semibold">⚡ Traduire avec les dictionnaires SST</span>
+              </button>
+            )}
+
+            {!onXtTranslate && exactMatchesCount > 0 && (
               <button
                 type="button"
                 onClick={onApplyExactSstMatches}

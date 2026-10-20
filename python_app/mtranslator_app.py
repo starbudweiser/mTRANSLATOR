@@ -120,7 +120,7 @@ def translate_google_gtx(text: str, target_lang: str = 'fr') -> str:
 
 
 # Cœur Rust (xtcore) : formats ESP/strings/SST/BSA/PEX et heuristique. Sous-commandes autorisées.
-XTCORE_COMMANDS = {'extract', 'translate', 'apply', 'sst', 'search', 'archive-list', 'archive-extract', 'pex'}
+XTCORE_COMMANDS = {'extract', 'translate', 'apply', 'write', 'sst', 'search', 'archive-list', 'archive-extract', 'pex'}
 
 
 def find_xtcore():
@@ -131,17 +131,53 @@ def find_xtcore():
     return next((c for c in candidates if os.path.isfile(c) and os.access(c, os.X_OK)), None)
 
 
-def run_xtcore(args, timeout=600):
+def run_xtcore(args, stdin=None, timeout=600):
     exe = find_xtcore()
     if not exe:
         return {'error': 'xtcore introuvable (cargo build --release dans core/)'}, 500
     if not args or args[0] not in XTCORE_COMMANDS or not all(isinstance(a, str) for a in args):
         return {'error': 'Commande xtcore refusée'}, 400
-    proc = subprocess.run([exe, *args], capture_output=True, text=True, timeout=timeout)
+    proc = subprocess.run([exe, *args], input=stdin if isinstance(stdin, str) else None,
+                          capture_output=True, text=True, timeout=timeout)
     try:
         return json.loads(proc.stdout), (200 if proc.returncode == 0 else 422)
     except json.JSONDecodeError:
         return {'error': (proc.stderr or proc.stdout or 'réponse vide').strip()[:2000]}, 500
+
+
+def _osascript_pick(mode, title, default_name, directory):
+    """Sélecteur natif via AppleScript (mode serveur seul, sans fenêtre pywebview)."""
+    q = lambda v: '"' + v.replace('\\', '\\\\').replace('"', '\\"') + '"'
+    loc = f' default location (POSIX file {q(directory)})' if directory and os.path.isdir(directory) else ''
+    if mode == 'folder':
+        cmd = f'choose folder with prompt {q(title)}{loc}'
+    elif mode == 'save':
+        cmd = f'choose file name with prompt {q(title)} default name {q(default_name or "")}{loc}'
+    else:
+        cmd = f'choose file with prompt {q(title)}{loc}'
+    proc = subprocess.run(['osascript', '-e', f'POSIX path of ({cmd})'], capture_output=True, text=True)
+    return proc.stdout.strip() or None
+
+
+def pick_file(payload):
+    """Chemin choisi dans un sélecteur natif (ouvrir, enregistrer, dossier) ; None si annulé."""
+    mode = payload.get('mode', 'open')
+    title = payload.get('title') or 'mTRANSLATOR'
+    default_name = payload.get('defaultName') or ''
+    directory = payload.get('directory') or ''
+    try:
+        import webview
+        if webview.windows:
+            kind = {'save': webview.SAVE_DIALOG, 'folder': webview.FOLDER_DIALOG}.get(mode, webview.OPEN_DIALOG)
+            types = tuple(payload.get('fileTypes') or ()) if mode == 'open' else ()
+            res = webview.windows[0].create_file_dialog(kind, directory=directory if os.path.isdir(directory) else '',
+                                                        save_filename=default_name, file_types=types)
+            if not res:
+                return None
+            return res if isinstance(res, str) else res[0]
+    except ImportError:
+        pass
+    return _osascript_pick(mode, title, default_name, directory)
 
 
 def create_mtranslator_handler(web_directory: str):
@@ -176,7 +212,7 @@ def create_mtranslator_handler(web_directory: str):
             super().do_GET()
 
         def do_POST(self):
-            if self.path == '/api/xtcore':
+            if self.path in ('/api/xtcore', '/api/pick-file'):
                 # En-tête personnalisé : bloque les requêtes envoyées par d'autres sites (pré-vérification CORS).
                 if self.headers.get('X-mTRANSLATOR') != '1':
                     self.send_json({'error': 'En-tête X-mTRANSLATOR requis'}, 403)
@@ -184,7 +220,10 @@ def create_mtranslator_handler(web_directory: str):
                 try:
                     content_length = int(self.headers.get('Content-Length', 0))
                     payload = json.loads(self.rfile.read(content_length).decode('utf-8'))
-                    result, status = run_xtcore(payload.get('args', []))
+                    if self.path == '/api/pick-file':
+                        self.send_json({'path': pick_file(payload)})
+                        return
+                    result, status = run_xtcore(payload.get('args', []), payload.get('stdin'))
                     self.send_json(result, status)
                 except Exception as e:
                     self.send_json({'error': str(e)}, 500)
@@ -223,10 +262,10 @@ PREFERRED_PORT = 47821
 STORAGE_DIR = os.path.join(os.path.expanduser('~/Library/Application Support'), 'mTRANSLATOR', 'webview')
 
 
-def run_local_server(web_dir: str) -> int:
+def run_local_server(web_dir: str, port: int = PREFERRED_PORT) -> int:
     handler = create_mtranslator_handler(web_dir)
     try:
-        httpd = ThreadingServer(('127.0.0.1', PREFERRED_PORT), handler)
+        httpd = ThreadingServer(('127.0.0.1', port), handler)
     except OSError:
         # Port déjà pris (autre instance ouverte) : port libre au hasard
         httpd = ThreadingServer(('127.0.0.1', 0), handler)
@@ -347,9 +386,14 @@ def main():
     print(f"  mTRANSLATOR v{VERSION} - Traducteur de mods Bethesda")
     print("=========================================================")
     web_dir = ensure_web_assets()
-    port = run_local_server(web_dir)
+    # --serve [--port N] : serveur seul, sans fenêtre (préversion Vite, tests)
+    serve_only = '--serve' in sys.argv
+    port = int(sys.argv[sys.argv.index('--port') + 1]) if '--port' in sys.argv else PREFERRED_PORT
+    port = run_local_server(web_dir, port)
     app_url = f"http://127.0.0.1:{port}"
-    print(f"[mTRANSLATOR] Serveur local actif sur : {app_url}")
+    print(f"[mTRANSLATOR] Serveur local actif sur : {app_url}", flush=True)
+    if serve_only:
+        threading.Event().wait()
     launch_native_window(app_url)
 
 

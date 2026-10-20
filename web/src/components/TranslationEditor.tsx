@@ -5,6 +5,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { XtSearch, ldScore, getXtDict, setXtDict, pickFile } from '../utils/xtcore';
 import { ModRecord, DictionaryEntry } from '../types';
 import { 
   Copy, 
@@ -19,7 +20,9 @@ import {
   Code2,
   BookOpen,
   Zap,
-  Info
+  Info,
+  Search,
+  FolderOpen
 } from 'lucide-react';
 import { validateTags, extractBethesdaTags, sanitizeBethesdaTranslation } from '../utils/translatorUtils';
 import { getRecordDiagnostic } from '../utils/recordDiagnostics';
@@ -35,6 +38,8 @@ interface TranslationEditorProps {
   onNextUntranslated: () => void;
   onPrevRecord: () => void;
   onNextRecord: () => void;
+  /** Recherche heuristique du cœur xtcore (app macOS, plugin ouvert par son chemin). */
+  onSearchSuggestions?: (record: ModRecord) => Promise<XtSearch>;
 }
 
 export const TranslationEditor: React.FC<TranslationEditorProps> = ({
@@ -47,11 +52,43 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
   onNextUntranslated,
   onPrevRecord,
   onNextRecord,
+  onSearchSuggestions,
 }) => {
   const { t, targetLang } = useI18n();
   const [targetText, setTargetText] = useState('');
   const [isTranslatingAi, setIsTranslatingAi] = useState(false);
   const [warnings, setWarnings] = useState<string[]>([]);
+
+  // Suggestions xtcore : recherche après un court délai (le chargement du dictionnaire prend ≈1 s)
+  const [xtHits, setXtHits] = useState<XtSearch | null>(null);
+  const [xtState, setXtState] = useState<'idle' | 'loading' | 'error'>('idle');
+  const [xtDict, setXtDictState] = useState(getXtDict);
+  const recordId = record?.id;
+  useEffect(() => {
+    setXtHits(null);
+    if (!onSearchSuggestions || !record || !record.source.trim()) return;
+    let stale = false;
+    setXtState('loading');
+    const timer = setTimeout(() => {
+      onSearchSuggestions(record)
+        .then((res) => !stale && (setXtHits(res), setXtState('idle')))
+        .catch(() => !stale && setXtState('error'));
+    }, 350);
+    return () => {
+      stale = true;
+      clearTimeout(timer);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recordId, xtDict, Boolean(onSearchSuggestions)]);
+
+  const handleChooseDict = async () => {
+    const dir = await pickFile({ mode: 'folder', title: 'Dossier des dictionnaires SST', directory: xtDict }).catch(() => null);
+    if (dir) {
+      const clean = dir.replace(/\/$/, '');
+      setXtDict(clean);
+      setXtDictState(clean);
+    }
+  };
 
   // Synchronise le texte cible lorsque l'enregistrement sélectionné change
   useEffect(() => {
@@ -172,7 +209,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
       {/* Corps de l'éditeur (Division Source / Cible + Volet Dictionnaire) */}
       <div className="flex-1 flex overflow-hidden">
         {/* Panneau Texte Original (VO) */}
-        <div className="w-1/2 border-r border-[#333333] flex flex-col bg-[#181818]">
+        <div className="flex-1 min-w-0 border-r border-[#333333] flex flex-col bg-[#181818]">
           <div className="px-3 py-1.5 bg-[#1e1e1e] border-b border-[#2e2e2e] flex items-center justify-between text-[#aaaaaa]">
             <span className="font-medium text-[#dddddd]">Source Originale (VO)</span>
             <div className="flex items-center space-x-2 text-[11px]">
@@ -226,7 +263,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
         </div>
 
         {/* Panneau Traduction (VF) */}
-        <div className="w-1/2 flex flex-col bg-[#1a1a1a]">
+        <div className="flex-1 min-w-0 flex flex-col bg-[#1a1a1a]">
           <div className="px-3 py-1.5 bg-[#1e1e1e] border-b border-[#2e2e2e] flex items-center justify-between text-[#aaaaaa]">
             <span className="font-medium text-[#dddddd]">{t('editor.targetLabel', { lang: targetLang })}</span>
             <div className="flex items-center space-x-2 text-[11px]">
@@ -330,6 +367,52 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
             </div>
           )}
         </div>
+
+        {/* Suggestions heuristiques xtcore (dictionnaires SST de xTranslator) */}
+        {onSearchSuggestions && (
+          <div className="w-80 shrink-0 border-l border-[#333333] flex flex-col bg-[#181818]">
+            <div className="px-3 py-1.5 bg-[#1e1e1e] border-b border-[#2e2e2e] flex items-center justify-between text-[#aaaaaa]">
+              <span className="font-medium text-[#dddddd] flex items-center space-x-1.5">
+                <Search className="w-3 h-3" />
+                <span>Suggestions</span>
+              </span>
+              <button
+                type="button"
+                onClick={handleChooseDict}
+                className="flex items-center space-x-1 px-1.5 py-0.5 bg-[#2c2c2c] hover:bg-[#333333] text-[#38bdf8] border border-[#444444] rounded text-[11px] max-w-[60%]"
+                title={`Dictionnaires : ${xtDict}`}
+              >
+                <FolderOpen className="w-3 h-3 shrink-0" />
+                <span className="truncate">{xtDict.split('/').pop()}</span>
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
+              {xtState === 'loading' && <div className="p-3 text-[#666666]">Recherche…</div>}
+              {xtState === 'error' && <div className="p-3 text-[#ef4444]">Recherche impossible (dossier de dictionnaires ?)</div>}
+              {xtState === 'idle' && xtHits && xtHits.results.length === 0 && (
+                <div className="p-3 text-[#666666]">Aucune chaîne approchante.</div>
+              )}
+              {xtState === 'idle' &&
+                xtHits?.results.map((h, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => handleApplyDictionary(h.dest)}
+                    className="w-full text-left px-3 py-1.5 border-b border-[#262626] hover:bg-[#222222] select-text"
+                    title={`${h.rec}:${h.field} — cliquer pour appliquer`}
+                  >
+                    <div className="flex items-center justify-between text-[10px] text-[#666666]">
+                      <span className="truncate">{h.source}</span>
+                      <span className={`ml-2 font-mono ${h.ld < 0.05 ? 'text-[#4ade80]' : 'text-[#fbbf24]'}`}>
+                        {ldScore(h.ld)}%
+                      </span>
+                    </div>
+                    <div className="text-[#dddddd] text-[12px] whitespace-pre-wrap break-words">{h.dest}</div>
+                  </button>
+                ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Barre d'action inférieure */}

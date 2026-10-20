@@ -22,6 +22,8 @@ const USAGE: &str = "xtcore <commande> [options]
   extract <plugin>                        chaînes traduisibles
   translate <plugin> --dict <dossier>     traduction auto (exacte + heuristique) -> --sst / --out
   apply <plugin> --sst <fichier> --out <plugin>   applique un SST
+  write <plugin> --out <plugin> [--sst <fichier>]  écrit les traductions lues sur l'entrée standard
+                                          (JSON [{id, dest}], id = celui d'extract)
   sst <fichier> [--full]                  contenu d'un SST
   search --dict <dossier> --text <texte>  recherche heuristique
   archive-list <bsa|ba2>  |  archive-extract <archive> <chemin> <sortie>
@@ -231,6 +233,42 @@ fn cmd_apply(a: &Args) -> Result<Value> {
     Ok(json!({"strings": items.len(), "strict": n_strict, "by_text": n_text, "written": written}))
 }
 
+/// Traductions éditées dans l'interface : copie de sauvegarde de la cible si elle existe déjà.
+fn cmd_write(a: &Args) -> Result<Value> {
+    #[derive(serde::Deserialize)]
+    struct Row {
+        id: usize,
+        dest: String,
+    }
+    let p = a.path(1)?;
+    let out = PathBuf::from(a.req("out")?);
+    let rows: Vec<Row> = serde_json::from_reader(std::io::stdin()).context("JSON attendu sur l'entrée standard")?;
+    let mut l = load(a, &p)?;
+    let items = l.items.clone();
+    let mut tr: Vec<(&EspString, &str)> = Vec::new();
+    for r in &rows {
+        let s = items.get(r.id).with_context(|| format!("chaîne {} inconnue", r.id))?;
+        if s.text != r.dest {
+            tr.push((s, r.dest.as_str()));
+        }
+    }
+    let backup = if out.exists() {
+        let t = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH)?.as_secs();
+        let b = PathBuf::from(format!("{}.{t}.bak", out.display()));
+        std::fs::copy(&out, &b)?;
+        Some(b.display().to_string())
+    } else {
+        None
+    };
+    if let Some(sst_out) = a.get("sst") {
+        let mut sst = Sst { version: 8, masters: l.plugin.masters(), ..Default::default() };
+        sst.entries = tr.iter().map(|(s, d)| entry_for(s, d, params::TRANSLATED | params::VALIDATED)).collect();
+        std::fs::write(sst_out, sst.to_bytes())?;
+    }
+    let written = save_output(a, &mut l, &p, &tr)?;
+    Ok(json!({"strings": items.len(), "written_count": tr.len(), "written": written, "backup": backup}))
+}
+
 fn cmd_sst(a: &Args) -> Result<Value> {
     let s = Sst::load(&a.path(1)?)?;
     let validated = s.entries.iter().filter(|e| e.is_validated()).count();
@@ -295,6 +333,7 @@ fn main() {
         Some("extract") => cmd_extract(&a),
         Some("translate") => cmd_translate(&a),
         Some("apply") => cmd_apply(&a),
+        Some("write") => cmd_write(&a),
         Some("sst") => cmd_sst(&a),
         Some("search") => cmd_search(&a),
         Some("archive-list") => cmd_archive(&a, false),
