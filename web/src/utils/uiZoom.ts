@@ -29,13 +29,19 @@ function apply() {
   const floor = Math.min(userZoom, FLOOR);
   let zoom = Math.max(floor, Math.min(userZoom, window.innerWidth / REF_WIDTH));
   setZoom(zoom);
-  // Débordement réel : largeur naturelle / largeur disponible, en px CSS non zoomés
+  // Débordement réel : bord droit du dernier élément + marge intérieure, rapporté à la largeur de la rangée
+  // (scrollWidth ne compte pas la marge de droite sous WebKit)
   let ratio = 1;
   document.querySelectorAll<HTMLElement>('[data-fit]').forEach((el) => {
-    if (el.clientWidth > 0) ratio = Math.max(ratio, el.scrollWidth / el.clientWidth);
+    const box = el.getBoundingClientRect();
+    if (!box.width) return;
+    let right = box.left;
+    for (const child of el.children) right = Math.max(right, child.getBoundingClientRect().right);
+    const pad = parseFloat(getComputedStyle(el).paddingRight) * (box.width / el.offsetWidth);
+    ratio = Math.max(ratio, (right - box.left + pad) / box.width);
   });
   if (ratio > 1.001) {
-    zoom = Math.max(floor, zoom / ratio - 0.002);
+    zoom = Math.max(floor, (zoom / ratio) * 0.995);
     setZoom(zoom);
   }
 }

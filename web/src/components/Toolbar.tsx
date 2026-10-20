@@ -114,7 +114,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     const onlyTodo = filter.status === 'untranslated' && !filter.onlyWarnings;
     return (
       <div data-fit className="bg-[#181818] border-b border-[#2e2e2e] px-4 py-2.5 flex items-center gap-3 whitespace-nowrap select-none text-[15px]">
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-2">
           <button type="button" onClick={onOpenFileClick} className="flex items-center gap-2 px-4 py-2 bg-[#0369a1] text-white font-semibold rounded-md shadow-sm" title="Ouvrir un plugin (.esp, .esm, .esl) ou un fichier de chaînes">
             <Folder className="w-4 h-4" />
             <span>{t('toolbar.open')}</span>

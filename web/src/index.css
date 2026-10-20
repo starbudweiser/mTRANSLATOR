@@ -78,3 +78,9 @@
 #root {
   zoom: var(--ui-zoom, 1);
 }
+
+/* Rangées mises à l'échelle : rien ne se comprime, le débordement est mesuré et compensé par le zoom */
+[data-fit] > *,
+[data-fit] > * > * {
+  flex-shrink: 0;
+}
