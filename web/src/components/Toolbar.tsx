@@ -113,7 +113,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       `px-3 py-1.5 rounded transition-colors ${active ? 'bg-[#0369a1] text-white font-semibold' : 'text-[#aaaaaa] hover:text-white'}`;
     const onlyTodo = filter.status === 'untranslated' && !filter.onlyWarnings;
     return (
-      <div className="bg-[#181818] border-b border-[#2e2e2e] px-4 py-2.5 flex items-center gap-3 whitespace-nowrap select-none text-[15px]">
+      <div data-fit className="bg-[#181818] border-b border-[#2e2e2e] px-4 py-2.5 flex items-center gap-3 whitespace-nowrap select-none text-[15px]">
         <div className="flex items-center gap-2 flex-wrap">
           <button type="button" onClick={onOpenFileClick} className="flex items-center gap-2 px-4 py-2 bg-[#0369a1] text-white font-semibold rounded-md shadow-sm" title="Ouvrir un plugin (.esp, .esm, .esl) ou un fichier de chaînes">
             <Folder className="w-4 h-4" />
@@ -125,7 +125,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 <Upload className="w-4 h-4 text-[#aaaaaa]" />
                 <span>{t('toolbar.save')}</span>
               </button>
-              <span className="hidden xl:block w-px h-6 bg-[#333333] mx-1" />
+              <span className="block w-px h-6 bg-[#333333] mx-1" />
               {onXtTranslate && (
                 <button type="button" onClick={onXtTranslate} className={btn} title="Remplir avec les traductions connues des dictionnaires SST">
                   <BookMarked className="w-4 h-4 text-[#4ade80]" />
@@ -138,9 +138,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               </button>
               <button type="button" onClick={onUndo} className={btn} title="Annuler la dernière action (⌘Z)">
                 <RotateCcw className="w-4 h-4 text-[#aaaaaa]" />
-                <span className="hidden xl:inline">{t('toolbar.undo')}</span>
+                <span>{t('toolbar.undo')}</span>
               </button>
-              <span className="hidden xl:block w-px h-6 bg-[#333333] mx-1" />
+              <span className="block w-px h-6 bg-[#333333] mx-1" />
               <div className="flex items-center bg-[#222222] border border-[#333333] rounded-md p-0.5" role="group" aria-label="Lignes affichées">
                 <button type="button" className={seg(onlyTodo)} onClick={() => onFilterChange({ ...filter, status: 'untranslated', onlyWarnings: false, recordType: 'all' })}>
                   À traduire ({stats.untranslated})
@@ -184,7 +184,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   }
 
   return (
-    <div className="bg-[#181818] border-b border-[#2e2e2e] px-3 py-1.5 flex items-center justify-between gap-3 whitespace-nowrap select-none text-xs">
+    <div data-fit className="bg-[#181818] border-b border-[#2e2e2e] px-3 py-1.5 flex items-center justify-between gap-3 whitespace-nowrap select-none text-xs">
       {/* Groupe gauche des boutons du design Codex */}
       <div className="flex items-center space-x-2">
         {/* 1. Bouton [📁 Ouvrir] bleu vif */}
