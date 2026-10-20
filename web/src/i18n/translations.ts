@@ -45,7 +45,6 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.stats': 'Statistiques',
     'toolbar.diff': 'Diff',
     'toolbar.findReplace': 'Remplacer',
-    'toolbar.macApp': 'App Mac',
     'toolbar.virginMode': 'Vierge (0)',
 
     // Écran d'accueil
@@ -175,7 +174,6 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.stats': 'Statistics',
     'toolbar.diff': 'Diff',
     'toolbar.findReplace': 'Replace',
-    'toolbar.macApp': 'Mac App',
     'toolbar.virginMode': 'Clean (0)',
 
     'welcome.title': 'mTRANSLATOR',
@@ -299,7 +297,6 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.stats': 'Statistiken',
     'toolbar.diff': 'Diff',
     'toolbar.findReplace': 'Ersetzen',
-    'toolbar.macApp': 'Mac-App',
     'toolbar.virginMode': 'Leer (0)',
 
     'welcome.title': 'mTRANSLATOR',
@@ -423,7 +420,6 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.stats': 'Estadísticas',
     'toolbar.diff': 'Diff',
     'toolbar.findReplace': 'Reemplazar',
-    'toolbar.macApp': 'App Mac',
     'toolbar.virginMode': 'Limpio (0)',
 
     'welcome.title': 'mTRANSLATOR',
@@ -547,7 +543,6 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.stats': 'Statistiche',
     'toolbar.diff': 'Diff',
     'toolbar.findReplace': 'Sostituisci',
-    'toolbar.macApp': 'App Mac',
     'toolbar.virginMode': 'Vuoto (0)',
 
     'welcome.title': 'mTRANSLATOR',
@@ -671,7 +666,6 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.stats': 'Statystyki',
     'toolbar.diff': 'Diff',
     'toolbar.findReplace': 'Zamień',
-    'toolbar.macApp': 'Aplikacja Mac',
     'toolbar.virginMode': 'Czysty (0)',
 
     'welcome.title': 'mTRANSLATOR',
@@ -795,7 +789,6 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.stats': 'Статистика',
     'toolbar.diff': 'Diff',
     'toolbar.findReplace': 'Заменить',
-    'toolbar.macApp': 'Приложение Mac',
     'toolbar.virginMode': 'Пусто (0)',
 
     'welcome.title': 'mTRANSLATOR',

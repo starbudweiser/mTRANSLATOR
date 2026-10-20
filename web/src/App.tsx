@@ -41,7 +41,6 @@ import { FindReplaceModal, ReplaceOptions, isReplaceable } from './components/Fi
 import { StatsModal } from './components/StatsModal';
 import { DiffModal } from './components/DiffModal';
 import { BatchTranslateModal, BatchRow } from './components/BatchTranslateModal';
-import { MacAppModal } from './components/MacAppModal';
 import { SavePluginModal } from './components/SavePluginModal';
 import { CodexWelcomeScreen } from './components/CodexWelcomeScreen';
 import { AboutModal } from './components/AboutModal';
@@ -98,7 +97,6 @@ export default function App() {
   const [isFindReplaceModalOpen, setIsFindReplaceModalOpen] = useState(false);
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
   const [isDiffModalOpen, setIsDiffModalOpen] = useState(false);
-  const [isMacAppModalOpen, setIsMacAppModalOpen] = useState(false);
   const [isSavePluginModalOpen, setIsSavePluginModalOpen] = useState(false);
   const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
 
@@ -1262,7 +1260,6 @@ export default function App() {
         onOpenStatsModal={() => setIsStatsModalOpen(true)}
         onOpenDiffModal={() => setIsDiffModalOpen(true)}
         onOpenBatchModal={() => setIsBatchModalOpen(true)}
-        onOpenMacAppModal={() => setIsMacAppModalOpen(true)}
         onOpenAbout={() => setIsAboutModalOpen(true)}
         onValidateAndNext={() => {
           if (selectedId) {
@@ -1406,11 +1403,6 @@ export default function App() {
         onClose={() => setIsBatchModalOpen(false)}
         xtReady={xtReady}
         onOpenInEditor={(path, rows) => openPluginWithXt(path, rows)}
-      />
-
-      <MacAppModal
-        isOpen={isMacAppModalOpen}
-        onClose={() => setIsMacAppModalOpen(false)}
       />
 
       <SavePluginModal

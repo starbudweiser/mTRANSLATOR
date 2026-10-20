@@ -22,7 +22,6 @@ import {
   Sparkles,
   BarChart3,
   GitCompare,
-  Laptop,
   Check,
   AlertTriangle,
   Database,
@@ -52,7 +51,6 @@ interface ToolbarProps {
   onOpenStatsModal: () => void;
   onOpenDiffModal: () => void;
   onOpenBatchModal: () => void;
-  onOpenMacAppModal: () => void;
   onOpenAbout?: () => void;
   onValidateAndNext: () => void;
   onUndo?: () => void;
@@ -80,7 +78,6 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onOpenStatsModal,
   onOpenDiffModal,
   onOpenBatchModal,
-  onOpenMacAppModal,
   onOpenAbout,
   onValidateAndNext,
   onUndo,
@@ -558,17 +555,6 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         >
           <Layers className="w-3.5 h-3.5 text-[#38bdf8]" />
           <span>Lots</span>
-        </button>
-
-        {/* Bouton pour télécharger la version native macOS */}
-        <button
-          type="button"
-          onClick={onOpenMacAppModal}
-          className="flex items-center space-x-1 px-2.5 py-1.5 bg-[#0c3a52] hover:bg-[#0c3a52] text-[#38bdf8] border border-[#0369a1]/50 rounded transition-colors text-xs font-medium"
-          title="Télécharger mTRANSLATOR (.py / .command / .app)"
-        >
-          <Laptop className="w-3.5 h-3.5 text-[#38bdf8]" />
-          <span>App Mac</span>
         </button>
 
         {/* Bouton À propos */}
