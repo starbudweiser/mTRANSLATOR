@@ -278,6 +278,20 @@ function escapeXml(unsafe: string): string {
  * Télécharge un fichier dans le navigateur macOS
  */
 export function triggerFileDownload(content: string, filename: string, mimeType: string) {
+  // Dans l'app (pywebview), un lien <a download> remplace la page par le fichier : on enregistre
+  // par le serveur Python (sélecteur natif). Hors de l'app, téléchargement classique.
+  fetch('/api/save-text', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-mTRANSLATOR': '1' },
+    body: JSON.stringify({ content, defaultName: filename, title: `Exporter ${filename}` }),
+  })
+    .then((r) => {
+      if (!r.ok) throw new Error(String(r.status));
+    })
+    .catch(() => browserDownload(content, filename, mimeType));
+}
+
+function browserDownload(content: string, filename: string, mimeType: string) {
   const blob = new Blob([content], { type: mimeType });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');

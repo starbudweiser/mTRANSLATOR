@@ -181,6 +181,19 @@ def pick_file(payload):
     return _osascript_pick(mode, title, default_name, directory)
 
 
+def save_text(payload):
+    """Export texte (SST, TXT, CSV, JSON) : WebKit n'enregistre pas les téléchargements <a download>
+    et affiche le fichier à la place de l'app ; on passe donc par un sélecteur natif."""
+    path = pick_file({'mode': 'save', 'title': payload.get('title') or 'Exporter',
+                      'defaultName': payload.get('defaultName') or 'export.txt',
+                      'directory': payload.get('directory') or os.path.expanduser('~/Desktop')})
+    if not path:
+        return None
+    with open(path, 'w', encoding='utf-8', newline='') as f:
+        f.write(payload.get('content', ''))
+    return path
+
+
 def create_mtranslator_handler(web_directory: str):
     class MTranslatorRequestHandler(http.server.SimpleHTTPRequestHandler):
         def __init__(self, *args, **kwargs):
@@ -213,7 +226,7 @@ def create_mtranslator_handler(web_directory: str):
             super().do_GET()
 
         def do_POST(self):
-            if self.path in ('/api/xtcore', '/api/pick-file'):
+            if self.path in ('/api/xtcore', '/api/pick-file', '/api/save-text'):
                 # En-tête personnalisé : bloque les requêtes envoyées par d'autres sites (pré-vérification CORS).
                 if self.headers.get('X-mTRANSLATOR') != '1':
                     self.send_json({'error': 'En-tête X-mTRANSLATOR requis'}, 403)
@@ -223,6 +236,9 @@ def create_mtranslator_handler(web_directory: str):
                     payload = json.loads(self.rfile.read(content_length).decode('utf-8'))
                     if self.path == '/api/pick-file':
                         self.send_json({'path': pick_file(payload)})
+                        return
+                    if self.path == '/api/save-text':
+                        self.send_json({'path': save_text(payload)})
                         return
                     result, status = run_xtcore(payload.get('args', []), payload.get('stdin'))
                     self.send_json(result, status)
