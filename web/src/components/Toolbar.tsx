@@ -125,7 +125,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 <Upload className="w-4 h-4 text-[#aaaaaa]" />
                 <span>{t('toolbar.save')}</span>
               </button>
-              <span className="w-px h-6 bg-[#333333] mx-1" />
+              <span className="hidden xl:block w-px h-6 bg-[#333333] mx-1" />
               {onXtTranslate && (
                 <button type="button" onClick={onXtTranslate} className={btn} title="Remplir avec les traductions connues des dictionnaires SST">
                   <BookMarked className="w-4 h-4 text-[#4ade80]" />
@@ -138,9 +138,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               </button>
               <button type="button" onClick={onUndo} className={btn} title="Annuler la dernière action (⌘Z)">
                 <RotateCcw className="w-4 h-4 text-[#aaaaaa]" />
-                <span>{t('toolbar.undo')}</span>
+                <span className="hidden xl:inline">{t('toolbar.undo')}</span>
               </button>
-              <span className="w-px h-6 bg-[#333333] mx-1" />
+              <span className="hidden xl:block w-px h-6 bg-[#333333] mx-1" />
               <div className="flex items-center bg-[#222222] border border-[#333333] rounded-md p-0.5" role="group" aria-label="Lignes affichées">
                 <button type="button" className={seg(onlyTodo)} onClick={() => onFilterChange({ ...filter, status: 'untranslated', onlyWarnings: false, recordType: 'all' })}>
                   À traduire ({stats.untranslated})
@@ -156,7 +156,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                   value={filter.searchQuery}
                   onChange={(e) => onFilterChange({ ...filter, searchQuery: e.target.value })}
                   placeholder="Chercher un texte"
-                  className="bg-[#181818] border border-[#333333] text-[13px] text-[#dddddd] pl-8 pr-7 py-2 rounded-md focus:border-[#0ea5e9] focus:outline-none w-52 placeholder-[#666666]"
+                  className="bg-[#181818] border border-[#333333] text-[13px] text-[#dddddd] pl-8 pr-7 py-2 rounded-md focus:border-[#0ea5e9] focus:outline-none w-40 xl:w-52 placeholder-[#666666]"
                 />
                 {filter.searchQuery && (
                   <button type="button" onClick={() => onFilterChange({ ...filter, searchQuery: '' })} className="absolute right-2 text-[#666666] hover:text-white text-[11px]">✕</button>

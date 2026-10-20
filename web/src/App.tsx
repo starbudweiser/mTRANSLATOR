@@ -208,6 +208,13 @@ export default function App() {
       });
   }, [records, filter, sortBy, sortDirection]);
 
+  // Changement de filtre : si la ligne ouverte n'est plus visible, ouvrir la première ligne affichée
+  useEffect(() => {
+    if (displayedRecords.length && !displayedRecords.some((r) => r.id === selectedId)) {
+      setSelectedId(displayedRecords[0].id);
+    }
+  }, [filter]);
+
   // Gestion du tri par colonne
   const handleSort = (column: 'formId' | 'recordType' | 'status' | 'source') => {
     if (sortBy === column) {
