@@ -392,19 +392,37 @@ def log(msg: str):
         pass
 
 
+# Taille de référence de l'interface : tout y tient sur une ligne. En dessous, l'UI se réduit
+# proportionnellement (web/src/utils/uiZoom.ts) jusqu'à 85 %, d'où la taille minimale.
+REF_SIZE = (1480, 900)
+MIN_SIZE = (1260, 700)
+
+
+def window_size(webview):
+    """Taille de référence si l'écran principal le permet, sinon 92 % × 90 % de l'écran."""
+    try:
+        screen = webview.screens[0]
+        sw, sh = screen.width, screen.height
+    except Exception:
+        return REF_SIZE, MIN_SIZE
+    size = (min(REF_SIZE[0], int(sw * 0.92)), min(REF_SIZE[1], int(sh * 0.9)))
+    return size, (min(MIN_SIZE[0], size[0]), min(MIN_SIZE[1], size[1]))
+
+
 def launch_native_window(app_url: str):
     try:
         import webview
+        (width, height), min_size = window_size(webview)
         print("[mTRANSLATOR] Moteur natif WebKit activé.")
         window = webview.create_window(
             title='mTRANSLATOR',
             url=app_url,
-            width=1380,
-            height=880,
-            min_size=(1200, 720),
+            width=width,
+            height=height,
+            min_size=min_size,
             background_color='#1e1e1e',
             text_select=True,
-            zoomable=True,
+            zoomable=False,  # le zoom est géré par l'interface (⌘+ / ⌘− / ⌘0)
         )
         window.events.loaded += lambda: watch_drops(window)
         os.makedirs(STORAGE_DIR, exist_ok=True)

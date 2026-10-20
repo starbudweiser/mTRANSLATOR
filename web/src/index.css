@@ -73,3 +73,8 @@
   background: #444444;
 }
 
+
+/* Mise à l'échelle globale (utils/uiZoom.ts) : la racine compense pour remplir toute la fenêtre */
+#root {
+  zoom: var(--ui-zoom, 1);
+}

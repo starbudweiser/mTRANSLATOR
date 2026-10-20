@@ -1192,7 +1192,7 @@ export default function App() {
 
   return (
     <div 
-      className="h-screen w-screen flex flex-col bg-[#181818] text-[#dddddd] overflow-hidden select-none relative font-sans"
+      className="h-[calc(100vh/var(--ui-zoom,1))] w-[calc(100vw/var(--ui-zoom,1))] flex flex-col bg-[#181818] text-[#dddddd] overflow-hidden select-none relative font-sans"
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
