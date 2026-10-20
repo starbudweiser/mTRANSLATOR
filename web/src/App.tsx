@@ -103,6 +103,14 @@ export default function App() {
 
   // Notification Toast épurée
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  // Interface simple (débutants) ou experte, mémorisée
+  const [simpleMode, setSimpleMode] = useState<boolean>(() => {
+    try { return localStorage.getItem('mtranslator_ui_mode') === 'simple'; } catch { return false; }
+  });
+  const changeSimpleMode = (simple: boolean) => {
+    setSimpleMode(simple);
+    try { localStorage.setItem('mtranslator_ui_mode', simple ? 'simple' : 'expert'); } catch { /* stockage indisponible */ }
+  };
   const [loadingProgress, setLoadingProgress] = useState<{ percent: number; message: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -1193,6 +1201,9 @@ export default function App() {
         onSave={handleSave}
         onCloseFile={handleCloseFile}
         onOpenAbout={() => setIsAboutModalOpen(true)}
+        progress={stats.percentage}
+        simpleMode={simpleMode}
+        onSimpleModeChange={changeSimpleMode}
       />
 
       {/* Barre d'outils mTRANSLATOR (design Codex) */}
@@ -1222,6 +1233,8 @@ export default function App() {
           }
         }}
         onUndo={handleUndo}
+        onXtTranslate={pluginPath && xtReady ? () => void applyDictionaryXt('fuzzy') : undefined}
+        simple={simpleMode}
       />
 
       {/* Zone principale : Écran d'accueil Codex OU Espace de traduction */}
@@ -1249,6 +1262,7 @@ export default function App() {
             onApplyExactSstMatches={() => handleApplyDictionary('exact')}
             onXtTranslate={pluginPath && xtReady ? () => void applyDictionaryXt('fuzzy') : undefined}
             onOpenAiTranslateModal={() => setIsAiModalOpen(true)}
+            simple={simpleMode}
           />
 
           {/* Volet inférieur : Éditeur de traduction en Split View */}
@@ -1266,6 +1280,12 @@ export default function App() {
           />
 
           {/* Barre de statut macOS inférieure */}
+          {simpleMode ? (
+          <div className="h-7 bg-[#181818] border-t border-[#2e2e2e] px-4 flex items-center justify-between text-[11px] text-[#aaaaaa]">
+            <span>{stats.translated} traduites sur {stats.total} · {stats.untranslated} à traduire</span>
+            <span>F10 : valider et passer à la suivante · ⌘S : enregistrer</span>
+          </div>
+          ) : (
           <div className="h-6 bg-[#181818] border-t border-[#2e2e2e] px-3 flex items-center justify-between text-[10px] text-[#666666]">
             <div className="flex items-center space-x-3">
               <span className="flex items-center space-x-1">
@@ -1286,6 +1306,7 @@ export default function App() {
               <span className="text-[#38bdf8] font-medium">{stats.percentage}% Traduit</span>
             </div>
           </div>
+          )}
         </>
       )}
 

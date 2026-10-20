@@ -21,6 +21,10 @@ interface MacTitleBarProps {
   onSave: () => void;
   onCloseFile: () => void;
   onOpenAbout?: () => void;
+  /** Pourcentage de chaînes traduites du fichier ouvert. */
+  progress?: number;
+  simpleMode: boolean;
+  onSimpleModeChange: (simple: boolean) => void;
 }
 
 export const MacTitleBar: React.FC<MacTitleBarProps> = ({
@@ -30,6 +34,9 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
   onSave,
   onCloseFile,
   onOpenAbout,
+  progress = 0,
+  simpleMode,
+  onSimpleModeChange,
 }) => {
   const { t, sourceLang, targetLang, targetLocale, setTargetLanguage, languages } = useI18n();
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
@@ -56,7 +63,7 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
   return (
     <div className="flex flex-col select-none z-20">
       {/* En-tête de l'application (la barre de titre est celle de la fenêtre macOS) */}
-      <div className="h-11 bg-[#181818] border-b border-[#2e2e2e] flex items-center justify-between px-4">
+      <div className="h-11 bg-[#181818] border-b border-[#2e2e2e] flex items-center justify-between gap-4 px-4">
         {/* Côté gauche : Logo livre A + Titre + Sous-titre */}
         <div className="flex items-center space-x-2.5">
           {/* Badge logo ambré avec lettre A */}
@@ -84,14 +91,31 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
           </button>
         </div>
 
-        {/* Côté droit : Informations du fichier actif et sélecteur interactif de langue */}
-        <div className="flex items-center space-x-3">
+        {/* Côté droit : état du fichier, mode d'affichage et sélecteur de langue */}
+        <div className="flex items-center space-x-3 shrink-0">
+          {/* Commutateur Simple / Expert */}
+          <div
+            className="flex items-center bg-[#222222] border border-[#333333] rounded-md p-0.5 text-[11px]"
+            role="group"
+            aria-label="Mode d'affichage"
+            title="Simple : l'essentiel pour traduire un plugin. Expert : tous les outils."
+          >
+            {([['Simple', true], ['Expert', false]] as const).map(([label, value]) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => onSimpleModeChange(value)}
+                className={`px-2.5 py-1 rounded transition-colors ${
+                  simpleMode === value ? 'bg-[#0369a1] text-white font-semibold' : 'text-[#aaaaaa] hover:text-white'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
           {isFileLoaded && (
             <div className="flex items-center space-x-2 text-xs">
-              <span className="font-mono text-[11px] text-[#38bdf8] bg-[#0c3a52] px-2 py-0.5 rounded border border-[#0369a1]/40 flex items-center space-x-1">
-                <HardDrive className="w-3 h-3" />
-                <span className="truncate max-w-[160px]">{meta.fileName}</span>
-              </span>
 
               {modifiedCount > 0 ? (
                 <button
@@ -189,6 +213,24 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Bande du plugin ouvert : nom bien visible et progression */}
+      {isFileLoaded && (
+        <div
+          className="bg-[#0c3a52]/50 border-b border-[#0369a1]/60 px-4 py-2 flex items-center gap-3"
+          title={meta.fileName}
+        >
+          <HardDrive className="w-5 h-5 text-[#38bdf8] shrink-0" />
+          <span className="text-[11px] uppercase tracking-wider text-[#7dd3fc] shrink-0">Plugin ouvert</span>
+          <span className="text-[18px] font-bold text-white truncate min-w-0">{meta.fileName}</span>
+          <div className="ml-auto flex items-center gap-2 shrink-0">
+            <div className="w-32 h-2 bg-[#181818] rounded-full overflow-hidden border border-[#0369a1]/40">
+              <div className="h-full bg-[#38bdf8] rounded-full transition-all" style={{ width: `${progress}%` }} />
+            </div>
+            <span className="text-[12px] font-semibold text-[#38bdf8] w-20">{progress}% traduit</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

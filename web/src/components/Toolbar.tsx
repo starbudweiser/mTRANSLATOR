@@ -54,6 +54,10 @@ interface ToolbarProps {
   onOpenAbout?: () => void;
   onValidateAndNext: () => void;
   onUndo?: () => void;
+  /** Traduction par les dictionnaires SST (xtcore), si disponible. */
+  onXtTranslate?: () => void;
+  /** Mode simple : barre réduite aux actions essentielles, libellés explicites. */
+  simple?: boolean;
 }
 
 export const Toolbar: React.FC<ToolbarProps> = ({
@@ -77,6 +81,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onOpenAbout,
   onValidateAndNext,
   onUndo,
+  onXtTranslate,
+  simple = false,
 }) => {
   const { t, targetLang } = useI18n();
   const [showFilterMenu, setShowFilterMenu] = useState(false);
@@ -100,6 +106,80 @@ export const Toolbar: React.FC<ToolbarProps> = ({
     if (filter.recordType) return `Type: ${filter.recordType}`;
     return t('toolbar.filterAll');
   };
+
+  if (simple) {
+    const btn = 'flex items-center gap-2 px-3.5 py-2 bg-[#222222] hover:bg-[#303030] text-[#dddddd] hover:text-white border border-[#333333] rounded-md transition-colors';
+    const seg = (active: boolean) =>
+      `px-3 py-1.5 rounded transition-colors ${active ? 'bg-[#0369a1] text-white font-semibold' : 'text-[#aaaaaa] hover:text-white'}`;
+    const onlyTodo = filter.status === 'untranslated' && !filter.onlyWarnings;
+    return (
+      <div className="bg-[#181818] border-b border-[#2e2e2e] px-4 py-2.5 flex items-center justify-between gap-3 select-none text-[13px]">
+        <div className="flex items-center gap-2 flex-wrap">
+          <button type="button" onClick={onOpenFileClick} className="flex items-center gap-2 px-4 py-2 bg-[#0369a1] text-white font-semibold rounded-md shadow-sm" title="Ouvrir un plugin (.esp, .esm, .esl) ou un fichier de chaînes">
+            <Folder className="w-4 h-4" />
+            <span>{t('toolbar.open')}</span>
+          </button>
+          {isFileLoaded && (
+            <>
+              <button type="button" onClick={onSave} className={btn} title="Enregistrer le plugin traduit (⌘S)">
+                <Upload className="w-4 h-4 text-[#aaaaaa]" />
+                <span>{t('toolbar.save')}</span>
+              </button>
+              <span className="w-px h-6 bg-[#333333] mx-1" />
+              {onXtTranslate && (
+                <button type="button" onClick={onXtTranslate} className={btn} title="Remplir avec les traductions connues des dictionnaires SST">
+                  <BookMarked className="w-4 h-4 text-[#4ade80]" />
+                  <span>Traductions connues</span>
+                </button>
+              )}
+              <button type="button" onClick={onOpenAiTranslateModal} className={btn} title="Traduire automatiquement les textes restants">
+                <Sparkles className="w-4 h-4 text-[#38bdf8]" />
+                <span>Traduire automatiquement</span>
+              </button>
+              <button type="button" onClick={onUndo} className={btn} title="Annuler la dernière action (⌘Z)">
+                <RotateCcw className="w-4 h-4 text-[#aaaaaa]" />
+                <span>{t('toolbar.undo')}</span>
+              </button>
+              <span className="w-px h-6 bg-[#333333] mx-1" />
+              <div className="flex items-center bg-[#222222] border border-[#333333] rounded-md p-0.5" role="group" aria-label="Lignes affichées">
+                <button type="button" className={seg(onlyTodo)} onClick={() => onFilterChange({ ...filter, status: 'untranslated', onlyWarnings: false, recordType: '' })}>
+                  À traduire ({stats.untranslated})
+                </button>
+                <button type="button" className={seg(!onlyTodo)} onClick={() => onFilterChange({ ...filter, status: 'all', onlyWarnings: false, recordType: '' })}>
+                  Tout ({stats.total})
+                </button>
+              </div>
+              <div className="relative flex items-center">
+                <Search className="w-4 h-4 text-[#666666] absolute left-2.5 pointer-events-none" />
+                <input
+                  type="text"
+                  value={filter.searchQuery}
+                  onChange={(e) => onFilterChange({ ...filter, searchQuery: e.target.value })}
+                  placeholder="Chercher un texte"
+                  className="bg-[#181818] border border-[#333333] text-[13px] text-[#dddddd] pl-8 pr-7 py-2 rounded-md focus:border-[#0ea5e9] focus:outline-none w-52 placeholder-[#666666]"
+                />
+                {filter.searchQuery && (
+                  <button type="button" onClick={() => onFilterChange({ ...filter, searchQuery: '' })} className="absolute right-2 text-[#666666] hover:text-white text-[11px]">✕</button>
+                )}
+              </div>
+            </>
+          )}
+        </div>
+        {isFileLoaded && (
+          <button
+            type="button"
+            onClick={onValidateAndNext}
+            className="flex items-center gap-2 px-4 py-2 bg-[#14391f] hover:bg-[#1a4a28] text-[#86efac] border border-[#22c55e] rounded-md font-semibold transition-colors shrink-0"
+            title="Valider la traduction de la ligne et passer à la suivante (F10 / ⌘↵)"
+          >
+            <Check className="w-4 h-4" />
+            <span>Valider et suivant</span>
+            <span className="text-[10px] font-mono bg-[#222222] px-1 rounded text-[#86efac]">F10</span>
+          </button>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#181818] border-b border-[#2e2e2e] px-3 py-1.5 flex items-center justify-between gap-3 select-none text-xs">

@@ -39,6 +39,8 @@ interface StringTableProps {
   /** Traduction auto par xtcore (exacte + approchante), app macOS seulement. */
   onXtTranslate?: () => void;
   onOpenAiTranslateModal?: () => void;
+  /** Mode simple : masque les colonnes techniques (FormID, Type, Editor ID). */
+  simple?: boolean;
 }
 
 export const StringTable: React.FC<StringTableProps> = ({
@@ -52,6 +54,7 @@ export const StringTable: React.FC<StringTableProps> = ({
   onQuickApplySuggestion,
   onApplyExactSstMatches,
   onXtTranslate,
+  simple = false,
   onOpenAiTranslateModal,
 }) => {
   const { t, targetLang } = useI18n();
@@ -252,7 +255,7 @@ export const StringTable: React.FC<StringTableProps> = ({
   return (
     <div className="flex-1 flex flex-col overflow-hidden bg-[#181818]">
       {/* Barre d'explication / indicateurs de statut pour les lignes non traduites */}
-      {untranslatedCount > 0 && (
+      {untranslatedCount > 0 && !simple && (
         <div className="bg-[#181818] border-b border-[#2e2e2e] px-3 py-1.5 flex items-center justify-between text-[11px] text-[#aaaaaa]">
           <div className="flex items-center space-x-2 flex-wrap">
             <span className="text-[#dddddd] font-medium flex items-center space-x-1">
@@ -363,11 +366,15 @@ export const StringTable: React.FC<StringTableProps> = ({
         <table className="w-full border-collapse text-left table-fixed">
           <colgroup>
             <col className="w-10" />
-            <col className="w-24" />
-            <col className="w-16" />
-            <col className="w-40" />
-            <col className="w-[calc(50%-10rem)]" />
-            <col className="w-[calc(50%-10rem)]" />
+            {!simple && (
+              <>
+                <col className="w-24" />
+                <col className="w-16" />
+                <col className="w-40" />
+              </>
+            )}
+            <col className={simple ? 'w-[calc(50%-1.25rem)]' : 'w-[calc(50%-10rem)]'} />
+            <col className={simple ? 'w-[calc(50%-1.25rem)]' : 'w-[calc(50%-10rem)]'} />
           </colgroup>
           <thead className="sticky top-0 z-10 bg-[#1e1e1e] border-b border-[#333333] text-[#aaaaaa] text-[11px] font-semibold tracking-wider uppercase">
             <tr>
@@ -378,6 +385,7 @@ export const StringTable: React.FC<StringTableProps> = ({
               >
                 St.
               </th>
+              {!simple && (<>
               <th 
                 onClick={() => onSort('formId')}
                 className="w-24 px-2 py-2 cursor-pointer hover:text-white transition-colors"
@@ -403,6 +411,7 @@ export const StringTable: React.FC<StringTableProps> = ({
               <th className="w-40 px-2 py-2 truncate">
                 Editor ID
               </th>
+              </>)}
               <th 
                 onClick={() => onSort('source')}
                 className="px-3 py-2 cursor-pointer hover:text-white transition-colors"
@@ -422,7 +431,7 @@ export const StringTable: React.FC<StringTableProps> = ({
           <tbody className="divide-y divide-[#2e2e2e] font-normal">
             {displayedRecords.length === 0 ? (
               <tr>
-                <td colSpan={6} className="text-center py-16 text-[#666666]">
+                <td colSpan={simple ? 3 : 6} className="text-center py-16 text-[#666666]">
                   Aucun enregistrement ne correspond aux filtres actuels.
                 </td>
               </tr>
@@ -450,6 +459,7 @@ export const StringTable: React.FC<StringTableProps> = ({
                       </div>
                     </td>
 
+                    {!simple && (<>
                     {/* FormID */}
                     <td className="px-2 py-2 font-mono text-[11px] text-[#38bdf8]/90 truncate align-top">
                       {r.formId || '00000000'}
@@ -466,6 +476,7 @@ export const StringTable: React.FC<StringTableProps> = ({
                     <td className="px-2 py-2 font-mono text-[11px] text-[#aaaaaa] truncate align-top" title={r.edid}>
                       {r.edid || '—'}
                     </td>
+                    </>)}
 
                     {/* Source VO */}
                     <td className="px-3 py-2 align-top text-[12px] border-r border-[#2e2e2e]">
