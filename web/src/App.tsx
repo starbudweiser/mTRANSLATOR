@@ -1241,7 +1241,8 @@ export default function App() {
         onSimpleModeChange={changeSimpleMode}
       />
 
-      {/* Barre d'outils mTRANSLATOR (design Codex) */}
+      {/* Barre d'outils mTRANSLATOR (design Codex), masquée sur l'accueil */}
+      {isFileLoaded && (
       <Toolbar
         stats={stats}
         filter={filter}
@@ -1271,6 +1272,7 @@ export default function App() {
         onXtTranslate={pluginPath && xtReady ? () => void applyDictionaryXt('fuzzy') : undefined}
         simple={simpleMode}
       />
+      )}
 
       {/* Zone principale : Écran d'accueil Codex OU Espace de traduction */}
       {!isFileLoaded ? (
