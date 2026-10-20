@@ -42,11 +42,10 @@ if ! python3 -c "import webview" &>/dev/null; then
     pip3 install pywebview
 fi
 
-# Interface Web (React/Vite) affichée par l'app : build si absente.
-if [ ! -f "${WEB_DIST}/index.html" ]; then
-    echo "Compilation de l'interface Web..."
-    (cd web && { [ -d node_modules ] || npm install; } && npx vite build)
-fi
+# Interface Web (React/Vite) affichée par l'app : recompilée à chaque build (sinon un dist/ ancien
+# serait embarqué sans les dernières modifications).
+echo "Compilation de l'interface Web..."
+(cd web && { [ -d node_modules ] || npm install; } && npx vite build) || { echo "ERREUR : build Vite."; exit 1; }
 [ -f "${WEB_DIST}/index.html" ] || { echo "ERREUR : ${WEB_DIST}/index.html introuvable."; exit 1; }
 
 if [ ! -f "$ICON_ICNS" ]; then
