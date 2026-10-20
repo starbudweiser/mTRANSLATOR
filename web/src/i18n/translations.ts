@@ -49,7 +49,7 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
 
     // Écran d'accueil
     'welcome.title': 'mTRANSLATOR',
-    'welcome.badge': 'macOS Edition',
+    'welcome.badge': 'Traducteur de Plugins Bethesda - MacOS Edition',
     'welcome.subtitle': 'Ouvre ou dépose un fichier .strings, .dlstrings, .ilstrings, .esp, .esm ou .pex.',
     'welcome.openButton': 'Ouvrir un fichier',
     'welcome.samplePrompt': 'Ou explorer un projet de démonstration intégré :',
@@ -177,7 +177,7 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.virginMode': 'Clean (0)',
 
     'welcome.title': 'mTRANSLATOR',
-    'welcome.badge': 'macOS Edition',
+    'welcome.badge': 'Bethesda Plugin Translator - macOS Edition',
     'welcome.subtitle': 'Open or drop a .strings, .dlstrings, .ilstrings, .esp, .esm or .pex file.',
     'welcome.openButton': 'Open a file',
     'welcome.samplePrompt': 'Or explore a built-in demo project:',
@@ -300,7 +300,7 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.virginMode': 'Leer (0)',
 
     'welcome.title': 'mTRANSLATOR',
-    'welcome.badge': 'macOS Edition',
+    'welcome.badge': 'Bethesda-Plugin-Übersetzer - macOS Edition',
     'welcome.subtitle': 'Öffne oder ziehe eine .strings, .dlstrings, .ilstrings, .esp, .esm oder .pex Datei hierher.',
     'welcome.openButton': 'Datei öffnen',
     'welcome.samplePrompt': 'Oder ein integriertes Demoprojekt testen:',
@@ -423,7 +423,7 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.virginMode': 'Limpio (0)',
 
     'welcome.title': 'mTRANSLATOR',
-    'welcome.badge': 'macOS Edition',
+    'welcome.badge': 'Traductor de plugins de Bethesda - macOS Edition',
     'welcome.subtitle': 'Abre o arrastra un archivo .strings, .dlstrings, .ilstrings, .esp, .esm o .pex.',
     'welcome.openButton': 'Abrir un archivo',
     'welcome.samplePrompt': 'O explorar un proyecto de demostración:',
@@ -546,7 +546,7 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.virginMode': 'Vuoto (0)',
 
     'welcome.title': 'mTRANSLATOR',
-    'welcome.badge': 'macOS Edition',
+    'welcome.badge': 'Traduttore di plugin Bethesda - macOS Edition',
     'welcome.subtitle': 'Apri o trascina un file .strings, .dlstrings, .ilstrings, .esp, .esm o .pex.',
     'welcome.openButton': 'Apri un file',
     'welcome.samplePrompt': 'Oppure esplora un progetto dimostrativo:',
@@ -669,7 +669,7 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.virginMode': 'Czysty (0)',
 
     'welcome.title': 'mTRANSLATOR',
-    'welcome.badge': 'macOS Edition',
+    'welcome.badge': 'Tłumacz wtyczek Bethesdy - macOS Edition',
     'welcome.subtitle': 'Otwórz lub upuść plik .strings, .dlstrings, .ilstrings, .esp, .esm lub .pex.',
     'welcome.openButton': 'Otwórz plik',
     'welcome.samplePrompt': 'Lub wypróbuj projekt demonstracyjny:',
@@ -792,7 +792,7 @@ export const TRANSLATIONS: Record<SupportedLocale, Record<string, string>> = {
     'toolbar.virginMode': 'Пусто (0)',
 
     'welcome.title': 'mTRANSLATOR',
-    'welcome.badge': 'macOS Edition',
+    'welcome.badge': 'Переводчик плагинов Bethesda - macOS Edition',
     'welcome.subtitle': 'Откройте или перетащите файл .strings, .dlstrings, .ilstrings, .esp, .esm или .pex.',
     'welcome.openButton': 'Открыть файл',
     'welcome.samplePrompt': 'Или изучите встроенный демонстрационный проект:',

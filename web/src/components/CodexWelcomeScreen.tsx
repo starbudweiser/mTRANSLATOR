@@ -56,9 +56,7 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
           mTRANSLATOR
         </h1>
         <div className="flex items-center space-x-2 justify-center mb-3">
-          <span className="text-[11px] text-[#38bdf8] font-mono bg-[#0c3a52] px-2 py-0.5 rounded border border-[#0369a1]/40">
-            macOS Edition
-          </span>
+          <span className="text-[12px] text-[#aaaaaa]">{t('welcome.badge')}</span>
           {onOpenAbout && (
             <button
               type="button"
