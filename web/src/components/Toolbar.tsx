@@ -113,7 +113,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       `px-3 py-1.5 rounded transition-colors ${active ? 'bg-[#0369a1] text-white font-semibold' : 'text-[#aaaaaa] hover:text-white'}`;
     const onlyTodo = filter.status === 'untranslated' && !filter.onlyWarnings;
     return (
-      <div className="bg-[#181818] border-b border-[#2e2e2e] px-4 py-2.5 flex items-center justify-between gap-3 select-none text-[13px]">
+      <div className="bg-[#181818] border-b border-[#2e2e2e] px-4 py-2.5 flex flex-wrap items-center gap-x-3 gap-y-2 select-none text-[13px]">
         <div className="flex items-center gap-2 flex-wrap">
           <button type="button" onClick={onOpenFileClick} className="flex items-center gap-2 px-4 py-2 bg-[#0369a1] text-white font-semibold rounded-md shadow-sm" title="Ouvrir un plugin (.esp, .esm, .esl) ou un fichier de chaînes">
             <Folder className="w-4 h-4" />
@@ -149,23 +149,24 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                   Tout ({stats.total})
                 </button>
               </div>
-              <div className="relative flex items-center">
-                <Search className="w-4 h-4 text-[#666666] absolute left-2.5 pointer-events-none" />
-                <input
-                  type="text"
-                  value={filter.searchQuery}
-                  onChange={(e) => onFilterChange({ ...filter, searchQuery: e.target.value })}
-                  placeholder="Chercher un texte"
-                  className="bg-[#181818] border border-[#333333] text-[13px] text-[#dddddd] pl-8 pr-7 py-2 rounded-md focus:border-[#0ea5e9] focus:outline-none w-40 xl:w-52 placeholder-[#666666]"
-                />
-                {filter.searchQuery && (
-                  <button type="button" onClick={() => onFilterChange({ ...filter, searchQuery: '' })} className="absolute right-2 text-[#666666] hover:text-white text-[11px]">✕</button>
-                )}
-              </div>
             </>
           )}
         </div>
         {isFileLoaded && (
+          <div className="ml-auto flex items-center gap-3">
+            <div className="relative flex items-center">
+              <Search className="w-4 h-4 text-[#666666] absolute left-2.5 pointer-events-none" />
+              <input
+                type="text"
+                value={filter.searchQuery}
+                onChange={(e) => onFilterChange({ ...filter, searchQuery: e.target.value })}
+                placeholder="Chercher un texte"
+                className="bg-[#181818] border border-[#333333] text-[13px] text-[#dddddd] pl-8 pr-7 py-2 rounded-md focus:border-[#0ea5e9] focus:outline-none w-40 xl:w-52 placeholder-[#666666]"
+              />
+              {filter.searchQuery && (
+                <button type="button" onClick={() => onFilterChange({ ...filter, searchQuery: '' })} className="absolute right-2 text-[#666666] hover:text-white text-[11px]">✕</button>
+              )}
+            </div>
           <button
             type="button"
             onClick={onValidateAndNext}
@@ -176,6 +177,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <span>Valider et suivant</span>
             <span className="text-[10px] font-mono bg-[#222222] px-1 rounded text-[#86efac]">F10</span>
           </button>
+          </div>
         )}
       </div>
     );
