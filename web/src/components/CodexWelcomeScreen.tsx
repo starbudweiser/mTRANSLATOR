@@ -55,7 +55,7 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
         <h1 className="text-3xl font-bold text-white tracking-tight mb-1">
           mTRANSLATOR
         </h1>
-        <span className="text-[12px] text-[#aaaaaa] mb-3">{t('welcome.badge')}</span>
+        <span className="text-[12px] text-[#fbbf24] mb-3">{t('welcome.badge')}</span>
 
         {/* Sous-titre officiel Codex */}
         <p className="text-sm text-[#aaaaaa] mb-7 leading-relaxed">
