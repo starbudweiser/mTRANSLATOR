@@ -55,19 +55,7 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
         <h1 className="text-3xl font-bold text-white tracking-tight mb-1">
           mTRANSLATOR
         </h1>
-        <div className="flex items-center space-x-2 justify-center mb-3">
-          <span className="text-[12px] text-[#aaaaaa]">{t('welcome.badge')}</span>
-          {onOpenAbout && (
-            <button
-              type="button"
-              onClick={onOpenAbout}
-              className="text-[11px] text-[#aaaaaa] hover:text-white underline underline-offset-2 flex items-center space-x-1"
-            >
-              <Info className="w-3 h-3 text-[#38bdf8]" />
-              <span>{t('app.about')}</span>
-            </button>
-          )}
-        </div>
+        <span className="text-[12px] text-[#aaaaaa] mb-3">{t('welcome.badge')}</span>
 
         {/* Sous-titre officiel Codex */}
         <p className="text-sm text-[#aaaaaa] mb-7 leading-relaxed">
@@ -124,6 +112,18 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
           </div>
         )}
       </div>
+
+      {/* À propos, centré en bas de l'accueil */}
+      {onOpenAbout && (
+        <button
+          type="button"
+          onClick={onOpenAbout}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[11px] text-[#aaaaaa] hover:text-white underline underline-offset-2 flex items-center space-x-1"
+        >
+          <Info className="w-3 h-3 text-[#38bdf8]" />
+          <span>{t('app.about')}</span>
+        </button>
+      )}
     </div>
   );
 };
