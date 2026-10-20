@@ -67,9 +67,9 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
         </p>
 
         {/* Actions principales : Traitement par Lots, Ouvrir un fichier, Dictionnaires */}
-        <div className="flex items-center gap-3">
+        <div className="inline-grid grid-cols-3 gap-3 w-max">
           {onOpenBatch && (
-            <button type="button" onClick={onOpenBatch} className="flex items-center gap-2 px-4 py-2.5 bg-[#222222] hover:bg-[#2c2c2c] border border-[#333333] text-sm font-medium text-[#dddddd] hover:text-white rounded-lg transition-colors whitespace-nowrap hover:border-[#38bdf8]" title="Traduire plusieurs plugins d'un coup">
+            <button type="button" onClick={onOpenBatch} className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#222222] hover:bg-[#2c2c2c] border border-[#333333] text-sm font-medium text-[#dddddd] hover:text-white rounded-lg transition-colors whitespace-nowrap hover:border-[#38bdf8]" title="Traduire plusieurs plugins d'un coup">
               <Layers className="w-4 h-4 text-[#38bdf8]" />
               <span>Traitement par Lots</span>
             </button>
@@ -78,13 +78,13 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
           <button
             type="button"
             onClick={onOpenFileClick}
-            className="flex items-center whitespace-nowrap space-x-2.5 px-6 py-2.5 bg-[#0369a1] hover:bg-[#0369a1] text-white font-semibold text-sm rounded-lg shadow-lg shadow-sky-600/25 active:scale-98 transition-all"
+            className="flex items-center justify-center whitespace-nowrap space-x-2.5 px-6 py-2.5 bg-[#0369a1] hover:bg-[#0369a1] text-white font-semibold text-sm rounded-lg shadow-lg shadow-sky-600/25 active:scale-98 transition-all"
           >
             <Folder className="w-4 h-4 fill-white/20" />
             <span>{t('welcome.openButton')}</span>
           </button>
           {onOpenDictionaries && (
-            <button type="button" onClick={onOpenDictionaries} className="flex items-center gap-2 px-4 py-2.5 bg-[#222222] hover:bg-[#2c2c2c] border border-[#333333] text-sm font-medium text-[#dddddd] hover:text-white rounded-lg transition-colors whitespace-nowrap hover:border-[#fbbf24]" title="Gérer les dictionnaires et la base locale">
+            <button type="button" onClick={onOpenDictionaries} className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#222222] hover:bg-[#2c2c2c] border border-[#333333] text-sm font-medium text-[#dddddd] hover:text-white rounded-lg transition-colors whitespace-nowrap hover:border-[#fbbf24]" title="Gérer les dictionnaires et la base locale">
               <BookMarked className="w-4 h-4 text-[#fbbf24]" />
               <span>{t('toolbar.dictionaries')}</span>
             </button>
