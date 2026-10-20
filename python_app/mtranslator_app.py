@@ -121,7 +121,7 @@ def translate_google_gtx(text: str, target_lang: str = 'fr') -> str:
 
 # Cœur Rust (xtcore) : formats ESP/strings/SST/BSA/PEX et heuristique. Sous-commandes autorisées.
 XTCORE_COMMANDS = {'extract', 'translate', 'apply', 'write', 'sst', 'search', 'archive-list', 'archive-extract', 'pex',
-                   'txt', 'txt-translate', 'txt-write'}
+                   'sst-export', 'txt', 'txt-translate', 'txt-write'}
 
 
 def find_xtcore():
@@ -240,12 +240,16 @@ def create_mtranslator_handler(web_directory: str):
                     content_length = int(self.headers.get('Content-Length', 0))
                     payload = json.loads(self.rfile.read(content_length).decode('utf-8'))
                     if self.path == '/api/pick-file':
-                        self.send_json({'path': pick_file(payload)})
+                        path = pick_file(payload)
+                        log(f"sélecteur {payload.get('mode', 'open')} : {path!r}")
+                        self.send_json({'path': path})
                         return
                     if self.path == '/api/save-text':
                         self.send_json({'path': save_text(payload)})
                         return
                     result, status = run_xtcore(payload.get('args', []), payload.get('stdin'))
+                    if status != 200:
+                        log(f"xtcore {payload.get('args', [])[:1]} : {result.get('error')}")
                     self.send_json(result, status)
                 except Exception as e:
                     self.send_json({'error': str(e)}, 500)
