@@ -1,14 +1,16 @@
 /**
- * Modal de Traduction Automatique par lot via Gemini AI
- * Moteur spécialisé pour les jeux Bethesda préservant les balises <Alias>, %s, etc.
+ * Traduction automatique des lignes non traduites : Google gratuit (sans clé) ou Gemini (clé API).
+ * Les balises Bethesda (<Alias>, %s, [pagebreak]…) sont protégées côté serveur.
  */
 
 import React, { useState } from 'react';
-import { X, Sparkles, AlertCircle, CheckCircle2, ShieldAlert, Play, RefreshCw, AlertTriangle, BookOpen, Zap, Key } from 'lucide-react';
+import { X, Sparkles, AlertCircle, CheckCircle2, ShieldAlert, Play, RefreshCw, AlertTriangle, BookOpen } from 'lucide-react';
 import { ModRecord, GameEngine, DictionaryEntry } from '../types';
 import { translateFallbackText } from '../data/dictionaryHeuristics';
 import { sanitizeBethesdaTranslation } from '../utils/translatorUtils';
 import { useI18n } from '../i18n/LanguageContext';
+import { translateBatch, getAiEngine, engineLabel } from '../utils/aiEngine';
+import { EngineSettings } from './EngineSettings';
 
 interface AiBatchTranslateModalProps {
   isOpen: boolean;
@@ -29,29 +31,9 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
 }) => {
   const { t, targetLang, sourceLang } = useI18n();
   const [scope, setScope] = useState<'all_untranslated' | 'first_50' | 'first_100' | 'first_250'>('all_untranslated');
-  const [selectedEngine, setSelectedEngine] = useState<'gemini-3.1-flash-lite' | 'gemini-3.8-flash'>('gemini-3.1-flash-lite');
   const [batchSize, setBatchSize] = useState<number>(80);
   const [useFastPrePass, setUseFastPrePass] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [apiKey, setApiKey] = useState<string>(() => {
-    try {
-      return localStorage.getItem('mtranslator_gemini_key') || '';
-    } catch {
-      return '';
-    }
-  });
-  const [showKeyInput, setShowKeyInput] = useState(false);
-
-  const handleApiKeyChange = (val: string) => {
-    setApiKey(val);
-    try {
-      if (val.trim()) {
-        localStorage.setItem('mtranslator_gemini_key', val.trim());
-      } else {
-        localStorage.removeItem('mtranslator_gemini_key');
-      }
-    } catch {}
-  };
   const [progress, setProgress] = useState(0);
   const [statusText, setStatusText] = useState('Préparation des lots...');
   const [liveSpeed, setLiveSpeed] = useState<number | null>(null);
@@ -183,7 +165,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
         chunks.push(currentChunk);
       }
 
-      let usedEngineName = selectedEngine === 'gemini-3.1-flash-lite' ? 'Gemini 3.1 Flash-Lite (Turbo)' : 'Gemini 3.8 Flash';
+      let usedEngineName = engineLabel(getAiEngine());
       let hadWarning: string | null = null;
       let translatedUniqueCount = 0;
 
@@ -202,36 +184,16 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
         setProgress(currentProgress);
         
         const chunkPromises = slice.map(async (chunk) => {
-          const payload = {
-            items: chunk,
-            gameContext: game,
-            targetLang: targetLang || 'Français',
-            preferredEngine: selectedEngine,
-            apiKey: apiKey.trim() || undefined,
-          };
-
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 45000);
-
+          const timeoutId = setTimeout(() => controller.abort(), 120000);
           try {
-            const response = await fetch('/api/translate/batch', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload),
-              signal: controller.signal,
-            });
-
-            if (response.ok) {
-              const data = await response.json();
-              if (data.translations && Array.isArray(data.translations)) {
-                if (data.engine) usedEngineName = data.engine;
-                // N'afficher un avertissement que si l'API a réellement été indisponible
-                if (data.warning && !data.engine.includes('Gemini')) {
-                  hadWarning = data.warning;
-                }
-                return data.translations;
-              }
-            }
+            const data = await translateBatch(
+              chunk.map(({ id, text }) => ({ id, text })),
+              { targetLang: targetLang || 'Français', game, signal: controller.signal },
+            );
+            if (data.engine) usedEngineName = data.engine;
+            if (data.warning) hadWarning = data.warning;
+            return data.translations;
           } catch (fetchErr: any) {
             console.warn('[Traduction par lot] Avertissement réseau pour le lot:', fetchErr?.message || fetchErr);
             hadWarning = 'Délai réseau dépassé pour un sous-lot : repli automatique ponctuel.';
@@ -309,7 +271,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
           <div className="flex items-center space-x-2">
             <Sparkles className="w-4 h-4 text-[#fbbf24]" />
             <span className="font-semibold text-white">
-              Traduction IA Gemini
+              Traduction automatique
             </span>
             <span className="px-2 py-0.5 rounded-full bg-[#0369a1]/20 text-[#38bdf8] text-[10px] font-mono border border-[#0369a1]/40">
               {sourceLang} ➔ {targetLang}
@@ -326,84 +288,10 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
 
         {/* Corps */}
         <div className="p-4 space-y-3.5">
-          {/* Sélection du moteur IA & Vitesse */}
+          {/* Moteur de traduction */}
           <div className="space-y-1.5">
-            <label className="font-medium text-[#dddddd] flex items-center justify-between">
-              <span>Moteur de traduction :</span>
-              <span className="text-[10px] text-[#38bdf8] flex items-center space-x-1">
-                <Zap className="w-3 h-3" />
-                <span>Optimisé pour clé officielle payante</span>
-              </span>
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => setSelectedEngine('gemini-3.1-flash-lite')}
-                className={`p-2.5 rounded border text-left transition-colors ${
-                  selectedEngine === 'gemini-3.1-flash-lite'
-                    ? 'bg-[#262626] border-[#38bdf8] text-white ring-1 ring-[#38bdf8]'
-                    : 'bg-[#181818] border-[#2e2e2e] text-[#aaaaaa] hover:bg-[#262626]'
-                }`}
-              >
-                <div className="flex items-center space-x-1.5 font-semibold text-white text-[11px]">
-                  <Zap className="w-3.5 h-3.5 text-[#38bdf8]" />
-                  <span>Gemini 3.1 Flash-Lite</span>
-                  <span className="bg-[#0369a1] text-[#ffffff] text-[9px] px-1 py-0.2 rounded">Turbo</span>
-                </div>
-                <span className="text-[10px] text-[#aaaaaa] block mt-0.5">
-                  Ultra-rapide (25 à 40 chaînes/sec). Idéal pour les gros mods et le débit maximal.
-                </span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setSelectedEngine('gemini-3.8-flash')}
-                className={`p-2.5 rounded border text-left transition-colors ${
-                  selectedEngine === 'gemini-3.8-flash'
-                    ? 'bg-[#262626] border-[#38bdf8] text-white ring-1 ring-[#38bdf8]'
-                    : 'bg-[#181818] border-[#2e2e2e] text-[#aaaaaa] hover:bg-[#262626]'
-                }`}
-              >
-                <div className="flex items-center space-x-1.5 font-semibold text-white text-[11px]">
-                  <Sparkles className="w-3.5 h-3.5 text-[#fbbf24]" />
-                  <span>Gemini 3.8 Flash</span>
-                </div>
-                <span className="text-[10px] text-[#aaaaaa] block mt-0.5">
-                  Raisonnement étendu pour quêtes complexes, dialogues et nuances narratives.
-                </span>
-              </button>
-            </div>
-          </div>
-
-          {/* Clé API Gemini (Optionnelle / Personnalisée) */}
-          <div className="bg-[#181818] border border-[#2e2e2e] rounded p-2.5 space-y-1.5">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-medium text-[#dddddd] flex items-center space-x-1.5">
-                <Key className="w-3 h-3 text-[#38bdf8]" />
-                <span>Clé API Gemini (Optionnelle) :</span>
-              </span>
-              <button
-                type="button"
-                onClick={() => setShowKeyInput(!showKeyInput)}
-                className="text-[10px] text-[#38bdf8] hover:underline cursor-pointer"
-              >
-                {showKeyInput ? 'Masquer' : apiKey ? '✓ Clé enregistrée (Modifier)' : '+ Renseigner une clé personnalisée'}
-              </button>
-            </div>
-            {showKeyInput && (
-              <div className="space-y-1 pt-1">
-                <input
-                  type="password"
-                  value={apiKey}
-                  onChange={(e) => handleApiKeyChange(e.target.value)}
-                  placeholder="AIzaSy... (laisser vide pour utiliser le serveur .env ou le glossaire local)"
-                  className="w-full bg-[#1e1e1e] border border-[#444444] rounded px-2.5 py-1 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#38bdf8]"
-                />
-                <p className="text-[9px] text-[#aaaaaa]">
-                  Stockée en toute sécurité dans votre navigateur local. Si vide, utilise la configuration .env du serveur ou le glossaire SST local.
-                </p>
-              </div>
-            )}
+            <label className="font-medium text-[#dddddd] block">Moteur de traduction :</label>
+            <EngineSettings disabled={isLoading} />
           </div>
 
           {/* Option Turbo : Pré-résolution locale & Débit des lots */}

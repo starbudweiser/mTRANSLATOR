@@ -277,6 +277,9 @@ fn cmd_sst_export(a: &Args) -> Result<Value> {
         /// Texte d'origine vu par l'interface : le plugin a pu être réécrit traduit depuis.
         #[serde(default)]
         source: Option<String>,
+        /// Traduction à revoir (approchante ou automatique) : non validée dans le SST.
+        #[serde(default)]
+        incomplete: bool,
     }
     let p = a.path(1)?;
     let out = PathBuf::from(a.req("out")?);
@@ -285,7 +288,8 @@ fn cmd_sst_export(a: &Args) -> Result<Value> {
     let mut sst = Sst { version: 8, masters: l.plugin.masters(), ..Default::default() };
     for r in &rows {
         let s = l.items.get(r.id).with_context(|| format!("chaîne {} inconnue", r.id))?;
-        let mut e = entry_for(s, &r.dest, params::TRANSLATED | params::VALIDATED);
+        let flags = if r.incomplete { params::INCOMPLETE } else { params::TRANSLATED | params::VALIDATED };
+        let mut e = entry_for(s, &r.dest, flags);
         if let Some(src) = &r.source {
             e.source = src.clone();
         }

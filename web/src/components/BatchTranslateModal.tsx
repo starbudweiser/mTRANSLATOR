@@ -1,12 +1,16 @@
 /**
  * Traduction par lots (comme « Batch translation » de xTranslator) : chaque plugin est traduit par xtcore
- * avec les dictionnaires SST. Le plugin écrit ne reçoit que les correspondances exactes ; le SST contient
- * aussi les correspondances approchantes, marquées à revoir.
+ * avec les dictionnaires SST, puis, si demandé, les textes absents des dictionnaires passent par la
+ * traduction automatique (/api/translate/batch). Le plugin écrit reçoit les correspondances exactes et
+ * les traductions automatiques ; le SST les contient aussi, les automatiques et approchantes marquées à revoir.
  */
 
 import React, { useState } from 'react';
 import { X, Layers, FolderOpen, Plus, Trash2, Play, Loader2, Check, AlertCircle, FileText } from 'lucide-react';
 import { xt, pickFile, pickFiles, getXtDict } from '../utils/xtcore';
+import { sanitizeBethesdaTranslation } from '../utils/translatorUtils';
+import { translateBatch } from '../utils/aiEngine';
+import { EngineSettings } from './EngineSettings';
 
 interface BatchTranslateModalProps {
   isOpen: boolean;
@@ -22,7 +26,40 @@ interface Item {
   strings?: number;
   exact?: number;
   heuristic?: number;
+  ai?: number;
+  /** Étape en cours, affichée pendant le traitement. */
+  step?: string;
   error?: string;
+}
+
+const AI_CHUNK = 150;
+const AI_PARALLEL = 2;
+
+/** Traduction automatique des textes uniques ; un texte renvoyé tel quel compte comme non traduit. */
+async function translateTexts(texts: string[], onProgress: (done: number) => void): Promise<Map<string, string>> {
+  const out = new Map<string, string>();
+  const chunks: string[][] = [];
+  for (let i = 0; i < texts.length; i += AI_CHUNK) chunks.push(texts.slice(i, i + AI_CHUNK));
+  let done = 0;
+  for (let i = 0; i < chunks.length; i += AI_PARALLEL) {
+    await Promise.all(
+      chunks.slice(i, i + AI_PARALLEL).map(async (chunk) => {
+        try {
+          const data = await translateBatch(chunk.map((text, k) => ({ id: String(k), text })));
+          for (const t of data.translations) {
+            const src = chunk[Number(t.id)];
+            const dest = src !== undefined && t.translatedText ? sanitizeBethesdaTranslation(t.translatedText, src) : '';
+            if (dest && dest !== src) out.set(src, dest);
+          }
+        } catch {
+          // sous-lot perdu (réseau) : ces textes restent non traduits
+        }
+        done += chunk.length;
+        onProgress(done);
+      }),
+    );
+  }
+  return out;
 }
 
 const OUT_KEY = 'mtranslator_batch_out';
@@ -42,6 +79,7 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
   const [writePlugin, setWritePlugin] = useState(true);
   const [writeSst, setWriteSst] = useState(true);
   const [heuristic, setHeuristic] = useState(true);
+  const [useAi, setUseAi] = useState(true);
   const [running, setRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -84,6 +122,53 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
   const clash = writePlugin && items.some((i) => dirOf(i.path) === outDir);
   const dictClash = writeSst && outDir === getXtDict().replace(/\/$/, '');
 
+  // Dictionnaires seuls : xtcore écrit directement le plugin (exacts) et le SST (exacts + approchants)
+  const runDictOnly = async (it: Item, dict: string, outPlugin?: string, outSst?: string) => {
+    const res = await xt.translate(it.path, dict, { out: outPlugin, sst: outSst, maxLd: heuristic ? undefined : 0 });
+    patch(it.path, { status: 'done', step: undefined, strings: res.strings, exact: res.exact, heuristic: res.heuristic, ai: 0 });
+  };
+
+  // Dictionnaires d'abord, puis traduction automatique des textes restants
+  const runWithAi = async (it: Item, dict: string, outPlugin?: string, outSst?: string) => {
+    patch(it.path, { step: 'Dictionnaires SST…' });
+    const ex = await xt.extract(it.path);
+    const tr = await xt.translate(it.path, dict, { maxLd: heuristic ? undefined : 0 });
+    const exact = new Map<number, string>();
+    const heur = new Map<number, string>();
+    for (const r of tr.results) (r.kind === 'exact' ? exact : heur).set(r.id, r.dest);
+    // En-tête du plugin (auteur, description) exclu : ce ne sont pas des textes du jeu
+    const todo = ex.strings.filter((s) => !exact.has(s.id) && !s.vmad && s.rec !== 'TES4' && /\p{L}/u.test(s.text));
+    const unique = [...new Set(todo.map((s) => s.text))];
+    patch(it.path, { step: `Traduction automatique 0/${unique.length}…` });
+    const ai = await translateTexts(unique, (n) => patch(it.path, { step: `Traduction automatique ${n}/${unique.length}…` }));
+
+    patch(it.path, { step: 'Écriture…' });
+    const rows: Array<{ id: number; dest: string; source: string; incomplete: boolean; heuristic?: boolean }> = [];
+    let nAi = 0;
+    for (const s of ex.strings) {
+      const e = exact.get(s.id);
+      const a = s.vmad || s.rec === 'TES4' ? undefined : ai.get(s.text);
+      const h = heur.get(s.id);
+      if (e !== undefined) rows.push({ id: s.id, dest: e, source: s.text, incomplete: false });
+      else if (a !== undefined) {
+        nAi++;
+        rows.push({ id: s.id, dest: a, source: s.text, incomplete: true });
+      } else if (h !== undefined) rows.push({ id: s.id, dest: h, source: s.text, incomplete: true, heuristic: true });
+    }
+    // Le plugin reçoit les exacts et l'automatique ; les approchants restent dans le SST seulement
+    const pluginRows = rows.filter((r) => !r.heuristic).map(({ id, dest }) => ({ id, dest }));
+    if (outPlugin) await xt.write(it.path, outPlugin, pluginRows);
+    if (outSst && rows.length) await xt.sstExport(it.path, outSst, rows.map(({ heuristic: _, ...r }) => r));
+    patch(it.path, {
+      status: 'done',
+      step: undefined,
+      strings: ex.strings.length,
+      exact: exact.size,
+      ai: nAi,
+      heuristic: rows.length - exact.size - nAi,
+    });
+  };
+
   const run = async () => {
     setError(null);
     setRunning(true);
@@ -92,15 +177,12 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
       if (it.status === 'done') continue;
       patch(it.path, { status: 'running', error: undefined });
       const base = nameOf(it.path).replace(/\.[^.]+$/, '');
+      const outPlugin = writePlugin ? `${outDir}/${nameOf(it.path)}` : undefined;
+      const outSst = writeSst ? `${outDir}/${base}_FR.sst` : undefined;
       try {
-        const res = await xt.translate(it.path, dict, {
-          out: writePlugin ? `${outDir}/${nameOf(it.path)}` : undefined,
-          sst: writeSst ? `${outDir}/${base}_FR.sst` : undefined,
-          maxLd: heuristic ? undefined : 0,
-        });
-        patch(it.path, { status: 'done', strings: res.strings, exact: res.exact, heuristic: res.heuristic });
+        await (useAi ? runWithAi : runDictOnly)(it, dict, outPlugin, outSst);
       } catch (err: any) {
-        patch(it.path, { status: 'error', error: err.message });
+        patch(it.path, { status: 'error', step: undefined, error: err.message });
       }
     }
     setRunning(false);
@@ -108,8 +190,8 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
 
   const done = items.filter((i) => i.status === 'done');
   const totals = done.reduce(
-    (t, i) => ({ s: t.s + (i.strings ?? 0), e: t.e + (i.exact ?? 0), h: t.h + (i.heuristic ?? 0) }),
-    { s: 0, e: 0, h: 0 },
+    (t, i) => ({ s: t.s + (i.strings ?? 0), e: t.e + (i.exact ?? 0), h: t.h + (i.heuristic ?? 0), a: t.a + (i.ai ?? 0) }),
+    { s: 0, e: 0, h: 0, a: 0 },
   );
   const canRun = xtReady && !running && items.some((i) => i.status !== 'done') && outDir && (writePlugin || writeSst) && !clash && !dictClash;
 
@@ -172,11 +254,15 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
             <div className="flex flex-wrap gap-x-4 gap-y-2">
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input type="checkbox" checked={writePlugin} onChange={(e) => setWritePlugin(e.target.checked)} className="accent-[#22c55e]" />
-                <span>Plugin traduit (correspondances exactes)</span>
+                <span>Plugin traduit</span>
               </label>
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input type="checkbox" checked={writeSst} onChange={(e) => setWriteSst(e.target.checked)} className="accent-[#22c55e]" />
                 <span>Dictionnaire SST (_FR.sst)</span>
+              </label>
+              <label className="flex items-center space-x-2 cursor-pointer" title="Après les dictionnaires, pour les textes qu'ils ne couvrent pas (moteur choisi ci-dessous)">
+                <input type="checkbox" checked={useAi} onChange={(e) => setUseAi(e.target.checked)} className="accent-[#22c55e]" />
+                <span>Compléter par traduction automatique (IA)</span>
               </label>
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input type="checkbox" checked={heuristic} onChange={(e) => setHeuristic(e.target.checked)} className="accent-[#22c55e]" />
@@ -190,6 +276,8 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
               <div className="text-[#fca5a5]">Choisissez un autre dossier que celui des plugins : l'original serait écrasé.</div>
             )}
           </div>
+
+          {useAi && <EngineSettings disabled={running} />}
 
           {error && <div className="text-[#fca5a5]">{error}</div>}
 
@@ -209,10 +297,10 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
                     </div>
                     <div className={`truncate ${it.status === 'error' ? 'text-[#fca5a5]' : 'text-[#888888]'}`}>
                       {it.status === 'done'
-                        ? `${it.strings} textes · ${it.exact} exacts · ${it.heuristic} approchants`
+                        ? `${it.strings} textes · ${it.exact} exacts · ${it.ai} IA · ${it.heuristic} approchants`
                         : it.status === 'error'
                           ? it.error
-                          : dirOf(it.path)}
+                          : (it.step ?? dirOf(it.path))}
                     </div>
                   </div>
                   {it.status === 'done' && (
@@ -251,7 +339,7 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
         <div className="h-12 shrink-0 border-t border-[#333333] px-4 flex items-center justify-between gap-3">
           <span className="text-[#aaaaaa] truncate">
             {done.length
-              ? `${done.length}/${items.length} fichier(s) : ${totals.e.toLocaleString()} exacts, ${totals.h.toLocaleString()} approchants sur ${totals.s.toLocaleString()} textes`
+              ? `${done.length}/${items.length} fichier(s) : ${totals.e.toLocaleString()} exacts, ${totals.a.toLocaleString()} IA, ${totals.h.toLocaleString()} approchants sur ${totals.s.toLocaleString()} textes`
               : `${items.length} fichier(s)`}
           </span>
           <button

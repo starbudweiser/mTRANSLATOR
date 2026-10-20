@@ -27,6 +27,7 @@ import {
 } from './utils/translatorUtils';
 import { localDictStore } from './utils/localDictionaryStore';
 import { parseModFile } from './utils/bethesdaBinaryParser';
+import { translateBatch } from './utils/aiEngine';
 import { xt, xtcoreAvailable, pickFile, getXtDict, ldScore, type XtExtract } from './utils/xtcore';
 import { translateFallbackText } from './data/dictionaryHeuristics';
 import { MacTitleBar } from './components/MacTitleBar';
@@ -795,43 +796,19 @@ export default function App() {
       })
     );
 
-    showToast(`${translations.length} chaînes traduites par Gemini intégrées.`);
+    showToast(`${translations.length} chaînes traduites automatiquement intégrées.`);
   };
 
   // Traduction d'une ligne individuelle via IA
   const handleTranslateSingleWithAi = async (record: ModRecord): Promise<string | null> => {
     try {
-      const response = await fetch('/api/translate/batch', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          items: [{ id: record.id, text: record.source }],
-          gameContext: meta.game,
-          targetLang: 'Français',
-        }),
-      });
-
-      if (!response.ok) {
-        // En cas d'erreur 401 ou indisponibilité API, traduction par heuristique locale
-        const found = dictionaries.find(
-          (d) => d.source.toLowerCase() === record.source.toLowerCase()
-        );
-        if (found) {
-          showToast('Traduction issue du glossaire SST local.');
-          return sanitizeBethesdaTranslation(found.target, record.source);
-        }
-        showToast('Traduction automatique locale (Mode Secours).');
-        return sanitizeBethesdaTranslation(translateFallbackText(record.source), record.source);
+      const data = await translateBatch([{ id: record.id, text: record.source }], { game: meta.game });
+      const t = data.translations[0]?.translatedText;
+      if (t && t !== record.source) {
+        showToast(`Traduit par ${data.engine}.`);
+        return sanitizeBethesdaTranslation(t, record.source);
       }
-
-      const data = await response.json();
-      if (data.translations && data.translations[0]) {
-        if (data.warning) {
-          showToast('Traduction générée via le glossaire de secours.');
-        }
-        return sanitizeBethesdaTranslation(data.translations[0].translatedText, record.source);
-      }
-      return sanitizeBethesdaTranslation(translateFallbackText(record.source), record.source);
+      throw new Error('non traduit');
     } catch {
       // Fallback gracieux sur le dictionnaire et l'heuristique
       const found = dictionaries.find(

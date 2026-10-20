@@ -18,8 +18,8 @@ import socketserver
 import subprocess
 import webbrowser
 import time
-import urllib.parse
-import urllib.request
+
+import mt_engines
 
 VERSION = '2.5.0'
 
@@ -44,39 +44,6 @@ def ensure_web_assets() -> str:
     raise SystemExit("[mTRANSLATOR] Interface introuvable : lancez 'npm run build' dans web/.")
 
 
-BETESDA_GLOSSARY = {
-    'Iron Sword': 'Épée de fer',
-    'Steel War Axe': "Hache d'armes d'acier",
-    'Health': 'Santé',
-    'Magicka': 'Magie',
-    'Stamina': 'Vigueur',
-    'Dragonborn': 'Enfant de dragon',
-    'Whiterun': 'Blancherive',
-    'Solitude': 'Solitude',
-    'Riften': 'Faillaise',
-    'Windhelm': 'Vendeaume',
-    'Markarth': 'Markarth',
-    'Dawnstar': 'Aubétoile',
-    'Falkreath': 'Épervine',
-    'Morthal': 'Morthal',
-    'Winterhold': 'Fortdhiver',
-    'Stimpack': 'Stimpack',
-    'Diamond City': 'Diamond City',
-    'The Lodge': 'La Loge',
-    'New Atlantis': 'New Atlantis',
-    'Armor': 'Armure',
-    'Shield': 'Bouclier',
-    'Helmet': 'Casque',
-    'Boots': 'Bottes',
-    'Dagger': 'Dague',
-    'Bow': 'Arc',
-    'Arrow': 'Flèche',
-    'Spell': 'Sort',
-    'Book': 'Livre',
-    'Gold': 'Or',
-}
-
-
 def resolve_lang_code(target_lang: str = 'fr') -> str:
     """Convertit un nom de langue ('Français', 'Deutsch', 'es'...) en code ISO."""
     l = (target_lang or '').lower().strip()
@@ -93,30 +60,6 @@ def resolve_lang_code(target_lang: str = 'fr') -> str:
     if l.startswith('en') or 'angl' in l or 'engl' in l:
         return 'en'
     return 'fr'
-
-
-def translate_google_gtx(text: str, target_lang: str = 'fr') -> str:
-    """Moteur Google Translate sans clé, avec repli sur le glossaire Bethesda."""
-    if not text or not text.strip():
-        return text
-    try:
-        lang_code = resolve_lang_code(target_lang)
-        query = urllib.parse.quote(text)
-        url = f"https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl={lang_code}&dt=t&q={query}"
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=8) as resp:
-            data = json.loads(resp.read().decode('utf-8'))
-            if isinstance(data, list) and len(data) > 0 and isinstance(data[0], list):
-                translated = ''.join(chunk[0] for chunk in data[0] if chunk and chunk[0])
-                # Protection de [pagebreak]
-                if '[pagebreak]' in text.lower():
-                    translated = (translated.replace('[saut de page]', '[pagebreak]')
-                                  .replace('[sautdepage]', '[pagebreak]')
-                                  .replace('[interruzione]', '[pagebreak]'))
-                return translated
-    except Exception:
-        pass
-    return BETESDA_GLOSSARY.get(text.strip(), text)
 
 
 # Cœur Rust (xtcore) : formats ESP/strings/SST/BSA/PEX et heuristique. Sous-commandes autorisées.
@@ -209,6 +152,57 @@ def save_text(payload):
     return path
 
 
+# Fichiers SST du jeu de base et des DLC : source du glossaire de noms officiels
+OFFICIAL_SST = {'skyrim', 'update', 'dawnguard', 'dragonborn', 'hearthfires', 'fallout4', 'dlcrobot',
+                'dlcworkshop01', 'dlccoast', 'dlcworkshop02', 'dlcworkshop03', 'dlcnukaworld', 'starfield'}
+_glossaries = {}
+
+
+def official_glossary(dict_dir):
+    if not dict_dir or not os.path.isdir(dict_dir):
+        return None
+    if dict_dir not in _glossaries:
+        entries = []
+        for f in sorted(os.listdir(dict_dir)):
+            base = f.lower().rsplit('_english_', 1)[0] if f.lower().endswith('.sst') else ''
+            if base in OFFICIAL_SST:
+                res, status = run_xtcore(['sst', os.path.join(dict_dir, f), '--full'], timeout=60)
+                if status == 200:
+                    entries.extend(res.get('items', []))
+        _glossaries[dict_dir] = mt_engines.build_glossary(entries)
+    return _glossaries[dict_dir]
+
+
+def translate_items(payload):
+    """Traduction automatique : Gemini si choisi (avec clé), sinon Google gratuit. Un texte non traduit
+    revient inchangé ; les échecs Gemini sont repris par Google."""
+    items = payload.get('items', [])
+    texts = [str(it.get('text', '')) for it in items]
+    lang = resolve_lang_code(payload.get('targetLang', 'Français'))
+    glossary = official_glossary(payload.get('dict')) if lang == 'fr' else None
+    engine, warning = 'Google Traduction (gratuit)', None
+    out = [None] * len(texts)
+    key = (payload.get('apiKey') or '').strip()
+    if payload.get('engine') == 'gemini' and key:
+        model = payload.get('model') or 'gemini-2.5-flash'
+        out, warning = mt_engines.gemini_batch(texts, key, model, game=payload.get('gameContext') or 'Skyrim')
+        engine = f'Gemini ({model})'
+        if any(o is None for o in out):
+            engine += ' + Google pour le reste'
+    missing = [i for i, o in enumerate(out) if o is None]
+    if missing:
+        res = mt_engines.google_batch([texts[i] for i in missing], tl=lang, glossary=glossary)
+        for i, r in zip(missing, res):
+            out[i] = r
+    return {
+        'success': True,
+        'engine': engine,
+        'warning': warning,
+        'translations': [{'id': str(it.get('id', '')), 'translatedText': o if o is not None else t}
+                         for it, o, t in zip(items, out, texts)],
+    }
+
+
 def create_mtranslator_handler(web_directory: str):
     class MTranslatorRequestHandler(http.server.SimpleHTTPRequestHandler):
         def __init__(self, *args, **kwargs):
@@ -264,23 +258,19 @@ def create_mtranslator_handler(web_directory: str):
                 except Exception as e:
                     self.send_json({'error': str(e)}, 500)
                 return
-            if self.path != '/api/translate/batch':
+            if self.path not in ('/api/translate/batch', '/api/translate/models'):
                 self.send_json({'error': 'Route inconnue'}, 404)
+                return
+            if self.headers.get('X-mTRANSLATOR') != '1':
+                self.send_json({'error': 'En-tête X-mTRANSLATOR requis'}, 403)
                 return
             try:
                 content_length = int(self.headers.get('Content-Length', 0))
                 payload = json.loads(self.rfile.read(content_length).decode('utf-8'))
-                target_lang = payload.get('targetLang', 'Français')
-                results = [
-                    {'id': str(item.get('id', '')),
-                     'translatedText': translate_google_gtx(item.get('text', ''), target_lang)}
-                    for item in payload.get('items', [])
-                ]
-                self.send_json({
-                    'success': True,
-                    'translations': results,
-                    'engine': 'Google Translate (Haute Vitesse)',
-                })
+                if self.path == '/api/translate/models':
+                    self.send_json({'models': mt_engines.gemini_models(payload.get('apiKey', ''))})
+                    return
+                self.send_json(translate_items(payload))
             except Exception as e:
                 self.send_json({'error': str(e)}, 500)
 
