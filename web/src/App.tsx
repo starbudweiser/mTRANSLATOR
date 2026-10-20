@@ -443,6 +443,13 @@ export default function App() {
   // Vrai SST xTranslator (v8) écrit par xtcore à partir des traductions en cours
   const exportSstWithXt = async (defaultName: string) => {
     if (!pluginPath) return;
+    const rows = records
+      .filter((r) => r.xtId !== undefined && r.target.trim() && r.target !== r.source)
+      .map((r) => ({ id: r.xtId as number, dest: r.target }));
+    if (!rows.length) {
+      showToast('Aucune traduction à exporter (textes identiques à la VO).');
+      return;
+    }
     const out = await pickFile({
       mode: 'save',
       title: 'Exporter le dictionnaire SST',
@@ -453,9 +460,6 @@ export default function App() {
       return null;
     });
     if (!out) return;
-    const rows = records
-      .filter((r) => r.xtId !== undefined && r.target.trim() && r.target !== r.source)
-      .map((r) => ({ id: r.xtId as number, dest: r.target }));
     try {
       const res = await xt.sstExport(pluginPath, out, rows);
       let msg = `SST exporté : ${res.entries.toLocaleString()} entrée(s) dans ${out.split('/').pop()}`;
