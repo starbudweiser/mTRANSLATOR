@@ -102,6 +102,14 @@ export async function pickFile(o: {
   return data.path ?? null;
 }
 
+/** Sélecteur natif à sélection multiple : chemins absolus (liste vide si annulé). */
+export async function pickFiles(o: { title?: string; directory?: string; fileTypes?: string[] }): Promise<string[]> {
+  const r = await post('/api/pick-file', { ...o, mode: 'open', multiple: true });
+  const data = await r.json();
+  if (!r.ok || data.error) throw new Error(data.error ?? `sélecteur : erreur ${r.status}`);
+  return Array.isArray(data.path) ? data.path : data.path ? [data.path] : [];
+}
+
 /** Dictionnaire par défaut : dossier de SST de xTranslator. */
 export const DEFAULT_XT_DICT = '/Volumes/SKYRIM/TOOLS/WINDOWS/_xTranslator/UserDictionaries/SkyrimSE';
 const DICT_KEY = 'mtranslator_xtcore_dict';

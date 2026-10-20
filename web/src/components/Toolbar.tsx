@@ -411,6 +411,16 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               <span className="text-[10px] font-mono bg-[#222222] px-1 py-0.2 rounded text-[#86efac]">F10</span>
             </button>
 
+            {/* Rechercher et remplacer dans les traductions */}
+            <button
+              type="button"
+              onClick={onOpenFindReplaceModal}
+              className="p-1.5 bg-[#222222] hover:bg-[#303030] text-[#dddddd] border border-[#333333] rounded transition-colors"
+              title="Rechercher et remplacer dans les traductions"
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5 text-[#4ade80]" />
+            </button>
+
             {/* Statistiques et Rapport */}
             <button
               type="button"
@@ -432,6 +442,17 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             </button>
           </>
         )}
+
+        {/* Traduction automatique de plusieurs plugins */}
+        <button
+          type="button"
+          onClick={onOpenBatchModal}
+          className="flex items-center space-x-1.5 px-2.5 py-1.5 bg-[#222222] hover:bg-[#303030] text-[#dddddd] border border-[#333333] rounded transition-colors text-xs font-medium"
+          title="Traduire plusieurs plugins d'un coup avec les dictionnaires SST"
+        >
+          <Layers className="w-3.5 h-3.5 text-[#38bdf8]" />
+          <span>Lots</span>
+        </button>
 
         {/* Bouton pour télécharger la version native macOS */}
         <button

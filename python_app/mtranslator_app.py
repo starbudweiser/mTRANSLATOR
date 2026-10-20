@@ -146,7 +146,7 @@ def run_xtcore(args, stdin=None, timeout=600):
         return {'error': (proc.stderr or proc.stdout or 'réponse vide').strip()[:2000]}, 500
 
 
-def _osascript_pick(mode, title, default_name, directory):
+def _osascript_pick(mode, title, default_name, directory, multiple=False):
     """Sélecteur natif via AppleScript (mode serveur seul, sans fenêtre pywebview)."""
     q = lambda v: '"' + v.replace('\\', '\\\\').replace('"', '\\"') + '"'
     loc = f' default location (POSIX file {q(directory)})' if directory and os.path.isdir(directory) else ''
@@ -154,6 +154,11 @@ def _osascript_pick(mode, title, default_name, directory):
         cmd = f'choose folder with prompt {q(title)}{loc}'
     elif mode == 'save':
         cmd = f'choose file name with prompt {q(title)} default name {q(default_name or "")}{loc}'
+    elif multiple:
+        script = (f'set l to (choose file with prompt {q(title)}{loc} with multiple selections allowed)\n'
+                  'set o to ""\nrepeat with f in l\nset o to o & POSIX path of f & linefeed\nend repeat\nreturn o')
+        proc = subprocess.run(['osascript', '-e', script], capture_output=True, text=True)
+        return [x for x in proc.stdout.splitlines() if x] or None
     else:
         cmd = f'choose file with prompt {q(title)}{loc}'
     proc = subprocess.run(['osascript', '-e', f'POSIX path of ({cmd})'], capture_output=True, text=True)
@@ -161,8 +166,10 @@ def _osascript_pick(mode, title, default_name, directory):
 
 
 def pick_file(payload):
-    """Chemin choisi dans un sélecteur natif (ouvrir, enregistrer, dossier) ; None si annulé."""
+    """Chemin choisi dans un sélecteur natif (ouvrir, enregistrer, dossier) ; None si annulé.
+    Avec `multiple` (ouverture seulement) : liste de chemins."""
     mode = payload.get('mode', 'open')
+    multiple = bool(payload.get('multiple')) and mode == 'open'
     title = payload.get('title') or 'mTRANSLATOR'
     default_name = payload.get('defaultName') or ''
     directory = payload.get('directory') or ''
@@ -172,13 +179,16 @@ def pick_file(payload):
             kind = {'save': webview.SAVE_DIALOG, 'folder': webview.FOLDER_DIALOG}.get(mode, webview.OPEN_DIALOG)
             types = tuple(payload.get('fileTypes') or ()) if mode == 'open' else ()
             res = webview.windows[0].create_file_dialog(kind, directory=directory if os.path.isdir(directory) else '',
-                                                        save_filename=default_name, file_types=types)
+                                                        save_filename=default_name, file_types=types,
+                                                        allow_multiple=multiple)
             if not res:
                 return None
+            if multiple:
+                return [res] if isinstance(res, str) else list(res)
             return res if isinstance(res, str) else res[0]
     except ImportError:
         pass
-    return _osascript_pick(mode, title, default_name, directory)
+    return _osascript_pick(mode, title, default_name, directory, multiple)
 
 
 def save_text(payload):
@@ -337,7 +347,7 @@ def build_menu(webview):
                 item('Plugin traduit (.esp / .esm)…', 'exportESP'),
             ]),
             MenuSeparator(),
-            item('Traitement par lots…', 'batch'),
+            item('Traduction par lots…', 'batch'),
             MenuSeparator(),
             item('Fermer le fichier', 'close'),
         ]),

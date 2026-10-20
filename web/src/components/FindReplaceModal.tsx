@@ -1,192 +1,219 @@
 /**
- * Outil de Recherche & Remplacement par lot pour mTRANSLATOR macOS
- * Prise en charge des expressions régulières (Regex), du respect de la casse et du ciblage VO/VF.
+ * Rechercher & remplacer dans les traductions (VF) du fichier ouvert.
+ * Le texte d'origine (VO) n'est jamais modifié : il sert de clé aux exports SST et à l'écriture du plugin.
  */
 
-import React, { useState } from 'react';
-import { X, SlidersHorizontal, Check, AlertCircle } from 'lucide-react';
+import React, { useMemo, useState } from 'react';
+import { X, SlidersHorizontal, Check, AlertCircle, Undo2 } from 'lucide-react';
 import { ModRecord } from '../types';
+
+export interface ReplaceOptions {
+  caseSensitive: boolean;
+  wholeWord: boolean;
+  useRegex: boolean;
+  /** Ne pas toucher les lignes encore non traduites (cible = VO). */
+  skipUntranslated: boolean;
+}
+
+/** Motif de recherche, ou message d'erreur si l'expression régulière est invalide. */
+export function buildPattern(find: string, o: ReplaceOptions): RegExp | string {
+  let body = o.useRegex ? find : find.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (o.wholeWord) body = `(?<![\\p{L}\\p{N}_])(?:${body})(?![\\p{L}\\p{N}_])`;
+  try {
+    return new RegExp(body, `gu${o.caseSensitive ? '' : 'i'}`);
+  } catch (err: any) {
+    return `Expression régulière invalide : ${err.message}`;
+  }
+}
+
+export const isReplaceable = (r: ModRecord, o: ReplaceOptions) =>
+  !r.locked && Boolean(r.target) && !(o.skipUntranslated && r.status === 'untranslated');
 
 interface FindReplaceModalProps {
   isOpen: boolean;
   onClose: () => void;
   records: ModRecord[];
-  onBatchReplace: (
-    findText: string,
-    replaceText: string,
-    options: {
-      targetField: 'target' | 'source';
-      useRegex: boolean;
-      caseSensitive: boolean;
-    }
-  ) => { replacedCount: number };
+  onBatchReplace: (pattern: RegExp, replaceText: string, options: ReplaceOptions) => { lines: number; occurrences: number };
+  canUndo: boolean;
+  onUndo: () => void;
 }
+
+const PREVIEW_MAX = 50;
 
 export const FindReplaceModal: React.FC<FindReplaceModalProps> = ({
   isOpen,
   onClose,
   records,
   onBatchReplace,
+  canUndo,
+  onUndo,
 }) => {
   const [findText, setFindText] = useState('');
   const [replaceText, setReplaceText] = useState('');
-  const [targetField, setTargetField] = useState<'target' | 'source'>('target');
-  const [useRegex, setUseRegex] = useState(false);
-  const [caseSensitive, setCaseSensitive] = useState(false);
+  const [opts, setOpts] = useState<ReplaceOptions>({
+    caseSensitive: false,
+    wholeWord: false,
+    useRegex: false,
+    skipUntranslated: true,
+  });
   const [resultMessage, setResultMessage] = useState<string | null>(null);
-  const [regexError, setRegexError] = useState<string | null>(null);
+
+  const pattern = useMemo(() => (findText ? buildPattern(findText, opts) : null), [findText, opts]);
+
+  // Aperçu : lignes concernées et texte après remplacement
+  const preview = useMemo(() => {
+    if (!(pattern instanceof RegExp)) return { lines: [] as Array<{ rec: ModRecord; after: string }>, total: 0, occ: 0 };
+    const lines: Array<{ rec: ModRecord; after: string }> = [];
+    let total = 0;
+    let occ = 0;
+    for (const rec of records) {
+      if (!isReplaceable(rec, opts)) continue;
+      const n = rec.target.match(pattern)?.length ?? 0;
+      if (!n) continue;
+      total++;
+      occ += n;
+      if (lines.length < PREVIEW_MAX) lines.push({ rec, after: rec.target.replace(pattern, replaceText) });
+    }
+    return { lines, total, occ };
+  }, [pattern, records, replaceText, opts]);
 
   if (!isOpen) return null;
 
-  const handleExecuteReplace = () => {
-    if (!findText) return;
-
-    if (useRegex) {
-      try {
-        new RegExp(findText);
-      } catch (err: any) {
-        setRegexError(`Erreur d'expression régulière : ${err.message}`);
-        return;
-      }
-    }
-    setRegexError(null);
-
-    const result = onBatchReplace(findText, replaceText, {
-      targetField,
-      useRegex,
-      caseSensitive,
-    });
-
-    setResultMessage(`${result.replacedCount} occurrence(s) remplacée(s) dans les chaînes de traduction.`);
+  const set = (k: keyof ReplaceOptions) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setOpts((o) => ({ ...o, [k]: e.target.checked }));
+    setResultMessage(null);
   };
+
+  const handleExecuteReplace = () => {
+    if (!(pattern instanceof RegExp) || !preview.total) return;
+    const r = onBatchReplace(pattern, replaceText, opts);
+    setResultMessage(`${r.occurrences} occurrence(s) remplacée(s) sur ${r.lines} ligne(s).`);
+  };
+
+  const field =
+    'w-full bg-[#181818] text-[#ffffff] px-3 py-1.5 rounded border border-[#333333] focus:outline-none focus:border-[#22c55e]';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-[2px] p-4 text-xs select-none">
-      <div className="bg-[#1e1e1e] border border-[#333333] rounded-md shadow-2xl w-full max-w-lg flex flex-col overflow-hidden text-[#dddddd]">
+      <div className="bg-[#1e1e1e] border border-[#333333] rounded-md shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden text-[#dddddd]">
         {/* En-tête */}
-        <div className="h-10 bg-[#262626] border-b border-[#333333] px-4 flex items-center justify-between">
+        <div className="h-10 shrink-0 bg-[#262626] border-b border-[#333333] px-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <SlidersHorizontal className="w-4 h-4 text-[#4ade80]" />
-            <span className="font-semibold text-white">
-              Rechercher & Remplacer par lot
-            </span>
+            <span className="font-semibold text-white">Rechercher & remplacer dans les traductions</span>
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="text-[#aaaaaa] hover:text-white p-1 rounded hover:bg-[#303030]"
-          >
+          <button type="button" onClick={onClose} className="text-[#aaaaaa] hover:text-white p-1 rounded hover:bg-[#303030]">
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Corps du formulaire */}
-        <div className="p-4 space-y-3.5">
-          {/* Champ Rechercher */}
-          <div className="space-y-1">
-            <label className="font-medium text-[#dddddd] block">Rechercher :</label>
-            <input
-              type="text"
-              value={findText}
-              onChange={(e) => setFindText(e.target.value)}
-              placeholder="Texte ou motif Regex..."
-              className="w-full bg-[#181818] text-[#ffffff] px-3 py-1.5 rounded border border-[#333333] focus:outline-none focus:border-[#22c55e]"
-            />
-          </div>
-
-          {/* Champ Remplacer par */}
-          <div className="space-y-1">
-            <label className="font-medium text-[#dddddd] block">Remplacer par :</label>
-            <input
-              type="text"
-              value={replaceText}
-              onChange={(e) => setReplaceText(e.target.value)}
-              placeholder="Texte de remplacement..."
-              className="w-full bg-[#181818] text-[#ffffff] px-3 py-1.5 rounded border border-[#333333] focus:outline-none focus:border-[#22c55e]"
-            />
-          </div>
-
-          {/* Options de ciblage */}
-          <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded space-y-2.5">
-            <div className="flex items-center space-x-4">
-              <label className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="targetField"
-                  checked={targetField === 'target'}
-                  onChange={() => setTargetField('target')}
-                  className="accent-[#22c55e]"
-                />
-                <span>Dans la Traduction (VF)</span>
-              </label>
-
-              <label className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="targetField"
-                  checked={targetField === 'source'}
-                  onChange={() => setTargetField('source')}
-                  className="accent-[#22c55e]"
-                />
-                <span>Dans l&apos;Original (VO)</span>
-              </label>
+        <div className="p-4 space-y-3.5 overflow-y-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <label className="font-medium block">Rechercher :</label>
+              <input
+                type="text"
+                autoFocus
+                value={findText}
+                onChange={(e) => {
+                  setFindText(e.target.value);
+                  setResultMessage(null);
+                }}
+                placeholder="Texte ou motif Regex..."
+                className={field}
+              />
             </div>
-
-            <div className="flex items-center space-x-4 pt-1 border-t border-[#2e2e2e]">
-              <label className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={caseSensitive}
-                  onChange={(e) => setCaseSensitive(e.target.checked)}
-                  className="accent-[#22c55e]"
-                />
-                <span>Respecter la casse</span>
-              </label>
-
-              <label className="flex items-center space-x-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={useRegex}
-                  onChange={(e) => setUseRegex(e.target.checked)}
-                  className="accent-[#22c55e]"
-                />
-                <span>Expression régulière (Regex)</span>
-              </label>
+            <div className="space-y-1">
+              <label className="font-medium block">Remplacer par :</label>
+              <input
+                type="text"
+                value={replaceText}
+                onChange={(e) => setReplaceText(e.target.value)}
+                placeholder={opts.useRegex ? 'Texte ($1, $2… pour les groupes)' : 'Texte de remplacement...'}
+                className={field}
+              />
             </div>
           </div>
 
-          {/* Erreur Regex */}
-          {regexError && (
-            <div className="p-2.5 bg-[#1e1e1e] border border-[#ef4444] rounded text-[#fecaca] flex items-center space-x-2">
+          <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded flex flex-wrap gap-x-4 gap-y-2">
+            {(
+              [
+                ['caseSensitive', 'Respecter la casse'],
+                ['wholeWord', 'Mot entier'],
+                ['useRegex', 'Expression régulière'],
+                ['skipUntranslated', 'Ignorer les lignes non traduites'],
+              ] as const
+            ).map(([k, label]) => (
+              <label key={k} className="flex items-center space-x-2 cursor-pointer">
+                <input type="checkbox" checked={opts[k]} onChange={set(k)} className="accent-[#22c55e]" />
+                <span>{label}</span>
+              </label>
+            ))}
+          </div>
+
+          {typeof pattern === 'string' && (
+            <div className="p-2.5 border border-[#ef4444] rounded text-[#fecaca] flex items-center space-x-2">
               <AlertCircle className="w-4 h-4 text-[#f87171] shrink-0" />
-              <span>{regexError}</span>
+              <span>{pattern}</span>
             </div>
           )}
 
-          {/* Message de confirmation */}
           {resultMessage && (
             <div className="p-2.5 bg-[#262626] border border-[#22c55e] rounded text-[#86efac] flex items-center space-x-2">
               <Check className="w-4 h-4 text-[#4ade80] shrink-0" />
               <span>{resultMessage}</span>
             </div>
           )}
+
+          {pattern instanceof RegExp && (
+            <div className="space-y-1.5">
+              <div className="text-[#aaaaaa]">
+                {preview.total
+                  ? `${preview.occ} occurrence(s) sur ${preview.total} ligne(s)${preview.total > PREVIEW_MAX ? ` (aperçu des ${PREVIEW_MAX} premières)` : ''}`
+                  : 'Aucune occurrence dans les traductions.'}
+              </div>
+              {preview.lines.length > 0 && (
+                <div className="border border-[#2e2e2e] rounded divide-y divide-[#2e2e2e] max-h-72 overflow-y-auto select-text">
+                  {preview.lines.map(({ rec, after }) => (
+                    <div key={rec.id} className="p-2 space-y-0.5">
+                      <div className="text-[10px] text-[#888888] font-mono">
+                        {rec.recordType}
+                        {rec.field ? ` ${rec.field}` : ''} · {rec.formId}
+                      </div>
+                      <div className="text-[#fca5a5] line-through decoration-[#7f1d1d] break-words">{rec.target}</div>
+                      <div className="text-[#86efac] break-words">{after}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Pied de page */}
-        <div className="h-12 bg-[#1e1e1e] border-t border-[#333333] px-4 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={onClose}
-            className="px-3 py-1.5 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded transition-colors"
-          >
-            Fermer
-          </button>
-
+        <div className="h-12 shrink-0 border-t border-[#333333] px-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <button type="button" onClick={onClose} className="px-3 py-1.5 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded transition-colors">
+              Fermer
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                onUndo();
+                setResultMessage('Dernier remplacement annulé.');
+              }}
+              disabled={!canUndo}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded transition-colors disabled:opacity-40"
+            >
+              <Undo2 className="w-3.5 h-3.5" />
+              Annuler le remplacement
+            </button>
+          </div>
           <button
             type="button"
             onClick={handleExecuteReplace}
-            disabled={!findText}
-            className="px-4 py-1.5 bg-[#22c55e] hover:bg-[#22c55e] text-white font-medium rounded transition-colors disabled:opacity-50"
+            disabled={!preview.total}
+            className="px-4 py-1.5 bg-[#22c55e] hover:bg-[#16a34a] text-white font-medium rounded transition-colors disabled:opacity-50"
           >
             Remplacer tout
           </button>

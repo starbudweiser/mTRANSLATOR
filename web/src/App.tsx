@@ -35,10 +35,10 @@ import { StringTable } from './components/StringTable';
 import { TranslationEditor } from './components/TranslationEditor';
 import { DictionaryModal } from './components/DictionaryModal';
 import { AiBatchTranslateModal } from './components/AiBatchTranslateModal';
-import { FindReplaceModal } from './components/FindReplaceModal';
+import { FindReplaceModal, ReplaceOptions, isReplaceable } from './components/FindReplaceModal';
 import { StatsModal } from './components/StatsModal';
 import { DiffModal } from './components/DiffModal';
-import { BatchFilesModal } from './components/BatchFilesModal';
+import { BatchTranslateModal } from './components/BatchTranslateModal';
 import { MacAppModal } from './components/MacAppModal';
 import { SavePluginModal } from './components/SavePluginModal';
 import { CodexWelcomeScreen } from './components/CodexWelcomeScreen';
@@ -847,54 +847,44 @@ export default function App() {
   };
 
   // Remplacement par lot (Find & Replace)
-  const handleBatchReplace = (
-    findText: string,
-    replaceText: string,
-    options: {
-      targetField: 'target' | 'source';
-      useRegex: boolean;
-      caseSensitive: boolean;
+  // Remplacement global dans les traductions ; l'état précédent est gardé pour « Annuler le remplacement »
+  const replaceUndoRef = useRef<ModRecord[] | null>(null);
+  const [canUndoReplace, setCanUndoReplace] = useState(false);
+  const handleBatchReplace = (pattern: RegExp, replaceText: string, options: ReplaceOptions) => {
+    let lines = 0;
+    let occurrences = 0;
+    const next = records.map((rec) => {
+      if (!isReplaceable(rec, options)) return rec;
+      const n = rec.target.match(pattern)?.length ?? 0;
+      if (!n) return rec;
+      lines++;
+      occurrences += n;
+      const target = rec.target.replace(pattern, replaceText);
+      const tagWarnings = validateTags(rec.source, target);
+      return {
+        ...rec,
+        target,
+        modified: true,
+        tagWarnings,
+        status: (tagWarnings.length ? 'partial' : rec.status === 'untranslated' ? 'translated' : rec.status) as ModRecord['status'],
+      };
+    });
+    if (lines) {
+      replaceUndoRef.current = records;
+      setCanUndoReplace(true);
+      setRecords(next);
     }
-  ) => {
-    let replacedCount = 0;
-    const flags = options.caseSensitive ? 'g' : 'gi';
-    let regex: RegExp;
-
-    if (options.useRegex) {
-      regex = new RegExp(findText, flags);
-    } else {
-      const escaped = findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      regex = new RegExp(escaped, flags);
-    }
-
-    setRecords((prev) =>
-      prev.map((rec) => {
-        const textToSearch = options.targetField === 'target' ? rec.target : rec.source;
-        if (regex.test(textToSearch)) {
-          replacedCount++;
-          const newText = textToSearch.replace(regex, replaceText);
-
-          if (options.targetField === 'target') {
-            const warnings = validateTags(rec.source, newText);
-            return {
-              ...rec,
-              target: newText,
-              modified: true,
-              tagWarnings: warnings,
-            };
-          } else {
-            return {
-              ...rec,
-              source: newText,
-              modified: true,
-            };
-          }
-        }
-        return rec;
-      })
-    );
-
-    return { replacedCount };
+    return { lines, occurrences };
+  };
+  useEffect(() => {
+    replaceUndoRef.current = null;
+    setCanUndoReplace(false);
+  }, [meta.fileName]);
+  const handleUndoReplace = () => {
+    if (!replaceUndoRef.current) return;
+    setRecords(replaceUndoRef.current);
+    replaceUndoRef.current = null;
+    setCanUndoReplace(false);
   };
 
   // Fusion de nouvelles lignes depuis le Diff
@@ -1348,6 +1338,8 @@ export default function App() {
         onClose={() => setIsFindReplaceModalOpen(false)}
         records={records}
         onBatchReplace={handleBatchReplace}
+        canUndo={canUndoReplace}
+        onUndo={handleUndoReplace}
       />
 
       <StatsModal
@@ -1364,17 +1356,11 @@ export default function App() {
         onMergeNewRecords={handleMergeNewRecords}
       />
 
-      <BatchFilesModal
+      <BatchTranslateModal
         isOpen={isBatchModalOpen}
         onClose={() => setIsBatchModalOpen(false)}
-        currentGame={meta.game}
-        dictionaries={dictionaries}
-        onLoadFileIntoWorkspace={(newRecords, newMeta) => {
-          setRecords(newRecords);
-          setMeta(newMeta);
-          setSelectedId(newRecords[0]?.id || null);
-          showToast(`Fichier ${newMeta.fileName} chargé dans l'espace de travail (${newRecords.length} entrées)`);
-        }}
+        xtReady={xtReady}
+        onOpenInEditor={(path) => openPluginWithXt(path)}
       />
 
       <MacAppModal

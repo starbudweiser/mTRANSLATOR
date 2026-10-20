@@ -81,18 +81,4 @@ export interface TranslationStats {
   percentage: number;
 }
 
-export interface BatchFileItem {
-  id: string;
-  name: string;
-  size: number;
-  extension: string;
-  file?: File;
-  status: 'pending' | 'parsing' | 'translating' | 'completed' | 'error';
-  progress: number;
-  recordsCount: number;
-  translatedCount: number;
-  error?: string;
-  records?: ModRecord[];
-  meta?: Partial<ModFileMeta>;
-}
 
