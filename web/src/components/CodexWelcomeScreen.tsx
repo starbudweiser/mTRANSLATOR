@@ -6,14 +6,12 @@ import { useI18n } from '../i18n/LanguageContext';
 interface CodexWelcomeScreenProps {
   onOpenFileClick: () => void;
   onOpenSample: (sampleKey: 'skyrim' | 'fallout' | 'starfield') => void;
-  onDropFiles: (file: File) => void;
   onOpenAbout?: () => void;
 }
 
 export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
   onOpenFileClick,
   onOpenSample,
-  onDropFiles,
   onOpenAbout,
 }) => {
   const { t } = useI18n();
@@ -31,13 +29,10 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
     setIsDragOver(false);
   };
 
+  // Le dépôt remonte jusqu'à App (et jusqu'au document, où pywebview fournit le chemin complet)
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
-    e.stopPropagation();
     setIsDragOver(false);
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      onDropFiles(e.dataTransfer.files[0]);
-    }
   };
 
   return (

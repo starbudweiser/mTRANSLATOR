@@ -334,11 +334,26 @@ def build_menu(webview):
     ]
 
 
+def watch_drops(window):
+    """Fichiers glissés dans la fenêtre : pywebview fournit leur chemin complet, transmis à
+    l'interface (window.mtranslatorDropPath) pour une ouverture par xtcore depuis le disque."""
+    from webview.dom import DOMEventHandler
+
+    def on_drop(event):
+        for f in event.get('dataTransfer', {}).get('files', []):
+            path = f.get('pywebviewFullPath')
+            if path:
+                window.evaluate_js(f"window.mtranslatorDropPath && window.mtranslatorDropPath({json.dumps(path)})")
+                return
+
+    window.dom.document.events.drop += DOMEventHandler(on_drop, True, False)
+
+
 def launch_native_window(app_url: str):
     try:
         import webview
         print("[mTRANSLATOR] Moteur natif WebKit activé.")
-        webview.create_window(
+        window = webview.create_window(
             title='mTRANSLATOR',
             url=app_url,
             width=1380,
@@ -348,6 +363,7 @@ def launch_native_window(app_url: str):
             text_select=True,
             zoomable=True,
         )
+        window.events.loaded += lambda: watch_drops(window)
         os.makedirs(STORAGE_DIR, exist_ok=True)
         webview.start(
             debug=False,

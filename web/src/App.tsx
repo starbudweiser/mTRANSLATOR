@@ -1071,6 +1071,24 @@ export default function App() {
     setIsDraggingOver(false);
   };
 
+  const dropFallback = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const openDroppedPath = useRef<(path: string) => void>(() => {});
+  openDroppedPath.current = (path: string) => {
+    if (dropFallback.current) {
+      clearTimeout(dropFallback.current);
+      dropFallback.current = null;
+    }
+    if (/\.(esp|esm|esl)$/i.test(path)) openPluginWithXt(path);
+    else openTxtWithXt(path);
+  };
+  useEffect(() => {
+    const w = window as unknown as { mtranslatorDropPath?: (p: string) => void };
+    w.mtranslatorDropPath = (p: string) => openDroppedPath.current(p);
+    return () => {
+      delete w.mtranslatorDropPath;
+    };
+  }, []);
+
   const handleDrop = async (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -1093,6 +1111,16 @@ export default function App() {
 
     const file = e.dataTransfer.files?.[0];
     if (!file) return;
+    // Dans l'app, pywebview transmet le chemin complet (window.mtranslatorDropPath) : xtcore lit
+    // alors le fichier sur le disque. Sans réponse, repli sur la lecture dans le navigateur.
+    if (xtReady && /\.(esp|esm|esl|txt|ini|xml|csv|json)$/i.test(file.name)) {
+      if (dropFallback.current) clearTimeout(dropFallback.current);
+      dropFallback.current = setTimeout(() => {
+        dropFallback.current = null;
+        handleProcessFile(file, handle);
+      }, 1500);
+      return;
+    }
     await handleProcessFile(file, handle);
   };
 
@@ -1191,7 +1219,6 @@ export default function App() {
         <CodexWelcomeScreen
           onOpenFileClick={handleOpenFile}
           onOpenSample={handleOpenSample}
-          onDropFiles={handleProcessFile}
           onOpenAbout={() => setIsAboutModalOpen(true)}
         />
       ) : (
