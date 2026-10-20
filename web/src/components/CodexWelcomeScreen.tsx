@@ -122,7 +122,7 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
         {onOpenBatch && (
           <button type="button" onClick={onOpenBatch} className="flex items-center gap-2 px-4 py-2 bg-[#222222] hover:bg-[#2c2c2c] border border-[#333333] text-[13px] font-medium text-[#dddddd] hover:text-white rounded-md transition-colors hover:border-[#38bdf8]" title="Traduire plusieurs plugins d'un coup">
             <Layers className="w-4 h-4 text-[#38bdf8]" />
-            <span>Lots</span>
+            <span>Traitement par Lots</span>
           </button>
         )}
         {onOpenAbout && (
