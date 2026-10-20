@@ -122,10 +122,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         <div className="relative">
           <button
             type="button"
-            onClick={() => {
-              onSave();
-              setShowSaveMenu(!showSaveMenu);
-            }}
+            onClick={() => setShowSaveMenu(!showSaveMenu)}
             className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#222222] hover:bg-[#303030] text-[#dddddd] hover:text-white border border-[#333333] rounded transition-colors"
             title="Enregistrer les modifications (⌘S) / Exporter"
           >
