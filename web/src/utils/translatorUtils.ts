@@ -291,6 +291,30 @@ export function triggerFileDownload(content: string, filename: string, mimeType:
     .catch(() => browserDownload(content, filename, mimeType));
 }
 
+/** Équivalent binaire de triggerFileDownload (plugin, archive .zip). */
+export async function triggerBlobDownload(blob: Blob, filename: string) {
+  try {
+    const bytes = new Uint8Array(await blob.arrayBuffer());
+    let bin = '';
+    for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+    const r = await fetch('/api/save-text', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-mTRANSLATOR': '1' },
+      body: JSON.stringify({ base64: btoa(bin), defaultName: filename, title: `Enregistrer ${filename}` }),
+    });
+    if (!r.ok) throw new Error(String(r.status));
+  } catch {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+}
+
 function browserDownload(content: string, filename: string, mimeType: string) {
   const blob = new Blob([content], { type: mimeType });
   const url = URL.createObjectURL(blob);

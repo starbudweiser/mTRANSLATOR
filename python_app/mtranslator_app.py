@@ -189,6 +189,11 @@ def save_text(payload):
                       'directory': payload.get('directory') or os.path.expanduser('~/Desktop')})
     if not path:
         return None
+    if 'base64' in payload:  # fichier binaire (plugin, archive .zip)
+        import base64
+        with open(path, 'wb') as f:
+            f.write(base64.b64decode(payload['base64']))
+        return path
     with open(path, 'w', encoding='utf-8', newline='') as f:
         f.write(payload.get('content', ''))
     return path

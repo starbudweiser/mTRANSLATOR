@@ -440,6 +440,34 @@ export default function App() {
     }
   };
 
+  // Vrai SST xTranslator (v8) écrit par xtcore à partir des traductions en cours
+  const exportSstWithXt = async (defaultName: string) => {
+    if (!pluginPath) return;
+    const out = await pickFile({
+      mode: 'save',
+      title: 'Exporter le dictionnaire SST',
+      defaultName,
+      directory: getXtDict(),
+    }).catch((err) => {
+      showToast(`Sélecteur natif indisponible : ${err.message}`);
+      return null;
+    });
+    if (!out) return;
+    const rows = records
+      .filter((r) => r.xtId !== undefined && r.target.trim() && r.target !== r.source)
+      .map((r) => ({ id: r.xtId as number, dest: r.target }));
+    try {
+      const res = await xt.sstExport(pluginPath, out, rows);
+      let msg = `SST exporté : ${res.entries.toLocaleString()} entrée(s) dans ${out.split('/').pop()}`;
+      if (localDictStore.getSettings().autoLearnOnExportSST) {
+        msg += `, +${localDictStore.learnFromRecords(records, meta.game, 'sst_export')} dans la base locale`;
+      }
+      showToast(`${msg}.`);
+    } catch (err: any) {
+      showToast(`Export SST impossible : ${err.message}`);
+    }
+  };
+
   // Chargement d'un des projets d'exemples Bethesda
   const handleOpenSample = (key: 'skyrim' | 'fallout' | 'starfield') => {
     let sample = SAMPLE_SKYRIM_MOD;
@@ -498,6 +526,8 @@ export default function App() {
     if (format === 'ESP') {
       if (pluginPath && xtReady) void savePluginWithXt();
       else setIsSavePluginModalOpen(true);
+    } else if (format === 'SST' && pluginPath && xtReady && !txtDoc) {
+      void exportSstWithXt(`${baseName}_${targetLocale.toUpperCase()}.sst`);
     } else if (format === 'SST') {
       const xml = exportToSST(records, meta.game, sourceLang, targetLang);
       triggerFileDownload(xml, `${baseName}_${targetLocale.toUpperCase()}.sst`, 'application/xml;charset=utf-8');

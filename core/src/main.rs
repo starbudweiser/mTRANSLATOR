@@ -268,6 +268,29 @@ fn cmd_write(a: &Args) -> Result<Value> {
     Ok(json!({"strings": items.len(), "written_count": tr.len(), "written": written, "backup": backup}))
 }
 
+/// SST xTranslator des traductions fournies sur l'entrée standard, sans toucher au plugin.
+fn cmd_sst_export(a: &Args) -> Result<Value> {
+    #[derive(serde::Deserialize)]
+    struct Row {
+        id: usize,
+        dest: String,
+    }
+    let p = a.path(1)?;
+    let out = PathBuf::from(a.req("out")?);
+    let rows: Vec<Row> = serde_json::from_reader(std::io::stdin()).context("JSON attendu sur l'entrée standard")?;
+    let l = load(a, &p)?;
+    let mut sst = Sst { version: 8, masters: l.plugin.masters(), ..Default::default() };
+    for r in &rows {
+        let s = l.items.get(r.id).with_context(|| format!("chaîne {} inconnue", r.id))?;
+        if s.text != r.dest {
+            sst.entries.push(entry_for(s, &r.dest, params::TRANSLATED | params::VALIDATED));
+        }
+    }
+    let backup = backup(&out)?;
+    std::fs::write(&out, sst.to_bytes())?;
+    Ok(json!({"entries": sst.entries.len(), "written": out.display().to_string(), "backup": backup}))
+}
+
 /// Copie de sauvegarde horodatée d'un fichier qui va être écrasé.
 fn backup(out: &Path) -> Result<Option<String>> {
     if !out.exists() {
@@ -400,6 +423,7 @@ fn main() {
         Some("apply") => cmd_apply(&a),
         Some("write") => cmd_write(&a),
         Some("sst") => cmd_sst(&a),
+        Some("sst-export") => cmd_sst_export(&a),
         Some("search") => cmd_search(&a),
         Some("archive-list") => cmd_archive(&a, false),
         Some("archive-extract") => cmd_archive(&a, true),

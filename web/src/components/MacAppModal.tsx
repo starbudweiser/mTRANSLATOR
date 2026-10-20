@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Globe
 } from 'lucide-react';
+import { triggerFileDownload } from '../utils/translatorUtils';
 
 interface MacAppModalProps {
   isOpen: boolean;
@@ -36,15 +37,7 @@ export const MacAppModal: React.FC<MacAppModalProps> = ({ isOpen, onClose }) => 
       const response = await fetch('/mtranslator_macos.py');
       if (!response.ok) throw new Error('Fichier non trouvé');
       const text = await response.text();
-      const blob = new Blob([text], { type: 'text/x-python;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'mtranslator_macos.py';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      triggerFileDownload(text, 'mtranslator_macos.py', 'text/x-python;charset=utf-8');
     } catch (e) {
       alert("Téléchargement du fichier mtranslator_macos.py en cours...");
       window.open('/mtranslator_macos.py', '_blank');
@@ -57,15 +50,7 @@ export const MacAppModal: React.FC<MacAppModalProps> = ({ isOpen, onClose }) => 
       const response = await fetch('/mtranslator_macos.command');
       if (!response.ok) throw new Error('Fichier non trouvé');
       const text = await response.text();
-      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'mtranslator_macos.command';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      triggerFileDownload(text, 'mtranslator_macos.command', 'text/plain;charset=utf-8');
     } catch (e) {
       window.open('/mtranslator_macos.command', '_blank');
     }
@@ -77,15 +62,7 @@ export const MacAppModal: React.FC<MacAppModalProps> = ({ isOpen, onClose }) => 
       const response = await fetch('/mtranslator_web.command');
       if (!response.ok) throw new Error('Fichier non trouvé');
       const text = await response.text();
-      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'mtranslator_web.command';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      triggerFileDownload(text, 'mtranslator_web.command', 'text/plain;charset=utf-8');
     } catch (e) {
       window.open('/mtranslator_web.command', '_blank');
     }
@@ -97,15 +74,7 @@ export const MacAppModal: React.FC<MacAppModalProps> = ({ isOpen, onClose }) => 
       const response = await fetch('/build_macos_app.sh');
       if (!response.ok) throw new Error('Fichier non trouvé');
       const text = await response.text();
-      const blob = new Blob([text], { type: 'text/x-sh;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'build_macos_app.sh';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      triggerFileDownload(text, 'build_macos_app.sh', 'text/x-sh;charset=utf-8');
     } catch (e) {
       window.open('/build_macos_app.sh', '_blank');
     }

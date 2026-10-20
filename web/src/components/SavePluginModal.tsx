@@ -29,6 +29,7 @@ import JSZip from 'jszip';
 import { ModRecord, ModFileMeta } from '../types';
 import { rebuildPluginBinary, PluginSaveResult } from '../utils/bethesdaPluginWriter';
 import { localDictStore } from '../utils/localDictionaryStore';
+import { triggerBlobDownload } from '../utils/translatorUtils';
 
 export type SaveMode = 'overwrite_or_replace' | 'both_with_backup' | 'backup_only' | 'new_file';
 
@@ -172,14 +173,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
 
     // 3. Fallback universel par téléchargement direct sous le nom exact
     const blob = new Blob([buffer.buffer as ArrayBuffer], { type: 'application/octet-stream' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    await triggerBlobDownload(blob, fileName);
     return { success: true, method: 'download' };
   };
 
@@ -291,14 +285,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
       const baseName = meta.fileName.replace(/\.[^/.]+$/, '');
       const zipName = `${baseName}_Pack_Traduction_${saveResult.timestamp}.zip`;
 
-      const url = URL.createObjectURL(zipBlob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = zipName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      await triggerBlobDownload(zipBlob, zipName);
 
       const learned = triggerAutoLearning();
       const dictMsg = learned > 0 ? ` (+${learned} traductions enregistrées dans le dictionnaire local)` : '';
