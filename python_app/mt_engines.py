@@ -10,6 +10,7 @@ avec consigne de garder les balises ; une réponse aux balises modifiées est re
 
 import json
 import re
+from difflib import SequenceMatcher
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -86,10 +87,46 @@ def _mask(line, glossary=None):
     def gsub(m):
         tags.append(glossary[1][m.group()])
         return f'⟦{len(tags) - 1}⟧'
+    if IDENT.match(line):
+        tags.append(line)
+        return '⟦0⟧', tags
     out = TAG.sub(sub, line)
     if glossary and glossary[0]:
         out = glossary[0].sub(gsub, out)
     return out, tags
+
+
+def _restore_names(src, dest):
+    """Noms propres du mod que Google « corrige » (Aonghus → Angus, Maliq → Malik) : mot à majuscule
+    absent du dictionnaire anglais, disparu de la traduction, remis à la place du mot le plus proche."""
+    words = _english_words()
+    if not words:
+        return dest
+    for name in set(CAPWORD.findall(src)):
+        if name.lower() in words or re.search(rf'(?<!\w){re.escape(name)}(?!\w)', dest):
+            continue
+        cands = [w for w in set(CAPWORD.findall(dest)) if w not in src]
+        best = max(cands, key=lambda w: SequenceMatcher(None, w.lower(), name.lower()).ratio(), default=None)
+        if best and SequenceMatcher(None, best.lower(), name.lower()).ratio() >= 0.7:
+            dest = re.sub(rf'(?<!\w){re.escape(best)}(?!\w)', name, dest)
+    return dest
+
+
+# Mot à majuscule (candidat nom propre) ; identifiant collé (« AonghusHousePlanterNPC ») gardé tel quel
+CAPWORD = re.compile(r"(?<![\w⟦-])[A-Z][a-z]{2,}(?![\w-])")
+IDENT = re.compile(r'^[A-Z][a-z0-9]+(?:[A-Z][a-z0-9]*)+$')
+_WORDS = None
+
+
+def _english_words():
+    global _WORDS
+    if _WORDS is None:
+        try:
+            with open('/usr/share/dict/words', encoding='utf-8', errors='ignore') as f:
+                _WORDS = {w.strip().lower() for w in f}
+        except OSError:
+            _WORDS = set()
+    return _WORDS
 
 
 def _rename(src, dest, glossary):
@@ -216,7 +253,8 @@ def google_batch(texts, tl='fr', glossary=None):
             if line is None:
                 res = None
                 break
-            res.append(lead + _rename(_unmask(m, tags) or '', line, glossary) + trail)
+            src = _unmask(m, tags) or ''
+            res.append(lead + _restore_names(src, _rename(src, line, glossary)) + trail)
         out.append(t if res is not None and not any(isinstance(p, tuple) for p in parts) else (''.join(res) if res is not None else None))
     return out
 

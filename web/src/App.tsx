@@ -39,7 +39,7 @@ import { AiBatchTranslateModal } from './components/AiBatchTranslateModal';
 import { FindReplaceModal, ReplaceOptions, isReplaceable } from './components/FindReplaceModal';
 import { StatsModal } from './components/StatsModal';
 import { DiffModal } from './components/DiffModal';
-import { BatchTranslateModal } from './components/BatchTranslateModal';
+import { BatchTranslateModal, BatchRow } from './components/BatchTranslateModal';
 import { MacAppModal } from './components/MacAppModal';
 import { SavePluginModal } from './components/SavePluginModal';
 import { CodexWelcomeScreen } from './components/CodexWelcomeScreen';
@@ -914,7 +914,7 @@ export default function App() {
     Fallout4: 'Fallout 4',
     Starfield: 'Starfield',
   };
-  const openPluginWithXt = async (path: string) => {
+  const openPluginWithXt = async (path: string, preset?: BatchRow[]) => {
     const fileName = path.split('/').pop() || path;
     setLoadingProgress({ percent: 20, message: `Extraction de ${fileName} (xtcore)…` });
     try {
@@ -933,6 +933,15 @@ export default function App() {
         validated: false,
         ...(s.vmad ? { locked: true, notes: `Script ${s.vmad.script} · propriété ${s.vmad.prop}` } : {}),
       }));
+      // Traductions d'un lot : exactes validées, automatiques et approchantes à revoir
+      const byId = new Map((preset ?? []).map((r) => [r.id, r]));
+      for (const rec of recs) {
+        const r = rec.xtId !== undefined ? byId.get(rec.xtId) : undefined;
+        if (!r) continue;
+        const warnings = validateTags(rec.source, r.dest);
+        const ok = !r.incomplete && warnings.length === 0;
+        Object.assign(rec, { target: r.dest, status: ok ? 'translated' : 'partial', validated: ok, modified: true, tagWarnings: warnings });
+      }
       if (recs.length === 0) {
         showToast('Aucune chaîne traduisible trouvée dans ce plugin.');
         return;
@@ -1337,7 +1346,7 @@ export default function App() {
         isOpen={isBatchModalOpen}
         onClose={() => setIsBatchModalOpen(false)}
         xtReady={xtReady}
-        onOpenInEditor={(path) => openPluginWithXt(path)}
+        onOpenInEditor={(path, rows) => openPluginWithXt(path, rows)}
       />
 
       <MacAppModal

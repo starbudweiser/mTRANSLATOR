@@ -16,8 +16,15 @@ interface BatchTranslateModalProps {
   isOpen: boolean;
   onClose: () => void;
   xtReady: boolean;
-  /** Ouvre un plugin dans l'éditeur pour relire ses traductions. */
-  onOpenInEditor: (path: string) => void;
+  /** Ouvre un plugin dans l'éditeur avec les traductions du lot, pour les relire. */
+  onOpenInEditor: (path: string, rows: BatchRow[]) => void;
+}
+
+/** Traduction d'une chaîne du lot ; incomplete = automatique ou approchante, à revoir. */
+export interface BatchRow {
+  id: number;
+  dest: string;
+  incomplete: boolean;
 }
 
 interface Item {
@@ -30,6 +37,7 @@ interface Item {
   /** Étape en cours, affichée pendant le traitement. */
   step?: string;
   error?: string;
+  rows?: BatchRow[];
 }
 
 const AI_CHUNK = 150;
@@ -125,7 +133,8 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
   // Dictionnaires seuls : xtcore écrit directement le plugin (exacts) et le SST (exacts + approchants)
   const runDictOnly = async (it: Item, dict: string, outPlugin?: string, outSst?: string) => {
     const res = await xt.translate(it.path, dict, { out: outPlugin, sst: outSst, maxLd: heuristic ? undefined : 0 });
-    patch(it.path, { status: 'done', step: undefined, strings: res.strings, exact: res.exact, heuristic: res.heuristic, ai: 0 });
+    const rows = res.results.map((r) => ({ id: r.id, dest: r.dest, incomplete: r.kind !== 'exact' }));
+    patch(it.path, { status: 'done', step: undefined, strings: res.strings, exact: res.exact, heuristic: res.heuristic, ai: 0, rows });
   };
 
   // Dictionnaires d'abord, puis traduction automatique des textes restants
@@ -166,6 +175,7 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
       exact: exact.size,
       ai: nAi,
       heuristic: rows.length - exact.size - nAi,
+      rows: rows.map(({ id, dest, incomplete }) => ({ id, dest, incomplete })),
     });
   };
 
@@ -307,11 +317,11 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
                     <button
                       type="button"
                       onClick={() => {
-                        onOpenInEditor(it.path);
+                        onOpenInEditor(it.path, it.rows ?? []);
                         onClose();
                       }}
                       className="shrink-0 px-2 py-1 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded"
-                      title="Ouvrir le plugin d'origine dans l'éditeur pour relire et compléter la traduction"
+                      title="Ouvrir le plugin d'origine avec ces traductions pour les relire et les compléter"
                     >
                       Ouvrir
                     </button>
