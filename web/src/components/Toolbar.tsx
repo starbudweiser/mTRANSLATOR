@@ -556,7 +556,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           title="Traduire plusieurs plugins d'un coup avec les dictionnaires SST"
         >
           <Layers className="w-3.5 h-3.5 text-[#38bdf8]" />
-          <span>Lots</span>
+          <span>Traitement par Lots</span>
         </button>
 
         {/* Bouton À propos */}
