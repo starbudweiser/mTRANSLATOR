@@ -5,7 +5,7 @@
  * les traductions automatiques ; le SST les contient aussi, les automatiques et approchantes marquées à revoir.
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, Layers, FolderOpen, Plus, Trash2, Play, Loader2, Check, AlertCircle, FileText } from 'lucide-react';
 import { xt, pickFile, pickFiles, getXtDict } from '../utils/xtcore';
 import { sanitizeBethesdaTranslation } from '../utils/translatorUtils';
@@ -18,6 +18,9 @@ interface BatchTranslateModalProps {
   xtReady: boolean;
   /** Ouvre un plugin dans l'éditeur avec les traductions du lot, pour les relire. */
   onOpenInEditor: (path: string, rows: BatchRow[]) => void;
+  /** Plugins glissés dans la fenêtre, ajoutés à la liste. */
+  droppedPaths?: string[];
+  onDroppedConsumed?: () => void;
 }
 
 /** Traduction d'une chaîne du lot ; incomplete = automatique ou approchante, à revoir. */
@@ -81,7 +84,7 @@ const readOut = () => {
 const dirOf = (p: string) => p.slice(0, p.lastIndexOf('/'));
 const nameOf = (p: string) => p.split('/').pop() || p;
 
-export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen, onClose, xtReady, onOpenInEditor }) => {
+export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen, onClose, xtReady, onOpenInEditor, droppedPaths, onDroppedConsumed }) => {
   const [items, setItems] = useState<Item[]>([]);
   const [outDir, setOutDir] = useState(readOut);
   const [writePlugin, setWritePlugin] = useState(true);
@@ -90,6 +93,21 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
   const [useAi, setUseAi] = useState(true);
   const [running, setRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const addPaths = (paths: string[]) =>
+    setItems((list) => {
+      const known = new Set(list.map((i) => i.path));
+      return [
+        ...list,
+        ...paths.filter((p) => /\.(esp|esm|esl)$/i.test(p) && !known.has(p)).map((path) => ({ path, status: 'pending' as const })),
+      ];
+    });
+
+  useEffect(() => {
+    if (!isOpen || !droppedPaths?.length) return;
+    addPaths(droppedPaths);
+    onDroppedConsumed?.();
+  }, [isOpen, droppedPaths]);
 
   if (!isOpen) return null;
 
@@ -102,13 +120,7 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
         title: 'Plugins à traduire',
         fileTypes: ['Plugins Bethesda (*.esp;*.esm;*.esl)'],
       });
-      setItems((list) => {
-        const known = new Set(list.map((i) => i.path));
-        return [
-          ...list,
-          ...paths.filter((p) => /\.(esp|esm|esl)$/i.test(p) && !known.has(p)).map((path) => ({ path, status: 'pending' as const })),
-        ];
-      });
+      addPaths(paths);
     } catch (err: any) {
       setError(`Sélecteur natif indisponible : ${err.message}`);
     }

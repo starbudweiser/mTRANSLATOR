@@ -113,6 +113,7 @@ export default function App() {
   const [loadingProgress, setLoadingProgress] = useState<{ percent: number; message: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const xmlInputRef = useRef<HTMLInputElement>(null);
+  const [batchDropped, setBatchDropped] = useState<string[]>([]);
 
   // Cœur Rust xtcore (app macOS) : plugin ouvert par son chemin, repli sur les parseurs TS sinon
   const [xtReady, setXtReady] = useState(false);
@@ -1132,11 +1133,25 @@ export default function App() {
     if (/\.(esp|esm|esl)$/i.test(path)) openPluginWithXt(path);
     else openTxtWithXt(path);
   };
+  // Plusieurs fichiers déposés : deux plugins ou plus partent en traitement par lots
+  const openDroppedPaths = useRef<(paths: string[]) => void>(() => {});
+  openDroppedPaths.current = (paths: string[]) => {
+    const plugins = paths.filter((p) => /\.(esp|esm|esl)$/i.test(p));
+    if (plugins.length < 2) return openDroppedPath.current(plugins[0] ?? paths[0]);
+    if (dropFallback.current) {
+      clearTimeout(dropFallback.current);
+      dropFallback.current = null;
+    }
+    setBatchDropped(plugins);
+    setIsBatchModalOpen(true);
+  };
   useEffect(() => {
-    const w = window as unknown as { mtranslatorDropPath?: (p: string) => void };
+    const w = window as unknown as { mtranslatorDropPath?: (p: string) => void; mtranslatorDropPaths?: (p: string[]) => void };
     w.mtranslatorDropPath = (p: string) => openDroppedPath.current(p);
+    w.mtranslatorDropPaths = (p: string[]) => openDroppedPaths.current(p);
     return () => {
       delete w.mtranslatorDropPath;
+      delete w.mtranslatorDropPaths;
     };
   }, []);
 
@@ -1407,6 +1422,8 @@ export default function App() {
         onClose={() => setIsBatchModalOpen(false)}
         xtReady={xtReady}
         onOpenInEditor={(path, rows) => openPluginWithXt(path, rows)}
+        droppedPaths={batchDropped}
+        onDroppedConsumed={() => setBatchDropped([])}
       />
 
       <SavePluginModal

@@ -361,17 +361,18 @@ def build_menu(webview):
 
 def watch_drops(window):
     """Fichiers glissés dans la fenêtre : pywebview fournit leur chemin complet, transmis à
-    l'interface (window.mtranslatorDropPath) pour une ouverture par xtcore depuis le disque."""
+    l'interface (window.mtranslatorDropPath) pour une ouverture par xtcore depuis le disque ;
+    plusieurs fichiers vont à window.mtranslatorDropPaths (traitement par lots)."""
     from webview.dom import DOMEventHandler
 
     def on_drop(event):
         files = event.get('dataTransfer', {}).get('files', [])
         log(f"dépôt : {[(f.get('name'), f.get('pywebviewFullPath')) for f in files]}")
-        for f in files:
-            path = f.get('pywebviewFullPath')
-            if path:
-                window.evaluate_js(f"window.mtranslatorDropPath && window.mtranslatorDropPath({json.dumps(path)})")
-                return
+        paths = [f['pywebviewFullPath'] for f in files if f.get('pywebviewFullPath')]
+        if len(paths) > 1:
+            window.evaluate_js(f"window.mtranslatorDropPaths && window.mtranslatorDropPaths({json.dumps(paths)})")
+        elif paths:
+            window.evaluate_js(f"window.mtranslatorDropPath && window.mtranslatorDropPath({json.dumps(paths[0])})")
 
     try:
         window.dom.document.events.drop += DOMEventHandler(on_drop, True, False)
