@@ -107,13 +107,13 @@ export const DiffModal: React.FC<DiffModalProps> = ({
 
         {/* Corps */}
         <div className="p-4 space-y-3 flex-1 flex flex-col overflow-hidden">
-          <p className="text-[11px] text-[#aaaaaa]">
+          <p className="text-[13px] text-[#aaaaaa]">
             Comparez le mod chargé avec une nouvelle version (ESP / ESM) pour identifier instantanément les lignes ajoutées ou réécrites par l&apos;auteur.
           </p>
 
           <div className="flex-1 overflow-auto border border-[#333333] rounded bg-[#181818] custom-scrollbar">
             <table className="w-full border-collapse text-left">
-              <thead className="sticky top-0 bg-[#222222] border-b border-[#333333] text-[#aaaaaa] text-[11px]">
+              <thead className="sticky top-0 bg-[#222222] border-b border-[#333333] text-[#aaaaaa] text-[13px]">
                 <tr>
                   <th className="px-3 py-2 w-24">FormID</th>
                   <th className="px-3 py-2 w-20">Type</th>
@@ -127,7 +127,7 @@ export const DiffModal: React.FC<DiffModalProps> = ({
                     <td className="px-3 py-2 font-mono text-[#38bdf8]">
                       {item.formId}
                     </td>
-                    <td className="px-3 py-2 font-mono text-[10px]">
+                    <td className="px-3 py-2 font-mono text-[12px]">
                       {item.recordType}
                     </td>
                     <td className="px-3 py-2 text-[#ffffff]">
@@ -135,12 +135,12 @@ export const DiffModal: React.FC<DiffModalProps> = ({
                     </td>
                     <td className="px-3 py-2">
                       {item.type === 'new' ? (
-                        <span className="px-2 py-0.5 rounded bg-[#262626] text-[#4ade80] border border-[#22c55e] font-medium text-[10px] inline-flex items-center space-x-1">
+                        <span className="px-2 py-0.5 rounded bg-[#262626] text-[#4ade80] border border-[#22c55e] font-medium text-[12px] inline-flex items-center space-x-1">
                           <Plus className="w-2.5 h-2.5" />
                           <span>{item.statusText}</span>
                         </span>
                       ) : (
-                        <span className="px-2 py-0.5 rounded bg-[#3f2a0c] text-[#fbbf24] border border-[#f59e0b] font-medium text-[10px] inline-flex items-center space-x-1">
+                        <span className="px-2 py-0.5 rounded bg-[#3f2a0c] text-[#fbbf24] border border-[#f59e0b] font-medium text-[12px] inline-flex items-center space-x-1">
                           <RefreshCw className="w-2.5 h-2.5" />
                           <span>{item.statusText}</span>
                         </span>

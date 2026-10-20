@@ -172,12 +172,12 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
             EDID: {record.edid || 'Aucun'}
           </span>
           <span className="text-[#666666]">|</span>
-          <span className="px-1.5 py-0.5 rounded bg-[#2c2c2c] text-[10px] text-[#dddddd] font-mono">
+          <span className="px-1.5 py-0.5 rounded bg-[#2c2c2c] text-[12px] text-[#dddddd] font-mono">
             {record.recordType}
           </span>
           <span className="text-[#666666]">|</span>
           <span 
-            className={`px-2 py-0.5 rounded text-[10px] font-medium border flex items-center space-x-1 ${diag.badgeClass}`}
+            className={`px-2 py-0.5 rounded text-[12px] font-medium border flex items-center space-x-1 ${diag.badgeClass}`}
             title={diag.detailedReason}
           >
             <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: diag.dotColor }} />
@@ -190,7 +190,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
           <button
             type="button"
             onClick={onPrevRecord}
-            className="px-2 py-0.5 bg-[#2c2c2c] hover:bg-[#333333] text-[#dddddd] border border-[#444444] rounded text-[11px]"
+            className="px-2 py-0.5 bg-[#2c2c2c] hover:bg-[#333333] text-[#dddddd] border border-[#444444] rounded text-[13px]"
             title="Enregistrement précédent (Flèche Haut)"
           >
             ▲ Préc.
@@ -198,7 +198,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
           <button
             type="button"
             onClick={onNextRecord}
-            className="px-2 py-0.5 bg-[#2c2c2c] hover:bg-[#333333] text-[#dddddd] border border-[#444444] rounded text-[11px]"
+            className="px-2 py-0.5 bg-[#2c2c2c] hover:bg-[#333333] text-[#dddddd] border border-[#444444] rounded text-[13px]"
             title="Enregistrement suivant (Flèche Bas)"
           >
             ▼ Suiv.
@@ -212,7 +212,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
         <div className="flex-1 min-w-0 border-r border-[#333333] flex flex-col bg-[#181818]">
           <div className="px-3 py-1.5 bg-[#1e1e1e] border-b border-[#2e2e2e] flex items-center justify-between text-[#aaaaaa]">
             <span className="font-medium text-[#dddddd]">Source Originale (VO)</span>
-            <div className="flex items-center space-x-2 text-[11px]">
+            <div className="flex items-center space-x-2 text-[13px]">
               <span>{record.source.length} car.</span>
               <span>•</span>
               <span>{sourceWordCount} mots</span>
@@ -228,13 +228,13 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
             </div>
           </div>
 
-          <div className="flex-1 p-3 overflow-y-auto text-[13px] font-sans leading-relaxed text-[#ffffff] select-text custom-scrollbar whitespace-pre-wrap">
+          <div className="flex-1 p-3 overflow-y-auto text-[15px] font-sans leading-relaxed text-[#ffffff] select-text custom-scrollbar whitespace-pre-wrap">
             {record.source.replace(/\\r\\n/g, '\n').replace(/\\n/g, '\n')}
           </div>
 
           {/* Liste des balises détectées dans la source */}
           {sourceTags.length > 0 && (
-            <div className="px-3 py-1.5 bg-[#181818] border-t border-[#2e2e2e] flex items-center space-x-1.5 overflow-x-auto text-[11px]">
+            <div className="px-3 py-1.5 bg-[#181818] border-t border-[#2e2e2e] flex items-center space-x-1.5 overflow-x-auto text-[13px]">
               <span className="text-[#666666] flex items-center space-x-1 whitespace-nowrap">
                 <Code2 className="w-3 h-3" />
                 <span>Balises :</span>
@@ -246,7 +246,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
                     key={idx}
                     type="button"
                     onClick={() => handleInsertTag(tag)}
-                    className={`font-mono text-[10px] px-1.5 py-0.5 rounded border whitespace-nowrap flex items-center space-x-1 transition-colors ${
+                    className={`font-mono text-[12px] px-1.5 py-0.5 rounded border whitespace-nowrap flex items-center space-x-1 transition-colors ${
                       isPagebreak
                         ? 'bg-[#3f2a0c] hover:bg-[#3f2a0c] text-[#fbbf24] border-[#f59e0b]'
                         : 'bg-[#262626] hover:bg-[#404040] text-[#38bdf8] border-[#444444]'
@@ -266,7 +266,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
         <div className="flex-1 min-w-0 flex flex-col bg-[#1a1a1a]">
           <div className="px-3 py-1.5 bg-[#1e1e1e] border-b border-[#2e2e2e] flex items-center justify-between text-[#aaaaaa]">
             <span className="font-medium text-[#dddddd]">{t('editor.targetLabel', { lang: targetLang })}</span>
-            <div className="flex items-center space-x-2 text-[11px]">
+            <div className="flex items-center space-x-2 text-[13px]">
               <span>{targetText.length} car.</span>
               <span>•</span>
               <span>{targetWordCount} mots</span>
@@ -289,13 +289,13 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
               value={targetText}
               onChange={handleTextChange}
               placeholder={t('editor.targetPlaceholder')}
-              className="flex-1 w-full bg-[#181818] text-[#ffffff] p-2.5 rounded border border-[#333333] focus:outline-none focus:border-[#38bdf8] text-[13px] leading-relaxed resize-none custom-scrollbar"
+              className="flex-1 w-full bg-[#181818] text-[#ffffff] p-2.5 rounded border border-[#333333] focus:outline-none focus:border-[#38bdf8] text-[15px] leading-relaxed resize-none custom-scrollbar"
             />
           </div>
 
           {/* Bandeau d'alerte balises */}
           {warnings.length > 0 && (
-            <div className="px-3 py-1.5 bg-[#1e1e1e] border-t border-[#ef4444] flex items-center justify-between text-[11px] text-[#f87171]">
+            <div className="px-3 py-1.5 bg-[#1e1e1e] border-t border-[#ef4444] flex items-center justify-between text-[13px] text-[#f87171]">
               <div className="flex items-center space-x-2 truncate">
                 <AlertTriangle className="w-3.5 h-3.5 text-[#f87171] shrink-0" />
                 <span className="truncate">{warnings[0]}</span>
@@ -320,7 +320,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
 
           {/* Suggestion Dictionnaire SST / Mémoire Locale */}
           {availableSuggestion && (
-            <div className={`px-3 py-1 border-t flex items-center justify-between text-[11px] ${
+            <div className={`px-3 py-1 border-t flex items-center justify-between text-[13px] ${
               diag.isLocalLearned 
                 ? 'bg-[#222222] border-[#0369a1] text-[#38bdf8]' 
                 : 'bg-[#1e1e1e] border-[#333333] text-[#4ade80]'
@@ -335,7 +335,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
               <button
                 type="button"
                 onClick={() => handleApplyDictionary(availableSuggestion)}
-                className={`ml-2 px-2 py-0.5 rounded text-[10px] whitespace-nowrap flex items-center space-x-1 font-medium border ${
+                className={`ml-2 px-2 py-0.5 rounded text-[12px] whitespace-nowrap flex items-center space-x-1 font-medium border ${
                   diag.isLocalLearned
                     ? 'bg-[#075985] hover:bg-[#0369a1] text-[#86efac] border-[#0ea5e9]'
                     : 'bg-[#333333] hover:bg-[#444444] text-[#86efac] border-[#22c55e]'
@@ -349,7 +349,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
 
           {/* Avis informatif si la ligne est inédite au mod */}
           {!targetText && !availableSuggestion && diag.reason === 'UNSEEN_MOD_TEXT' && (
-            <div className="px-3 py-1 bg-[#181818] border-t border-[#0369a1] flex items-center justify-between text-[11px] text-[#38bdf8]">
+            <div className="px-3 py-1 bg-[#181818] border-t border-[#0369a1] flex items-center justify-between text-[13px] text-[#38bdf8]">
               <div className="flex items-center space-x-1.5 truncate">
                 <Sparkles className="w-3 h-3 text-[#38bdf8] shrink-0" />
                 <span className="text-[#dddddd] font-medium">Texte inédit du mod :</span>
@@ -359,7 +359,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
                 type="button"
                 onClick={handleTranslateAiClick}
                 disabled={isTranslatingAi}
-                className="ml-2 px-2 py-0.5 bg-[#0c3a52] hover:bg-[#0c3a52] text-[#dddddd] border border-[#0369a1] rounded text-[10px] whitespace-nowrap flex items-center space-x-1"
+                className="ml-2 px-2 py-0.5 bg-[#0c3a52] hover:bg-[#0c3a52] text-[#dddddd] border border-[#0369a1] rounded text-[12px] whitespace-nowrap flex items-center space-x-1"
               >
                 <Sparkles className="w-2.5 h-2.5 text-[#38bdf8]" />
                 <span>Traduire avec Gemini</span>
@@ -379,7 +379,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
               <button
                 type="button"
                 onClick={handleChooseDict}
-                className="flex items-center space-x-1 px-1.5 py-0.5 bg-[#2c2c2c] hover:bg-[#333333] text-[#38bdf8] border border-[#444444] rounded text-[11px] max-w-[60%]"
+                className="flex items-center space-x-1 px-1.5 py-0.5 bg-[#2c2c2c] hover:bg-[#333333] text-[#38bdf8] border border-[#444444] rounded text-[13px] max-w-[60%]"
                 title={`Dictionnaires : ${xtDict}`}
               >
                 <FolderOpen className="w-3 h-3 shrink-0" />
@@ -401,13 +401,13 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
                     className="w-full text-left px-3 py-1.5 border-b border-[#262626] hover:bg-[#222222] select-text"
                     title={`${h.rec}:${h.field} — cliquer pour appliquer`}
                   >
-                    <div className="flex items-center justify-between text-[10px] text-[#666666]">
+                    <div className="flex items-center justify-between text-[12px] text-[#666666]">
                       <span className="truncate">{h.source}</span>
                       <span className={`ml-2 font-mono ${h.ld < 0.05 ? 'text-[#4ade80]' : 'text-[#fbbf24]'}`}>
                         {ldScore(h.ld)}%
                       </span>
                     </div>
-                    <div className="text-[#dddddd] text-[12px] whitespace-pre-wrap break-words">{h.dest}</div>
+                    <div className="text-[#dddddd] text-[14px] whitespace-pre-wrap break-words">{h.dest}</div>
                   </button>
                 ))}
             </div>
@@ -422,7 +422,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
           <button
             type="button"
             onClick={() => onMarkIdentical(record.id)}
-            className="flex items-center space-x-1 px-2.5 py-1 bg-[#222222] hover:bg-[#303030] text-[#38bdf8] border border-[#333333] rounded transition-colors text-[11px]"
+            className="flex items-center space-x-1 px-2.5 py-1 bg-[#222222] hover:bg-[#303030] text-[#38bdf8] border border-[#333333] rounded transition-colors text-[13px]"
             title="Conserver le texte original comme traduction (nom propre lore, commande)"
           >
             <Tag className="w-3 h-3" />
@@ -436,7 +436,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
               setTargetText('');
               onUpdateTarget(record.id, '', false);
             }}
-            className="flex items-center space-x-1 px-2 py-1 bg-[#222222] hover:bg-[#2c2c2c] text-[#aaaaaa] hover:text-white border border-[#333333] rounded transition-colors text-[11px]"
+            className="flex items-center space-x-1 px-2 py-1 bg-[#222222] hover:bg-[#2c2c2c] text-[#aaaaaa] hover:text-white border border-[#333333] rounded transition-colors text-[13px]"
             title="Effacer la traduction"
           >
             <RotateCcw className="w-3 h-3" />
@@ -449,7 +449,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
           <button
             type="button"
             onClick={() => onValidate(record.id)}
-            className="flex items-center space-x-1 px-3 py-1 bg-[#2c2c2c] hover:bg-[#333333] text-[#4ade80] border border-[#444444] rounded font-medium transition-colors text-[11px]"
+            className="flex items-center space-x-1 px-3 py-1 bg-[#2c2c2c] hover:bg-[#333333] text-[#4ade80] border border-[#444444] rounded font-medium transition-colors text-[13px]"
             title="Valider la ligne actuelle"
           >
             <Check className="w-3.5 h-3.5" />
@@ -462,7 +462,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
               onValidate(record.id);
               onNextUntranslated();
             }}
-            className="flex items-center space-x-1.5 px-3 py-1 bg-[#0369a1] hover:bg-[#0369a1] text-white rounded font-medium transition-colors text-[11px] shadow-sm"
+            className="flex items-center space-x-1.5 px-3 py-1 bg-[#0369a1] hover:bg-[#0369a1] text-white rounded font-medium transition-colors text-[13px] shadow-sm"
             title="Valider et sauter directement au prochain élément non-traduit (F10 / ⌘↵)"
           >
             <span>Valider & Suivant non-traduit</span>

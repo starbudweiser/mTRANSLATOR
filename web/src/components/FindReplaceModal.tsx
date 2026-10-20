@@ -176,7 +176,7 @@ export const FindReplaceModal: React.FC<FindReplaceModalProps> = ({
                 <div className="border border-[#2e2e2e] rounded divide-y divide-[#2e2e2e] max-h-72 overflow-y-auto select-text">
                   {preview.lines.map(({ rec, after }) => (
                     <div key={rec.id} className="p-2 space-y-0.5">
-                      <div className="text-[10px] text-[#888888] font-mono">
+                      <div className="text-[12px] text-[#888888] font-mono">
                         {rec.recordType}
                         {rec.field ? ` ${rec.field}` : ''} · {rec.formId}
                       </div>

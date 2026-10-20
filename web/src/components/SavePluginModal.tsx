@@ -327,11 +327,11 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
           <div className="bg-[#1e1e1e] border border-[#22c55e] p-3 rounded-lg flex items-start space-x-3">
             <ShieldCheck className="w-5 h-5 text-[#4ade80] shrink-0 mt-0.5" />
             <div className="space-y-1">
-              <div className="font-semibold text-[#86efac] text-[12px] flex items-center space-x-2">
+              <div className="font-semibold text-[#86efac] text-[14px] flex items-center space-x-2">
                 <span>Garantie de compatibilité & intégrité binaire Creation Engine</span>
-                <span className="bg-[#14391f] text-[#86efac] px-1.5 py-0.2 rounded text-[10px]">100% Fonctionnel</span>
+                <span className="bg-[#14391f] text-[#86efac] px-1.5 py-0.2 rounded text-[12px]">100% Fonctionnel</span>
               </div>
-              <p className="text-[#86efac]/80 text-[11px] leading-relaxed">
+              <p className="text-[#86efac]/80 text-[13px] leading-relaxed">
                 Le plugin généré conserve fidèlement l'en-tête TES4, les FormIDs, scripts, offsets et enregistrements non modifiés. Il est prêt à être placé directement dans votre dossier <code className="text-[#fde68a]">Data/</code> ou géré via Mod Organizer 2 / Vortex.
               </p>
             </div>
@@ -339,9 +339,9 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
 
           {/* SÉLECTION DU MODE DE SAUVEGARDE & ÉCRASEMENT */}
           <div className="bg-[#1e1e1e] border border-[#333333] rounded-lg p-3.5 space-y-2.5">
-            <div className="text-[11px] font-semibold text-[#dddddd] uppercase tracking-wider flex items-center justify-between">
+            <div className="text-[13px] font-semibold text-[#dddddd] uppercase tracking-wider flex items-center justify-between">
               <span>Gestion de l&apos;écrasement et des sauvegardes :</span>
-              <span className="text-[10px] text-[#38bdf8] lowercase font-normal">Fichier original : {meta.fileName}</span>
+              <span className="text-[12px] text-[#38bdf8] lowercase font-normal">Fichier original : {meta.fileName}</span>
             </div>
 
             {/* État de l'accès direct au disque */}
@@ -380,11 +380,11 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                 <div className="space-y-0.5 flex-1">
                   <div className="font-semibold text-xs text-white flex items-center space-x-2">
                     <span>Écraser le fichier original ET générer la copie de secours (backup horodaté)</span>
-                    <span className="px-1.5 py-0.2 rounded text-[9px] bg-[#0369a1]/40 text-[#bae6fd] border border-[#0369a1]">
+                    <span className="px-1.5 py-0.2 rounded text-[11px] bg-[#0369a1]/40 text-[#bae6fd] border border-[#0369a1]">
                       Recommandé
                     </span>
                   </div>
-                  <div className="text-[11px] text-[#aaaaaa] leading-tight">
+                  <div className="text-[13px] text-[#aaaaaa] leading-tight">
                     Remplace <span className="text-white font-mono">{meta.fileName}</span> par le plugin traduit (prêt pour le jeu) ET conserve une copie originale intacte <span className="text-[#fde68a] font-mono">{saveResult.backupFileName}</span>.
                   </div>
                 </div>
@@ -408,11 +408,11 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                 <div className="space-y-0.5 flex-1">
                   <div className="font-semibold text-xs text-white flex items-center space-x-2">
                     <span>Écraser directement le fichier original</span>
-                    <span className="px-1.5 py-0.2 rounded text-[9px] bg-[#404040] text-[#dddddd]">
+                    <span className="px-1.5 py-0.2 rounded text-[11px] bg-[#404040] text-[#dddddd]">
                       Nom d&apos;origine exact
                     </span>
                   </div>
-                  <div className="text-[11px] text-[#aaaaaa] leading-tight">
+                  <div className="text-[13px] text-[#aaaaaa] leading-tight">
                     Écrase le fichier sous son nom exact <span className="text-white font-mono">{meta.fileName}</span> pour remplacer directement le mod dans votre répertoire de jeu sans copie de secours.
                   </div>
                 </div>
@@ -437,7 +437,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                   <div className="font-semibold text-xs text-white flex items-center space-x-1.5">
                     <span>Enregistrer uniquement la copie de sauvegarde horodatée</span>
                   </div>
-                  <div className="text-[11px] text-[#aaaaaa] leading-tight">
+                  <div className="text-[13px] text-[#aaaaaa] leading-tight">
                     Enregistre uniquement la version de réserve originale <span className="text-[#fde68a] font-mono">{saveResult.backupFileName}</span>.
                   </div>
                 </div>
@@ -489,12 +489,12 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                   onChange={(e) => setAutoFeedDictionary(e.target.checked)}
                   className="accent-[#0ea5e9] w-4 h-4 rounded cursor-pointer"
                 />
-                <span className="font-semibold text-white text-[12px] flex items-center space-x-1.5">
+                <span className="font-semibold text-white text-[14px] flex items-center space-x-1.5">
                   <span>Auto-alimenter la base de dictionnaire locale</span>
-                  <span className="text-[#38bdf8] text-[9px] bg-[#0c3a52] px-1.5 py-0.2 rounded border border-[#0369a1]/40">Scan prioritaire</span>
+                  <span className="text-[#38bdf8] text-[11px] bg-[#0c3a52] px-1.5 py-0.2 rounded border border-[#0369a1]/40">Scan prioritaire</span>
                 </span>
               </label>
-              <p className="text-[#aaaaaa] text-[11px] leading-relaxed pl-6">
+              <p className="text-[#aaaaaa] text-[13px] leading-relaxed pl-6">
                 Ajoute automatiquement toutes les chaînes traduites ({saveResult.stats.translatedCount} entrées) à votre dictionnaire local persistant. Elles seront scannées en priorité lors de vos prochaines traductions.
               </p>
             </div>
@@ -502,7 +502,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
 
           {/* Aperçu des fichiers à écrire */}
           <div className="space-y-1.5">
-            <div className="text-[11px] font-semibold text-[#aaaaaa] uppercase tracking-wider px-1">
+            <div className="text-[13px] font-semibold text-[#aaaaaa] uppercase tracking-wider px-1">
               Aperçu des fichiers :
             </div>
 
@@ -517,7 +517,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                     <div className="font-mono text-white text-xs font-semibold">
                       {effectiveTranslatedName}
                     </div>
-                    <div className="text-[10px] text-[#aaaaaa] flex items-center space-x-1.5">
+                    <div className="text-[12px] text-[#aaaaaa] flex items-center space-x-1.5">
                       <span className="text-[#4ade80] font-medium">Plugin traduit prêt à jouer</span>
                       <span>•</span>
                       <span>{saveResult.stats.translatedCount} modif.</span>
@@ -547,7 +547,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                       onSaveSuccess(`${methodMsg}${dictMsg}`);
                     }
                   }}
-                  className="px-2 py-1 bg-[#262626] hover:bg-[#333333] text-[#38bdf8] border border-[#444444] rounded flex items-center space-x-1 transition-colors text-[11px]"
+                  className="px-2 py-1 bg-[#262626] hover:bg-[#333333] text-[#38bdf8] border border-[#444444] rounded flex items-center space-x-1 transition-colors text-[13px]"
                   title="Enregistrer / Écraser ce fichier"
                 >
                   <Download className="w-3 h-3" />
@@ -565,7 +565,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                   </div>
                   <div>
                     <div className="font-mono text-[#fde68a] text-xs font-semibold">{saveResult.backupFileName}</div>
-                    <div className="text-[10px] text-[#aaaaaa] flex items-center space-x-1.5">
+                    <div className="text-[12px] text-[#aaaaaa] flex items-center space-x-1.5">
                       <span className="text-[#fbbf24] font-medium">Copie originale avant traduction</span>
                       <span>•</span>
                       <span>Horodaté : {saveResult.timestamp}</span>
@@ -582,7 +582,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                       onSaveSuccess(`Copie de secours (backup horodaté) enregistrée : ${saveResult.backupFileName}`);
                     }
                   }}
-                  className="px-2 py-1 bg-[#262626] hover:bg-[#333333] text-[#fbbf24] border border-[#444444] rounded flex items-center space-x-1 transition-colors text-[11px]"
+                  className="px-2 py-1 bg-[#262626] hover:bg-[#333333] text-[#fbbf24] border border-[#444444] rounded flex items-center space-x-1 transition-colors text-[13px]"
                   title="Enregistrer la copie de secours seule"
                 >
                   <Download className="w-3 h-3" />

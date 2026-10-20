@@ -273,7 +273,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
             <span className="font-semibold text-white">
               Traduction automatique
             </span>
-            <span className="px-2 py-0.5 rounded-full bg-[#0369a1]/20 text-[#38bdf8] text-[10px] font-mono border border-[#0369a1]/40">
+            <span className="px-2 py-0.5 rounded-full bg-[#0369a1]/20 text-[#38bdf8] text-[12px] font-mono border border-[#0369a1]/40">
               {sourceLang} ➔ {targetLang}
             </span>
           </div>
@@ -300,10 +300,10 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
               <div className="flex items-center space-x-2">
                 <BookOpen className="w-4 h-4 text-[#38bdf8] shrink-0" />
                 <div>
-                  <span className="font-semibold text-[#ffffff] text-[11px] block">
+                  <span className="font-semibold text-[#ffffff] text-[13px] block">
                     Pré-passe Glossaire SST
                   </span>
-                  <span className="text-[9px] text-[#aaaaaa] block">
+                  <span className="text-[11px] text-[#aaaaaa] block">
                     0ms pour termes déjà connus
                   </span>
                 </div>
@@ -321,17 +321,17 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
 
             <div className="p-2.5 bg-[#181818] border border-[#2e2e2e] rounded flex items-center justify-between">
               <div>
-                <span className="font-semibold text-[#ffffff] text-[11px] block">
+                <span className="font-semibold text-[#ffffff] text-[13px] block">
                   Budget adaptatif
                 </span>
-                <span className="text-[9px] text-[#aaaaaa] block">
+                <span className="text-[11px] text-[#aaaaaa] block">
                   Spécial gros mods &amp; livres
                 </span>
               </div>
               <select
                 value={batchSize}
                 onChange={(e) => setBatchSize(Number(e.target.value))}
-                className="bg-[#222222] border border-[#444444] rounded px-2 py-1 text-[#ffffff] text-[11px] outline-none"
+                className="bg-[#222222] border border-[#444444] rounded px-2 py-1 text-[#ffffff] text-[13px] outline-none"
               >
                 <option value={80}>Adaptatif (Recommandé)</option>
                 <option value={50}>Prudent (Livres volumineux)</option>
@@ -344,10 +344,10 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
           <div className="p-2.5 bg-[#181818] border border-[#2e2e2e] rounded flex items-start space-x-2.5">
             <ShieldAlert className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
             <div className="space-y-1">
-              <span className="font-semibold text-[#ffffff] text-[11px] block">
+              <span className="font-semibold text-[#ffffff] text-[13px] block">
                 Protection stricte des balises Bethesda &amp; Livres
               </span>
-              <p className="text-[10px] text-[#aaaaaa] leading-relaxed">
+              <p className="text-[12px] text-[#aaaaaa] leading-relaxed">
                 Préservation garantie des balises <code className="text-[#38bdf8]">&lt;Alias=...&gt;</code>,
                 variables <code className="text-[#38bdf8]">%s, %d</code> et verrouillage absolu du mot-clé de pagination{' '}
                 <code className="bg-[#3f2a0c] text-[#fde68a] px-1 py-0.2 rounded font-mono">[pagebreak]</code>.
@@ -371,7 +371,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
                 }`}
               >
                 <span className="font-semibold block truncate">Toutes</span>
-                <span className="text-[9px] text-[#666666]">{untranslatedRecords.length} élément(s)</span>
+                <span className="text-[11px] text-[#666666]">{untranslatedRecords.length} élément(s)</span>
               </button>
 
               <button
@@ -384,7 +384,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
                 }`}
               >
                 <span className="font-semibold block truncate">50 premières</span>
-                <span className="text-[9px] text-[#666666]">Échantillon</span>
+                <span className="text-[11px] text-[#666666]">Échantillon</span>
               </button>
 
               <button
@@ -397,7 +397,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
                 }`}
               >
                 <span className="font-semibold block truncate">100 premières</span>
-                <span className="text-[9px] text-[#666666]">Lot moyen</span>
+                <span className="text-[11px] text-[#666666]">Lot moyen</span>
               </button>
 
               <button
@@ -410,13 +410,13 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
                 }`}
               >
                 <span className="font-semibold block truncate">250 premières</span>
-                <span className="text-[9px] text-[#666666]">Gros volume</span>
+                <span className="text-[11px] text-[#666666]">Gros volume</span>
               </button>
             </div>
           </div>
 
           {/* Profil de jeu */}
-          <div className="flex items-center justify-between p-2 bg-[#181818] border border-[#2e2e2e] rounded text-[11px]">
+          <div className="flex items-center justify-between p-2 bg-[#181818] border border-[#2e2e2e] rounded text-[13px]">
             <span className="text-[#aaaaaa]">Univers / Contexte de jeu :</span>
             <span className="font-medium text-[#ffffff]">{game}</span>
           </div>
@@ -424,7 +424,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
           {/* Barre de progression pendant l'appel */}
           {isLoading && (
             <div className="space-y-1.5 py-1">
-              <div className="flex items-center justify-between text-[11px] text-[#aaaaaa]">
+              <div className="flex items-center justify-between text-[13px] text-[#aaaaaa]">
                 <span className="flex items-center space-x-1.5">
                   <RefreshCw className="w-3.5 h-3.5 text-[#fbbf24] animate-spin" />
                   <span>{statusText}</span>
@@ -442,7 +442,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
 
           {/* Message de succès */}
           {resultMessage && (
-            <div className="p-2.5 bg-[#262626] border border-[#22c55e] rounded text-[#86efac] flex items-center space-x-2 text-[11px]">
+            <div className="p-2.5 bg-[#262626] border border-[#22c55e] rounded text-[#86efac] flex items-center space-x-2 text-[13px]">
               <CheckCircle2 className="w-4 h-4 text-[#4ade80] shrink-0" />
               <span>{resultMessage}</span>
             </div>
@@ -450,7 +450,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
 
           {/* Message d'avertissement fallback */}
           {warningMessage && (
-            <div className="p-2.5 bg-[#1e1e1e] border border-[#f59e0b] rounded text-[#fbbf24] flex items-start space-x-2 text-[11px]">
+            <div className="p-2.5 bg-[#1e1e1e] border border-[#f59e0b] rounded text-[#fbbf24] flex items-start space-x-2 text-[13px]">
               <AlertTriangle className="w-4 h-4 text-[#fbbf24] shrink-0 mt-0.5" />
               <div className="space-y-0.5">
                 <span className="font-semibold block">Mode Secours Actif</span>
@@ -461,7 +461,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
 
           {/* Message d'erreur */}
           {error && (
-            <div className="p-2.5 bg-[#1e1e1e] border border-[#ef4444] rounded text-[#fecaca] flex items-start space-x-2 text-[11px]">
+            <div className="p-2.5 bg-[#1e1e1e] border border-[#ef4444] rounded text-[#fecaca] flex items-start space-x-2 text-[13px]">
               <AlertCircle className="w-4 h-4 text-[#f87171] shrink-0 mt-0.5" />
               <div className="space-y-0.5">
                 <span className="font-semibold block">Erreur de traduction</span>

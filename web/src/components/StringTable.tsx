@@ -120,7 +120,7 @@ export const StringTable: React.FC<StringTableProps> = ({
             return (
               <span
                 key={index}
-                className="bg-[#3f2a0c] text-[#fbbf24] font-mono font-semibold text-[10px] px-1.5 py-0.5 rounded border border-[#f59e0b] mx-1 inline-flex items-center space-x-1"
+                className="bg-[#3f2a0c] text-[#fbbf24] font-mono font-semibold text-[12px] px-1.5 py-0.5 rounded border border-[#f59e0b] mx-1 inline-flex items-center space-x-1"
                 title="Saut de page de livre Bethesda (Ne jamais traduire !)"
               >
                 <span>📖</span>
@@ -132,7 +132,7 @@ export const StringTable: React.FC<StringTableProps> = ({
             return (
               <span
                 key={index}
-                className="bg-[#262626] text-[#38bdf8] font-mono text-[10px] px-1 py-0.5 rounded border border-[#444444] mx-0.5 inline-block"
+                className="bg-[#262626] text-[#38bdf8] font-mono text-[12px] px-1 py-0.5 rounded border border-[#444444] mx-0.5 inline-block"
                 title="Balise de jeu préservée"
               >
                 {part}
@@ -143,7 +143,7 @@ export const StringTable: React.FC<StringTableProps> = ({
             return (
               <span
                 key={index}
-                className="bg-[#0c3a52] text-[#38bdf8] font-mono text-[10px] px-1 py-0.5 rounded border border-[#0369a1] mx-0.5 inline-block"
+                className="bg-[#0c3a52] text-[#38bdf8] font-mono text-[12px] px-1 py-0.5 rounded border border-[#0369a1] mx-0.5 inline-block"
                 title="Spécificateur de variable C/Papyrus"
               >
                 {part}
@@ -154,7 +154,7 @@ export const StringTable: React.FC<StringTableProps> = ({
             return (
               <span
                 key={index}
-                className="text-[#fbbf24] font-mono text-[10px] opacity-70 px-0.5"
+                className="text-[#fbbf24] font-mono text-[12px] opacity-70 px-0.5"
                 title="Saut de ligne"
               >
                 ↵
@@ -256,7 +256,7 @@ export const StringTable: React.FC<StringTableProps> = ({
     <div className="flex-1 flex flex-col overflow-hidden bg-[#181818]">
       {/* Barre d'explication / indicateurs de statut pour les lignes non traduites */}
       {untranslatedCount > 0 && !simple && (
-        <div className="bg-[#181818] border-b border-[#2e2e2e] px-3 py-1.5 flex items-center justify-between text-[11px] text-[#aaaaaa]">
+        <div className="bg-[#181818] border-b border-[#2e2e2e] px-3 py-1.5 flex items-center justify-between text-[13px] text-[#aaaaaa]">
           <div className="flex items-center space-x-2 flex-wrap">
             <span className="text-[#dddddd] font-medium flex items-center space-x-1">
               <span className="w-2 h-2 rounded-full bg-[#ef4444] inline-block" />
@@ -330,12 +330,12 @@ export const StringTable: React.FC<StringTableProps> = ({
             <button
               type="button"
               onClick={() => setShowDiagnosticHelp(false)}
-              className="text-[#aaaaaa] hover:text-white text-[11px]"
+              className="text-[#aaaaaa] hover:text-white text-[13px]"
             >
               Fermer ✕
             </button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-[11px] leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-[13px] leading-relaxed">
             <div className="p-2 rounded bg-[#181818] border border-[#2e2e2e]">
               <span className="font-semibold text-[#4ade80] block mb-1">📖 1. Correspondance SST exacte (100%)</span>
               <p className="text-[#aaaaaa]">
@@ -376,7 +376,7 @@ export const StringTable: React.FC<StringTableProps> = ({
             <col className={simple ? 'w-[calc(50%-1.25rem)]' : 'w-[calc(50%-10rem)]'} />
             <col className={simple ? 'w-[calc(50%-1.25rem)]' : 'w-[calc(50%-10rem)]'} />
           </colgroup>
-          <thead className="sticky top-0 z-10 bg-[#1e1e1e] border-b border-[#333333] text-[#aaaaaa] text-[11px] font-semibold tracking-wider uppercase">
+          <thead className="sticky top-0 z-10 bg-[#1e1e1e] border-b border-[#333333] text-[#aaaaaa] text-[13px] font-semibold tracking-wider uppercase">
             <tr>
               <th 
                 onClick={() => onSort('status')}
@@ -461,32 +461,32 @@ export const StringTable: React.FC<StringTableProps> = ({
 
                     {!simple && (<>
                     {/* FormID */}
-                    <td className="px-2 py-2 font-mono text-[11px] text-[#38bdf8]/90 truncate align-top">
+                    <td className="px-2 py-2 font-mono text-[13px] text-[#38bdf8]/90 truncate align-top">
                       {r.formId || '00000000'}
                     </td>
 
                     {/* Type */}
                     <td className="px-2 py-2 align-top">
-                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono border inline-block ${getTypeBadgeColor(r.recordType)}`}>
+                      <span className={`px-1.5 py-0.5 rounded text-[12px] font-mono border inline-block ${getTypeBadgeColor(r.recordType)}`}>
                         {r.recordType}
                       </span>
                     </td>
 
                     {/* EditorID */}
-                    <td className="px-2 py-2 font-mono text-[11px] text-[#aaaaaa] truncate align-top" title={r.edid}>
+                    <td className="px-2 py-2 font-mono text-[13px] text-[#aaaaaa] truncate align-top" title={r.edid}>
                       {r.edid || '—'}
                     </td>
                     </>)}
 
                     {/* Source VO */}
-                    <td className="px-3 py-2 align-top text-[12px] border-r border-[#2e2e2e]">
+                    <td className="px-3 py-2 align-top text-[14px] border-r border-[#2e2e2e]">
                       <div className="line-clamp-2 leading-relaxed text-[#dddddd]">
                         {renderHighlightedText(r.source)}
                       </div>
                     </td>
 
                     {/* Target VF & Indicateur clair de statut */}
-                    <td className="px-3 py-2 align-top text-[12px]">
+                    <td className="px-3 py-2 align-top text-[14px]">
                       <div className="leading-relaxed">
                         {r.target ? (
                           <div className="flex items-start justify-between gap-2">
@@ -494,7 +494,7 @@ export const StringTable: React.FC<StringTableProps> = ({
                               {renderHighlightedText(r.target)}
                             </div>
                             {r.status === 'identical' && (
-                              <span className="px-1.5 py-0.5 rounded text-[9px] bg-[#0c3a52] text-[#38bdf8] border border-[#0369a1] whitespace-nowrap shrink-0">
+                              <span className="px-1.5 py-0.5 rounded text-[11px] bg-[#0c3a52] text-[#38bdf8] border border-[#0369a1] whitespace-nowrap shrink-0">
                                 Identique
                               </span>
                             )}
@@ -504,7 +504,7 @@ export const StringTable: React.FC<StringTableProps> = ({
                           <div className="flex items-center space-x-2 flex-wrap gap-y-1">
                             {/* Puce / Badge de diagnostic précis */}
                             <span 
-                              className={`px-2 py-0.5 rounded text-[10px] font-medium border flex items-center space-x-1.5 shadow-sm ${diag.badgeClass}`}
+                              className={`px-2 py-0.5 rounded text-[12px] font-medium border flex items-center space-x-1.5 shadow-sm ${diag.badgeClass}`}
                               title={diag.detailedReason}
                             >
                               <span 
@@ -522,7 +522,7 @@ export const StringTable: React.FC<StringTableProps> = ({
                                   e.stopPropagation();
                                   onQuickApplySuggestion(r.id, diag.suggestion!);
                                 }}
-                                className="px-2 py-0.5 bg-[#222222] hover:bg-[#333333] text-[#4ade80] border border-[#444444] rounded text-[10px] flex items-center space-x-1 transition-colors group shadow-sm"
+                                className="px-2 py-0.5 bg-[#222222] hover:bg-[#333333] text-[#4ade80] border border-[#444444] rounded text-[12px] flex items-center space-x-1 transition-colors group shadow-sm"
                                 title={`Cliquer pour appliquer la correspondance SST : « ${diag.suggestion} »`}
                               >
                                 <Zap className="w-2.5 h-2.5 text-[#4ade80] group-hover:scale-110 transition-transform" />
@@ -532,7 +532,7 @@ export const StringTable: React.FC<StringTableProps> = ({
                               </button>
                             ) : (
                               <span 
-                                className="text-[#666666] italic text-[11px] truncate max-w-[280px]" 
+                                className="text-[#666666] italic text-[13px] truncate max-w-[280px]" 
                                 title={diag.detailedReason}
                               >
                                 {diag.reason === 'UNSEEN_MOD_TEXT' 
@@ -556,7 +556,7 @@ export const StringTable: React.FC<StringTableProps> = ({
       {records.length > 50 && (
         <div className="bg-[#1a1a1a] border-t border-[#333333] px-3 py-1.5 flex items-center justify-between text-xs text-[#aaaaaa] shrink-0">
           <div className="flex items-center space-x-2">
-            <span className="text-[11px]">
+            <span className="text-[13px]">
               Lignes <strong className="text-white">{pageSize > 0 ? currentPage * pageSize + 1 : 1}</strong> à <strong className="text-white">{pageSize > 0 ? Math.min((currentPage + 1) * pageSize, records.length) : records.length}</strong> sur <strong className="text-white">{records.length.toLocaleString()}</strong>
             </span>
           </div>
@@ -581,7 +581,7 @@ export const StringTable: React.FC<StringTableProps> = ({
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
-              <span className="px-2 py-0.5 font-medium text-white bg-[#181818] border border-[#333333] rounded text-[11px]">
+              <span className="px-2 py-0.5 font-medium text-white bg-[#181818] border border-[#333333] rounded text-[13px]">
                 Page {currentPage + 1} / {totalPages}
               </span>
               <button
@@ -606,7 +606,7 @@ export const StringTable: React.FC<StringTableProps> = ({
           )}
 
           <div className="flex items-center space-x-2">
-            <span className="text-[11px] text-[#666666]">Affichage :</span>
+            <span className="text-[13px] text-[#666666]">Affichage :</span>
             <select
               value={pageSize}
               onChange={(e) => {
@@ -614,7 +614,7 @@ export const StringTable: React.FC<StringTableProps> = ({
                 setPageSize(val);
                 setCurrentPage(0);
               }}
-              className="bg-[#181818] border border-[#333333] rounded px-2 py-0.5 text-[11px] text-[#dddddd] focus:outline-none focus:border-[#38bdf8]"
+              className="bg-[#181818] border border-[#333333] rounded px-2 py-0.5 text-[13px] text-[#dddddd] focus:outline-none focus:border-[#38bdf8]"
             >
               <option value={50}>50 par page</option>
               <option value={100}>100 par page</option>

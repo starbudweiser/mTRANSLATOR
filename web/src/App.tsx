@@ -1335,12 +1335,12 @@ export default function App() {
 
           {/* Barre de statut macOS inférieure */}
           {simpleMode ? (
-          <div className="h-7 bg-[#181818] border-t border-[#2e2e2e] px-4 flex items-center justify-between text-[11px] text-[#aaaaaa]">
+          <div className="h-7 bg-[#181818] border-t border-[#2e2e2e] px-4 flex items-center justify-between text-[13px] text-[#aaaaaa]">
             <span>{stats.translated} traduites sur {stats.total} · {stats.untranslated} à traduire</span>
             <span>F10 : valider et passer à la suivante · ⌘S : enregistrer</span>
           </div>
           ) : (
-          <div className="h-6 bg-[#181818] border-t border-[#2e2e2e] px-3 flex items-center justify-between text-[10px] text-[#666666]">
+          <div className="h-6 bg-[#181818] border-t border-[#2e2e2e] px-3 flex items-center justify-between text-[12px] text-[#666666]">
             <div className="flex items-center space-x-3">
               <span className="flex items-center space-x-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />

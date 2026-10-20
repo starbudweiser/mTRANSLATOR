@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/* Tailles de texte Tailwind augmentées de 2 px pour la lisibilité */
+@theme {
+  --text-xs: 14px;
+  --text-sm: 16px;
+  --text-base: 18px;
+  --text-lg: 20px;
+  --text-xl: 22px;
+  --text-3xl: 32px;
+  --text-4xl: 38px;
+}
+
 @layer base {
   * {
     border-color: #333333;

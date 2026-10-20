@@ -49,7 +49,7 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
       }`}
     >
       {/* Contenu central exactement comme conçu par Codex */}
-      <div className="flex flex-col items-center text-center max-w-lg">
+      <div className="flex flex-col items-center text-center max-w-xl">
         {/* Grand logo Livre avec lettre A dorée/ambrée */}
         <div className="mb-4 relative group">
           <BookLogo size={68} className="text-[#fbbf24] drop-shadow-lg transition-transform group-hover:scale-105 duration-200" />
@@ -59,7 +59,7 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
         <h1 className="text-3xl font-bold text-white tracking-tight mb-1">
           mTRANSLATOR
         </h1>
-        <span className="text-[12px] text-[#fbbf24] mb-3">{t('welcome.badge')}</span>
+        <span className="text-[14px] text-[#fbbf24] mb-3">{t('welcome.badge')}</span>
 
         {/* Sous-titre officiel Codex */}
         <p className="text-sm text-[#aaaaaa] mb-7 leading-relaxed">
@@ -93,7 +93,7 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
 
         {/* Raccourcis pour charger un échantillon de mod pour tester immédiatement */}
         <div className="mt-10 pt-6 border-t border-[#2e2e2e] w-full flex flex-col items-center">
-          <span className="text-[11px] text-[#666666] mb-2.5 flex items-center space-x-1">
+          <span className="text-[13px] text-[#666666] mb-2.5 flex items-center space-x-1">
             <Sparkles className="w-3 h-3 text-[#fbbf24]" />
             <span>{t('welcome.samplePrompt')}</span>
           </span>
@@ -137,7 +137,7 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
         <button
           type="button"
           onClick={onOpenAbout}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[12px] text-[#aaaaaa] hover:text-white underline underline-offset-2 flex items-center gap-1"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[14px] text-[#aaaaaa] hover:text-white underline underline-offset-2 flex items-center gap-1"
         >
           <Info className="w-3.5 h-3.5 text-[#38bdf8]" />
           <span>{t('app.about')}</span>

@@ -121,9 +121,9 @@ export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div className="bg-[#181818] border border-[#2e2e2e] p-3 rounded-lg flex items-center justify-between">
           <div>
-            <div className="text-[10px] uppercase font-semibold text-[#aaaaaa] tracking-wider">Entrées auto-apprises</div>
+            <div className="text-[12px] uppercase font-semibold text-[#aaaaaa] tracking-wider">Entrées auto-apprises</div>
             <div className="text-xl font-bold text-[#38bdf8] mt-0.5">{stats.userLearnedEntries.toLocaleString()}</div>
-            <div className="text-[10px] text-[#aaaaaa] mt-0.5">Alimentées en local</div>
+            <div className="text-[12px] text-[#aaaaaa] mt-0.5">Alimentées en local</div>
           </div>
           <div className="w-9 h-9 rounded-lg bg-[#0369a1]/20 border border-[#0369a1]/40 flex items-center justify-center text-[#38bdf8]">
             <Sparkles className="w-4 h-4" />
@@ -132,9 +132,9 @@ export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({
 
         <div className="bg-[#181818] border border-[#2e2e2e] p-3 rounded-lg flex items-center justify-between">
           <div>
-            <div className="text-[10px] uppercase font-semibold text-[#aaaaaa] tracking-wider">Total de la Base Locale</div>
+            <div className="text-[12px] uppercase font-semibold text-[#aaaaaa] tracking-wider">Total de la Base Locale</div>
             <div className="text-xl font-bold text-[#4ade80] mt-0.5">{stats.totalEntries.toLocaleString()}</div>
-            <div className="text-[10px] text-[#aaaaaa] mt-0.5">Scannées en premier</div>
+            <div className="text-[12px] text-[#aaaaaa] mt-0.5">Scannées en premier</div>
           </div>
           <div className="w-9 h-9 rounded-lg bg-[#22c55e]/20 border border-[#22c55e]/40 flex items-center justify-center text-[#4ade80]">
             <Database className="w-4 h-4" />
@@ -143,11 +143,11 @@ export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({
 
         <div className="bg-[#181818] border border-[#2e2e2e] p-3 rounded-lg flex items-center justify-between">
           <div>
-            <div className="text-[10px] uppercase font-semibold text-[#aaaaaa] tracking-wider">Dernière mise à jour</div>
+            <div className="text-[12px] uppercase font-semibold text-[#aaaaaa] tracking-wider">Dernière mise à jour</div>
             <div className="text-xs font-semibold text-[#dddddd] mt-1">
               {stats.lastUpdated !== 'Jamais' ? new Date(stats.lastUpdated).toLocaleDateString('fr-FR', { hour: '2-digit', minute: '2-digit' }) : 'Prête'}
             </div>
-            <div className="text-[10px] text-[#aaaaaa] mt-0.5">Persistance locale active</div>
+            <div className="text-[12px] text-[#aaaaaa] mt-0.5">Persistance locale active</div>
           </div>
           <div className="w-9 h-9 rounded-lg bg-[#0369a1]/20 border border-[#0369a1]/40 flex items-center justify-center text-[#38bdf8]">
             <RefreshCw className="w-4 h-4" />
@@ -214,7 +214,7 @@ export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({
 
       {/* Message de scan de dossier */}
       {folderScanStatus && (
-        <div className="p-3 bg-[#222222] border border-[#22c55e] rounded-lg text-[11px] text-[#86efac] flex items-center justify-between">
+        <div className="p-3 bg-[#222222] border border-[#22c55e] rounded-lg text-[13px] text-[#86efac] flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <CheckCircle2 className="w-4 h-4 text-[#4ade80] shrink-0" />
             <span>{folderScanStatus}</span>
@@ -246,8 +246,8 @@ export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({
                 className="mt-0.5 accent-[#0ea5e9] w-4 h-4 rounded cursor-pointer"
               />
               <div>
-                <div className="font-medium text-white text-[11px]">Scanner le dictionnaire local en premier</div>
-                <div className="text-[10px] text-[#aaaaaa]">
+                <div className="font-medium text-white text-[13px]">Scanner le dictionnaire local en premier</div>
+                <div className="text-[12px] text-[#aaaaaa]">
                   Priorité absolue à vos traductions locales sauvegardées sur les lexiques Bethesda généraux.
                 </div>
               </div>
@@ -261,8 +261,8 @@ export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({
                 className="mt-0.5 accent-[#0ea5e9] w-4 h-4 rounded cursor-pointer"
               />
               <div>
-                <div className="font-medium text-white text-[11px]">Auto-apprendre lors de la sauvegarde de plugin</div>
-                <div className="text-[10px] text-[#aaaaaa]">
+                <div className="font-medium text-white text-[13px]">Auto-apprendre lors de la sauvegarde de plugin</div>
+                <div className="text-[12px] text-[#aaaaaa]">
                   Alimente automatiquement la base avec toutes les chaînes traduites lors de chaque export ou sauvegarde d'ESP/ESM.
                 </div>
               </div>
@@ -276,8 +276,8 @@ export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({
                 className="mt-0.5 accent-[#0ea5e9] w-4 h-4 rounded cursor-pointer"
               />
               <div>
-                <div className="font-medium text-white text-[11px]">Auto-apprendre lors des exports SST / TXT</div>
-                <div className="text-[10px] text-[#aaaaaa]">
+                <div className="font-medium text-white text-[13px]">Auto-apprendre lors des exports SST / TXT</div>
+                <div className="text-[12px] text-[#aaaaaa]">
                   Intègre systématiquement le dictionnaire exporté à votre base locale permanente.
                 </div>
               </div>
@@ -291,8 +291,8 @@ export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({
                 className="mt-0.5 accent-[#0ea5e9] w-4 h-4 rounded cursor-pointer"
               />
               <div>
-                <div className="font-medium text-white text-[11px]">Auto-apprendre à chaque validation de ligne (F10)</div>
-                <div className="text-[10px] text-[#aaaaaa]">
+                <div className="font-medium text-white text-[13px]">Auto-apprendre à chaque validation de ligne (F10)</div>
+                <div className="text-[12px] text-[#aaaaaa]">
                   Enregistre instantanément la traduction saisie dès qu'elle est validée.
                 </div>
               </div>
@@ -314,7 +314,7 @@ export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({
               className="w-full bg-[#181818] border border-[#2e2e2e] rounded pl-8 pr-3 py-1.5 text-white text-xs focus:border-[#38bdf8] focus:outline-none"
             />
           </div>
-          <span className="text-[11px] text-[#aaaaaa] shrink-0">
+          <span className="text-[13px] text-[#aaaaaa] shrink-0">
             {filteredEntries.length} entrée(s) trouvée(s)
           </span>
         </div>
@@ -325,13 +325,13 @@ export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({
             <div className="p-8 text-center text-[#666666]">
               <Database className="w-8 h-8 mx-auto mb-2 opacity-40" />
               <div className="text-xs text-[#aaaaaa]">Aucune entrée apprise trouvée.</div>
-              <p className="text-[11px] text-[#666666] mt-1">
+              <p className="text-[13px] text-[#666666] mt-1">
                 La base s'alimentera automatiquement au fil de vos traductions validées, de vos sauvegardes de plugins ou en scannant un dossier de fichiers SST.
               </p>
             </div>
           ) : (
             <table className="w-full text-left text-xs border-collapse">
-              <thead className="bg-[#1a1a1a] text-[#aaaaaa] border-b border-[#2e2e2e] sticky top-0 z-10 text-[10.5px]">
+              <thead className="bg-[#1a1a1a] text-[#aaaaaa] border-b border-[#2e2e2e] sticky top-0 z-10 text-[12.5px]">
                 <tr>
                   <th className="p-2.5 font-medium">Texte VO (Source)</th>
                   <th className="p-2.5 font-medium">Traduction VF Locale</th>
@@ -342,13 +342,13 @@ export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({
               <tbody className="divide-y divide-[#2e2e2e]">
                 {filteredEntries.slice(0, 150).map((entry, idx) => (
                   <tr key={idx} className="hover:bg-[#1e1e1e] transition-colors">
-                    <td className="p-2.5 font-mono text-[#dddddd] text-[11px] max-w-[280px] truncate" title={entry.source}>
+                    <td className="p-2.5 font-mono text-[#dddddd] text-[13px] max-w-[280px] truncate" title={entry.source}>
                       {entry.source}
                     </td>
-                    <td className="p-2.5 text-[#86efac] text-[11px] max-w-[280px] truncate" title={entry.target}>
+                    <td className="p-2.5 text-[#86efac] text-[13px] max-w-[280px] truncate" title={entry.target}>
                       {entry.target}
                     </td>
-                    <td className="p-2.5 text-[10px] text-[#aaaaaa]">
+                    <td className="p-2.5 text-[12px] text-[#aaaaaa]">
                       <span className="px-1.5 py-0.5 rounded bg-[#262626] text-[#38bdf8] border border-[#0ea5e9]/30">
                         {entry.origin === 'save_plugin' ? 'Sauvegarde' : entry.origin === 'sst_import' ? 'Scan SST' : entry.origin === 'validation' ? 'Validation' : 'Auto'}
                       </span>

@@ -35,7 +35,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
             <div className="flex-1 min-w-0">
               <div className="flex items-center space-x-2">
                 <h2 className="text-base font-bold text-white tracking-tight">mTRANSLATOR</h2>
-                <span className="px-1.5 py-0.5 bg-[#0369a1] text-[#ffffff] text-[10px] font-mono rounded font-semibold">
+                <span className="px-1.5 py-0.5 bg-[#0369a1] text-[#ffffff] text-[12px] font-mono rounded font-semibold">
                   v2.5 macOS
                 </span>
               </div>
@@ -46,7 +46,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
           </div>
 
           {/* Section Genèse & Remerciements */}
-          <div className="p-3.5 bg-[#1a1a1a] border border-[#2e2e2e] rounded-md space-y-2 text-[12px] leading-relaxed">
+          <div className="p-3.5 bg-[#1a1a1a] border border-[#2e2e2e] rounded-md space-y-2 text-[14px] leading-relaxed">
             <div className="flex items-center space-x-2 text-white font-semibold">
               <Code2 className="w-4 h-4 text-[#38bdf8]" />
               <span>Origine & Développement</span>
@@ -65,50 +65,50 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
           {/* Fonctionnalités phares */}
           <div className="grid grid-cols-2 gap-2.5">
             <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded-md space-y-1">
-              <div className="flex items-center space-x-1.5 text-white font-medium text-[11px]">
+              <div className="flex items-center space-x-1.5 text-white font-medium text-[13px]">
                 <Layers className="w-3.5 h-3.5 text-[#38bdf8]" />
                 <span>Compatibilité Binaire Complète</span>
               </div>
-              <p className="text-[11px] text-[#aaaaaa]">
+              <p className="text-[13px] text-[#aaaaaa]">
                 Lecture et écriture native des plugins Bethesda (.ESP, .ESM, .ESL) ainsi que des tables .STRINGS, .ILSTRINGS, .DLSTRINGS.
               </p>
             </div>
 
             <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded-md space-y-1">
-              <div className="flex items-center space-x-1.5 text-white font-medium text-[11px]">
+              <div className="flex items-center space-x-1.5 text-white font-medium text-[13px]">
                 <BookOpen className="w-3.5 h-3.5 text-[#38bdf8]" />
                 <span>Dictionnaires &amp; SST XML</span>
               </div>
-              <p className="text-[11px] text-[#aaaaaa]">
+              <p className="text-[13px] text-[#aaaaaa]">
                 Import / export 100% interopérable avec les dictionnaires SST officiels xTranslator et lexiques vanilla Bethesda.
               </p>
             </div>
 
             <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded-md space-y-1">
-              <div className="flex items-center space-x-1.5 text-white font-medium text-[11px]">
+              <div className="flex items-center space-x-1.5 text-white font-medium text-[13px]">
                 <Sparkles className="w-3.5 h-3.5 text-[#fbbf24]" />
                 <span>Moteur IA Haute Vitesse</span>
               </div>
-              <p className="text-[11px] text-[#aaaaaa]">
+              <p className="text-[13px] text-[#aaaaaa]">
                 Intégration optimisée de Gemini 3.1 Flash-Lite &amp; 3.8 Flash avec préservation stricte des balises Papyrus et [pagebreak].
               </p>
             </div>
 
             <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded-md space-y-1">
-              <div className="flex items-center space-x-1.5 text-white font-medium text-[11px]">
+              <div className="flex items-center space-x-1.5 text-white font-medium text-[13px]">
                 <Cpu className="w-3.5 h-3.5 text-[#4ade80]" />
                 <span>Traitement Hors-Ligne &amp; Batch</span>
               </div>
-              <p className="text-[11px] text-[#aaaaaa]">
+              <p className="text-[13px] text-[#aaaaaa]">
                 Moteur de substitution local ultra-rapide, traitement par lots de dossiers complets de mods et export macOS autonome.
               </p>
             </div>
           </div>
 
           {/* Jeux pris en charge */}
-          <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded-md text-[11px] text-[#aaaaaa] flex items-center justify-between">
+          <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded-md text-[13px] text-[#aaaaaa] flex items-center justify-between">
             <span>Univers supportés :</span>
-            <div className="flex items-center space-x-2 font-mono text-[10px] text-[#dddddd]">
+            <div className="flex items-center space-x-2 font-mono text-[12px] text-[#dddddd]">
               <span className="px-1.5 py-0.5 bg-[#222222] rounded">Skyrim (LE / SE / VR)</span>
               <span className="px-1.5 py-0.5 bg-[#222222] rounded">Fallout 4</span>
               <span className="px-1.5 py-0.5 bg-[#222222] rounded">Starfield</span>
@@ -119,7 +119,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
 
         {/* Pied de page */}
         <div className="h-12 bg-[#1a1a1a] border-t border-[#2e2e2e] px-4 flex items-center justify-between">
-          <div className="flex items-center space-x-1 text-[#666666] text-[11px]">
+          <div className="flex items-center space-x-1 text-[#666666] text-[13px]">
             <span>Créé avec passion pour la communauté de modding francophone.</span>
           </div>
           <button

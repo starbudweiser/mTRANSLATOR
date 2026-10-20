@@ -124,7 +124,7 @@ Généré par mTRANSLATOR Edition (Style Fusion Dossier)
           </div>
 
           {/* Métriques de mots et alertes */}
-          <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded space-y-2 text-[11px]">
+          <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded space-y-2 text-[13px]">
             <div className="flex justify-between py-1 border-b border-[#2e2e2e]">
               <span className="text-[#aaaaaa]">Total d&apos;enregistrements :</span>
               <span className="font-mono font-medium text-white">{stats.total}</span>

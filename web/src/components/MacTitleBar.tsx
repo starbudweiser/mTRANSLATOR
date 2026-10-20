@@ -82,10 +82,10 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
             className="text-left flex items-center space-x-2 hover:opacity-90 transition-opacity"
             title={t('app.aboutTitle')}
           >
-            <span className="font-bold text-white text-[13px] tracking-tight">
+            <span className="font-bold text-white text-[15px] tracking-tight">
               {t('app.title')}
             </span>
-            <span className="text-[12px] text-[#aaaaaa]">
+            <span className="text-[14px] text-[#aaaaaa]">
               {t('app.subtitle')}
             </span>
           </button>
@@ -95,7 +95,7 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
         <div className="flex items-center space-x-3 shrink-0">
           {/* Commutateur Simple / Expert */}
           <div
-            className="flex items-center bg-[#222222] border border-[#333333] rounded-md p-0.5 text-[11px]"
+            className="flex items-center bg-[#222222] border border-[#333333] rounded-md p-0.5 text-[13px]"
             role="group"
             aria-label="Mode d'affichage"
             title="Simple : l'essentiel pour traduire un plugin. Expert : tous les outils."
@@ -121,13 +121,13 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
                 <button
                   type="button"
                   onClick={onSave}
-                  className="text-[10px] text-[#fbbf24] bg-[#3f2a0c]/80 px-1.5 py-0.5 rounded border border-[#f59e0b] hover:bg-[#3f2a0c] transition-colors"
+                  className="text-[12px] text-[#fbbf24] bg-[#3f2a0c]/80 px-1.5 py-0.5 rounded border border-[#f59e0b] hover:bg-[#3f2a0c] transition-colors"
                   title="Cliquer pour sauvegarder (⌘S)"
                 >
                   {t('app.modified', { count: modifiedCount })}
                 </button>
               ) : (
-                <span className="text-[10px] text-[#4ade80] flex items-center space-x-1">
+                <span className="text-[12px] text-[#4ade80] flex items-center space-x-1">
                   <Check className="w-3 h-3" />
                   <span>{t('app.ready')}</span>
                 </span>
@@ -137,7 +137,7 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
               <button
                 type="button"
                 onClick={onCloseFile}
-                className="px-2 py-0.5 bg-[#222222] hover:bg-[#333333] text-[#aaaaaa] hover:text-white rounded border border-[#333333] text-[11px] transition-colors flex items-center space-x-1"
+                className="px-2 py-0.5 bg-[#222222] hover:bg-[#333333] text-[#aaaaaa] hover:text-white rounded border border-[#333333] text-[13px] transition-colors flex items-center space-x-1"
                 title="Fermer le fichier actuel et revenir à l'écran de dépôt"
               >
                 <X className="w-3 h-3" />
@@ -165,11 +165,11 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
             {isLangMenuOpen && (
               <div className="absolute right-0 top-full mt-1.5 w-64 bg-[#1e1e1e] border border-[#333333] rounded-lg shadow-2xl py-2 z-50 text-xs text-[#dddddd] animate-in fade-in slide-in-from-top-1 duration-150">
                 <div className="px-3 py-1.5 border-b border-[#2e2e2e] mb-1">
-                  <div className="flex items-center space-x-1.5 text-white font-medium text-[11px]">
+                  <div className="flex items-center space-x-1.5 text-white font-medium text-[13px]">
                     <Globe className="w-3.5 h-3.5 text-[#38bdf8]" />
                     <span>{t('app.targetLanguage')}</span>
                   </div>
-                  <p className="text-[10px] text-[#aaaaaa] mt-0.5 leading-snug">
+                  <p className="text-[12px] text-[#aaaaaa] mt-0.5 leading-snug">
                     Définit la langue cible des traductions, localise l'interface et configure les nouveaux dictionnaires SST.
                   </p>
                 </div>
@@ -194,8 +194,8 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
                         <div className="flex items-center space-x-2">
                           <span className="text-base leading-none">{lang.flag}</span>
                           <div>
-                            <span className="text-[12px]">{lang.name}</span>
-                            <span className="text-[10px] text-[#666666] ml-1.5 font-mono">({lang.code})</span>
+                            <span className="text-[14px]">{lang.name}</span>
+                            <span className="text-[12px] text-[#666666] ml-1.5 font-mono">({lang.code})</span>
                           </div>
                         </div>
                         {isSelected && <Check className="w-3.5 h-3.5 text-[#38bdf8]" />}
@@ -204,7 +204,7 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
                   })}
                 </div>
 
-                <div className="px-3 pt-2 mt-1.5 border-t border-[#2e2e2e] text-[10px] text-[#666666] flex items-center justify-between">
+                <div className="px-3 pt-2 mt-1.5 border-t border-[#2e2e2e] text-[12px] text-[#666666] flex items-center justify-between">
                   <span>Source : {sourceLang}</span>
                   <span className="text-[#38bdf8] font-mono">mTRANSLATOR</span>
                 </div>
@@ -221,13 +221,13 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
           title={meta.fileName}
         >
           <HardDrive className="w-5 h-5 text-[#38bdf8] shrink-0" />
-          <span className="text-[11px] uppercase tracking-wider text-[#7dd3fc] shrink-0">Plugin ouvert</span>
-          <span className="text-[18px] font-bold text-white truncate min-w-0">{meta.fileName}</span>
+          <span className="text-[13px] uppercase tracking-wider text-[#7dd3fc] shrink-0">Plugin ouvert</span>
+          <span className="text-[20px] font-bold text-white truncate min-w-0">{meta.fileName}</span>
           <div className="ml-auto flex items-center gap-2 shrink-0">
             <div className="w-32 h-2 bg-[#181818] rounded-full overflow-hidden border border-[#0369a1]/40">
               <div className="h-full bg-[#38bdf8] rounded-full transition-all" style={{ width: `${progress}%` }} />
             </div>
-            <span className="text-[12px] font-semibold text-[#38bdf8] w-20">{progress}% traduit</span>
+            <span className="text-[14px] font-semibold text-[#38bdf8] w-20">{progress}% traduit</span>
           </div>
         </div>
       )}

@@ -113,7 +113,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       `px-3 py-1.5 rounded transition-colors ${active ? 'bg-[#0369a1] text-white font-semibold' : 'text-[#aaaaaa] hover:text-white'}`;
     const onlyTodo = filter.status === 'untranslated' && !filter.onlyWarnings;
     return (
-      <div className="bg-[#181818] border-b border-[#2e2e2e] px-4 py-2.5 flex flex-wrap items-center gap-x-3 gap-y-2 select-none text-[13px]">
+      <div className="bg-[#181818] border-b border-[#2e2e2e] px-4 py-2.5 flex flex-wrap items-center gap-x-3 gap-y-2 select-none text-[15px]">
         <div className="flex items-center gap-2 flex-wrap">
           <button type="button" onClick={onOpenFileClick} className="flex items-center gap-2 px-4 py-2 bg-[#0369a1] text-white font-semibold rounded-md shadow-sm" title="Ouvrir un plugin (.esp, .esm, .esl) ou un fichier de chaînes">
             <Folder className="w-4 h-4" />
@@ -161,10 +161,10 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 value={filter.searchQuery}
                 onChange={(e) => onFilterChange({ ...filter, searchQuery: e.target.value })}
                 placeholder="Chercher un texte"
-                className="bg-[#181818] border border-[#333333] text-[13px] text-[#dddddd] pl-8 pr-7 py-2 rounded-md focus:border-[#0ea5e9] focus:outline-none w-40 xl:w-52 placeholder-[#666666]"
+                className="bg-[#181818] border border-[#333333] text-[15px] text-[#dddddd] pl-8 pr-7 py-2 rounded-md focus:border-[#0ea5e9] focus:outline-none w-40 xl:w-52 placeholder-[#666666]"
               />
               {filter.searchQuery && (
-                <button type="button" onClick={() => onFilterChange({ ...filter, searchQuery: '' })} className="absolute right-2 text-[#666666] hover:text-white text-[11px]">✕</button>
+                <button type="button" onClick={() => onFilterChange({ ...filter, searchQuery: '' })} className="absolute right-2 text-[#666666] hover:text-white text-[13px]">✕</button>
               )}
             </div>
           <button
@@ -175,7 +175,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           >
             <Check className="w-4 h-4" />
             <span>Valider et suivant</span>
-            <span className="text-[10px] font-mono bg-[#222222] px-1 rounded text-[#86efac]">F10</span>
+            <span className="text-[12px] font-mono bg-[#222222] px-1 rounded text-[#86efac]">F10</span>
           </button>
           </div>
         )}
@@ -184,7 +184,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   }
 
   return (
-    <div className="bg-[#181818] border-b border-[#2e2e2e] px-3 py-1.5 flex items-center justify-between gap-3 select-none text-xs">
+    <div className="bg-[#181818] border-b border-[#2e2e2e] px-3 py-1.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 whitespace-nowrap select-none text-xs">
       {/* Groupe gauche des boutons du design Codex */}
       <div className="flex items-center space-x-2">
         {/* 1. Bouton [📁 Ouvrir] bleu vif */}
@@ -218,7 +218,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               className="absolute left-0 mt-1 w-56 bg-[#1e1e1e] border border-[#333333] rounded shadow-2xl py-1 z-50 text-[#dddddd]"
               onMouseLeave={() => setShowSaveMenu(false)}
             >
-              <div className="px-3 py-1 text-[10px] font-semibold text-[#666666] uppercase tracking-wider">
+              <div className="px-3 py-1 text-[12px] font-semibold text-[#666666] uppercase tracking-wider">
                 Sauvegarde & Formats
               </div>
               <button
@@ -230,7 +230,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 className="w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between text-[#38bdf8] font-medium"
               >
                 <span>{t('toolbar.savePlugin')}</span>
-                <span className="text-[9px] bg-[#0c3a52] text-[#38bdf8] px-1.5 py-0.5 rounded border border-[#0369a1]/40">ESP</span>
+                <span className="text-[11px] bg-[#0c3a52] text-[#38bdf8] px-1.5 py-0.5 rounded border border-[#0369a1]/40">ESP</span>
               </button>
               <div className="border-t border-[#2e2e2e] my-1" />
               <button
@@ -242,7 +242,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 className="w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between"
               >
                 <span>{t('toolbar.exportSst')}</span>
-                <span className="text-[10px] text-[#aaaaaa]">.sst</span>
+                <span className="text-[12px] text-[#aaaaaa]">.sst</span>
               </button>
               <button
                 type="button"
@@ -253,7 +253,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 className="w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between"
               >
                 <span>{t('toolbar.exportTxt')}</span>
-                <span className="text-[10px] text-[#aaaaaa]">.txt</span>
+                <span className="text-[12px] text-[#aaaaaa]">.txt</span>
               </button>
               <button
                 type="button"
@@ -264,7 +264,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 className="w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between"
               >
                 <span>{t('toolbar.exportCsv')}</span>
-                <span className="text-[10px] text-[#aaaaaa]">.csv</span>
+                <span className="text-[12px] text-[#aaaaaa]">.csv</span>
               </button>
               <button
                 type="button"
@@ -275,7 +275,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 className="w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between"
               >
                 <span>{t('toolbar.exportJson')}</span>
-                <span className="text-[10px] text-[#aaaaaa]">.json</span>
+                <span className="text-[12px] text-[#aaaaaa]">.json</span>
               </button>
               <div className="border-t border-[#2e2e2e] my-1" />
               <button
@@ -287,7 +287,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 className="w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between"
               >
                 <span>{t('toolbar.exportXml')}</span>
-                <span className="text-[10px] text-[#aaaaaa]">.xml</span>
+                <span className="text-[12px] text-[#aaaaaa]">.xml</span>
               </button>
               <button
                 type="button"
@@ -298,7 +298,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 className="w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between"
               >
                 <span>{t('toolbar.importXml')}</span>
-                <span className="text-[10px] text-[#aaaaaa]">.xml</span>
+                <span className="text-[12px] text-[#aaaaaa]">.xml</span>
               </button>
             </div>
           )}
@@ -336,15 +336,15 @@ export const Toolbar: React.FC<ToolbarProps> = ({
           <BookMarked className="w-3.5 h-3.5 text-[#fbbf24]" />
           <span>{t('toolbar.dictionaries')}</span>
           {localStats.totalEntries === 0 ? (
-            <span className="px-1.5 py-0.2 rounded-full bg-[#262626] text-[#aaaaaa] text-[9px] font-mono border border-[#444444]">
+            <span className="px-1.5 py-0.2 rounded-full bg-[#262626] text-[#aaaaaa] text-[11px] font-mono border border-[#444444]">
               0
             </span>
           ) : localStats.userLearnedEntries > 0 ? (
-            <span className="px-1.5 py-0.2 rounded-full bg-[#0369a1]/30 text-[#38bdf8] text-[9px] font-mono border border-[#0369a1]/40">
+            <span className="px-1.5 py-0.2 rounded-full bg-[#0369a1]/30 text-[#38bdf8] text-[11px] font-mono border border-[#0369a1]/40">
               +{localStats.userLearnedEntries}
             </span>
           ) : (
-            <span className="px-1.5 py-0.2 rounded-full bg-[#14391f]/30 text-[#4ade80] text-[9px] font-mono border border-[#22c55e]/40">
+            <span className="px-1.5 py-0.2 rounded-full bg-[#14391f]/30 text-[#4ade80] text-[11px] font-mono border border-[#22c55e]/40">
               {localStats.totalEntries}
             </span>
           )}
@@ -368,7 +368,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               className="absolute left-0 mt-1 w-52 bg-[#1e1e1e] border border-[#333333] rounded shadow-2xl py-1 z-50 text-[#dddddd]"
               onMouseLeave={() => setShowFilterMenu(false)}
             >
-              <div className="px-3 py-1 text-[10px] font-semibold text-[#666666] uppercase tracking-wider">
+              <div className="px-3 py-1 text-[12px] font-semibold text-[#666666] uppercase tracking-wider">
                 Filtrer par statut
               </div>
               <button
@@ -380,7 +380,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                 className={`w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between ${filter.status === 'all' && !filter.onlyWarnings ? 'text-[#38bdf8] font-semibold' : ''}`}
               >
                 <span>Toutes les chaînes</span>
-                <span className="text-[10px] text-[#aaaaaa]">{stats.total}</span>
+                <span className="text-[12px] text-[#aaaaaa]">{stats.total}</span>
               </button>
               <button
                 type="button"
@@ -394,7 +394,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                   <span className="w-2 h-2 rounded-full bg-[#ef4444]" />
                   <span>Non traduit</span>
                 </span>
-                <span className="text-[10px] text-[#aaaaaa]">{stats.untranslated}</span>
+                <span className="text-[12px] text-[#aaaaaa]">{stats.untranslated}</span>
               </button>
               <button
                 type="button"
@@ -408,7 +408,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                   <span className="w-2 h-2 rounded-full bg-[#22c55e]" />
                   <span>Traduit & validé</span>
                 </span>
-                <span className="text-[10px] text-[#aaaaaa]">{stats.translated}</span>
+                <span className="text-[12px] text-[#aaaaaa]">{stats.translated}</span>
               </button>
               <button
                 type="button"
@@ -422,7 +422,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                   <span className="w-2 h-2 rounded-full bg-[#f59e0b]" />
                   <span>Partiel</span>
                 </span>
-                <span className="text-[10px] text-[#aaaaaa]">{stats.partial}</span>
+                <span className="text-[12px] text-[#aaaaaa]">{stats.partial}</span>
               </button>
               <button
                 type="button"
@@ -436,7 +436,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                   <AlertTriangle className="w-3 h-3 text-[#d97706]" />
                   <span>Alertes balises</span>
                 </span>
-                <span className="text-[10px] text-[#aaaaaa]">{stats.warningsCount}</span>
+                <span className="text-[12px] text-[#aaaaaa]">{stats.warningsCount}</span>
               </button>
 
               {scriptCount > 0 && (
@@ -450,14 +450,14 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                   className={`w-full text-left px-3 py-1.5 hover:bg-[#2c2c2c] flex items-center justify-between ${filter.showScripts ? 'text-[#38bdf8] font-semibold' : ''}`}
                 >
                   <span>{filter.showScripts ? '✓ ' : ''}Chaînes de scripts (VMAD)</span>
-                  <span className="text-[10px] text-[#aaaaaa]">{scriptCount}</span>
+                  <span className="text-[12px] text-[#aaaaaa]">{scriptCount}</span>
                 </button>
               )}
 
               {recordTypes.length > 0 && (
                 <>
                   <div className="border-t border-[#2e2e2e] my-1" />
-                  <div className="px-3 py-1 text-[10px] font-semibold text-[#666666] uppercase tracking-wider">
+                  <div className="px-3 py-1 text-[12px] font-semibold text-[#666666] uppercase tracking-wider">
                     Type de Record
                   </div>
                   {recordTypes.slice(0, 8).map((t) => (
@@ -468,7 +468,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                         onFilterChange({ ...filter, recordType: filter.recordType === t ? '' : t });
                         setShowFilterMenu(false);
                       }}
-                      className={`w-full text-left px-3 py-1 hover:bg-[#2c2c2c] flex items-center justify-between text-[11px] ${filter.recordType === t ? 'text-[#38bdf8] font-semibold' : ''}`}
+                      className={`w-full text-left px-3 py-1 hover:bg-[#2c2c2c] flex items-center justify-between text-[13px] ${filter.recordType === t ? 'text-[#38bdf8] font-semibold' : ''}`}
                     >
                       <span>{t}</span>
                     </button>
@@ -493,7 +493,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
             <button
               type="button"
               onClick={() => onFilterChange({ ...filter, searchQuery: '' })}
-              className="absolute right-2 text-[#666666] hover:text-white text-[11px]"
+              className="absolute right-2 text-[#666666] hover:text-white text-[13px]"
             >
               ✕
             </button>
@@ -513,7 +513,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
               title="Valider la ligne courante et passer au suivant (F10 / ⌘↵)"
             >
               <span>Valider</span>
-              <span className="text-[10px] font-mono bg-[#222222] px-1 py-0.2 rounded text-[#86efac]">F10</span>
+              <span className="text-[12px] font-mono bg-[#222222] px-1 py-0.2 rounded text-[#86efac]">F10</span>
             </button>
 
             {/* Rechercher et remplacer dans les traductions */}
