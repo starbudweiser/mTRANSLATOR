@@ -1280,6 +1280,8 @@ export default function App() {
           onOpenFileClick={handleOpenFile}
           onOpenSample={handleOpenSample}
           onOpenAbout={() => setIsAboutModalOpen(true)}
+          onOpenBatch={() => setIsBatchModalOpen(true)}
+          onOpenDictionaries={() => setIsDictionaryModalOpen(true)}
         />
       ) : (
         <>

@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { BookLogo } from './BookLogo';
-import { Folder, Upload, Sparkles, FileText, Info } from 'lucide-react';
+import { Folder, Upload, Sparkles, FileText, Info, Layers, BookMarked } from 'lucide-react';
 import { useI18n } from '../i18n/LanguageContext';
 
 interface CodexWelcomeScreenProps {
   onOpenFileClick: () => void;
   onOpenSample: (sampleKey: 'skyrim' | 'fallout' | 'starfield') => void;
   onOpenAbout?: () => void;
+  onOpenBatch?: () => void;
+  onOpenDictionaries?: () => void;
 }
 
 export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
   onOpenFileClick,
   onOpenSample,
   onOpenAbout,
+  onOpenBatch,
+  onOpenDictionaries,
 }) => {
   const { t } = useI18n();
   const [isDragOver, setIsDragOver] = useState(false);
@@ -113,17 +117,27 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
         )}
       </div>
 
-      {/* À propos, centré en bas de l'accueil */}
-      {onOpenAbout && (
-        <button
-          type="button"
-          onClick={onOpenAbout}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[11px] text-[#aaaaaa] hover:text-white underline underline-offset-2 flex items-center space-x-1"
-        >
-          <Info className="w-3 h-3 text-[#38bdf8]" />
-          <span>{t('app.about')}</span>
-        </button>
-      )}
+      {/* Liens centrés en bas de l'accueil : Lots, Dictionnaires, À propos */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center space-x-5">
+        {onOpenBatch && (
+          <button type="button" onClick={onOpenBatch} className="text-[11px] text-[#aaaaaa] hover:text-white underline underline-offset-2 flex items-center space-x-1">
+            <Layers className="w-3 h-3 text-[#38bdf8]" />
+            <span>Lots</span>
+          </button>
+        )}
+        {onOpenDictionaries && (
+          <button type="button" onClick={onOpenDictionaries} className="text-[11px] text-[#aaaaaa] hover:text-white underline underline-offset-2 flex items-center space-x-1">
+            <BookMarked className="w-3 h-3 text-[#fbbf24]" />
+            <span>{t('toolbar.dictionaries')}</span>
+          </button>
+        )}
+        {onOpenAbout && (
+          <button type="button" onClick={onOpenAbout} className="text-[11px] text-[#aaaaaa] hover:text-white underline underline-offset-2 flex items-center space-x-1">
+            <Info className="w-3 h-3 text-[#38bdf8]" />
+            <span>{t('app.about')}</span>
+          </button>
+        )}
+      </div>
     </div>
   );
 };
