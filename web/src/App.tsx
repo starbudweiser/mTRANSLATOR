@@ -105,7 +105,7 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   // Interface simple (débutants) ou experte, mémorisée
   const [simpleMode, setSimpleMode] = useState<boolean>(() => {
-    try { return localStorage.getItem('mtranslator_ui_mode') === 'simple'; } catch { return false; }
+    try { return localStorage.getItem('mtranslator_ui_mode') !== 'expert'; } catch { return true; }
   });
   const changeSimpleMode = (simple: boolean) => {
     setSimpleMode(simple);
