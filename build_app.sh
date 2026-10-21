@@ -16,6 +16,9 @@ WEB_DIST="dist"
 ICON_PNG="assets/icon.png"
 ICON_ICNS="assets/icon.icns"
 BUILD_TMP="${ROOT}/.build_tmp"
+VERSION=$(sed -n "s/^VERSION = '\([^']*\)'.*/\1/p" "$SRC")
+WEB_VERSION=$(sed -n 's/^  "version": "\(.*\)",/\1/p' web/package.json)
+[ "$VERSION" = "$WEB_VERSION" ] || { echo "ERREUR : version $VERSION ($SRC) ≠ $WEB_VERSION (web/package.json)"; exit 1; }
 
 export PATH="/Library/Frameworks/Python.framework/Versions/3.12/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
 export PYINSTALLER_CONFIG_DIR="${BUILD_TMP}/cache"
@@ -96,7 +99,8 @@ setkey() {
 }
 if [ -f "$PLIST" ]; then
     setkey CFBundleDisplayName string "$APP_NAME"
-    setkey CFBundleShortVersionString string "2.5.0"
+    setkey CFBundleShortVersionString string "$VERSION"
+    setkey CFBundleVersion string "$VERSION"
     setkey NSHighResolutionCapable bool true
     setkey NSRequiresAquaSystemAppearance bool false
     setkey LSApplicationCategoryType string "public.app-category.utilities"

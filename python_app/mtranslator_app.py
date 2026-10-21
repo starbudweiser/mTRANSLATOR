@@ -21,7 +21,7 @@ import time
 
 import mt_engines
 
-VERSION = '2.5.0'
+VERSION = '1.0.0'  # version unique de l'appli (lue par build_app.sh ; web/package.json identique)
 
 
 def ensure_web_assets() -> str:

@@ -8,7 +8,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$DIR"
 
 echo "========================================================"
-echo "   Lancement de mTRANSLATOR (v2.5.0)"
+echo "   Lancement de mTRANSLATOR"
 echo "   Traducteur de mods Bethesda pour macOS"
 echo "========================================================"
 

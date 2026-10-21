@@ -6,6 +6,7 @@
 
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
 import { createServer as createViteServer } from 'vite';
@@ -47,11 +48,13 @@ function getGenAI(customApiKey?: string): GoogleGenAI | null {
   return aiClient;
 }
 
+const APP_VERSION: string = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url), 'utf8')).version;
+
 // Endpoint de santé du serveur
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
-    version: 'mTRANSLATOR Web 2.5.0 (Universal Edition)',
+    version: `mTRANSLATOR Web ${APP_VERSION}`,
     hasGeminiKey: Boolean(process.env.GEMINI_API_KEY),
     port: PORT,
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',

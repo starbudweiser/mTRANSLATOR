@@ -11,7 +11,7 @@ cd "$DIR/../web"
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 echo "========================================================"
-echo "   Lancement de mTRANSLATOR Web (v2.5.0 Universal)"
+echo "   Lancement de mTRANSLATOR Web"
 echo "   Traducteur de mods Bethesda pour macOS & Web"
 echo "========================================================"
 
