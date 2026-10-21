@@ -7,6 +7,7 @@
  */
 
 import { ModRecord, TranslationStats } from '../types';
+import { L } from '../i18n/L';
 
 /**
  * Extrait toutes les balises critiques d'un texte Bethesda
@@ -89,9 +90,9 @@ export function validateTags(source: string, target: string): string[] {
   if (sourceHasPagebreak && !targetHasPagebreak) {
     // Vérifier si traduit accidentellement
     if (/saut\s*de\s*page|sautdepage/i.test(target)) {
-      warnings.push('Attention : [pagebreak] a été traduit en français ! Rétablissez le mot-clé [pagebreak] exact.');
+      warnings.push(L("Attention : [pagebreak] a été traduit en français ! Rétablissez le mot-clé [pagebreak] exact."));
     } else {
-      warnings.push('Saut de page de livre manquant : "[pagebreak]" doit être conservé tel quel.');
+      warnings.push(L("Saut de page de livre manquant : \"[pagebreak]\" doit être conservé tel quel."));
     }
   }
 
@@ -103,7 +104,7 @@ export function validateTags(source: string, target: string): string[] {
     if (/^\\?[rn](\\?[rn])?$/i.test(tag)) return;
 
     if (!target.includes(tag)) {
-      warnings.push(`Balise ou format manquant dans la traduction : "${tag}"`);
+      warnings.push(L("Balise ou format manquant dans la traduction : \"{tag}\"", { tag }));
     }
   });
 
@@ -113,7 +114,7 @@ export function validateTags(source: string, target: string): string[] {
     if (/^\\?[rn](\\?[rn])?$/i.test(tag)) return;
 
     if (!source.includes(tag)) {
-      warnings.push(`Balise non présente dans l'original : "${tag}"`);
+      warnings.push(L("Balise non présente dans l'original : \"{tag}\"", { tag }));
     }
   });
 
@@ -215,7 +216,7 @@ export function exportToSST(
   records: ModRecord[], 
   game: string,
   sourceLang: string = 'English',
-  targetLang: string = 'Français'
+  targetLang: string = "Français"
 ): string {
   const header = `<?xml version="1.0" encoding="utf-8"?>\n<!-- mTRANSLATOR Dictionary / SST Export (${sourceLang} -> ${targetLang}) - macOS Edition -->\n<SSTDictionary game="${game}" source="${escapeXml(sourceLang)}" target="${escapeXml(targetLang)}" count="${records.length}">\n`;
   const items = records

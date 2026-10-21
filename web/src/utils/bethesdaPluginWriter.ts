@@ -12,6 +12,7 @@
  */
 
 import { ModRecord, ModFileMeta, GameEngine } from '../types';
+import { L } from '../i18n/L';
 
 export interface PluginSaveResult {
   translatedBuffer: Uint8Array;
@@ -154,18 +155,18 @@ export function rebuildPluginBinary(
 
   if (originalBuffer && originalBuffer.byteLength > 24) {
     originalBytes = new Uint8Array(originalBuffer);
-    notes.push(`Fichier source original conservé (${originalBytes.byteLength} octets).`);
+    notes.push(L("Fichier source original conservé ({byteLength} octets).", { byteLength: originalBytes.byteLength }));
 
     try {
       finalBuffer = patchExistingPluginBinary(originalBytes, records, translationMap, sourceToTargetMap, meta.game, notes);
     } catch (err: any) {
       console.warn('Fallback sur générateur complet suite à :', err);
-      notes.push(`Ajustement direct : ${err.message}. Construction sécurisée.`);
+      notes.push(L("Ajustement direct : {message}. Construction sécurisée.", { message: err.message }));
       finalBuffer = generateCompliantPluginFromRecords(records, meta);
     }
   } else {
     // Création d'un plugin autonome complet conforme aux spécifications Bethesda
-    notes.push("Génération d'un nouveau plugin binaire complet conforme Creation Engine.");
+    notes.push(L("Génération d'un nouveau plugin binaire complet conforme Creation Engine."));
     finalBuffer = generateCompliantPluginFromRecords(records, meta);
     originalBytes = new Uint8Array(finalBuffer); // Le backup sera la version initiale
   }
@@ -314,7 +315,7 @@ function patchExistingPluginBinary(
     chunks.push(srcBytes.slice(srcPos));
   }
 
-  notes.push(`${replacedCount} sous-champs textuels mis à jour avec précision.`);
+  notes.push(L("{replacedCount} sous-champs textuels mis à jour avec précision.", { replacedCount }));
 
   // Fusion de tous les chunks
   let totalLen = 0;

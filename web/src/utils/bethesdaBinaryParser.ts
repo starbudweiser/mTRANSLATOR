@@ -9,6 +9,7 @@
  */
 
 import { ModRecord, ModFileMeta, GameEngine } from '../types';
+import { L } from '../i18n/L';
 
 export interface ParseResult {
   records: ModRecord[];
@@ -87,13 +88,13 @@ export async function parseModFile(
   const extension = file.name.split('.').pop()?.toLowerCase() || '';
 
   if (['esp', 'esm', 'esl'].includes(extension)) {
-    onProgress?.(5, `Lecture binaire de ${file.name}...`);
+    onProgress?.(5, L("Lecture binaire de {name}...", { name: file.name }));
     const buffer = await file.arrayBuffer();
     return parsePluginBinary(buffer, file.name, currentGame, onProgress);
   }
 
   if (['strings', 'dlstrings', 'ilstrings'].includes(extension)) {
-    onProgress?.(5, `Lecture de la table de chaînes ${file.name}...`);
+    onProgress?.(5, L("Lecture de la table de chaînes {name}...", { name: file.name }));
     const buffer = await file.arrayBuffer();
     return parseStringsBinary(buffer, file.name, extension, currentGame, onProgress);
   }
@@ -268,7 +269,7 @@ async function parsePluginBinary(
       const now = performance.now();
       if (now - lastYieldTime > 15) {
         const pct = Math.min(99, Math.round((curr / totalLength) * 100));
-        onProgress?.(pct, `Analyse du plugin binaire (${pct}%)... ${records.length.toLocaleString()} chaînes trouvées`);
+        onProgress?.(pct, L("Analyse du plugin binaire ({pct}%)... {toLocaleString} chaînes trouvées", { pct, toLocaleString: records.length.toLocaleString() }));
         await yieldToMain();
         lastYieldTime = performance.now();
       }
@@ -335,7 +336,7 @@ async function parsePluginBinary(
   // Si le parcours structuré a trouvé très peu de chaînes (par exemple format non-standard),
   // on utilise un scanner de secours non-bloquant
   if (records.length < 5) {
-    onProgress?.(80, 'Scan de secours des chaînes textuelles du mod...');
+    onProgress?.(80, L("Scan de secours des chaînes textuelles du mod..."));
     const fallbackRecords = await extractPrintableStringsFromBinaryAsync(bytes, fileName, onProgress);
     if (fallbackRecords.length > records.length) {
       return {
@@ -353,7 +354,7 @@ async function parsePluginBinary(
     }
   }
 
-  onProgress?.(100, `Chargement terminé : ${records.length.toLocaleString()} enregistrements prêts`);
+  onProgress?.(100, L("Chargement terminé : {toLocaleString} enregistrements prêts", { toLocaleString: records.length.toLocaleString() }));
 
   return {
     records: records.length > 0 ? records : [
@@ -408,7 +409,7 @@ async function parseStringsBinary(
       for (let i = 0; i < stringCount; i++) {
         if (performance.now() - lastYield > 15) {
           const pct = Math.round((i / stringCount) * 100);
-          onProgress?.(pct, `Lecture des chaînes .strings (${pct}%)...`);
+          onProgress?.(pct, L("Lecture des chaînes .strings ({pct}%)...", { pct }));
           await yieldToMain();
           lastYield = performance.now();
         }
@@ -491,7 +492,7 @@ async function extractPrintableStringsFromBinaryAsync(
   for (let i = 0; i < bytes.length; i++) {
     if (i % 20000 === 0 && performance.now() - lastYield > 15) {
       const pct = Math.round((i / bytes.length) * 100);
-      onProgress?.(pct, `Recherche de textes (${pct}%)...`);
+      onProgress?.(pct, L("Recherche de textes ({pct}%)...", { pct }));
       await yieldToMain();
       lastYield = performance.now();
     }

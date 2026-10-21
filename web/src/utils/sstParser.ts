@@ -10,6 +10,7 @@
  */
 
 import { DictionaryEntry } from '../types';
+import { L } from '../i18n/L';
 
 export interface SSTParseResult {
   entries: DictionaryEntry[];
@@ -99,7 +100,7 @@ export function inferGameFromFilename(filename: string): string {
   ) {
     return 'Skyrim Special Edition';
   }
-  return 'Général / Importé';
+  return "Général / Importé";
 }
 
 /**
@@ -282,7 +283,7 @@ export function parseSSTFileContent(content: string, filename: string): SSTParse
     game: defaultGame,
     filename,
     format: 'UNKNOWN',
-    error: 'Format non reconnu.',
+    error: L("Format non reconnu."),
   };
 }
 
@@ -347,7 +348,7 @@ export async function parseMultipleSSTFiles(
         filename: file.name,
         count: 0,
         game: 'Erreur',
-        format: 'Échec de lecture',
+        format: L("Échec de lecture"),
       });
     }
   }

@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { X, GitCompare, Plus, CheckCircle2, ArrowRight, RefreshCw } from 'lucide-react';
 import { ModRecord } from '../types';
+import { L } from '../i18n/L';
 
 interface DiffModalProps {
   isOpen: boolean;
@@ -37,7 +38,7 @@ export const DiffModal: React.FC<DiffModalProps> = ({
       formId: '0001D410',
       recordType: 'QUST',
       source: 'Investigate the rumblings beneath the frozen peak of Mount Wyrm.',
-      statusText: 'Nouvelle quête v1.30 (Ajout)',
+      statusText: L("Nouvelle quête v1.30 (Ajout)"),
     },
     {
       type: 'new',
@@ -51,7 +52,7 @@ export const DiffModal: React.FC<DiffModalProps> = ({
       formId: '0001D404',
       recordType: 'DIAL',
       source: 'The winds around Wyrmstooth Island are cursed. No normal boat can cross without magical warding and a skilled helmsman.',
-      statusText: 'Texte source révisé par l\'auteur',
+      statusText: L("Texte source révisé par l'auteur"),
     },
   ];
 
@@ -92,9 +93,7 @@ export const DiffModal: React.FC<DiffModalProps> = ({
         <div className="h-10 bg-[#262626] border-b border-[#333333] px-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <GitCompare className="w-4 h-4 text-[#f87171]" />
-            <span className="font-semibold text-white">
-              Comparateur Diff de Versions de Mod
-            </span>
+            <span className="font-semibold text-white">{L("Comparateur Diff de Versions de Mod")}</span>
           </div>
           <button
             type="button"
@@ -107,9 +106,7 @@ export const DiffModal: React.FC<DiffModalProps> = ({
 
         {/* Corps */}
         <div className="p-4 space-y-3 flex-1 flex flex-col overflow-hidden">
-          <p className="text-[13px] text-[#aaaaaa]">
-            Comparez le mod chargé avec une nouvelle version (ESP / ESM) pour identifier instantanément les lignes ajoutées ou réécrites par l&apos;auteur.
-          </p>
+          <p className="text-[13px] text-[#aaaaaa]">{L("Comparez le mod chargé avec une nouvelle version (ESP / ESM) pour identifier instantanément les lignes ajoutées ou réécrites par l'auteur.")}</p>
 
           <div className="flex-1 overflow-auto border border-[#333333] rounded bg-[#181818] custom-scrollbar">
             <table className="w-full border-collapse text-left">
@@ -117,8 +114,8 @@ export const DiffModal: React.FC<DiffModalProps> = ({
                 <tr>
                   <th className="px-3 py-2 w-24">FormID</th>
                   <th className="px-3 py-2 w-20">Type</th>
-                  <th className="px-3 py-2">Texte de la nouvelle version</th>
-                  <th className="px-3 py-2 w-48">Différence détectée</th>
+                  <th className="px-3 py-2">{L("Texte de la nouvelle version")}</th>
+                  <th className="px-3 py-2 w-48">{L("Différence détectée")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#2e2e2e]">
@@ -155,7 +152,7 @@ export const DiffModal: React.FC<DiffModalProps> = ({
           {diffApplied && (
             <div className="p-2.5 bg-[#2c2c2c] border border-[#22c55e] rounded text-[#86efac] flex items-center space-x-2">
               <CheckCircle2 className="w-4 h-4 text-[#4ade80]" />
-              <span>Les 2 nouvelles chaînes ont été injectées dans le projet actif !</span>
+              <span>{L("Les 2 nouvelles chaînes ont été injectées dans le projet actif !")}</span>
             </div>
           )}
         </div>
@@ -166,9 +163,7 @@ export const DiffModal: React.FC<DiffModalProps> = ({
             type="button"
             onClick={onClose}
             className="px-3 py-1.5 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded transition-colors"
-          >
-            Fermer
-          </button>
+          >{L("Fermer")}</button>
 
           <button
             type="button"
@@ -176,7 +171,7 @@ export const DiffModal: React.FC<DiffModalProps> = ({
             disabled={diffApplied}
             className="px-4 py-1.5 bg-[#ef4444] hover:bg-[#ef4444] text-white font-medium rounded transition-colors flex items-center space-x-1.5 disabled:opacity-50"
           >
-            <span>Fusionner les nouvelles lignes ({simulatedNewVersion.filter(i => i.type === 'new').length})</span>
+            <span>{L("Fusionner les nouvelles lignes (")}{simulatedNewVersion.filter(i => i.type === 'new').length})</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>

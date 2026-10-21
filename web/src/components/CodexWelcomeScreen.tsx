@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BookLogo } from './BookLogo';
 import { Folder, Upload, Sparkles, FileText, Info, Layers, BookMarked } from 'lucide-react';
 import { useI18n } from '../i18n/LanguageContext';
+import { L } from '../i18n/L';
 
 interface CodexWelcomeScreenProps {
   onOpenFileClick: () => void;
@@ -69,9 +70,9 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
         {/* Actions principales : Traitement par Lots, Ouvrir un fichier, Dictionnaires */}
         <div className="inline-grid grid-cols-3 gap-3 w-max">
           {onOpenBatch && (
-            <button type="button" onClick={onOpenBatch} className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#222222] hover:bg-[#2c2c2c] border border-[#333333] text-sm font-medium text-[#dddddd] hover:text-white rounded-lg transition-colors whitespace-nowrap hover:border-[#38bdf8]" title="Traduire plusieurs plugins d'un coup">
+            <button type="button" onClick={onOpenBatch} className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#222222] hover:bg-[#2c2c2c] border border-[#333333] text-sm font-medium text-[#dddddd] hover:text-white rounded-lg transition-colors whitespace-nowrap hover:border-[#38bdf8]" title={L("Traduire plusieurs plugins d'un coup")}>
               <Layers className="w-4 h-4 text-[#38bdf8]" />
-              <span>Traitement par Lots</span>
+              <span>{L("Traitement par Lots")}</span>
             </button>
           )}
           {/* Bouton bleu vif Ouvrir un fichier */}
@@ -84,7 +85,7 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
             <span>{t('welcome.openButton')}</span>
           </button>
           {onOpenDictionaries && (
-            <button type="button" onClick={onOpenDictionaries} className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#222222] hover:bg-[#2c2c2c] border border-[#333333] text-sm font-medium text-[#dddddd] hover:text-white rounded-lg transition-colors whitespace-nowrap hover:border-[#fbbf24]" title="Gérer les dictionnaires et la base locale">
+            <button type="button" onClick={onOpenDictionaries} className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#222222] hover:bg-[#2c2c2c] border border-[#333333] text-sm font-medium text-[#dddddd] hover:text-white rounded-lg transition-colors whitespace-nowrap hover:border-[#fbbf24]" title={L("Gérer les dictionnaires et la base locale")}>
               <BookMarked className="w-4 h-4 text-[#fbbf24]" />
               <span>{t('toolbar.dictionaries')}</span>
             </button>
@@ -126,7 +127,7 @@ export const CodexWelcomeScreen: React.FC<CodexWelcomeScreenProps> = ({
           <div className="absolute inset-4 bg-[#0369a1]/10 backdrop-blur-xs border-2 border-dashed border-[#0ea5e9] rounded-xl flex items-center justify-center z-30">
             <div className="bg-[#1a1a1a] px-6 py-4 rounded-xl shadow-2xl border border-[#0ea5e9] flex items-center space-x-3 text-[#38bdf8]">
               <Upload className="w-6 h-6 animate-bounce" />
-              <span className="font-semibold text-sm">Déposez votre fichier Bethesda pour l'importer instantanément</span>
+              <span className="font-semibold text-sm">{L("Déposez votre fichier Bethesda pour l'importer instantanément")}</span>
             </div>
           </div>
         )}

@@ -11,6 +11,7 @@ import { sanitizeBethesdaTranslation } from '../utils/translatorUtils';
 import { useI18n } from '../i18n/LanguageContext';
 import { translateBatch, getAiEngine, engineLabel } from '../utils/aiEngine';
 import { EngineSettings } from './EngineSettings';
+import { L } from '../i18n/L';
 
 interface AiBatchTranslateModalProps {
   isOpen: boolean;
@@ -35,7 +36,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
   const [useFastPrePass, setUseFastPrePass] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [statusText, setStatusText] = useState('Préparation des lots...');
+  const [statusText, setStatusText] = useState(L("Préparation des lots..."));
   const [liveSpeed, setLiveSpeed] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [warningMessage, setWarningMessage] = useState<string | null>(null);
@@ -54,13 +55,13 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
 
   const handleStartTranslation = async () => {
     if (targetRecords.length === 0) {
-      setError('Aucun enregistrement à traduire dans ce périmètre.');
+      setError(L("Aucun enregistrement à traduire dans ce périmètre."));
       return;
     }
 
     setIsLoading(true);
     setProgress(5);
-    setStatusText('Indexation et déduplication des chaînes...');
+    setStatusText(L("Indexation et déduplication des chaînes..."));
     setLiveSpeed(null);
     setError(null);
     setResultMessage(null);
@@ -108,8 +109,8 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
       if (recordsToTranslateAi.length === 0) {
         onApplyBatchTranslations(allResults);
         setProgress(100);
-        setStatusText('Terminé instantanément via glossaire');
-        setResultMessage(`${allResults.length} chaînes traduites instantanément via le glossaire SST Bethesda !`);
+        setStatusText(L("Terminé instantanément via glossaire"));
+        setResultMessage(L("{length} chaînes traduites instantanément via le glossaire SST Bethesda !", { length: allResults.length }));
         setIsLoading(false);
         return;
       }
@@ -179,7 +180,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
         const currentBatchItems = slice.reduce((sum, c) => sum + c.length, 0);
 
         // Mettre à jour l'affichage IMMÉDIATEMENT avant de lancer l'appel réseau
-        setStatusText(`⚡ Lot ${batchNum}/${totalBatches} (${currentBatchItems} chaînes) en cours via ${usedEngineName}...`);
+        setStatusText(L("⚡ Lot {batchNum}/{totalBatches} ({currentBatchItems} chaînes) en cours via {usedEngineName}...", { batchNum, totalBatches, currentBatchItems, usedEngineName }));
         const currentProgress = Math.max(10, Math.min(95, Math.round(10 + (translatedUniqueCount / Math.max(1, uniqueItems.length)) * 85)));
         setProgress(currentProgress);
         
@@ -189,14 +190,14 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
           try {
             const data = await translateBatch(
               chunk.map(({ id, text }) => ({ id, text })),
-              { targetLang: targetLang || 'Français', game, signal: controller.signal },
+              { targetLang: targetLang || "Français", game, signal: controller.signal },
             );
             if (data.engine) usedEngineName = data.engine;
             if (data.warning) hadWarning = data.warning;
             return data.translations;
           } catch (fetchErr: any) {
             console.warn('[Traduction par lot] Avertissement réseau pour le lot:', fetchErr?.message || fetchErr);
-            hadWarning = 'Délai réseau dépassé pour un sous-lot : repli automatique ponctuel.';
+            hadWarning = L("Délai réseau dépassé pour un sous-lot : repli automatique ponctuel.");
           } finally {
             clearTimeout(timeoutId);
           }
@@ -240,24 +241,24 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
 
         const chunkPercent = Math.min(95, Math.round(10 + ((translatedUniqueCount / uniqueItems.length) * 85)));
         setProgress(chunkPercent);
-        setStatusText(`⚡ Vitesse : ~${currentSpeed} chaînes/sec (${allResults.length}/${targetRecords.length})...`);
+        setStatusText(L("⚡ Vitesse : ~{currentSpeed} chaînes/sec ({length}/{length2})...", { currentSpeed, length: allResults.length, length2: targetRecords.length }));
       }
 
       setProgress(100);
       const totalElapsedSec = Math.max(1, ((Date.now() - startTime) / 1000)).toFixed(1);
       const finalSpeed = Math.round(allResults.length / parseFloat(totalElapsedSec));
-      setStatusText(`Traduction terminée en ${totalElapsedSec}s (~${finalSpeed} chaînes/sec)`);
+      setStatusText(L("Traduction terminée en {totalElapsedSec}s (~{finalSpeed} chaînes/sec)", { totalElapsedSec, finalSpeed }));
 
       if (hadWarning) {
         setWarningMessage(hadWarning);
       }
       
-      const fastNotice = fastMatchCount > 0 ? ` (${fastMatchCount} résolues instantanément par le glossaire)` : '';
-      setResultMessage(`${allResults.length} chaînes intégrées en ${totalElapsedSec}s via ${usedEngineName}${fastNotice} !`);
+      const fastNotice = fastMatchCount > 0 ? L(" ({fastMatchCount} résolues instantanément par le glossaire)", { fastMatchCount }) : '';
+      setResultMessage(L("{length} chaînes intégrées en {totalElapsedSec}s via {usedEngineName}{fastNotice} !", { length: allResults.length, totalElapsedSec, usedEngineName, fastNotice }));
     } catch (err: any) {
       console.error('[Erreur traduction par lot]:', err);
-      setWarningMessage('Une interruption est survenue. Les chaînes déjà traduites ont été enregistrées avec succès.');
-      setResultMessage(`${allResults.length || 0} chaînes traduites et conservées.`);
+      setWarningMessage(L("Une interruption est survenue. Les chaînes déjà traduites ont été enregistrées avec succès."));
+      setResultMessage(L("{v} chaînes traduites et conservées.", { v: allResults.length || 0 }));
     } finally {
       setIsLoading(false);
     }
@@ -270,9 +271,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
         <div className="h-10 bg-[#262626] border-b border-[#333333] px-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Sparkles className="w-4 h-4 text-[#fbbf24]" />
-            <span className="font-semibold text-white">
-              Traduction automatique
-            </span>
+            <span className="font-semibold text-white">{L("Traduction automatique")}</span>
             <span className="px-2 py-0.5 rounded-full bg-[#0369a1]/20 text-[#38bdf8] text-[12px] font-mono border border-[#0369a1]/40">
               {sourceLang} ➔ {targetLang}
             </span>
@@ -290,7 +289,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
         <div className="p-4 space-y-3.5">
           {/* Moteur de traduction */}
           <div className="space-y-1.5">
-            <label className="font-medium text-[#dddddd] block">Moteur de traduction :</label>
+            <label className="font-medium text-[#dddddd] block">{L("Moteur de traduction :")}</label>
             <EngineSettings disabled={isLoading} />
           </div>
 
@@ -300,12 +299,8 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
               <div className="flex items-center space-x-2">
                 <BookOpen className="w-4 h-4 text-[#38bdf8] shrink-0" />
                 <div>
-                  <span className="font-semibold text-[#ffffff] text-[13px] block">
-                    Pré-passe Glossaire SST
-                  </span>
-                  <span className="text-[11px] text-[#aaaaaa] block">
-                    0ms pour termes déjà connus
-                  </span>
+                  <span className="font-semibold text-[#ffffff] text-[13px] block">{L("Pré-passe Glossaire SST")}</span>
+                  <span className="text-[11px] text-[#aaaaaa] block">{L("0ms pour termes déjà connus")}</span>
                 </div>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
@@ -321,21 +316,17 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
 
             <div className="p-2.5 bg-[#181818] border border-[#2e2e2e] rounded flex items-center justify-between">
               <div>
-                <span className="font-semibold text-[#ffffff] text-[13px] block">
-                  Budget adaptatif
-                </span>
-                <span className="text-[11px] text-[#aaaaaa] block">
-                  Spécial gros mods &amp; livres
-                </span>
+                <span className="font-semibold text-[#ffffff] text-[13px] block">{L("Budget adaptatif")}</span>
+                <span className="text-[11px] text-[#aaaaaa] block">{L("Spécial gros mods & livres")}</span>
               </div>
               <select
                 value={batchSize}
                 onChange={(e) => setBatchSize(Number(e.target.value))}
                 className="bg-[#222222] border border-[#444444] rounded px-2 py-1 text-[#ffffff] text-[13px] outline-none"
               >
-                <option value={80}>Adaptatif (Recommandé)</option>
-                <option value={50}>Prudent (Livres volumineux)</option>
-                <option value={120}>Turbo (Chaînes courtes)</option>
+                <option value={80}>{L("Adaptatif (Recommandé)")}</option>
+                <option value={50}>{L("Prudent (Livres volumineux)")}</option>
+                <option value={120}>{L("Turbo (Chaînes courtes)")}</option>
               </select>
             </div>
           </div>
@@ -344,12 +335,8 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
           <div className="p-2.5 bg-[#181818] border border-[#2e2e2e] rounded flex items-start space-x-2.5">
             <ShieldAlert className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
             <div className="space-y-1">
-              <span className="font-semibold text-[#ffffff] text-[13px] block">
-                Protection stricte des balises Bethesda &amp; Livres
-              </span>
-              <p className="text-[12px] text-[#aaaaaa] leading-relaxed">
-                Préservation garantie des balises <code className="text-[#38bdf8]">&lt;Alias=...&gt;</code>,
-                variables <code className="text-[#38bdf8]">%s, %d</code> et verrouillage absolu du mot-clé de pagination{' '}
+              <span className="font-semibold text-[#ffffff] text-[13px] block">{L("Protection stricte des balises Bethesda & Livres")}</span>
+              <p className="text-[12px] text-[#aaaaaa] leading-relaxed">{L("Préservation garantie des balises")} <code className="text-[#38bdf8]">&lt;Alias=...&gt;</code>{L(", variables")} <code className="text-[#38bdf8]">%s, %d</code> {L("et verrouillage absolu du mot-clé de pagination")}{' '}
                 <code className="bg-[#3f2a0c] text-[#fde68a] px-1 py-0.2 rounded font-mono">[pagebreak]</code>.
               </p>
             </div>
@@ -357,9 +344,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
 
           {/* Sélection du périmètre */}
           <div className="space-y-1.5">
-            <label className="font-medium text-[#dddddd] block">
-              Périmètre à traduire :
-            </label>
+            <label className="font-medium text-[#dddddd] block">{L("Périmètre à traduire :")}</label>
             <div className="grid grid-cols-4 gap-1.5">
               <button
                 type="button"
@@ -370,8 +355,8 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
                     : 'bg-[#181818] border-[#2e2e2e] text-[#aaaaaa] hover:bg-[#262626]'
                 }`}
               >
-                <span className="font-semibold block truncate">Toutes</span>
-                <span className="text-[11px] text-[#666666]">{untranslatedRecords.length} élément(s)</span>
+                <span className="font-semibold block truncate">{L("Toutes")}</span>
+                <span className="text-[11px] text-[#666666]">{untranslatedRecords.length} {L("élément(s)")}</span>
               </button>
 
               <button
@@ -383,8 +368,8 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
                     : 'bg-[#181818] border-[#2e2e2e] text-[#aaaaaa] hover:bg-[#262626]'
                 }`}
               >
-                <span className="font-semibold block truncate">50 premières</span>
-                <span className="text-[11px] text-[#666666]">Échantillon</span>
+                <span className="font-semibold block truncate">{L("50 premières")}</span>
+                <span className="text-[11px] text-[#666666]">{L("Échantillon")}</span>
               </button>
 
               <button
@@ -396,8 +381,8 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
                     : 'bg-[#181818] border-[#2e2e2e] text-[#aaaaaa] hover:bg-[#262626]'
                 }`}
               >
-                <span className="font-semibold block truncate">100 premières</span>
-                <span className="text-[11px] text-[#666666]">Lot moyen</span>
+                <span className="font-semibold block truncate">{L("100 premières")}</span>
+                <span className="text-[11px] text-[#666666]">{L("Lot moyen")}</span>
               </button>
 
               <button
@@ -409,15 +394,15 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
                     : 'bg-[#181818] border-[#2e2e2e] text-[#aaaaaa] hover:bg-[#262626]'
                 }`}
               >
-                <span className="font-semibold block truncate">250 premières</span>
-                <span className="text-[11px] text-[#666666]">Gros volume</span>
+                <span className="font-semibold block truncate">{L("250 premières")}</span>
+                <span className="text-[11px] text-[#666666]">{L("Gros volume")}</span>
               </button>
             </div>
           </div>
 
           {/* Profil de jeu */}
           <div className="flex items-center justify-between p-2 bg-[#181818] border border-[#2e2e2e] rounded text-[13px]">
-            <span className="text-[#aaaaaa]">Univers / Contexte de jeu :</span>
+            <span className="text-[#aaaaaa]">{L("Univers / Contexte de jeu :")}</span>
             <span className="font-medium text-[#ffffff]">{game}</span>
           </div>
 
@@ -453,7 +438,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
             <div className="p-2.5 bg-[#1e1e1e] border border-[#f59e0b] rounded text-[#fbbf24] flex items-start space-x-2 text-[13px]">
               <AlertTriangle className="w-4 h-4 text-[#fbbf24] shrink-0 mt-0.5" />
               <div className="space-y-0.5">
-                <span className="font-semibold block">Mode Secours Actif</span>
+                <span className="font-semibold block">{L("Mode Secours Actif")}</span>
                 <p className="leading-relaxed text-[#fde68a]">{warningMessage}</p>
               </div>
             </div>
@@ -464,7 +449,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
             <div className="p-2.5 bg-[#1e1e1e] border border-[#ef4444] rounded text-[#fecaca] flex items-start space-x-2 text-[13px]">
               <AlertCircle className="w-4 h-4 text-[#f87171] shrink-0 mt-0.5" />
               <div className="space-y-0.5">
-                <span className="font-semibold block">Erreur de traduction</span>
+                <span className="font-semibold block">{L("Erreur de traduction")}</span>
                 <p className="leading-relaxed">{error}</p>
               </div>
             </div>
@@ -477,9 +462,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
             type="button"
             onClick={onClose}
             className="px-3 py-1.5 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded transition-colors"
-          >
-            Fermer
-          </button>
+          >{L("Fermer")}</button>
 
           <button
             type="button"
@@ -488,7 +471,7 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
             className="px-4 py-1.5 bg-[#f59e0b] hover:bg-[#d97706] text-black font-semibold rounded transition-colors flex items-center space-x-1.5 disabled:opacity-50 shadow-sm"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
-            <span>Lancer la traduction ({targetRecords.length})</span>
+            <span>{L("Lancer la traduction (")}{targetRecords.length})</span>
           </button>
         </div>
       </div>

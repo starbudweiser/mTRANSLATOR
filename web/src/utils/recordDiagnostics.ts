@@ -7,6 +7,7 @@
 import { ModRecord, DictionaryEntry } from '../types';
 import { calculateSimilarity } from './translatorUtils';
 import { localDictStore } from './localDictionaryStore';
+import { L } from '../i18n/L';
 
 export type DiagnosticReason =
   | 'SST_EXACT_AVAILABLE'
@@ -79,10 +80,10 @@ function computeRecordDiagnostic(
   if (record.status === 'translated' && hasTarget && !hasWarnings) {
     return {
       reason: 'TRANSLATED_VALID',
-      shortLabel: 'Traduit & validé',
+      shortLabel: L("Traduit & validé"),
       badgeClass: 'bg-[#262626] text-[#4ade80] border-[#22c55e]',
       dotColor: '#22c55e',
-      detailedReason: 'Cette ligne est entièrement traduite, validée et conforme aux balises du jeu.',
+      detailedReason: L("Cette ligne est entièrement traduite, validée et conforme aux balises du jeu."),
       canQuickApply: false,
     };
   }
@@ -95,7 +96,7 @@ function computeRecordDiagnostic(
       shortLabel: 'Alerte balise',
       badgeClass: 'bg-[#3f2a0c] text-[#fbbf24] border-[#f59e0b]',
       dotColor: '#f59e0b',
-      detailedReason: `Anomalie de balise détectée : ${warn}. Le moteur de jeu risque d'afficher des erreurs.`,
+      detailedReason: L("Anomalie de balise détectée : {warn}. Le moteur de jeu risque d'afficher des erreurs.", { warn }),
       canQuickApply: false,
     };
   }
@@ -107,7 +108,7 @@ function computeRecordDiagnostic(
       shortLabel: 'Nom propre / Lore',
       badgeClass: 'bg-[#0c3a52] text-[#38bdf8] border-[#0369a1]',
       dotColor: '#38bdf8',
-      detailedReason: 'Cette chaîne a été volontairement conservée identique à l\'original VO (terme lore ou nom propre).',
+      detailedReason: L("Cette chaîne a été volontairement conservée identique à l'original VO (terme lore ou nom propre)."),
       canQuickApply: false,
     };
   }
@@ -119,7 +120,7 @@ function computeRecordDiagnostic(
       shortLabel: 'En cours',
       badgeClass: 'bg-[#0c3a52] text-[#38bdf8] border-[#0369a1]',
       dotColor: '#0ea5e9',
-      detailedReason: 'Texte en cours de révision ou partiellement renseigné.',
+      detailedReason: L("Texte en cours de révision ou partiellement renseigné."),
       canQuickApply: false,
     };
   }
@@ -129,12 +130,12 @@ function computeRecordDiagnostic(
   if (localSearch) {
     return {
       reason: 'SST_EXACT_AVAILABLE',
-      shortLabel: localSearch.isLocalLearned ? 'Mémoire locale 100%' : 'SST 100% dispo',
+      shortLabel: localSearch.isLocalLearned ? L("Mémoire locale 100%") : 'SST 100% dispo',
       badgeClass: localSearch.isLocalLearned ? 'bg-[#2c2c2c] text-[#38bdf8] border-[#0ea5e9]' : 'bg-[#14391f] text-[#4ade80] border-[#22c55e]',
       dotColor: localSearch.isLocalLearned ? '#0ea5e9' : '#22c55e',
       detailedReason: localSearch.isLocalLearned
-        ? `Trouvé dans votre dictionnaire local auto-alimenté (« ${localSearch.match.target} »). Cliquez sur ⚡ pour l'appliquer.`
-        : `Une traduction officielle existe dans la Database SST (« ${localSearch.match.target} »). Cliquez sur ⚡ pour l'appliquer.`,
+        ? L("Trouvé dans votre dictionnaire local auto-alimenté (« {target} »). Cliquez sur ⚡ pour l'appliquer.", { target: localSearch.match.target })
+        : L("Une traduction officielle existe dans la Database SST (« {target} »). Cliquez sur ⚡ pour l'appliquer.", { target: localSearch.match.target }),
       suggestion: localSearch.match.target,
       score: 100,
       canQuickApply: true,
@@ -155,7 +156,7 @@ function computeRecordDiagnostic(
       shortLabel: 'SST 100% dispo',
       badgeClass: 'bg-[#14391f] text-[#4ade80] border-[#22c55e]',
       dotColor: '#22c55e',
-      detailedReason: `Une traduction officielle existe dans la Database SST (« ${exactEntry.target} »). Cliquez sur ⚡ pour l'appliquer.`,
+      detailedReason: L("Une traduction officielle existe dans la Database SST (« {target} »). Cliquez sur ⚡ pour l'appliquer.", { target: exactEntry.target }),
       suggestion: exactEntry.target,
       score: 100,
       canQuickApply: true,
@@ -187,7 +188,7 @@ function computeRecordDiagnostic(
       shortLabel: `Fuzzy ${bestScore}%`,
       badgeClass: 'bg-[#3f2a0c] text-[#fde68a] border-[#f59e0b]',
       dotColor: '#f59e0b',
-      detailedReason: `Le dictionnaire contient une phrase proche (${bestScore}% de similarité). Non appliquée par défaut pour éviter les contresens. Cliquez sur ⚡ pour tester.`,
+      detailedReason: L("Le dictionnaire contient une phrase proche ({bestScore}% de similarité). Non appliquée par défaut pour éviter les contresens. Cliquez sur ⚡ pour tester.", { bestScore }),
       suggestion: bestSuggestion,
       score: bestScore,
       canQuickApply: true,
@@ -197,10 +198,10 @@ function computeRecordDiagnostic(
   // 6. Aucun résultat dictionnaire -> Texte exclusif au mod (Inédit)
   return {
     reason: 'UNSEEN_MOD_TEXT',
-    shortLabel: 'Inédit mod (0% SST)',
+    shortLabel: L("Inédit mod (0% SST)"),
     badgeClass: 'bg-[#1e1e1e] text-[#38bdf8] border-[#0369a1]',
     dotColor: '#0ea5e9',
-    detailedReason: 'Ce texte est exclusif à ce mod (création originale de l\'auteur). Absent de la Database SST de base. Traduction IA ou manuelle requise.',
+    detailedReason: L("Ce texte est exclusif à ce mod (création originale de l'auteur). Absent de la Database SST de base. Traduction IA ou manuelle requise."),
     canQuickApply: false,
   };
 }

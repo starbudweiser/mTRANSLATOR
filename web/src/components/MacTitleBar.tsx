@@ -12,6 +12,7 @@ import { BookLogo } from './BookLogo';
 import { ArrowRight, HardDrive, X, Check, HelpCircle, ChevronDown, Globe, CheckCircle2 } from 'lucide-react';
 import { useI18n } from '../i18n/LanguageContext';
 import { SupportedLocale } from '../i18n/types';
+import { L } from '../i18n/L';
 
 interface MacTitleBarProps {
   meta: ModFileMeta;
@@ -38,7 +39,9 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
   simpleMode,
   onSimpleModeChange,
 }) => {
-  const { t, sourceLang, targetLang, targetLocale, setTargetLanguage, languages } = useI18n();
+  const { t, sourceLang, targetLang, targetLocale, setTargetLanguage, languages, uiLocale, setUiLanguage, uiLanguages } = useI18n();
+  const [isUiMenuOpen, setIsUiMenuOpen] = useState(false);
+  const uiMenuRef = useRef<HTMLDivElement>(null);
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const langMenuRef = useRef<HTMLDivElement>(null);
 
@@ -48,14 +51,17 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
       if (langMenuRef.current && !langMenuRef.current.contains(e.target as Node)) {
         setIsLangMenuOpen(false);
       }
+      if (uiMenuRef.current && !uiMenuRef.current.contains(e.target as Node)) {
+        setIsUiMenuOpen(false);
+      }
     };
-    if (isLangMenuOpen) {
+    if (isLangMenuOpen || isUiMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isLangMenuOpen]);
+  }, [isLangMenuOpen, isUiMenuOpen]);
 
   // Récupérer le drapeau actuel
   const currentLangObj = languages.find((l) => l.code === targetLocale);
@@ -93,12 +99,44 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
 
         {/* Côté droit : état du fichier, mode d'affichage et sélecteur de langue */}
         <div className="flex items-center space-x-3 shrink-0">
+          {/* Langue de l'interface (drapeau), indépendante de la langue des traductions */}
+          <div className="relative" ref={uiMenuRef}>
+            <button
+              type="button"
+              onClick={() => setIsUiMenuOpen(!isUiMenuOpen)}
+              className="text-base leading-none px-1.5 py-1 rounded hover:bg-[#262626] transition-colors"
+              title={L("Langue de l'interface")}
+            >
+              {uiLanguages.find((l) => l.code === uiLocale)?.flag}
+            </button>
+            {isUiMenuOpen && (
+              <div className="absolute right-0 top-full mt-1.5 w-44 bg-[#1e1e1e] border border-[#333333] rounded-lg shadow-2xl py-1 z-50 text-[13px] text-[#dddddd]">
+                {uiLanguages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    type="button"
+                    onClick={() => {
+                      setUiLanguage(lang.code);
+                      setIsUiMenuOpen(false);
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-1.5 text-left transition-colors ${
+                      lang.code === uiLocale ? 'text-[#38bdf8] font-medium' : 'hover:bg-[#2c2c2c]'
+                    }`}
+                  >
+                    <span>{lang.flag}  {lang.name}</span>
+                    {lang.code === uiLocale && <Check className="w-3.5 h-3.5 text-[#38bdf8]" />}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Commutateur Simple / Expert */}
           <div
             className="flex items-center bg-[#222222] border border-[#333333] rounded-md p-0.5 text-[13px]"
             role="group"
-            aria-label="Mode d'affichage"
-            title="Simple : l'essentiel pour traduire un plugin. Expert : tous les outils."
+            aria-label={L("Mode d'affichage")}
+            title={L("Simple : l'essentiel pour traduire un plugin. Expert : tous les outils.")}
           >
             {([['Simple', true], ['Expert', false]] as const).map(([label, value]) => (
               <button
@@ -122,7 +160,7 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
                   type="button"
                   onClick={onSave}
                   className="text-[12px] text-[#fbbf24] bg-[#3f2a0c]/80 px-1.5 py-0.5 rounded border border-[#f59e0b] hover:bg-[#3f2a0c] transition-colors"
-                  title="Cliquer pour sauvegarder (⌘S)"
+                  title={L("Cliquer pour sauvegarder (⌘S)")}
                 >
                   {t('app.modified', { count: modifiedCount })}
                 </button>
@@ -138,7 +176,7 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
                 type="button"
                 onClick={onCloseFile}
                 className="px-2 py-0.5 bg-[#222222] hover:bg-[#333333] text-[#aaaaaa] hover:text-white rounded border border-[#333333] text-[13px] transition-colors flex items-center space-x-1"
-                title="Fermer le fichier actuel et revenir à l'écran de dépôt"
+                title={L("Fermer le fichier actuel et revenir à l'écran de dépôt")}
               >
                 <X className="w-3 h-3" />
                 <span>{t('app.home')}</span>
@@ -152,7 +190,7 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
               type="button"
               onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
               className="flex items-center space-x-2 text-xs text-[#dddddd] bg-[#1e1e1e] hover:bg-[#262626] px-2.5 py-1 rounded border border-[#333333] hover:border-[#38bdf8] transition-all shadow-xs group"
-              title="Cliquez pour changer la langue des traductions et la localisation de l'application"
+              title={L("Cliquez pour changer la langue des traductions")}
             >
               <span className="text-sm leading-none">{currentLangObj?.flag || '🇫🇷'}</span>
               <span className="text-[#aaaaaa]">{sourceLang}</span>
@@ -169,9 +207,7 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
                     <Globe className="w-3.5 h-3.5 text-[#38bdf8]" />
                     <span>{t('app.targetLanguage')}</span>
                   </div>
-                  <p className="text-[12px] text-[#aaaaaa] mt-0.5 leading-snug">
-                    Définit la langue cible des traductions, localise l'interface et configure les nouveaux dictionnaires SST.
-                  </p>
+                  <p className="text-[12px] text-[#aaaaaa] mt-0.5 leading-snug">{L("Définit la langue cible des traductions et configure les nouveaux dictionnaires SST.")}</p>
                 </div>
 
                 <div className="max-h-60 overflow-y-auto custom-scrollbar px-1">
@@ -205,7 +241,7 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
                 </div>
 
                 <div className="px-3 pt-2 mt-1.5 border-t border-[#2e2e2e] text-[12px] text-[#666666] flex items-center justify-between">
-                  <span>Source : {sourceLang}</span>
+                  <span>{L("Source :")} {sourceLang}</span>
                   <span className="text-[#38bdf8] font-mono">mTRANSLATOR</span>
                 </div>
               </div>
@@ -221,13 +257,13 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
           title={meta.fileName}
         >
           <HardDrive className="w-5 h-5 text-[#38bdf8] shrink-0" />
-          <span className="text-[13px] uppercase tracking-wider text-[#7dd3fc] shrink-0">Plugin ouvert</span>
+          <span className="text-[13px] uppercase tracking-wider text-[#7dd3fc] shrink-0">{L("Plugin ouvert")}</span>
           <span className="text-[20px] font-bold text-white truncate min-w-0">{meta.fileName}</span>
           <div className="ml-auto flex items-center gap-2 shrink-0">
             <div className="w-32 h-2 bg-[#181818] rounded-full overflow-hidden border border-[#0369a1]/40">
               <div className="h-full bg-[#38bdf8] rounded-full transition-all" style={{ width: `${progress}%` }} />
             </div>
-            <span className="text-[14px] font-semibold text-[#38bdf8] w-20">{progress}% traduit</span>
+            <span className="text-[14px] font-semibold text-[#38bdf8] w-20">{progress}{L("% traduit")}</span>
           </div>
         </div>
       )}

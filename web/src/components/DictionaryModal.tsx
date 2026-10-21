@@ -39,6 +39,7 @@ import { triggerFileDownload } from '../utils/translatorUtils';
 import { localDictStore } from '../utils/localDictionaryStore';
 import { LocalDictionaryManager } from './LocalDictionaryManager';
 import { useI18n } from '../i18n/LanguageContext';
+import { L } from '../i18n/L';
 
 interface DictionaryModalProps {
   isOpen: boolean;
@@ -162,7 +163,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
     triggerFileDownload(xml, cleanFileName, 'application/xml;charset=utf-8');
 
     setAppliedMessage(
-      `Dictionnaire SST "${cleanFileName}" créé avec succès en ${newSstTargetLang} (${addedCount} entrées) et intégré à la base active !`
+      L("Dictionnaire SST \"{cleanFileName}\" créé avec succès en {newSstTargetLang} ({addedCount} entrées) et intégré à la base active !", { cleanFileName, newSstTargetLang, addedCount })
     );
     setTimeout(() => setAppliedMessage(null), 6000);
   };
@@ -170,16 +171,16 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
   // Chargement des dictionnaires de test (version dev)
   const handleLoadDevTestDictionaries = () => {
     const count = localDictStore.loadDevTestDictionaries();
-    setAppliedMessage(`Dictionnaires de test Bethesda chargés (${count} entrées) pour l'environnement de développement.`);
+    setAppliedMessage(L("Dictionnaires de test Bethesda chargés ({count} entrées) pour l'environnement de développement.", { count }));
     setTimeout(() => setAppliedMessage(null), 5000);
   };
 
   // Remise à zéro vierge
   const handleResetToCleanSlate = () => {
-    if (window.confirm('Voulez-vous vraiment remettre la base à zéro (version vierge sans aucun dictionnaire) ?')) {
+    if (window.confirm(L("Voulez-vous vraiment remettre la base à zéro (version vierge sans aucun dictionnaire) ?"))) {
       localDictStore.resetToCleanSlate();
       if (onResetDictionaries) onResetDictionaries();
-      setAppliedMessage('Base de données remise à zéro : version vierge active.');
+      setAppliedMessage(L("Base de données remise à zéro : version vierge active."));
       setTimeout(() => setAppliedMessage(null), 4000);
     }
   };
@@ -187,7 +188,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
   const handleApply = async (type: 'exact' | 'fuzzy') => {
     const result = await onApplyDictionary(type);
     setAppliedMessage(
-      `${result.appliedCount} chaîne(s) traduite(s) avec succès (${type === 'exact' ? '100% exact' : 'Fuzzy match > 75%'}). Le dictionnaire local a été scanné en priorité.`
+      L("{appliedCount} chaîne(s) traduite(s) avec succès ({v}). Le dictionnaire local a été scanné en priorité.", { appliedCount: result.appliedCount, v: type === 'exact' ? '100% exact' : 'Fuzzy match > 75%' })
     );
     setTimeout(() => setAppliedMessage(null), 5000);
   };
@@ -200,7 +201,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
     setBatchProgress({
       processedFiles: 0,
       totalFiles: fileArray.length,
-      currentFileName: 'Démarrage...',
+      currentFileName: L("Démarrage..."),
       entriesFoundSoFar: 0,
       percentage: 0,
     });
@@ -216,21 +217,21 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
         await localDictStore.importEntriesAsync(result.allEntries, 'sst_import', (pct) => {
           setBatchProgress((prev) => prev ? {
             ...prev,
-            currentFileName: `Intégration base de données (${pct}%)...`,
+            currentFileName: L("Intégration base de données ({pct}%)...", { pct }),
             percentage: pct,
           } : null);
         });
 
         onImportDictionary(result.allEntries, result);
         setAppliedMessage(
-          `Importation réussie : ${fileArray.length} fichier(s) traité(s), ${result.allEntries.length.toLocaleString()} entrées intégrées sans blocage.`
+          L("Importation réussie : {length} fichier(s) traité(s), {toLocaleString} entrées intégrées sans blocage.", { length: fileArray.length, toLocaleString: result.allEntries.length.toLocaleString() })
         );
       } else {
-        setAppliedMessage('Aucune entrée valide trouvée dans les fichiers sélectionnés.');
+        setAppliedMessage(L("Aucune entrée valide trouvée dans les fichiers sélectionnés."));
       }
     } catch (err: any) {
       console.error('Erreur importation multi-fichiers:', err);
-      setAppliedMessage(`Erreur lors de l'importation : ${err.message || 'Format invalide'}`);
+      setAppliedMessage(L("Erreur lors de l'importation : {v}", { v: err.message || 'Format invalide' }));
     } finally {
       setIsProcessingFiles(false);
       setBatchProgress(null);
@@ -298,8 +299,8 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                 : 'bg-[#14391f]/40 text-[#4ade80] border-[#22c55e]/50'
             }`}>
               {localStats.totalEntries === 0 
-                ? 'Version vierge (0 entrée)' 
-                : `${localStats.totalEntries.toLocaleString()} entrées (${targetLang})`}
+                ? L("Version vierge (0 entrée)") 
+                : L("{toLocaleString} entrées ({targetLang})", { toLocaleString: localStats.totalEntries.toLocaleString(), targetLang })}
             </span>
           </div>
 
@@ -308,20 +309,20 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
               type="button"
               onClick={handleLoadDevTestDictionaries}
               className="text-[13px] text-[#fbbf24] hover:text-[#fde68a] bg-[#3f2a0c]/50 hover:bg-[#3f2a0c] border border-[#f59e0b] px-2 py-0.5 rounded flex items-center space-x-1 transition-colors"
-              title="Charger les dictionnaires d'exemples Bethesda uniquement pour la phase de test et de développement"
+              title={L("Charger les dictionnaires d'exemples Bethesda uniquement pour la phase de test et de développement")}
             >
               <FlaskConical className="w-3 h-3 text-[#fbbf24]" />
-              <span>Dev : Charger tests</span>
+              <span>{L("Dev : Charger tests")}</span>
             </button>
 
             <button
               type="button"
               onClick={handleResetToCleanSlate}
               className="text-[13px] text-[#aaaaaa] hover:text-[#f87171] bg-[#262626] hover:bg-[#262626] border border-[#333333] px-2 py-0.5 rounded flex items-center space-x-1 transition-colors"
-              title="Vider tous les dictionnaires et revenir à une version 100% vierge"
+              title={L("Vider tous les dictionnaires et revenir à une version 100% vierge")}
             >
               <Trash2 className="w-3 h-3" />
-              <span>Remise à zéro vierge</span>
+              <span>{L("Remise à zéro vierge")}</span>
             </button>
 
             <button
@@ -348,7 +349,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
               }`}
             >
               <PlusCircle className="w-3.5 h-3.5 text-[#38bdf8]" />
-              <span>Créer un dictionnaire SST ({targetLang})</span>
+              <span>{L("Créer un dictionnaire SST (")}{targetLang})</span>
             </button>
 
             {/* Onglet 2 : Base Locale */}
@@ -362,7 +363,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
               }`}
             >
               <Database className="w-3.5 h-3.5" />
-              <span>Base Locale Auto-Alimentée</span>
+              <span>{L("Base Locale Auto-Alimentée")}</span>
               <span className="px-1.5 py-0.2 rounded-full bg-[#0369a1]/30 text-[#38bdf8] text-[11.5px]">
                 {localStats.userLearnedEntries}
               </span>
@@ -379,7 +380,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
               }`}
             >
               <Layers className="w-3.5 h-3.5" />
-              <span>Toutes les entrées actives</span>
+              <span>{L("Toutes les entrées actives")}</span>
               <span className="px-1.5 py-0.2 rounded-full bg-[#2c2c2c] text-[#aaaaaa] text-[11.5px]">
                 {dictionaries.length.toLocaleString()}
               </span>
@@ -393,20 +394,20 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                 type="button"
                 onClick={() => handleApply('exact')}
                 className="px-2 py-1 bg-[#22c55e]/20 hover:bg-[#22c55e]/30 text-[#4ade80] border border-[#22c55e]/40 rounded text-[13px] font-medium flex items-center space-x-1 transition-colors"
-                title="Appliquer immédiatement toutes les correspondances exactes"
+                title={L("Appliquer immédiatement toutes les correspondances exactes")}
               >
                 <Check className="w-3 h-3" />
-                <span>Appliquer exact (100%)</span>
+                <span>{L("Appliquer exact (100%)")}</span>
               </button>
               {xtMode && (
                 <button
                   type="button"
                   onClick={() => handleApply('fuzzy')}
                   className="px-2 py-1 bg-[#f59e0b]/20 hover:bg-[#f59e0b]/30 text-[#fbbf24] border border-[#f59e0b]/40 rounded text-[13px] font-medium flex items-center space-x-1 transition-colors"
-                  title="Correspondances exactes et approchantes (heuristique xTranslator)"
+                  title={L("Correspondances exactes et approchantes (heuristique xTranslator)")}
                 >
                   <Check className="w-3 h-3" />
-                  <span>Exact + approchant</span>
+                  <span>{L("Exact + approchant")}</span>
                 </button>
               )}
             </div>
@@ -439,7 +440,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                 <span>{batchProgress.currentFileName}</span>
               </div>
               <span className="text-[13px] font-mono text-[#38bdf8]">
-                {batchProgress.processedFiles} / {batchProgress.totalFiles} fichiers ({batchProgress.percentage}%)
+                {batchProgress.processedFiles} / {batchProgress.totalFiles} {L("fichiers (")}{batchProgress.percentage}%)
               </span>
             </div>
             <div className="w-full bg-[#181818] h-1.5 rounded-full overflow-hidden">
@@ -463,12 +464,8 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                     <PlusCircle className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-white tracking-tight">
-                      Créer un nouveau dictionnaire SST
-                    </h3>
-                    <p className="text-xs text-[#aaaaaa]">
-                      Générez un dictionnaire officiel XML .sst dans la langue choisie ({targetLang}), prêt à l&apos;emploi et compatible avec mTRANSLATOR et xTranslator.
-                    </p>
+                    <h3 className="text-sm font-bold text-white tracking-tight">{L("Créer un nouveau dictionnaire SST")}</h3>
+                    <p className="text-xs text-[#aaaaaa]">{L("Générez un dictionnaire officiel XML .sst dans la langue choisie (")}{targetLang}{L("), prêt à l'emploi et compatible avec mTRANSLATOR et xTranslator.")}</p>
                   </div>
                 </div>
               </div>
@@ -477,9 +474,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
               <form onSubmit={handleCreateSstDictionary} className="space-y-4 bg-[#181818] border border-[#2e2e2e] p-5 rounded-lg">
                 {/* 1. Nom du fichier */}
                 <div>
-                  <label className="block text-xs font-semibold text-[#dddddd] mb-1">
-                    Nom du fichier SST (.sst) :
-                  </label>
+                  <label className="block text-xs font-semibold text-[#dddddd] mb-1">{L("Nom du fichier SST (.sst) :")}</label>
                   <input
                     type="text"
                     value={newSstName}
@@ -488,17 +483,13 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                     className="w-full bg-[#222222] border border-[#333333] rounded px-3 py-1.5 text-xs text-white focus:outline-hidden focus:border-[#38bdf8] font-mono"
                     placeholder="MonMod_FR.sst"
                   />
-                  <p className="text-[12.5px] text-[#666666] mt-1">
-                    Le format SST XML standard sera automatiquement appliqué avec le nom spécifié.
-                  </p>
+                  <p className="text-[12.5px] text-[#666666] mt-1">{L("Le format SST XML standard sera automatiquement appliqué avec le nom spécifié.")}</p>
                 </div>
 
                 {/* 2. Jeu cible & Paire de langue */}
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-[#dddddd] mb-1">
-                      Jeu Bethesda :
-                    </label>
+                    <label className="block text-xs font-medium text-[#dddddd] mb-1">{L("Jeu Bethesda :")}</label>
                     <select
                       value={newSstGame}
                       onChange={(e) => setNewSstGame(e.target.value)}
@@ -513,9 +504,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-[#dddddd] mb-1">
-                      Langue source (VO) :
-                    </label>
+                    <label className="block text-xs font-medium text-[#dddddd] mb-1">{L("Langue source (VO) :")}</label>
                     <select
                       value={newSstSourceLang}
                       onChange={(e) => setNewSstSourceLang(e.target.value)}
@@ -530,9 +519,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-[#dddddd] mb-1">
-                      Langue cible (VF) :
-                    </label>
+                    <label className="block text-xs font-medium text-[#dddddd] mb-1">{L("Langue cible (VF) :")}</label>
                     <select
                       value={newSstTargetLang}
                       onChange={(e) => setNewSstTargetLang(e.target.value)}
@@ -549,9 +536,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
 
                 {/* 3. Contenu initial */}
                 <div className="pt-2 border-t border-[#2e2e2e]">
-                  <label className="block text-xs font-semibold text-[#dddddd] mb-2">
-                    Contenu initial du dictionnaire :
-                  </label>
+                  <label className="block text-xs font-semibold text-[#dddddd] mb-2">{L("Contenu initial du dictionnaire :")}</label>
                   <div className="space-y-2">
                     <label className="flex items-start space-x-2.5 p-2.5 rounded bg-[#1e1e1e] border border-[#333333] cursor-pointer hover:border-[#38bdf8]/50 transition-colors">
                       <input
@@ -562,12 +547,8 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                         className="mt-0.5 text-[#38bdf8] focus:ring-0"
                       />
                       <div>
-                        <span className="text-xs font-medium text-white block">
-                          Alimenter avec les traductions du projet en cours ({translatedModRecords.length} entrées traduites)
-                        </span>
-                        <span className="text-[13px] text-[#aaaaaa]">
-                          Idéal pour transformer vos traductions actuelles en dictionnaire de référence réutilisable sur d&apos;autres mods.
-                        </span>
+                        <span className="text-xs font-medium text-white block">{L("Alimenter avec les traductions du projet en cours (")}{translatedModRecords.length} {L("entrées traduites)")}</span>
+                        <span className="text-[13px] text-[#aaaaaa]">{L("Idéal pour transformer vos traductions actuelles en dictionnaire de référence réutilisable sur d'autres mods.")}</span>
                       </div>
                     </label>
 
@@ -580,12 +561,8 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                         className="mt-0.5 text-[#38bdf8] focus:ring-0"
                       />
                       <div>
-                        <span className="text-xs font-medium text-white block">
-                          Dictionnaire vierge (0 entrée initiale)
-                        </span>
-                        <span className="text-[13px] text-[#aaaaaa]">
-                          Structure XML standard vide, à alimenter manuellement au fil des sessions.
-                        </span>
+                        <span className="text-xs font-medium text-white block">{L("Dictionnaire vierge (0 entrée initiale)")}</span>
+                        <span className="text-[13px] text-[#aaaaaa]">{L("Structure XML standard vide, à alimenter manuellement au fil des sessions.")}</span>
                       </div>
                     </label>
                   </div>
@@ -598,7 +575,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                     className="px-4 py-2 bg-[#0369a1] hover:bg-[#0369a1] text-white font-semibold rounded shadow-md transition-all flex items-center space-x-2 text-xs"
                   >
                     <Download className="w-4 h-4" />
-                    <span>Créer et exporter le dictionnaire SST (.sst)</span>
+                    <span>{L("Créer et exporter le dictionnaire SST (.sst)")}</span>
                   </button>
                 </div>
               </form>
@@ -625,10 +602,10 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                 <label
                   htmlFor="multi-sst-file-input"
                   className="px-3 py-1.5 bg-[#0c3a52] hover:bg-[#0c4a6e] text-[#38bdf8] border border-[#0ea5e9]/50 rounded cursor-pointer transition-colors flex items-center space-x-1.5 font-medium shadow-sm"
-                  title="Sélectionnez un ou PLUSIEURS fichiers SST, TXT ou CSV en maintenant Ctrl ou Cmd"
+                  title={L("Sélectionnez un ou PLUSIEURS fichiers SST, TXT ou CSV en maintenant Ctrl ou Cmd")}
                 >
                   <Upload className="w-3.5 h-3.5 text-[#38bdf8]" />
-                  <span>Importer un lot de fichiers SST / TXT</span>
+                  <span>{L("Importer un lot de fichiers SST / TXT")}</span>
                 </label>
 
                 {/* Export de la Database */}
@@ -636,10 +613,10 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                   type="button"
                   onClick={handleExportDatabase}
                   className="px-2.5 py-1.5 bg-[#262626] hover:bg-[#303030] text-[#dddddd] border border-[#444444] rounded transition-colors flex items-center space-x-1"
-                  title="Exporter toute la base de données au format SST XML"
+                  title={L("Exporter toute la base de données au format SST XML")}
                 >
                   <Download className="w-3.5 h-3.5 text-[#aaaaaa]" />
-                  <span>Exporter SST ({targetLang})</span>
+                  <span>{L("Exporter SST (")}{targetLang})</span>
                 </button>
               </div>
 
@@ -648,10 +625,10 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                 type="button"
                 onClick={handleResetToCleanSlate}
                 className="px-2.5 py-1.5 bg-[#262626] hover:bg-[#303030] text-[#aaaaaa] hover:text-[#f87171] border border-[#444444] rounded transition-colors flex items-center space-x-1"
-                title="Vider et remettre la base à zéro (0 entrée)"
+                title={L("Vider et remettre la base à zéro (0 entrée)")}
               >
                 <Trash2 className="w-3.5 h-3.5" />
-                <span>Vider la base</span>
+                <span>{L("Vider la base")}</span>
               </button>
             </div>
 
@@ -668,17 +645,12 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                   <Layers className="w-3.5 h-3.5" />
                 </div>
                 <div>
-                  <span className="font-semibold text-[#ffffff] text-[13px] block">
-                    Glissez-déposez vos fichiers .SST, .TXT ou .CSV ici
-                  </span>
-                  <p className="text-[12px] text-[#666666]">
-                    Les entrées importées alimenteront également votre base locale persistante pour {targetLang}.
+                  <span className="font-semibold text-[#ffffff] text-[13px] block">{L("Glissez-déposez vos fichiers .SST, .TXT ou .CSV ici")}</span>
+                  <p className="text-[12px] text-[#666666]">{L("Les entrées importées alimenteront également votre base locale persistante pour")} {targetLang}.
                   </p>
                 </div>
               </div>
-              <div className="text-[12px] bg-[#262626] px-2 py-1 rounded text-[#38bdf8] font-mono">
-                Support multi-fichiers &amp; micro-tâches
-              </div>
+              <div className="text-[12px] bg-[#262626] px-2 py-1 rounded text-[#38bdf8] font-mono">{L("Support multi-fichiers & micro-tâches")}</div>
             </div>
 
             {/* Barre de recherche et filtres de jeu */}
@@ -687,7 +659,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                 <Search className="w-3.5 h-3.5 text-[#666666] absolute left-2.5 top-2" />
                 <input
                   type="text"
-                  placeholder="Rechercher dans les sources ou traductions..."
+                  placeholder={L("Rechercher dans les sources ou traductions...")}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="w-full bg-[#181818] border border-[#333333] rounded pl-8 pr-3 py-1.5 text-xs text-[#dddddd] focus:outline-hidden focus:border-[#38bdf8]"
@@ -699,7 +671,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                 onChange={(e) => setGameFilter(e.target.value)}
                 className="bg-[#181818] border border-[#333333] rounded px-2.5 py-1.5 text-xs text-[#dddddd] focus:outline-hidden"
               >
-                <option value="all">Tous les univers ({dictionaries.length.toLocaleString()})</option>
+                <option value="all">{L("Tous les univers (")}{dictionaries.length.toLocaleString()})</option>
                 <option value="Skyrim Special Edition">Skyrim Special Edition</option>
                 <option value="Fallout 4">Fallout 4</option>
                 <option value="Starfield">Starfield</option>
@@ -711,9 +683,9 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
               <table className="w-full text-left border-collapse text-xs">
                 <thead className="bg-[#181818] text-[#aaaaaa] sticky top-0 z-10 border-b border-[#2e2e2e]">
                   <tr>
-                    <th className="py-2 px-3 font-semibold w-1/3">Source (VO)</th>
-                    <th className="py-2 px-3 font-semibold w-1/3">Traduction ({targetLang})</th>
-                    <th className="py-2 px-3 font-semibold">Jeu</th>
+                    <th className="py-2 px-3 font-semibold w-1/3">{L("Source (VO)")}</th>
+                    <th className="py-2 px-3 font-semibold w-1/3">{L("Traduction (")}{targetLang})</th>
+                    <th className="py-2 px-3 font-semibold">{L("Jeu")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#2e2e2e]">
@@ -721,11 +693,11 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
                     <tr>
                       <td colSpan={3} className="py-12 text-center text-[#666666]">
                         <BookMarked className="w-8 h-8 mx-auto mb-2 opacity-30" />
-                        <p className="font-medium text-white text-xs">Aucune entrée trouvée</p>
+                        <p className="font-medium text-white text-xs">{L("Aucune entrée trouvée")}</p>
                         <p className="text-[13px] text-[#aaaaaa] mt-1">
                           {dictionaries.length === 0 
-                            ? 'La base est actuellement vierge (0 entrée). Vous pouvez importer vos fichiers SST ou créer un nouveau dictionnaire.'
-                            : 'Aucune entrée ne correspond aux critères de recherche.'}
+                            ? L("La base est actuellement vierge (0 entrée). Vous pouvez importer vos fichiers SST ou créer un nouveau dictionnaire.")
+                            : L("Aucune entrée ne correspond aux critères de recherche.")}
                         </p>
                       </td>
                     </tr>
@@ -753,8 +725,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="h-9 bg-[#181818] border-t border-[#2e2e2e] px-4 flex items-center justify-between text-xs text-[#aaaaaa]">
-                <span>
-                  Affichage de {((currentPage - 1) * PAGE_SIZE) + 1} à {Math.min(currentPage * PAGE_SIZE, filteredEntries.length)} sur {filteredEntries.length.toLocaleString()}
+                <span>{L("Affichage de")} {((currentPage - 1) * PAGE_SIZE) + 1} à {Math.min(currentPage * PAGE_SIZE, filteredEntries.length)} {L("sur")} {filteredEntries.length.toLocaleString()}
                 </span>
                 <div className="flex items-center space-x-1">
                   <button

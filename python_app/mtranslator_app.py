@@ -235,7 +235,7 @@ def create_mtranslator_handler(web_directory: str):
             super().do_GET()
 
         def do_POST(self):
-            if self.path in ('/api/xtcore', '/api/pick-file', '/api/save-text'):
+            if self.path in ('/api/xtcore', '/api/pick-file', '/api/save-text', '/api/ui-lang'):
                 # En-tête personnalisé : bloque les requêtes envoyées par d'autres sites (pré-vérification CORS).
                 if self.headers.get('X-mTRANSLATOR') != '1':
                     self.send_json({'error': 'En-tête X-mTRANSLATOR requis'}, 403)
@@ -247,6 +247,10 @@ def create_mtranslator_handler(web_directory: str):
                         path = pick_file(payload)
                         log(f"sélecteur {payload.get('mode', 'open')} : {path!r}")
                         self.send_json({'path': path})
+                        return
+                    if self.path == '/api/ui-lang':
+                        save_ui_lang(payload.get('lang', ''))
+                        self.send_json({'ok': True})
                         return
                     if self.path == '/api/save-text':
                         self.send_json({'path': save_text(payload)})
@@ -299,8 +303,73 @@ def run_local_server(web_dir: str, port: int = PREFERRED_PORT) -> int:
     return httpd.server_address[1]
 
 
-# Menus standard de macOS fournis par pywebview, en français
-MENU_FR = {
+# Langue des menus natifs : celle choisie dans l'interface (mémorisée par /api/ui-lang),
+# sinon la langue du Mac. Appliquée au lancement suivant (les menus sont construits au démarrage).
+UI_LANGS = ('fr', 'en', 'it', 'es')
+UI_LANG_FILE = os.path.join(os.path.expanduser('~/Library/Application Support'), 'mTRANSLATOR', 'ui_lang')
+
+
+def save_ui_lang(code: str):
+    if code in UI_LANGS:
+        os.makedirs(os.path.dirname(UI_LANG_FILE), exist_ok=True)
+        with open(UI_LANG_FILE, 'w', encoding='utf-8') as f:
+            f.write(code)
+
+
+def menu_lang() -> str:
+    try:
+        with open(UI_LANG_FILE, encoding='utf-8') as f:
+            code = f.read().strip()
+        if code in UI_LANGS:
+            return code
+    except OSError:
+        pass
+    try:
+        from Foundation import NSLocale
+        for lang in NSLocale.preferredLanguages():
+            if str(lang)[:2] in UI_LANGS:
+                return str(lang)[:2]
+    except Exception:
+        pass
+    return 'en'
+
+
+# Titres des menus : {texte français: (anglais, italien, espagnol)}
+MENU_TEXTS = {
+    'Fichier': ('File', 'File', 'Archivo'),
+    'Ouvrir un fichier…  (⌘O)': ('Open a file…  (⌘O)', 'Apri un file…  (⌘O)', 'Abrir un archivo…  (⌘O)'),
+    'Enregistrer  (⌘S)': ('Save  (⌘S)', 'Salva  (⌘S)', 'Guardar  (⌘S)'),
+    'Exporter': ('Export', 'Esporta', 'Exportar'),
+    'Dictionnaire SST (.sst)': ('SST dictionary (.sst)', 'Dizionario SST (.sst)', 'Diccionario SST (.sst)'),
+    'Texte MCM (.txt)': ('MCM text (.txt)', 'Testo MCM (.txt)', 'Texto MCM (.txt)'),
+    'Tableur (.csv)': ('Spreadsheet (.csv)', 'Foglio di calcolo (.csv)', 'Hoja de cálculo (.csv)'),
+    'JSON (.json)': ('JSON (.json)', 'JSON (.json)', 'JSON (.json)'),
+    'Plugin traduit (.esp / .esm)…': ('Translated plugin (.esp / .esm)…', 'Plugin tradotto (.esp / .esm)…', 'Plugin traducido (.esp / .esm)…'),
+    'Traduction par lots…': ('Batch translation…', 'Traduzione in batch…', 'Traducción por lotes…'),
+    'Fermer le fichier': ('Close file', 'Chiudi il file', 'Cerrar el archivo'),
+    'Traduction': ('Translation', 'Traduzione', 'Traducción'),
+    'Traduire…': ('Translate…', 'Traduci…', 'Traducir…'),
+    'Valider et passer au suivant  (F10)': ('Validate and go to next  (F10)', 'Convalida e passa al successivo  (F10)', 'Validar y pasar al siguiente  (F10)'),
+    'Rechercher et remplacer…': ('Find and replace…', 'Trova e sostituisci…', 'Buscar y reemplazar…'),
+    'Annuler la dernière modification': ('Undo last change', "Annulla l'ultima modifica", 'Deshacer el último cambio'),
+    'Outils': ('Tools', 'Strumenti', 'Herramientas'),
+    'Dictionnaires…': ('Dictionaries…', 'Dizionari…', 'Diccionarios…'),
+    'Statistiques…': ('Statistics…', 'Statistiche…', 'Estadísticas…'),
+    'Comparer les versions…': ('Compare versions…', 'Confronta le versioni…', 'Comparar versiones…'),
+    'Aide': ('Help', 'Aiuto', 'Ayuda'),
+    'À propos de mTRANSLATOR': ('About mTRANSLATOR', 'Informazioni su mTRANSLATOR', 'Acerca de mTRANSLATOR'),
+}
+MENU_LANG = menu_lang()
+
+
+def M(text: str) -> str:
+    if MENU_LANG == 'fr':
+        return text
+    return MENU_TEXTS.get(text, (text,) * 3)[UI_LANGS.index(MENU_LANG) - 1]
+
+
+# Menus standard de macOS fournis par pywebview (en anglais par défaut)
+MENU_LOCALIZATION = {'fr': {
     'global.quitConfirmation': 'Voulez-vous vraiment quitter ?', 'global.ok': 'OK', 'global.quit': 'Quitter',
     'global.cancel': 'Annuler', 'global.saveFile': 'Enregistrer le fichier',
     'cocoa.menu.about': 'À propos de', 'cocoa.menu.services': 'Services', 'cocoa.menu.view': 'Présentation',
@@ -308,7 +377,23 @@ MENU_FR = {
     'cocoa.menu.showAll': 'Tout afficher', 'cocoa.menu.quit': 'Quitter', 'cocoa.menu.fullscreen': 'Plein écran',
     'cocoa.menu.cut': 'Couper', 'cocoa.menu.copy': 'Copier', 'cocoa.menu.paste': 'Coller',
     'cocoa.menu.selectAll': 'Tout sélectionner',
-}
+}, 'it': {
+    'global.quitConfirmation': 'Vuoi davvero uscire?', 'global.ok': 'OK', 'global.quit': 'Esci',
+    'global.cancel': 'Annulla', 'global.saveFile': 'Salva il file',
+    'cocoa.menu.about': 'Informazioni su', 'cocoa.menu.services': 'Servizi', 'cocoa.menu.view': 'Vista',
+    'cocoa.menu.edit': 'Modifica', 'cocoa.menu.hide': 'Nascondi', 'cocoa.menu.hideOthers': 'Nascondi altre',
+    'cocoa.menu.showAll': 'Mostra tutte', 'cocoa.menu.quit': 'Esci', 'cocoa.menu.fullscreen': 'Schermo intero',
+    'cocoa.menu.cut': 'Taglia', 'cocoa.menu.copy': 'Copia', 'cocoa.menu.paste': 'Incolla',
+    'cocoa.menu.selectAll': 'Seleziona tutto',
+}, 'es': {
+    'global.quitConfirmation': '¿Seguro que quieres salir?', 'global.ok': 'OK', 'global.quit': 'Salir',
+    'global.cancel': 'Cancelar', 'global.saveFile': 'Guardar el archivo',
+    'cocoa.menu.about': 'Acerca de', 'cocoa.menu.services': 'Servicios', 'cocoa.menu.view': 'Visualización',
+    'cocoa.menu.edit': 'Edición', 'cocoa.menu.hide': 'Ocultar', 'cocoa.menu.hideOthers': 'Ocultar otros',
+    'cocoa.menu.showAll': 'Mostrar todo', 'cocoa.menu.quit': 'Salir', 'cocoa.menu.fullscreen': 'Pantalla completa',
+    'cocoa.menu.cut': 'Cortar', 'cocoa.menu.copy': 'Copiar', 'cocoa.menu.paste': 'Pegar',
+    'cocoa.menu.selectAll': 'Seleccionar todo',
+}}
 
 
 def build_menu(webview):
@@ -323,13 +408,13 @@ def build_menu(webview):
         return run
 
     def item(title: str, action: str):
-        return MenuAction(title, call(action))
+        return MenuAction(M(title), call(action))
 
     return [
-        Menu('Fichier', [
+        Menu(M('Fichier'), [
             item('Ouvrir un fichier…  (⌘O)', 'open'),
             item('Enregistrer  (⌘S)', 'save'),
-            Menu('Exporter', [
+            Menu(M('Exporter'), [
                 item('Dictionnaire SST (.sst)', 'exportSST'),
                 item('Texte MCM (.txt)', 'exportTXT'),
                 item('Tableur (.csv)', 'exportCSV'),
@@ -341,19 +426,19 @@ def build_menu(webview):
             MenuSeparator(),
             item('Fermer le fichier', 'close'),
         ]),
-        Menu('Traduction', [
+        Menu(M('Traduction'), [
             item('Traduire…', 'translate'),
             item('Valider et passer au suivant  (F10)', 'validateNext'),
             item('Rechercher et remplacer…', 'findReplace'),
             MenuSeparator(),
             item('Annuler la dernière modification', 'undo'),
         ]),
-        Menu('Outils', [
+        Menu(M('Outils'), [
             item('Dictionnaires…', 'dictionaries'),
             item('Statistiques…', 'stats'),
             item('Comparer les versions…', 'diff'),
         ]),
-        Menu('Aide', [
+        Menu(M('Aide'), [
             item('À propos de mTRANSLATOR', 'about'),
         ]),
     ]
@@ -431,7 +516,7 @@ def launch_native_window(app_url: str):
             menu=build_menu(webview),
             private_mode=False,  # conserver dictionnaires et base locale d'un lancement à l'autre
             storage_path=STORAGE_DIR,
-            localization=MENU_FR,
+            localization=MENU_LOCALIZATION.get(MENU_LANG),
         )
         return
     except ImportError:

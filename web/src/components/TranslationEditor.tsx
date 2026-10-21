@@ -27,6 +27,7 @@ import {
 import { validateTags, extractBethesdaTags, sanitizeBethesdaTranslation } from '../utils/translatorUtils';
 import { getRecordDiagnostic } from '../utils/recordDiagnostics';
 import { useI18n } from '../i18n/LanguageContext';
+import { L } from '../i18n/L';
 
 interface TranslationEditorProps {
   record: ModRecord | null;
@@ -82,7 +83,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
   }, [recordId, xtDict, Boolean(onSearchSuggestions)]);
 
   const handleChooseDict = async () => {
-    const dir = await pickFile({ mode: 'folder', title: 'Dossier des dictionnaires SST', directory: xtDict }).catch(() => null);
+    const dir = await pickFile({ mode: 'folder', title: L("Dossier des dictionnaires SST"), directory: xtDict }).catch(() => null);
     if (dir) {
       const clean = dir.replace(/\/$/, '');
       setXtDict(clean);
@@ -103,9 +104,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
 
   if (!record) {
     return (
-      <div className="h-64 bg-[#1a1a1a] border-t border-[#333333] flex items-center justify-center text-[#666666] select-none text-xs">
-        Sélectionnez une chaîne dans la liste ci-dessus pour afficher et modifier la traduction.
-      </div>
+      <div className="h-64 bg-[#1a1a1a] border-t border-[#333333] flex items-center justify-center text-[#666666] select-none text-xs">{L("Sélectionnez une chaîne dans la liste ci-dessus pour afficher et modifier la traduction.")}</div>
     );
   }
 
@@ -191,18 +190,14 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
             type="button"
             onClick={onPrevRecord}
             className="px-2 py-0.5 bg-[#2c2c2c] hover:bg-[#333333] text-[#dddddd] border border-[#444444] rounded text-[13px]"
-            title="Enregistrement précédent (Flèche Haut)"
-          >
-            ▲ Préc.
-          </button>
+            title={L("Enregistrement précédent (Flèche Haut)")}
+          >{L("▲ Préc.")}</button>
           <button
             type="button"
             onClick={onNextRecord}
             className="px-2 py-0.5 bg-[#2c2c2c] hover:bg-[#333333] text-[#dddddd] border border-[#444444] rounded text-[13px]"
-            title="Enregistrement suivant (Flèche Bas)"
-          >
-            ▼ Suiv.
-          </button>
+            title={L("Enregistrement suivant (Flèche Bas)")}
+          >{L("▼ Suiv.")}</button>
         </div>
       </div>
 
@@ -211,19 +206,19 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
         {/* Panneau Texte Original (VO) */}
         <div className="flex-1 min-w-0 border-r border-[#333333] flex flex-col bg-[#181818]">
           <div className="px-3 py-1.5 bg-[#1e1e1e] border-b border-[#2e2e2e] flex items-center justify-between text-[#aaaaaa]">
-            <span className="font-medium text-[#dddddd]">Source Originale (VO)</span>
+            <span className="font-medium text-[#dddddd]">{L("Source Originale (VO)")}</span>
             <div className="flex items-center space-x-2 text-[13px]">
-              <span>{record.source.length} car.</span>
+              <span>{record.source.length} {L("car.")}</span>
               <span>•</span>
-              <span>{sourceWordCount} mots</span>
+              <span>{sourceWordCount} {L("mots")}</span>
               <button
                 type="button"
                 onClick={handleCopySource}
                 className="flex items-center space-x-1 px-1.5 py-0.5 bg-[#2c2c2c] hover:bg-[#333333] text-[#38bdf8] border border-[#444444] rounded transition-colors"
-                title="Copier la source dans la traduction"
+                title={L("Copier la source dans la traduction")}
               >
                 <Copy className="w-3 h-3" />
-                <span>Copier</span>
+                <span>{L("Copier")}</span>
               </button>
             </div>
           </div>
@@ -237,7 +232,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
             <div className="px-3 py-1.5 bg-[#181818] border-t border-[#2e2e2e] flex items-center space-x-1.5 overflow-x-auto text-[13px]">
               <span className="text-[#666666] flex items-center space-x-1 whitespace-nowrap">
                 <Code2 className="w-3 h-3" />
-                <span>Balises :</span>
+                <span>{L("Balises :")}</span>
               </span>
               {sourceTags.map((tag, idx) => {
                 const isPagebreak = /pagebreak/i.test(tag);
@@ -251,7 +246,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
                         ? 'bg-[#3f2a0c] hover:bg-[#3f2a0c] text-[#fbbf24] border-[#f59e0b]'
                         : 'bg-[#262626] hover:bg-[#404040] text-[#38bdf8] border-[#444444]'
                     }`}
-                    title={isPagebreak ? 'Saut de page de livre (Cliquer pour insérer [pagebreak])' : 'Cliquer pour insérer dans la traduction'}
+                    title={isPagebreak ? L("Saut de page de livre (Cliquer pour insérer [pagebreak])") : L("Cliquer pour insérer dans la traduction")}
                   >
                     {isPagebreak && <BookOpen className="w-2.5 h-2.5 mr-0.5" />}
                     <span>{tag}</span>
@@ -267,16 +262,16 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
           <div className="px-3 py-1.5 bg-[#1e1e1e] border-b border-[#2e2e2e] flex items-center justify-between text-[#aaaaaa]">
             <span className="font-medium text-[#dddddd]">{t('editor.targetLabel', { lang: targetLang })}</span>
             <div className="flex items-center space-x-2 text-[13px]">
-              <span>{targetText.length} car.</span>
+              <span>{targetText.length} {L("car.")}</span>
               <span>•</span>
-              <span>{targetWordCount} mots</span>
+              <span>{targetWordCount} {L("mots")}</span>
               {/* Bouton IA */}
               <button
                 type="button"
                 onClick={handleTranslateAiClick}
                 disabled={isTranslatingAi}
                 className="flex items-center space-x-1 px-2 py-0.5 bg-[#222222] hover:bg-[#303030] text-[#fbbf24] border border-[#f59e0b] rounded transition-colors disabled:opacity-50"
-                title="Traduire cette ligne avec Gemini AI"
+                title={L("Traduire cette ligne avec Gemini AI")}
               >
                 <Sparkles className="w-3 h-3" />
                 <span>{isTranslatingAi ? 'Traduction...' : 'IA Gemini'}</span>
@@ -311,9 +306,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
                     onUpdateTarget(record.id, sanitized, false);
                   }}
                   className="ml-2 px-2 py-0.5 bg-[#4a1c1c] hover:bg-[#4a1c1c] text-white rounded border border-[#ef4444] font-medium shrink-0"
-                >
-                  Rétablir [pagebreak]
-                </button>
+                >{L("Rétablir [pagebreak]")}</button>
               )}
             </div>
           )}
@@ -328,7 +321,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
               <div className="flex items-center space-x-1.5 truncate">
                 <BookMarked className={`w-3 h-3 shrink-0 ${diag.isLocalLearned ? 'text-[#38bdf8]' : 'text-[#4ade80]'}`} />
                 <span className={`font-medium ${diag.isLocalLearned ? 'text-[#bae6fd]' : 'text-[#86efac]'}`}>
-                  {diag.isLocalLearned ? `Mémoire Locale (${suggestionScore}%):` : `SST Match (${suggestionScore}%):`}
+                  {diag.isLocalLearned ? L("Mémoire Locale ({suggestionScore}%):", { suggestionScore }) : `SST Match (${suggestionScore}%):`}
                 </span>
                 <span className="text-[#dddddd] truncate">{availableSuggestion}</span>
               </div>
@@ -342,7 +335,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
                 }`}
               >
                 <Zap className="w-2.5 h-2.5" />
-                <span>Appliquer ({suggestionScore}%)</span>
+                <span>{L("Appliquer (")}{suggestionScore}%)</span>
               </button>
             </div>
           )}
@@ -352,8 +345,8 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
             <div className="px-3 py-1 bg-[#181818] border-t border-[#0369a1] flex items-center justify-between text-[13px] text-[#38bdf8]">
               <div className="flex items-center space-x-1.5 truncate">
                 <Sparkles className="w-3 h-3 text-[#38bdf8] shrink-0" />
-                <span className="text-[#dddddd] font-medium">Texte inédit du mod :</span>
-                <span className="text-[#38bdf8] truncate">Non répertorié dans les dictionnaires SST officiels.</span>
+                <span className="text-[#dddddd] font-medium">{L("Texte inédit du mod :")}</span>
+                <span className="text-[#38bdf8] truncate">{L("Non répertorié dans les dictionnaires SST officiels.")}</span>
               </div>
               <button
                 type="button"
@@ -362,7 +355,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
                 className="ml-2 px-2 py-0.5 bg-[#0c3a52] hover:bg-[#0c3a52] text-[#dddddd] border border-[#0369a1] rounded text-[12px] whitespace-nowrap flex items-center space-x-1"
               >
                 <Sparkles className="w-2.5 h-2.5 text-[#38bdf8]" />
-                <span>Traduire avec Gemini</span>
+                <span>{L("Traduire avec Gemini")}</span>
               </button>
             </div>
           )}
@@ -374,23 +367,23 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
             <div className="px-3 py-1.5 bg-[#1e1e1e] border-b border-[#2e2e2e] flex items-center justify-between text-[#aaaaaa]">
               <span className="font-medium text-[#dddddd] flex items-center space-x-1.5">
                 <Search className="w-3 h-3" />
-                <span>Suggestions</span>
+                <span>{L("Suggestions")}</span>
               </span>
               <button
                 type="button"
                 onClick={handleChooseDict}
                 className="flex items-center space-x-1 px-1.5 py-0.5 bg-[#2c2c2c] hover:bg-[#333333] text-[#38bdf8] border border-[#444444] rounded text-[13px] max-w-[60%]"
-                title={`Dictionnaires : ${xtDict}`}
+                title={L("Dictionnaires : {xtDict}", { xtDict })}
               >
                 <FolderOpen className="w-3 h-3 shrink-0" />
                 <span className="truncate">{xtDict.split('/').pop()}</span>
               </button>
             </div>
             <div className="flex-1 overflow-y-auto custom-scrollbar">
-              {xtState === 'loading' && <div className="p-3 text-[#666666]">Recherche…</div>}
-              {xtState === 'error' && <div className="p-3 text-[#ef4444]">Recherche impossible (dossier de dictionnaires ?)</div>}
+              {xtState === 'loading' && <div className="p-3 text-[#666666]">{L("Recherche…")}</div>}
+              {xtState === 'error' && <div className="p-3 text-[#ef4444]">{L("Recherche impossible (dossier de dictionnaires ?)")}</div>}
               {xtState === 'idle' && xtHits && xtHits.results.length === 0 && (
-                <div className="p-3 text-[#666666]">Aucune chaîne approchante.</div>
+                <div className="p-3 text-[#666666]">{L("Aucune chaîne approchante.")}</div>
               )}
               {xtState === 'idle' &&
                 xtHits?.results.map((h, i) => (
@@ -399,7 +392,7 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
                     type="button"
                     onClick={() => handleApplyDictionary(h.dest)}
                     className="w-full text-left px-3 py-1.5 border-b border-[#262626] hover:bg-[#222222] select-text"
-                    title={`${h.rec}:${h.field} — cliquer pour appliquer`}
+                    title={L("{rec}:{field} — cliquer pour appliquer", { rec: h.rec, field: h.field })}
                   >
                     <div className="flex items-center justify-between text-[12px] text-[#666666]">
                       <span className="truncate">{h.source}</span>
@@ -423,10 +416,10 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
             type="button"
             onClick={() => onMarkIdentical(record.id)}
             className="flex items-center space-x-1 px-2.5 py-1 bg-[#222222] hover:bg-[#303030] text-[#38bdf8] border border-[#333333] rounded transition-colors text-[13px]"
-            title="Conserver le texte original comme traduction (nom propre lore, commande)"
+            title={L("Conserver le texte original comme traduction (nom propre lore, commande)")}
           >
             <Tag className="w-3 h-3" />
-            <span>Identique (Nom Propre)</span>
+            <span>{L("Identique (Nom Propre)")}</span>
           </button>
 
           {/* Vider / Réinitialiser */}
@@ -437,10 +430,10 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
               onUpdateTarget(record.id, '', false);
             }}
             className="flex items-center space-x-1 px-2 py-1 bg-[#222222] hover:bg-[#2c2c2c] text-[#aaaaaa] hover:text-white border border-[#333333] rounded transition-colors text-[13px]"
-            title="Effacer la traduction"
+            title={L("Effacer la traduction")}
           >
             <RotateCcw className="w-3 h-3" />
-            <span>Effacer</span>
+            <span>{L("Effacer")}</span>
           </button>
         </div>
 
@@ -450,10 +443,10 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
             type="button"
             onClick={() => onValidate(record.id)}
             className="flex items-center space-x-1 px-3 py-1 bg-[#2c2c2c] hover:bg-[#333333] text-[#4ade80] border border-[#444444] rounded font-medium transition-colors text-[13px]"
-            title="Valider la ligne actuelle"
+            title={L("Valider la ligne actuelle")}
           >
             <Check className="w-3.5 h-3.5" />
-            <span>Valider</span>
+            <span>{L("Valider")}</span>
           </button>
 
           <button
@@ -463,9 +456,9 @@ export const TranslationEditor: React.FC<TranslationEditorProps> = ({
               onNextUntranslated();
             }}
             className="flex items-center space-x-1.5 px-3 py-1 bg-[#0369a1] hover:bg-[#0369a1] text-white rounded font-medium transition-colors text-[13px] shadow-sm"
-            title="Valider et sauter directement au prochain élément non-traduit (F10 / ⌘↵)"
+            title={L("Valider et sauter directement au prochain élément non-traduit (F10 / ⌘↵)")}
           >
-            <span>Valider & Suivant non-traduit</span>
+            <span>{L("Valider & Suivant non-traduit")}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>

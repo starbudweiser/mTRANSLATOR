@@ -1,5 +1,6 @@
 // Réglages du moteur de traduction automatique, communs à la traduction IA et aux lots.
 import { getXtDict } from './xtcore';
+import { L } from '../i18n/L';
 
 export type AiEngine = 'google' | 'gemini';
 
@@ -64,7 +65,7 @@ export async function translateBatch(
     signal: o.signal,
     body: JSON.stringify({
       items,
-      targetLang: o.targetLang || 'Français',
+      targetLang: o.targetLang || "Français",
       gameContext: o.game,
       engine: s.engine,
       apiKey: s.engine === 'gemini' ? s.apiKey : undefined,
@@ -73,7 +74,7 @@ export async function translateBatch(
     }),
   });
   const data = await r.json();
-  if (!r.ok || data.error) throw new Error(data.error ?? `traduction : erreur ${r.status}`);
+  if (!r.ok || data.error) throw new Error(data.error ?? L("traduction : erreur {status}", { status: r.status }));
   return data;
 }
 
@@ -81,6 +82,6 @@ export async function translateBatch(
 export async function listGeminiModels(apiKey: string): Promise<string[]> {
   const r = await post('/api/translate/models', { apiKey });
   const data = await r.json();
-  if (!r.ok || data.error) throw new Error(data.error ?? `modèles : erreur ${r.status}`);
+  if (!r.ok || data.error) throw new Error(data.error ?? L("modèles : erreur {status}", { status: r.status }));
   return data.models ?? [];
 }

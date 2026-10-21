@@ -11,6 +11,7 @@ import { xt, pickFile, pickFiles, getXtDict } from '../utils/xtcore';
 import { sanitizeBethesdaTranslation } from '../utils/translatorUtils';
 import { translateBatch } from '../utils/aiEngine';
 import { EngineSettings } from './EngineSettings';
+import { L } from '../i18n/L';
 
 interface BatchTranslateModalProps {
   isOpen: boolean;
@@ -117,17 +118,17 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
   const addFiles = async () => {
     try {
       const paths = await pickFiles({
-        title: 'Plugins à traduire',
+        title: L("Plugins à traduire"),
         fileTypes: ['Plugins Bethesda (*.esp;*.esm;*.esl)'],
       });
       addPaths(paths);
     } catch (err: any) {
-      setError(`Sélecteur natif indisponible : ${err.message}`);
+      setError(L("Sélecteur natif indisponible : {message}", { message: err.message }));
     }
   };
 
   const chooseOut = async () => {
-    const dir = await pickFile({ mode: 'folder', title: 'Dossier de sortie', directory: outDir || undefined }).catch(() => null);
+    const dir = await pickFile({ mode: 'folder', title: L("Dossier de sortie"), directory: outDir || undefined }).catch(() => null);
     if (!dir) return;
     const clean = dir.replace(/\/$/, '');
     setOutDir(clean);
@@ -163,7 +164,7 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
     patch(it.path, { step: `Traduction automatique 0/${unique.length}…` });
     const ai = await translateTexts(unique, (n) => patch(it.path, { step: `Traduction automatique ${n}/${unique.length}…` }));
 
-    patch(it.path, { step: 'Écriture…' });
+    patch(it.path, { step: L("Écriture…") });
     const rows: Array<{ id: number; dest: string; source: string; incomplete: boolean; heuristic?: boolean }> = [];
     let nAi = 0;
     for (const s of ex.strings) {
@@ -223,7 +224,7 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
         <div className="h-10 shrink-0 bg-[#262626] border-b border-[#333333] px-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Layers className="w-4 h-4 text-[#38bdf8]" />
-            <span className="font-semibold text-white">Traduction par lots (dictionnaires SST)</span>
+            <span className="font-semibold text-white">{L("Traduction par lots (dictionnaires SST)")}</span>
           </div>
           <button type="button" onClick={onClose} className="text-[#aaaaaa] hover:text-white p-1 rounded hover:bg-[#303030]">
             <X className="w-4 h-4" />
@@ -234,7 +235,7 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
           {!xtReady && (
             <div className="p-2.5 border border-[#ef4444] rounded text-[#fecaca] flex items-center space-x-2">
               <AlertCircle className="w-4 h-4 text-[#f87171] shrink-0" />
-              <span>Le cœur xtcore n'est disponible que dans l'app macOS compilée.</span>
+              <span>{L("Le cœur xtcore n'est disponible que dans l'app macOS compilée.")}</span>
             </div>
           )}
 
@@ -245,19 +246,15 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
               disabled={running || !xtReady}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded disabled:opacity-40"
             >
-              <Plus className="w-3.5 h-3.5" />
-              Ajouter des plugins…
-            </button>
+              <Plus className="w-3.5 h-3.5" />{L("Ajouter des plugins…")}</button>
             <button
               type="button"
               onClick={() => setItems([])}
               disabled={running || !items.length}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded disabled:opacity-40"
             >
-              <Trash2 className="w-3.5 h-3.5" />
-              Vider la liste
-            </button>
-            <span className="text-[#888888] truncate">Dictionnaires : {getXtDict()}</span>
+              <Trash2 className="w-3.5 h-3.5" />{L("Vider la liste")}</button>
+            <span className="text-[#888888] truncate">{L("Dictionnaires :")} {getXtDict()}</span>
           </div>
 
           <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded space-y-2.5">
@@ -268,34 +265,32 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
                 disabled={running}
                 className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded disabled:opacity-40"
               >
-                <FolderOpen className="w-3.5 h-3.5" />
-                Dossier de sortie…
-              </button>
-              <span className={`truncate ${outDir ? 'text-[#dddddd]' : 'text-[#888888]'}`}>{outDir || 'aucun dossier choisi'}</span>
+                <FolderOpen className="w-3.5 h-3.5" />{L("Dossier de sortie…")}</button>
+              <span className={`truncate ${outDir ? 'text-[#dddddd]' : 'text-[#888888]'}`}>{outDir || L("aucun dossier choisi")}</span>
             </div>
             <div className="flex flex-wrap gap-x-4 gap-y-2">
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input type="checkbox" checked={writePlugin} onChange={(e) => setWritePlugin(e.target.checked)} className="accent-[#22c55e]" />
-                <span>Plugin traduit</span>
+                <span>{L("Plugin traduit")}</span>
               </label>
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input type="checkbox" checked={writeSst} onChange={(e) => setWriteSst(e.target.checked)} className="accent-[#22c55e]" />
-                <span>Dictionnaire SST (_FR.sst)</span>
+                <span>{L("Dictionnaire SST (_FR.sst)")}</span>
               </label>
-              <label className="flex items-center space-x-2 cursor-pointer" title="Après les dictionnaires, pour les textes qu'ils ne couvrent pas (moteur choisi ci-dessous)">
+              <label className="flex items-center space-x-2 cursor-pointer" title={L("Après les dictionnaires, pour les textes qu'ils ne couvrent pas (moteur choisi ci-dessous)")}>
                 <input type="checkbox" checked={useAi} onChange={(e) => setUseAi(e.target.checked)} className="accent-[#22c55e]" />
-                <span>Compléter par traduction automatique (IA)</span>
+                <span>{L("Compléter par traduction automatique (IA)")}</span>
               </label>
               <label className="flex items-center space-x-2 cursor-pointer">
                 <input type="checkbox" checked={heuristic} onChange={(e) => setHeuristic(e.target.checked)} className="accent-[#22c55e]" />
-                <span>Correspondances approchantes dans le SST (à revoir)</span>
+                <span>{L("Correspondances approchantes dans le SST (à revoir)")}</span>
               </label>
             </div>
             {dictClash && (
-              <div className="text-[#fca5a5]">Le dossier des dictionnaires est exclu : un SST existant serait écrasé.</div>
+              <div className="text-[#fca5a5]">{L("Le dossier des dictionnaires est exclu : un SST existant serait écrasé.")}</div>
             )}
             {clash && (
-              <div className="text-[#fca5a5]">Choisissez un autre dossier que celui des plugins : l'original serait écrasé.</div>
+              <div className="text-[#fca5a5]">{L("Choisissez un autre dossier que celui des plugins : l'original serait écrasé.")}</div>
             )}
           </div>
 
@@ -333,17 +328,15 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
                         onClose();
                       }}
                       className="shrink-0 px-2 py-1 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded"
-                      title="Ouvrir le plugin d'origine avec ces traductions pour les relire et les compléter"
-                    >
-                      Ouvrir
-                    </button>
+                      title={L("Ouvrir le plugin d'origine avec ces traductions pour les relire et les compléter")}
+                    >{L("Ouvrir")}</button>
                   )}
                   {!running && it.status !== 'running' && (
                     <button
                       type="button"
                       onClick={() => setItems((l) => l.filter((x) => x.path !== it.path))}
                       className="shrink-0 p-1 text-[#888888] hover:text-white rounded hover:bg-[#303030]"
-                      title="Retirer de la liste"
+                      title={L("Retirer de la liste")}
                     >
                       <X className="w-3.5 h-3.5" />
                     </button>
@@ -352,16 +345,14 @@ export const BatchTranslateModal: React.FC<BatchTranslateModalProps> = ({ isOpen
               ))}
             </div>
           ) : (
-            <div className="p-6 text-center text-[#888888] border border-dashed border-[#333333] rounded">
-              Ajoutez un ou plusieurs plugins (.esp, .esm, .esl).
-            </div>
+            <div className="p-6 text-center text-[#888888] border border-dashed border-[#333333] rounded">{L("Ajoutez un ou plusieurs plugins (.esp, .esm, .esl).")}</div>
           )}
         </div>
 
         <div className="h-12 shrink-0 border-t border-[#333333] px-4 flex items-center justify-between gap-3">
           <span className="text-[#aaaaaa] truncate">
             {done.length
-              ? `${done.length}/${items.length} fichier(s) : ${totals.e.toLocaleString()} exacts, ${totals.a.toLocaleString()} IA, ${totals.h.toLocaleString()} approchants sur ${totals.s.toLocaleString()} textes`
+              ? L("{length}/{length2} fichier(s) : {toLocaleString} exacts, {toLocaleString2} IA, {toLocaleString3} approchants sur {toLocaleString4} textes", { length: done.length, length2: items.length, toLocaleString: totals.e.toLocaleString(), toLocaleString2: totals.a.toLocaleString(), toLocaleString3: totals.h.toLocaleString(), toLocaleString4: totals.s.toLocaleString() })
               : `${items.length} fichier(s)`}
           </span>
           <button

@@ -6,6 +6,7 @@
 import React, { useMemo, useState } from 'react';
 import { X, SlidersHorizontal, Check, AlertCircle, Undo2 } from 'lucide-react';
 import { ModRecord } from '../types';
+import { L } from '../i18n/L';
 
 export interface ReplaceOptions {
   caseSensitive: boolean;
@@ -22,7 +23,7 @@ export function buildPattern(find: string, o: ReplaceOptions): RegExp | string {
   try {
     return new RegExp(body, `gu${o.caseSensitive ? '' : 'i'}`);
   } catch (err: any) {
-    return `Expression régulière invalide : ${err.message}`;
+    return L("Expression régulière invalide : {message}", { message: err.message });
   }
 }
 
@@ -87,7 +88,7 @@ export const FindReplaceModal: React.FC<FindReplaceModalProps> = ({
   const handleExecuteReplace = () => {
     if (!(pattern instanceof RegExp) || !preview.total) return;
     const r = onBatchReplace(pattern, replaceText, opts);
-    setResultMessage(`${r.occurrences} occurrence(s) remplacée(s) sur ${r.lines} ligne(s).`);
+    setResultMessage(L("{occurrences} occurrence(s) remplacée(s) sur {lines} ligne(s).", { occurrences: r.occurrences, lines: r.lines }));
   };
 
   const field =
@@ -100,7 +101,7 @@ export const FindReplaceModal: React.FC<FindReplaceModalProps> = ({
         <div className="h-10 shrink-0 bg-[#262626] border-b border-[#333333] px-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <SlidersHorizontal className="w-4 h-4 text-[#4ade80]" />
-            <span className="font-semibold text-white">Rechercher & remplacer dans les traductions</span>
+            <span className="font-semibold text-white">{L("Rechercher & remplacer dans les traductions")}</span>
           </div>
           <button type="button" onClick={onClose} className="text-[#aaaaaa] hover:text-white p-1 rounded hover:bg-[#303030]">
             <X className="w-4 h-4" />
@@ -110,7 +111,7 @@ export const FindReplaceModal: React.FC<FindReplaceModalProps> = ({
         <div className="p-4 space-y-3.5 overflow-y-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="space-y-1">
-              <label className="font-medium block">Rechercher :</label>
+              <label className="font-medium block">{L("Rechercher :")}</label>
               <input
                 type="text"
                 autoFocus
@@ -119,17 +120,17 @@ export const FindReplaceModal: React.FC<FindReplaceModalProps> = ({
                   setFindText(e.target.value);
                   setResultMessage(null);
                 }}
-                placeholder="Texte ou motif Regex..."
+                placeholder={L("Texte ou motif Regex...")}
                 className={field}
               />
             </div>
             <div className="space-y-1">
-              <label className="font-medium block">Remplacer par :</label>
+              <label className="font-medium block">{L("Remplacer par :")}</label>
               <input
                 type="text"
                 value={replaceText}
                 onChange={(e) => setReplaceText(e.target.value)}
-                placeholder={opts.useRegex ? 'Texte ($1, $2… pour les groupes)' : 'Texte de remplacement...'}
+                placeholder={opts.useRegex ? L("Texte ($1, $2… pour les groupes)") : L("Texte de remplacement...")}
                 className={field}
               />
             </div>
@@ -138,10 +139,10 @@ export const FindReplaceModal: React.FC<FindReplaceModalProps> = ({
           <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded flex flex-wrap gap-x-4 gap-y-2">
             {(
               [
-                ['caseSensitive', 'Respecter la casse'],
-                ['wholeWord', 'Mot entier'],
-                ['useRegex', 'Expression régulière'],
-                ['skipUntranslated', 'Ignorer les lignes non traduites'],
+                ['caseSensitive', L("Respecter la casse")],
+                ['wholeWord', L("Mot entier")],
+                ['useRegex', L("Expression régulière")],
+                ['skipUntranslated', L("Ignorer les lignes non traduites")],
               ] as const
             ).map(([k, label]) => (
               <label key={k} className="flex items-center space-x-2 cursor-pointer">
@@ -169,8 +170,8 @@ export const FindReplaceModal: React.FC<FindReplaceModalProps> = ({
             <div className="space-y-1.5">
               <div className="text-[#aaaaaa]">
                 {preview.total
-                  ? `${preview.occ} occurrence(s) sur ${preview.total} ligne(s)${preview.total > PREVIEW_MAX ? ` (aperçu des ${PREVIEW_MAX} premières)` : ''}`
-                  : 'Aucune occurrence dans les traductions.'}
+                  ? L("{occ} occurrence(s) sur {total} ligne(s){v}", { occ: preview.occ, total: preview.total, v: preview.total > PREVIEW_MAX ? ` (aperçu des ${PREVIEW_MAX} premières)` : '' })
+                  : L("Aucune occurrence dans les traductions.")}
               </div>
               {preview.lines.length > 0 && (
                 <div className="border border-[#2e2e2e] rounded divide-y divide-[#2e2e2e] max-h-72 overflow-y-auto select-text">
@@ -193,30 +194,24 @@ export const FindReplaceModal: React.FC<FindReplaceModalProps> = ({
         {/* Pied de page */}
         <div className="h-12 shrink-0 border-t border-[#333333] px-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <button type="button" onClick={onClose} className="px-3 py-1.5 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded transition-colors">
-              Fermer
-            </button>
+            <button type="button" onClick={onClose} className="px-3 py-1.5 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded transition-colors">{L("Fermer")}</button>
             <button
               type="button"
               onClick={() => {
                 onUndo();
-                setResultMessage('Dernier remplacement annulé.');
+                setResultMessage(L("Dernier remplacement annulé."));
               }}
               disabled={!canUndo}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-[#2c2c2c] hover:bg-[#404040] text-white rounded transition-colors disabled:opacity-40"
             >
-              <Undo2 className="w-3.5 h-3.5" />
-              Annuler le remplacement
-            </button>
+              <Undo2 className="w-3.5 h-3.5" />{L("Annuler le remplacement")}</button>
           </div>
           <button
             type="button"
             onClick={handleExecuteReplace}
             disabled={!preview.total}
             className="px-4 py-1.5 bg-[#22c55e] hover:bg-[#16a34a] text-white font-medium rounded transition-colors disabled:opacity-50"
-          >
-            Remplacer tout
-          </button>
+          >{L("Remplacer tout")}</button>
         </div>
       </div>
     </div>

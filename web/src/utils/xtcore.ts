@@ -1,3 +1,4 @@
+import { L } from '../i18n/L';
 // Client du cœur Rust xtcore (servi par l'app macOS sur /api/xtcore).
 // Disponible seulement dans l'app compilée ou avec le serveur Python local.
 
@@ -84,7 +85,7 @@ const post = (url: string, body: unknown) =>
 export async function xtcore<T>(args: string[], stdin?: string): Promise<T> {
   const r = await post('/api/xtcore', { args, stdin });
   const data = await r.json();
-  if (!r.ok || data.error) throw new Error(data.error ?? `xtcore : erreur ${r.status}`);
+  if (!r.ok || data.error) throw new Error(data.error ?? L("xtcore : erreur {status}", { status: r.status }));
   return data as T;
 }
 
@@ -98,7 +99,7 @@ export async function pickFile(o: {
 }): Promise<string | null> {
   const r = await post('/api/pick-file', o);
   const data = await r.json();
-  if (!r.ok || data.error) throw new Error(data.error ?? `sélecteur : erreur ${r.status}`);
+  if (!r.ok || data.error) throw new Error(data.error ?? L("sélecteur : erreur {status}", { status: r.status }));
   return data.path ?? null;
 }
 
@@ -106,7 +107,7 @@ export async function pickFile(o: {
 export async function pickFiles(o: { title?: string; directory?: string; fileTypes?: string[] }): Promise<string[]> {
   const r = await post('/api/pick-file', { ...o, mode: 'open', multiple: true });
   const data = await r.json();
-  if (!r.ok || data.error) throw new Error(data.error ?? `sélecteur : erreur ${r.status}`);
+  if (!r.ok || data.error) throw new Error(data.error ?? L("sélecteur : erreur {status}", { status: r.status }));
   return Array.isArray(data.path) ? data.path : data.path ? [data.path] : [];
 }
 

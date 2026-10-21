@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { getRecordDiagnostic, buildDictionaryLookup } from '../utils/recordDiagnostics';
 import { useI18n } from '../i18n/LanguageContext';
+import { L } from '../i18n/L';
 
 interface StringTableProps {
   records: ModRecord[];
@@ -107,7 +108,7 @@ export const StringTable: React.FC<StringTableProps> = ({
 
   // Rendu des balises avec coloration syntaxique
   const renderHighlightedText = (text: string) => {
-    if (!text) return <span className="text-[#666666] italic">Vide</span>;
+    if (!text) return <span className="text-[#666666] italic">{L("Vide")}</span>;
 
     // Découpage pour mettre en valeur [pagebreak], les balises <...> et %s
     const parts = text.split(/(\[\s*pagebreak\s*\]|<pagebreak>|\[\s*saut\s*de\s*page\s*\]|<[^>]+>|%[0-9.]*[sdifu]|\\r\\n|\\n)/gi);
@@ -121,7 +122,7 @@ export const StringTable: React.FC<StringTableProps> = ({
               <span
                 key={index}
                 className="bg-[#3f2a0c] text-[#fbbf24] font-mono font-semibold text-[12px] px-1.5 py-0.5 rounded border border-[#f59e0b] mx-1 inline-flex items-center space-x-1"
-                title="Saut de page de livre Bethesda (Ne jamais traduire !)"
+                title={L("Saut de page de livre Bethesda (Ne jamais traduire !)")}
               >
                 <span>📖</span>
                 <span>{part}</span>
@@ -133,7 +134,7 @@ export const StringTable: React.FC<StringTableProps> = ({
               <span
                 key={index}
                 className="bg-[#262626] text-[#38bdf8] font-mono text-[12px] px-1 py-0.5 rounded border border-[#444444] mx-0.5 inline-block"
-                title="Balise de jeu préservée"
+                title={L("Balise de jeu préservée")}
               >
                 {part}
               </span>
@@ -144,7 +145,7 @@ export const StringTable: React.FC<StringTableProps> = ({
               <span
                 key={index}
                 className="bg-[#0c3a52] text-[#38bdf8] font-mono text-[12px] px-1 py-0.5 rounded border border-[#0369a1] mx-0.5 inline-block"
-                title="Spécificateur de variable C/Papyrus"
+                title={L("Spécificateur de variable C/Papyrus")}
               >
                 {part}
               </span>
@@ -155,7 +156,7 @@ export const StringTable: React.FC<StringTableProps> = ({
               <span
                 key={index}
                 className="text-[#fbbf24] font-mono text-[12px] opacity-70 px-0.5"
-                title="Saut de ligne"
+                title={L("Saut de ligne")}
               >
                 ↵
               </span>
@@ -170,7 +171,7 @@ export const StringTable: React.FC<StringTableProps> = ({
   const getStatusIcon = (status: RecordStatus, hasWarning: boolean) => {
     if (hasWarning) {
       return (
-        <span className="flex items-center justify-center w-4 h-4 rounded bg-[#3f2a0c] border border-[#f59e0b] text-[#fbbf24]" title="Alerte : balises divergentes">
+        <span className="flex items-center justify-center w-4 h-4 rounded bg-[#3f2a0c] border border-[#f59e0b] text-[#fbbf24]" title={L("Alerte : balises divergentes")}>
           <AlertTriangle className="w-2.5 h-2.5" />
         </span>
       );
@@ -178,31 +179,31 @@ export const StringTable: React.FC<StringTableProps> = ({
     switch (status) {
       case 'translated':
         return (
-          <span className="flex items-center justify-center w-4 h-4 rounded bg-[#262626] border border-[#22c55e] text-[#4ade80]" title="Traduit et validé">
+          <span className="flex items-center justify-center w-4 h-4 rounded bg-[#262626] border border-[#22c55e] text-[#4ade80]" title={L("Traduit et validé")}>
             <CheckCircle2 className="w-2.5 h-2.5" />
           </span>
         );
       case 'untranslated':
         return (
-          <span className="flex items-center justify-center w-4 h-4 rounded bg-[#4a1c1c] border border-[#ef4444] text-[#f87171]" title="Non traduit">
+          <span className="flex items-center justify-center w-4 h-4 rounded bg-[#4a1c1c] border border-[#ef4444] text-[#f87171]" title={L("Non traduit")}>
             <Circle className="w-2.5 h-2.5 fill-current" />
           </span>
         );
       case 'partial':
         return (
-          <span className="flex items-center justify-center w-4 h-4 rounded bg-[#3f2a0c] border border-[#f59e0b] text-[#fbbf24]" title="Traduit partiellement / En cours">
+          <span className="flex items-center justify-center w-4 h-4 rounded bg-[#3f2a0c] border border-[#f59e0b] text-[#fbbf24]" title={L("Traduit partiellement / En cours")}>
             <Clock className="w-2.5 h-2.5" />
           </span>
         );
       case 'identical':
         return (
-          <span className="flex items-center justify-center w-4 h-4 rounded bg-[#0c3a52] border border-[#0369a1] text-[#38bdf8]" title="Identique à l'original (ex: nom propre)">
+          <span className="flex items-center justify-center w-4 h-4 rounded bg-[#0c3a52] border border-[#0369a1] text-[#38bdf8]" title={L("Identique à l'original (ex: nom propre)")}>
             <Tag className="w-2.5 h-2.5" />
           </span>
         );
       case 'locked':
         return (
-          <span className="flex items-center justify-center w-4 h-4 rounded bg-[#262626] border border-[#444444] text-[#aaaaaa]" title="Verrouillé">
+          <span className="flex items-center justify-center w-4 h-4 rounded bg-[#262626] border border-[#444444] text-[#aaaaaa]" title={L("Verrouillé")}>
             <Lock className="w-2.5 h-2.5" />
           </span>
         );
@@ -260,7 +261,7 @@ export const StringTable: React.FC<StringTableProps> = ({
           <div className="flex items-center space-x-2 flex-wrap">
             <span className="text-[#dddddd] font-medium flex items-center space-x-1">
               <span className="w-2 h-2 rounded-full bg-[#ef4444] inline-block" />
-              <span>Diagnostic des {untranslatedCount} ligne(s) non traduite(s) :</span>
+              <span>{L("Diagnostic des")} {untranslatedCount} {L("ligne(s) non traduite(s) :")}</span>
             </span>
 
             {onXtTranslate && (
@@ -268,10 +269,10 @@ export const StringTable: React.FC<StringTableProps> = ({
                 type="button"
                 onClick={onXtTranslate}
                 className="px-2.5 py-0.5 rounded bg-[#14391f] hover:bg-[#14391f] border border-[#22c55e] text-[#86efac] hover:text-white flex items-center space-x-1 font-medium shadow-sm transition-all cursor-pointer group"
-                title="Traduction automatique par les dictionnaires SST de xTranslator (correspondances exactes et approchantes)"
+                title={L("Traduction automatique par les dictionnaires SST de xTranslator (correspondances exactes et approchantes)")}
               >
                 <BookMarked className="w-3.5 h-3.5 text-[#4ade80] group-hover:scale-110 transition-transform" />
-                <span className="font-semibold">⚡ Traduire avec les dictionnaires SST</span>
+                <span className="font-semibold">{L("⚡ Traduire avec les dictionnaires SST")}</span>
               </button>
             )}
 
@@ -280,17 +281,17 @@ export const StringTable: React.FC<StringTableProps> = ({
                 type="button"
                 onClick={onApplyExactSstMatches}
                 className="px-2.5 py-0.5 rounded bg-[#14391f] hover:bg-[#14391f] border border-[#22c55e] text-[#86efac] hover:text-white flex items-center space-x-1 font-medium shadow-sm transition-all cursor-pointer group"
-                title={`Appliquer immédiatement toutes les ${exactMatchesCount} correspondances exactes du dictionnaire SST (0 ms)`}
+                title={L("Appliquer immédiatement toutes les {exactMatchesCount} correspondances exactes du dictionnaire SST (0 ms)", { exactMatchesCount })}
               >
                 <BookMarked className="w-3.5 h-3.5 text-[#4ade80] group-hover:scale-110 transition-transform" />
-                <span className="font-semibold">⚡ Appliquer {exactMatchesCount} traduction(s) SST (100%)</span>
+                <span className="font-semibold">{L("⚡ Appliquer")} {exactMatchesCount} {L("traduction(s) SST (100%)")}</span>
               </button>
             )}
 
             {fuzzyMatchesCount > 0 && (
               <span className="px-2 py-0.5 rounded bg-[#3f2a0c]/80 border border-[#f59e0b]/60 text-[#fde68a] flex items-center space-x-1 font-medium">
                 <span>🔍</span>
-                <span>{fuzzyMatchesCount} suggestion(s) SST partielle(s) (&gt; 70%)</span>
+                <span>{fuzzyMatchesCount} {L("suggestion(s) SST partielle(s) (> 70%)")}</span>
               </span>
             )}
 
@@ -299,10 +300,10 @@ export const StringTable: React.FC<StringTableProps> = ({
                 type="button"
                 onClick={onOpenAiTranslateModal}
                 className="px-2.5 py-0.5 rounded bg-[#1e1e1e] hover:bg-[#0c3a52] border border-[#0369a1] text-[#dddddd] hover:text-white flex items-center space-x-1 font-medium shadow-sm transition-all cursor-pointer group"
-                title="Ouvrir la Traduction Automatique par IA pour les textes inédits du mod"
+                title={L("Ouvrir la Traduction Automatique par IA pour les textes inédits du mod")}
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#38bdf8] group-hover:scale-110 transition-transform" />
-                <span>Traduire {unseenModCount} texte(s) inédit(s) par IA</span>
+                <span>{L("Traduire")} {unseenModCount} {L("texte(s) inédit(s) par IA")}</span>
               </button>
             )}
           </div>
@@ -311,10 +312,10 @@ export const StringTable: React.FC<StringTableProps> = ({
             type="button"
             onClick={() => setShowDiagnosticHelp(!showDiagnosticHelp)}
             className="flex items-center space-x-1 text-[#38bdf8] hover:text-[#38bdf8] transition-colors ml-2 shrink-0"
-            title="Afficher l'explication détaillée de chaque indicateur"
+            title={L("Afficher l'explication détaillée de chaque indicateur")}
           >
             <HelpCircle className="w-3.5 h-3.5" />
-            <span>Pourquoi ces lignes ?</span>
+            <span>{L("Pourquoi ces lignes ?")}</span>
           </button>
         </div>
       )}
@@ -325,34 +326,26 @@ export const StringTable: React.FC<StringTableProps> = ({
           <div className="flex items-center justify-between mb-2">
             <span className="font-semibold text-white flex items-center space-x-1.5">
               <HelpCircle className="w-4 h-4 text-[#38bdf8]" />
-              <span>Pourquoi certaines lignes restent-elles non traduites après confirmation ?</span>
+              <span>{L("Pourquoi certaines lignes restent-elles non traduites après confirmation ?")}</span>
             </span>
             <button
               type="button"
               onClick={() => setShowDiagnosticHelp(false)}
               className="text-[#aaaaaa] hover:text-white text-[13px]"
-            >
-              Fermer ✕
-            </button>
+            >{L("Fermer ✕")}</button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-[13px] leading-relaxed">
             <div className="p-2 rounded bg-[#181818] border border-[#2e2e2e]">
-              <span className="font-semibold text-[#4ade80] block mb-1">📖 1. Correspondance SST exacte (100%)</span>
-              <p className="text-[#aaaaaa]">
-                La phrase existe à l&apos;identique dans un dictionnaire SST chargé. Si vous confirmez la traduction par dictionnaire, ces lignes sont instantanément comblées.
-              </p>
+              <span className="font-semibold text-[#4ade80] block mb-1">{L("📖 1. Correspondance SST exacte (100%)")}</span>
+              <p className="text-[#aaaaaa]">{L("La phrase existe à l'identique dans un dictionnaire SST chargé. Si vous confirmez la traduction par dictionnaire, ces lignes sont instantanément comblées.")}</p>
             </div>
             <div className="p-2 rounded bg-[#181818] border border-[#2e2e2e]">
-              <span className="font-semibold text-[#fde68a] block mb-1">🔍 2. Correspondance partielle (Fuzzy Match)</span>
-              <p className="text-[#aaaaaa]">
-                Le dictionnaire contient une phrase proche (ex: 85%), mais pas strictement identique. mTRANSLATOR ne l&apos;applique pas d&apos;office pour vous éviter des faux-sens. Vous pouvez l&apos;appliquer via l&apos;icône ⚡.
-              </p>
+              <span className="font-semibold text-[#fde68a] block mb-1">{L("🔍 2. Correspondance partielle (Fuzzy Match)")}</span>
+              <p className="text-[#aaaaaa]">{L("Le dictionnaire contient une phrase proche (ex: 85%), mais pas strictement identique. mTRANSLATOR ne l'applique pas d'office pour vous éviter des faux-sens. Vous pouvez l'appliquer via l'icône ⚡.")}</p>
             </div>
             <div className="p-2 rounded bg-[#181818] border border-[#2e2e2e]">
-              <span className="font-semibold text-[#38bdf8] block mb-1">✨ 3. Textes inédits du mod (0% SST)</span>
-              <p className="text-[#aaaaaa]">
-                Ces dialogues, quêtes ou livres ont été écrits par l&apos;auteur du mod et n&apos;existent dans aucun fichier du jeu original. Ils nécessitent la Traduction IA (Gemini) ou une saisie manuelle.
-              </p>
+              <span className="font-semibold text-[#38bdf8] block mb-1">{L("✨ 3. Textes inédits du mod (0% SST)")}</span>
+              <p className="text-[#aaaaaa]">{L("Ces dialogues, quêtes ou livres ont été écrits par l'auteur du mod et n'existent dans aucun fichier du jeu original. Ils nécessitent la Traduction IA (Gemini) ou une saisie manuelle.")}</p>
             </div>
           </div>
         </div>
@@ -381,7 +374,7 @@ export const StringTable: React.FC<StringTableProps> = ({
               <th 
                 onClick={() => onSort('status')}
                 className="w-10 px-2 py-2 text-center cursor-pointer hover:text-white transition-colors"
-                title="Statut de traduction"
+                title={L("Statut de traduction")}
               >
                 St.
               </th>
@@ -417,23 +410,19 @@ export const StringTable: React.FC<StringTableProps> = ({
                 className="px-3 py-2 cursor-pointer hover:text-white transition-colors"
               >
                 <div className="flex items-center space-x-1">
-                  <span>Original (VO)</span>
+                  <span>{L("Original (VO)")}</span>
                   {sortBy === 'source' && (
                     <span className="text-[#38bdf8]">{sortDirection === 'asc' ? '▲' : '▼'}</span>
                   )}
                 </div>
               </th>
-              <th className="px-3 py-2">
-                Traduction ({targetLang}) & Indicateur
-              </th>
+              <th className="px-3 py-2">{L("Traduction (")}{targetLang}{L(") & Indicateur")}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[#2e2e2e] font-normal">
             {displayedRecords.length === 0 ? (
               <tr>
-                <td colSpan={simple ? 3 : 6} className="text-center py-16 text-[#666666]">
-                  Aucun enregistrement ne correspond aux filtres actuels.
-                </td>
+                <td colSpan={simple ? 3 : 6} className="text-center py-16 text-[#666666]">{L("Aucun enregistrement ne correspond aux filtres actuels.")}</td>
               </tr>
             ) : (
               displayedRecords.map((r) => {
@@ -494,9 +483,7 @@ export const StringTable: React.FC<StringTableProps> = ({
                               {renderHighlightedText(r.target)}
                             </div>
                             {r.status === 'identical' && (
-                              <span className="px-1.5 py-0.5 rounded text-[11px] bg-[#0c3a52] text-[#38bdf8] border border-[#0369a1] whitespace-nowrap shrink-0">
-                                Identique
-                              </span>
+                              <span className="px-1.5 py-0.5 rounded text-[11px] bg-[#0c3a52] text-[#38bdf8] border border-[#0369a1] whitespace-nowrap shrink-0">{L("Identique")}</span>
                             )}
                           </div>
                         ) : (
@@ -523,11 +510,10 @@ export const StringTable: React.FC<StringTableProps> = ({
                                   onQuickApplySuggestion(r.id, diag.suggestion!);
                                 }}
                                 className="px-2 py-0.5 bg-[#222222] hover:bg-[#333333] text-[#4ade80] border border-[#444444] rounded text-[12px] flex items-center space-x-1 transition-colors group shadow-sm"
-                                title={`Cliquer pour appliquer la correspondance SST : « ${diag.suggestion} »`}
+                                title={L("Cliquer pour appliquer la correspondance SST : « {suggestion} »", { suggestion: diag.suggestion })}
                               >
                                 <Zap className="w-2.5 h-2.5 text-[#4ade80] group-hover:scale-110 transition-transform" />
-                                <span className="truncate max-w-[220px]">
-                                  Appliquer : « {diag.suggestion} »
+                                <span className="truncate max-w-[220px]">{L("Appliquer : «")} {diag.suggestion} »
                                 </span>
                               </button>
                             ) : (
@@ -536,8 +522,8 @@ export const StringTable: React.FC<StringTableProps> = ({
                                 title={diag.detailedReason}
                               >
                                 {diag.reason === 'UNSEEN_MOD_TEXT' 
-                                  ? 'Absent du dictionnaire (Traduction IA requise)' 
-                                  : '[Non traduit]'}
+                                  ? L("Absent du dictionnaire (Traduction IA requise)") 
+                                  : L("[Non traduit]")}
                               </span>
                             )}
                           </div>
@@ -556,8 +542,7 @@ export const StringTable: React.FC<StringTableProps> = ({
       {records.length > 50 && (
         <div className="bg-[#1a1a1a] border-t border-[#333333] px-3 py-1.5 flex items-center justify-between text-xs text-[#aaaaaa] shrink-0">
           <div className="flex items-center space-x-2">
-            <span className="text-[13px]">
-              Lignes <strong className="text-white">{pageSize > 0 ? currentPage * pageSize + 1 : 1}</strong> à <strong className="text-white">{pageSize > 0 ? Math.min((currentPage + 1) * pageSize, records.length) : records.length}</strong> sur <strong className="text-white">{records.length.toLocaleString()}</strong>
+            <span className="text-[13px]">{L("Lignes")} <strong className="text-white">{pageSize > 0 ? currentPage * pageSize + 1 : 1}</strong> à <strong className="text-white">{pageSize > 0 ? Math.min((currentPage + 1) * pageSize, records.length) : records.length}</strong> {L("sur")} <strong className="text-white">{records.length.toLocaleString()}</strong>
             </span>
           </div>
 
@@ -568,7 +553,7 @@ export const StringTable: React.FC<StringTableProps> = ({
                 onClick={() => setCurrentPage(0)}
                 disabled={currentPage === 0}
                 className="p-1 rounded hover:bg-[#2c2c2c] disabled:opacity-30 disabled:cursor-not-allowed text-[#dddddd] transition-colors"
-                title="Première page"
+                title={L("Première page")}
               >
                 <ChevronsLeft className="w-4 h-4" />
               </button>
@@ -577,19 +562,18 @@ export const StringTable: React.FC<StringTableProps> = ({
                 onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
                 disabled={currentPage === 0}
                 className="p-1 rounded hover:bg-[#2c2c2c] disabled:opacity-30 disabled:cursor-not-allowed text-[#dddddd] transition-colors"
-                title="Page précédente"
+                title={L("Page précédente")}
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
-              <span className="px-2 py-0.5 font-medium text-white bg-[#181818] border border-[#333333] rounded text-[13px]">
-                Page {currentPage + 1} / {totalPages}
+              <span className="px-2 py-0.5 font-medium text-white bg-[#181818] border border-[#333333] rounded text-[13px]">{L("Page")} {currentPage + 1} / {totalPages}
               </span>
               <button
                 type="button"
                 onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
                 disabled={currentPage >= totalPages - 1}
                 className="p-1 rounded hover:bg-[#2c2c2c] disabled:opacity-30 disabled:cursor-not-allowed text-[#dddddd] transition-colors"
-                title="Page suivante"
+                title={L("Page suivante")}
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -598,7 +582,7 @@ export const StringTable: React.FC<StringTableProps> = ({
                 onClick={() => setCurrentPage(totalPages - 1)}
                 disabled={currentPage >= totalPages - 1}
                 className="p-1 rounded hover:bg-[#2c2c2c] disabled:opacity-30 disabled:cursor-not-allowed text-[#dddddd] transition-colors"
-                title="Dernière page"
+                title={L("Dernière page")}
               >
                 <ChevronsRight className="w-4 h-4" />
               </button>
@@ -606,7 +590,7 @@ export const StringTable: React.FC<StringTableProps> = ({
           )}
 
           <div className="flex items-center space-x-2">
-            <span className="text-[13px] text-[#666666]">Affichage :</span>
+            <span className="text-[13px] text-[#666666]">{L("Affichage :")}</span>
             <select
               value={pageSize}
               onChange={(e) => {
@@ -616,11 +600,11 @@ export const StringTable: React.FC<StringTableProps> = ({
               }}
               className="bg-[#181818] border border-[#333333] rounded px-2 py-0.5 text-[13px] text-[#dddddd] focus:outline-none focus:border-[#38bdf8]"
             >
-              <option value={50}>50 par page</option>
-              <option value={100}>100 par page</option>
-              <option value={250}>250 par page</option>
-              <option value={500}>500 par page</option>
-              <option value={0}>Tout afficher</option>
+              <option value={50}>{L("50 par page")}</option>
+              <option value={100}>{L("100 par page")}</option>
+              <option value={250}>{L("250 par page")}</option>
+              <option value={500}>{L("500 par page")}</option>
+              <option value={0}>{L("Tout afficher")}</option>
             </select>
           </div>
         </div>

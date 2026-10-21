@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useMemo, ReactNode } from 'react';
 import { SupportedLocale, LanguageInfo, AVAILABLE_LANGUAGES, I18nContextType } from './types';
 import { TRANSLATIONS } from './translations';
+import { UiLocale, UI_LANGUAGES, getUiLocale, setUiLocaleValue } from './L';
 
 const STORAGE_KEY_LOCALE = 'mtranslator_target_lang';
 const STORAGE_KEY_SOURCE = 'mtranslator_source_lang';
@@ -18,6 +19,14 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     } catch {}
     return 'fr';
   });
+
+  // Langue de l'interface : indépendante de la langue cible des traductions
+  const [uiLocale, setUiLocaleState] = useState<UiLocale>(getUiLocale);
+
+  const setUiLanguage = (code: UiLocale) => {
+    setUiLocaleValue(code);
+    setUiLocaleState(code);
+  };
 
   const [sourceLang, setSourceLangState] = useState<string>(() => {
     try {
@@ -38,8 +47,6 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     setTargetLocaleState(code);
     try {
       localStorage.setItem(STORAGE_KEY_LOCALE, code);
-      // Synchronisation de l'attribut lang du document HTML
-      document.documentElement.lang = code;
     } catch {}
   };
 
@@ -50,14 +57,20 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     } catch {}
   };
 
-  // Synchronisation initiale du document lang
+  // Attribut lang du document HTML : langue de l'interface. L'app macOS la mémorise aussi pour
+  // ses menus natifs (appliquée au lancement suivant) ; sans serveur local, la requête échoue sans gêne.
   useEffect(() => {
-    document.documentElement.lang = targetLocale;
-  }, [targetLocale]);
+    document.documentElement.lang = uiLocale;
+    fetch('/api/ui-lang', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-mTRANSLATOR': '1' },
+      body: JSON.stringify({ lang: uiLocale }),
+    }).catch(() => {});
+  }, [uiLocale]);
 
   // Fonction de traduction avec substitution de paramètres et fallback français garanti
   const t = (key: string, params?: Record<string, string | number>): string => {
-    const localeDict = TRANSLATIONS[targetLocale] || TRANSLATIONS.fr;
+    const localeDict = TRANSLATIONS[uiLocale] || TRANSLATIONS.fr;
     let text = localeDict[key] || TRANSLATIONS.fr[key] || key;
 
     if (params) {
@@ -70,7 +83,10 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   };
 
   const contextValue: I18nContextType = {
-    locale: targetLocale,
+    locale: uiLocale,
+    uiLocale,
+    setUiLanguage,
+    uiLanguages: UI_LANGUAGES,
     targetLocale,
     sourceLang,
     targetLang,

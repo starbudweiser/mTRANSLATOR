@@ -30,6 +30,7 @@ import { ModRecord, ModFileMeta } from '../types';
 import { rebuildPluginBinary, PluginSaveResult } from '../utils/bethesdaPluginWriter';
 import { localDictStore } from '../utils/localDictionaryStore';
 import { triggerBlobDownload } from '../utils/translatorUtils';
+import { L } from '../i18n/L';
 
 export type SaveMode = 'overwrite_or_replace' | 'both_with_backup' | 'backup_only' | 'new_file';
 
@@ -149,7 +150,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
           suggestedName: fileName,
           types: [
             {
-              description: `Fichier de plugin Bethesda (${ext})`,
+              description: L("Fichier de plugin Bethesda ({ext})", { ext }),
               accept: { 'application/octet-stream': [ext] },
             },
           ],
@@ -186,12 +187,12 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
         const res = await writeBufferToFile(saveResult.translatedBuffer, meta.fileName, true);
         if (res.success) {
           const learned = triggerAutoLearning();
-          const dictMsg = learned > 0 ? ` (+${learned} traductions ajoutées à votre dictionnaire local)` : '';
+          const dictMsg = learned > 0 ? L(" (+{learned} traductions ajoutées à votre dictionnaire local)", { learned }) : '';
           const methodMsg = res.method === 'disk_direct'
-            ? `Plugin original ${meta.fileName} écrasé directement sur le disque !`
+            ? L("Plugin original {fileName} écrasé directement sur le disque !", { fileName: meta.fileName })
             : res.method === 'file_picker'
-            ? `Plugin ${meta.fileName} écrasé à l'emplacement sélectionné !`
-            : `Plugin enregistré sous ${meta.fileName} (remplacez l'original dans votre dossier de mod).`;
+            ? L("Plugin {fileName} écrasé à l'emplacement sélectionné !", { fileName: meta.fileName })
+            : L("Plugin enregistré sous {fileName} (remplacez l'original dans votre dossier de mod).", { fileName: meta.fileName });
           onSaveSuccess(`${methodMsg}${dictMsg}`);
           onClose();
         }
@@ -199,7 +200,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
         // Mode 2: Enregistrer uniquement la copie de secours
         const res = await writeBufferToFile(saveResult.backupBuffer, saveResult.backupFileName, false);
         if (res.success) {
-          onSaveSuccess(`Copie de secours (backup horodaté) enregistrée : ${saveResult.backupFileName}`);
+          onSaveSuccess(L("Copie de secours (backup horodaté) enregistrée : {backupFileName}", { backupFileName: saveResult.backupFileName }));
           onClose();
         }
       } else if (saveMode === 'both_with_backup') {
@@ -212,12 +213,12 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
           const res = await writeBufferToFile(saveResult.translatedBuffer, meta.fileName, true);
           if (res.success) {
             const learned = triggerAutoLearning();
-            const dictMsg = learned > 0 ? ` (+${learned} traductions ajoutées à votre dictionnaire local)` : '';
+            const dictMsg = learned > 0 ? L(" (+{learned} traductions ajoutées à votre dictionnaire local)", { learned }) : '';
             const methodMsg = res.method === 'disk_direct'
-              ? `Plugin original ${meta.fileName} écrasé sur le disque & backup ${saveResult.backupFileName} sauvegardé !`
+              ? L("Plugin original {fileName} écrasé sur le disque & backup {backupFileName} sauvegardé !", { fileName: meta.fileName, backupFileName: saveResult.backupFileName })
               : res.method === 'file_picker'
-              ? `Plugin ${meta.fileName} écrasé & backup ${saveResult.backupFileName} créé !`
-              : `Plugin ${meta.fileName} enregistré & backup ${saveResult.backupFileName} créé.`;
+              ? L("Plugin {fileName} écrasé & backup {backupFileName} créé !", { fileName: meta.fileName, backupFileName: saveResult.backupFileName })
+              : L("Plugin {fileName} enregistré & backup {backupFileName} créé.", { fileName: meta.fileName, backupFileName: saveResult.backupFileName });
             onSaveSuccess(`${methodMsg}${dictMsg}`);
             onClose();
           }
@@ -228,8 +229,8 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
         const res = await writeBufferToFile(saveResult.translatedBuffer, customName, false);
         if (res.success) {
           const learned = triggerAutoLearning();
-          const dictMsg = learned > 0 ? ` (+${learned} traductions ajoutées à votre dictionnaire local)` : '';
-          onSaveSuccess(`Plugin enregistré sous ${customName}${dictMsg}`);
+          const dictMsg = learned > 0 ? L(" (+{learned} traductions ajoutées à votre dictionnaire local)", { learned }) : '';
+          onSaveSuccess(L("Plugin enregistré sous {customName}{dictMsg}", { customName, dictMsg }));
           onClose();
         }
       }
@@ -260,22 +261,22 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
       // 4. Fichier de méta-données et rapport de traduction
       const readmeText = [
         `=============================================================`,
-        `  mTRANSLATOR - Rapport de Sauvegarde du Plugin`,
+        L("  mTRANSLATOR - Rapport de Sauvegarde du Plugin"),
         `=============================================================`,
-        `Date de génération  : ${new Date().toLocaleString('fr-FR')}`,
+        L("Date de génération  : {toLocaleString}", { toLocaleString: new Date().toLocaleString('fr-FR') }),
         `Jeu cible           : ${meta.game}`,
         `Encodage            : ${saveResult.stats.encoding}`,
         `Total enregistrements : ${saveResult.stats.totalRecords}`,
-        `Chaînes traduites   : ${saveResult.stats.translatedCount}`,
+        L("Chaînes traduites   : {translatedCount}", { translatedCount: saveResult.stats.translatedCount }),
         ``,
-        `MODE DE SAUVEGARDE CHOISI :`,
-        saveMode === 'overwrite_or_replace' ? `- Écrasement du fichier original (${meta.fileName})` :
-        saveMode === 'both_with_backup' ? `- Fichier traduit (${meta.fileName}) ET Copie de sauvegarde horodatée (${saveResult.backupFileName})` :
-        `- Version personnalisée (${saveResult.translatedFileName})`,
+        L("MODE DE SAUVEGARDE CHOISI :"),
+        saveMode === 'overwrite_or_replace' ? L("- Écrasement du fichier original ({fileName})", { fileName: meta.fileName }) :
+        saveMode === 'both_with_backup' ? L("- Fichier traduit ({fileName}) ET Copie de sauvegarde horodatée ({backupFileName})", { fileName: meta.fileName, backupFileName: saveResult.backupFileName }) :
+        L("- Version personnalisée ({translatedFileName})", { translatedFileName: saveResult.translatedFileName }),
         ``,
-        `COMPATIBILITÉ BETHESDA :`,
-        `- Structure TES4 Creation Engine validée : 100%`,
-        `- FormIDs & Editor IDs préservés`,
+        L("COMPATIBILITÉ BETHESDA :"),
+        L("- Structure TES4 Creation Engine validée : 100%"),
+        L("- FormIDs & Editor IDs préservés"),
         `- Compatible Mod Organizer 2, Vortex, xEdit, Creation Kit`,
         `=============================================================`,
       ].join('\n');
@@ -288,12 +289,12 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
       await triggerBlobDownload(zipBlob, zipName);
 
       const learned = triggerAutoLearning();
-      const dictMsg = learned > 0 ? ` (+${learned} traductions enregistrées dans le dictionnaire local)` : '';
-      onSaveSuccess(`Pack complet ZIP téléchargé : ${zipName}${dictMsg}`);
+      const dictMsg = learned > 0 ? L(" (+{learned} traductions enregistrées dans le dictionnaire local)", { learned }) : '';
+      onSaveSuccess(L("Pack complet ZIP téléchargé : {zipName}{dictMsg}", { zipName, dictMsg }));
       onClose();
     } catch (err: any) {
       console.error(err);
-      onSaveSuccess(`Erreur lors de la compression : ${err.message}`);
+      onSaveSuccess(L("Erreur lors de la compression : {message}", { message: err.message }));
     } finally {
       setIsProcessing(false);
     }
@@ -308,9 +309,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
             <div className="w-5 h-5 rounded bg-[#0369a1]/20 border border-[#38bdf8]/50 flex items-center justify-center text-[#38bdf8]">
               <HardDrive className="w-3.5 h-3.5" />
             </div>
-            <span className="font-semibold text-white text-sm">
-              Enregistrement du plugin traduit (.esp / .esm)
-            </span>
+            <span className="font-semibold text-white text-sm">{L("Enregistrement du plugin traduit (.esp / .esm)")}</span>
           </div>
           <button
             type="button"
@@ -328,20 +327,18 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
             <ShieldCheck className="w-5 h-5 text-[#4ade80] shrink-0 mt-0.5" />
             <div className="space-y-1">
               <div className="font-semibold text-[#86efac] text-[14px] flex items-center space-x-2">
-                <span>Garantie de compatibilité & intégrité binaire Creation Engine</span>
-                <span className="bg-[#14391f] text-[#86efac] px-1.5 py-0.2 rounded text-[12px]">100% Fonctionnel</span>
+                <span>{L("Garantie de compatibilité & intégrité binaire Creation Engine")}</span>
+                <span className="bg-[#14391f] text-[#86efac] px-1.5 py-0.2 rounded text-[12px]">{L("100% Fonctionnel")}</span>
               </div>
-              <p className="text-[#86efac]/80 text-[13px] leading-relaxed">
-                Le plugin généré conserve fidèlement l'en-tête TES4, les FormIDs, scripts, offsets et enregistrements non modifiés. Il est prêt à être placé directement dans votre dossier <code className="text-[#fde68a]">Data/</code> ou géré via Mod Organizer 2 / Vortex.
-              </p>
+              <p className="text-[#86efac]/80 text-[13px] leading-relaxed">{L("Le plugin généré conserve fidèlement l'en-tête TES4, les FormIDs, scripts, offsets et enregistrements non modifiés. Il est prêt à être placé directement dans votre dossier")} <code className="text-[#fde68a]">Data/</code> {L("ou géré via Mod Organizer 2 / Vortex.")}</p>
             </div>
           </div>
 
           {/* SÉLECTION DU MODE DE SAUVEGARDE & ÉCRASEMENT */}
           <div className="bg-[#1e1e1e] border border-[#333333] rounded-lg p-3.5 space-y-2.5">
             <div className="text-[13px] font-semibold text-[#dddddd] uppercase tracking-wider flex items-center justify-between">
-              <span>Gestion de l&apos;écrasement et des sauvegardes :</span>
-              <span className="text-[12px] text-[#38bdf8] lowercase font-normal">Fichier original : {meta.fileName}</span>
+              <span>{L("Gestion de l'écrasement et des sauvegardes :")}</span>
+              <span className="text-[12px] text-[#38bdf8] lowercase font-normal">{L("Fichier original :")} {meta.fileName}</span>
             </div>
 
             {/* État de l'accès direct au disque */}
@@ -349,15 +346,13 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
               <div className="bg-[#262626] border border-[#22c55e] px-3 py-2 rounded-lg flex items-center space-x-2 text-xs text-[#86efac]">
                 <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse shrink-0" />
                 <span>
-                  <strong>Écrasement direct sur disque actif :</strong> Le fichier <code className="text-white font-mono bg-[#14391f] px-1 py-0.5 rounded">{meta.fileName}</code> sera écrasé directement à son emplacement source.
-                </span>
+                  <strong>{L("Écrasement direct sur disque actif :")}</strong> {L("Le fichier")} <code className="text-white font-mono bg-[#14391f] px-1 py-0.5 rounded">{meta.fileName}</code> {L("sera écrasé directement à son emplacement source.")}</span>
               </div>
             ) : (
               <div className="bg-[#262626] border border-[#0ea5e9]/40 px-3 py-2 rounded-lg flex items-center space-x-2 text-xs text-[#38bdf8]">
                 <HardDrive className="w-3.5 h-3.5 text-[#38bdf8] shrink-0" />
                 <span>
-                  <strong>Mode Écrasement :</strong> Le sélecteur système ou l&apos;export remplacera <code className="text-white font-mono bg-[#181818] px-1 py-0.5 rounded">{meta.fileName}</code> dans votre dossier de mod.
-                </span>
+                  <strong>{L("Mode Écrasement :")}</strong> {L("Le sélecteur système ou l'export remplacera")} <code className="text-white font-mono bg-[#181818] px-1 py-0.5 rounded">{meta.fileName}</code> {L("dans votre dossier de mod.")}</span>
               </div>
             )}
 
@@ -379,13 +374,10 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                 />
                 <div className="space-y-0.5 flex-1">
                   <div className="font-semibold text-xs text-white flex items-center space-x-2">
-                    <span>Écraser le fichier original ET générer la copie de secours (backup horodaté)</span>
-                    <span className="px-1.5 py-0.2 rounded text-[11px] bg-[#0369a1]/40 text-[#bae6fd] border border-[#0369a1]">
-                      Recommandé
-                    </span>
+                    <span>{L("Écraser le fichier original ET générer la copie de secours (backup horodaté)")}</span>
+                    <span className="px-1.5 py-0.2 rounded text-[11px] bg-[#0369a1]/40 text-[#bae6fd] border border-[#0369a1]">{L("Recommandé")}</span>
                   </div>
-                  <div className="text-[13px] text-[#aaaaaa] leading-tight">
-                    Remplace <span className="text-white font-mono">{meta.fileName}</span> par le plugin traduit (prêt pour le jeu) ET conserve une copie originale intacte <span className="text-[#fde68a] font-mono">{saveResult.backupFileName}</span>.
+                  <div className="text-[13px] text-[#aaaaaa] leading-tight">{L("Remplace")} <span className="text-white font-mono">{meta.fileName}</span> {L("par le plugin traduit (prêt pour le jeu) ET conserve une copie originale intacte")} <span className="text-[#fde68a] font-mono">{saveResult.backupFileName}</span>.
                   </div>
                 </div>
               </label>
@@ -407,14 +399,10 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                 />
                 <div className="space-y-0.5 flex-1">
                   <div className="font-semibold text-xs text-white flex items-center space-x-2">
-                    <span>Écraser directement le fichier original</span>
-                    <span className="px-1.5 py-0.2 rounded text-[11px] bg-[#404040] text-[#dddddd]">
-                      Nom d&apos;origine exact
-                    </span>
+                    <span>{L("Écraser directement le fichier original")}</span>
+                    <span className="px-1.5 py-0.2 rounded text-[11px] bg-[#404040] text-[#dddddd]">{L("Nom d'origine exact")}</span>
                   </div>
-                  <div className="text-[13px] text-[#aaaaaa] leading-tight">
-                    Écrase le fichier sous son nom exact <span className="text-white font-mono">{meta.fileName}</span> pour remplacer directement le mod dans votre répertoire de jeu sans copie de secours.
-                  </div>
+                  <div className="text-[13px] text-[#aaaaaa] leading-tight">{L("Écrase le fichier sous son nom exact")} <span className="text-white font-mono">{meta.fileName}</span> {L("pour remplacer directement le mod dans votre répertoire de jeu sans copie de secours.")}</div>
                 </div>
               </label>
 
@@ -435,10 +423,9 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                 />
                 <div className="space-y-0.5 flex-1">
                   <div className="font-semibold text-xs text-white flex items-center space-x-1.5">
-                    <span>Enregistrer uniquement la copie de sauvegarde horodatée</span>
+                    <span>{L("Enregistrer uniquement la copie de sauvegarde horodatée")}</span>
                   </div>
-                  <div className="text-[13px] text-[#aaaaaa] leading-tight">
-                    Enregistre uniquement la version de réserve originale <span className="text-[#fde68a] font-mono">{saveResult.backupFileName}</span>.
+                  <div className="text-[13px] text-[#aaaaaa] leading-tight">{L("Enregistre uniquement la version de réserve originale")} <span className="text-[#fde68a] font-mono">{saveResult.backupFileName}</span>.
                   </div>
                 </div>
               </label>
@@ -459,8 +446,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                   className="mt-1 accent-[#38bdf8] cursor-pointer"
                 />
                 <div className="space-y-1 flex-1">
-                  <div className="font-semibold text-xs text-white">
-                    Enregistrer sous un nom personnalisé (ex: {meta.fileName.replace(/\.[^.]+$/, '')}_FR.esp)
+                  <div className="font-semibold text-xs text-white">{L("Enregistrer sous un nom personnalisé (ex:")} {meta.fileName.replace(/\.[^.]+$/, '')}_FR.esp)
                   </div>
                   {saveMode === 'new_file' && (
                     <input
@@ -490,21 +476,17 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                   className="accent-[#0ea5e9] w-4 h-4 rounded cursor-pointer"
                 />
                 <span className="font-semibold text-white text-[14px] flex items-center space-x-1.5">
-                  <span>Auto-alimenter la base de dictionnaire locale</span>
-                  <span className="text-[#38bdf8] text-[11px] bg-[#0c3a52] px-1.5 py-0.2 rounded border border-[#0369a1]/40">Scan prioritaire</span>
+                  <span>{L("Auto-alimenter la base de dictionnaire locale")}</span>
+                  <span className="text-[#38bdf8] text-[11px] bg-[#0c3a52] px-1.5 py-0.2 rounded border border-[#0369a1]/40">{L("Scan prioritaire")}</span>
                 </span>
               </label>
-              <p className="text-[#aaaaaa] text-[13px] leading-relaxed pl-6">
-                Ajoute automatiquement toutes les chaînes traduites ({saveResult.stats.translatedCount} entrées) à votre dictionnaire local persistant. Elles seront scannées en priorité lors de vos prochaines traductions.
-              </p>
+              <p className="text-[#aaaaaa] text-[13px] leading-relaxed pl-6">{L("Ajoute automatiquement toutes les chaînes traduites (")}{saveResult.stats.translatedCount} {L("entrées) à votre dictionnaire local persistant. Elles seront scannées en priorité lors de vos prochaines traductions.")}</p>
             </div>
           </div>
 
           {/* Aperçu des fichiers à écrire */}
           <div className="space-y-1.5">
-            <div className="text-[13px] font-semibold text-[#aaaaaa] uppercase tracking-wider px-1">
-              Aperçu des fichiers :
-            </div>
+            <div className="text-[13px] font-semibold text-[#aaaaaa] uppercase tracking-wider px-1">{L("Aperçu des fichiers :")}</div>
 
             {/* Fichier traduit */}
             {(saveMode === 'both_with_backup' || saveMode === 'overwrite_or_replace' || saveMode === 'new_file') && (
@@ -518,9 +500,9 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                       {effectiveTranslatedName}
                     </div>
                     <div className="text-[12px] text-[#aaaaaa] flex items-center space-x-1.5">
-                      <span className="text-[#4ade80] font-medium">Plugin traduit prêt à jouer</span>
+                      <span className="text-[#4ade80] font-medium">{L("Plugin traduit prêt à jouer")}</span>
                       <span>•</span>
-                      <span>{saveResult.stats.translatedCount} modif.</span>
+                      <span>{saveResult.stats.translatedCount} {L("modif.")}</span>
                       <span>•</span>
                       <span>{formatBytes(saveResult.stats.newByteLength)}</span>
                       <span>•</span>
@@ -538,20 +520,20 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                     );
                     if (res.success) {
                       const learned = triggerAutoLearning();
-                      const dictMsg = learned > 0 ? ` (+${learned} traductions ajoutées au dictionnaire)` : '';
+                      const dictMsg = learned > 0 ? L(" (+{learned} traductions ajoutées au dictionnaire)", { learned }) : '';
                       const methodMsg = res.method === 'disk_direct'
-                        ? `Plugin original ${effectiveTranslatedName} écrasé sur le disque !`
+                        ? L("Plugin original {effectiveTranslatedName} écrasé sur le disque !", { effectiveTranslatedName })
                         : res.method === 'file_picker'
-                        ? `Plugin ${effectiveTranslatedName} écrasé à l'emplacement sélectionné.`
-                        : `Plugin enregistré sous ${effectiveTranslatedName}.`;
+                        ? L("Plugin {effectiveTranslatedName} écrasé à l'emplacement sélectionné.", { effectiveTranslatedName })
+                        : L("Plugin enregistré sous {effectiveTranslatedName}.", { effectiveTranslatedName });
                       onSaveSuccess(`${methodMsg}${dictMsg}`);
                     }
                   }}
                   className="px-2 py-1 bg-[#262626] hover:bg-[#333333] text-[#38bdf8] border border-[#444444] rounded flex items-center space-x-1 transition-colors text-[13px]"
-                  title="Enregistrer / Écraser ce fichier"
+                  title={L("Enregistrer / Écraser ce fichier")}
                 >
                   <Download className="w-3 h-3" />
-                  <span>Enregistrer</span>
+                  <span>{L("Enregistrer")}</span>
                 </button>
               </div>
             )}
@@ -566,9 +548,9 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                   <div>
                     <div className="font-mono text-[#fde68a] text-xs font-semibold">{saveResult.backupFileName}</div>
                     <div className="text-[12px] text-[#aaaaaa] flex items-center space-x-1.5">
-                      <span className="text-[#fbbf24] font-medium">Copie originale avant traduction</span>
+                      <span className="text-[#fbbf24] font-medium">{L("Copie originale avant traduction")}</span>
                       <span>•</span>
-                      <span>Horodaté : {saveResult.timestamp}</span>
+                      <span>{L("Horodaté :")} {saveResult.timestamp}</span>
                       <span>•</span>
                       <span>{formatBytes(saveResult.stats.originalByteLength)}</span>
                     </div>
@@ -579,11 +561,11 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
                   onClick={async () => {
                     const res = await writeBufferToFile(saveResult.backupBuffer, saveResult.backupFileName, false);
                     if (res.success) {
-                      onSaveSuccess(`Copie de secours (backup horodaté) enregistrée : ${saveResult.backupFileName}`);
+                      onSaveSuccess(L("Copie de secours (backup horodaté) enregistrée : {backupFileName}", { backupFileName: saveResult.backupFileName }));
                     }
                   }}
                   className="px-2 py-1 bg-[#262626] hover:bg-[#333333] text-[#fbbf24] border border-[#444444] rounded flex items-center space-x-1 transition-colors text-[13px]"
-                  title="Enregistrer la copie de secours seule"
+                  title={L("Enregistrer la copie de secours seule")}
                 >
                   <Download className="w-3 h-3" />
                   <span>Backup</span>
@@ -599,9 +581,7 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
             type="button"
             onClick={onClose}
             className="px-3 py-1.5 bg-[#222222] hover:bg-[#303030] text-[#aaaaaa] hover:text-white rounded border border-[#333333] transition-colors"
-          >
-            Fermer
-          </button>
+          >{L("Fermer")}</button>
 
           <div className="flex items-center space-x-2">
             {/* Téléchargement Pack complet ZIP */}
@@ -610,10 +590,10 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
               onClick={handleDownloadPack}
               disabled={isProcessing}
               className="px-3 py-1.5 bg-[#262626] hover:bg-[#333333] text-[#38bdf8] hover:text-white border border-[#0ea5e9]/40 rounded font-medium flex items-center space-x-1.5 transition-colors"
-              title="Télécharge une archive ZIP contenant le plugin traduit, le backup horodaté et le dictionnaire SST"
+              title={L("Télécharge une archive ZIP contenant le plugin traduit, le backup horodaté et le dictionnaire SST")}
             >
               <Archive className="w-3.5 h-3.5" />
-              <span>{isProcessing ? 'Création...' : 'Télécharger Pack ZIP'}</span>
+              <span>{isProcessing ? L("Création...") : L("Télécharger Pack ZIP")}</span>
             </button>
 
             {/* Bouton principal selon le mode sélectionné */}
@@ -624,10 +604,10 @@ export const SavePluginModal: React.FC<SavePluginModalProps> = ({
             >
               <Download className="w-3.5 h-3.5" />
               <span>
-                {saveMode === 'overwrite_or_replace' ? `Écraser (${meta.fileName})` :
-                 saveMode === 'both_with_backup' ? 'Enregistrer (Traduit + Backup)' :
-                 saveMode === 'backup_only' ? 'Enregistrer la copie Backup' :
-                 'Enregistrer sous...'}
+                {saveMode === 'overwrite_or_replace' ? L("Écraser ({fileName})", { fileName: meta.fileName }) :
+                 saveMode === 'both_with_backup' ? L("Enregistrer (Traduit + Backup)") :
+                 saveMode === 'backup_only' ? L("Enregistrer la copie Backup") :
+                 L("Enregistrer sous...")}
               </span>
             </button>
           </div>

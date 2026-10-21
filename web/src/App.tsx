@@ -46,6 +46,7 @@ import { CodexWelcomeScreen } from './components/CodexWelcomeScreen';
 import { AboutModal } from './components/AboutModal';
 import { Check, Info } from 'lucide-react';
 import { useI18n } from './i18n/LanguageContext';
+import { L } from './i18n/L';
 
 export default function App() {
   const { t, targetLang, targetLocale, sourceLang } = useI18n();
@@ -274,7 +275,7 @@ export default function App() {
         };
       })
     );
-    showToast('Enregistrement validé (mémorisé dans le dictionnaire local).');
+    showToast(L("Enregistrement validé (mémorisé dans le dictionnaire local)."));
   };
 
   // Marquer identique à l'original (Statut Bleu)
@@ -292,7 +293,7 @@ export default function App() {
         };
       })
     );
-    showToast('Marqué comme identique à l\'original (nom propre/lore).');
+    showToast(L("Marqué comme identique à l'original (nom propre/lore)."));
   };
 
   // Sauter à la prochaine chaîne non traduite
@@ -305,7 +306,7 @@ export default function App() {
     if (nextUntranslated) {
       setSelectedId(nextUntranslated.id);
     } else {
-      showToast('Toutes les chaînes affichées sont traduites !');
+      showToast(L("Toutes les chaînes affichées sont traduites !"));
     }
   };
 
@@ -431,12 +432,12 @@ export default function App() {
     const dir = pluginPath.slice(0, pluginPath.lastIndexOf('/'));
     const out = await pickFile({
       mode: 'save',
-      title: txtDoc ? 'Enregistrer le texte traduit' : 'Enregistrer le plugin traduit',
+      title: txtDoc ? L("Enregistrer le texte traduit") : L("Enregistrer le plugin traduit"),
       defaultName: txtDoc ? txtDoc.outputName : meta.fileName,
       directory: dir,
     }).catch(
       (err) => {
-        showToast(`Sélecteur natif indisponible : ${err.message}`);
+        showToast(L("Sélecteur natif indisponible : {message}", { message: err.message }));
         return null;
       }
     );
@@ -444,12 +445,12 @@ export default function App() {
     const rows = records
       .filter((r) => r.xtId !== undefined && r.target.trim() && r.target !== r.source)
       .map((r) => ({ id: r.xtId as number, dest: r.target }));
-    setLoadingProgress({ percent: 50, message: `Écriture de ${out.split('/').pop()}…` });
+    setLoadingProgress({ percent: 50, message: L("Écriture de {pop}…", { pop: out.split('/').pop() }) });
     try {
       const res = txtDoc ? await xt.txtWrite(pluginPath, out, rows) : await xt.write(pluginPath, out, rows);
       setRecords((prev) => prev.map((r) => ({ ...r, modified: false })));
       setMeta((prev) => ({ ...prev, lastSaved: new Date().toLocaleString() }));
-      showToast(`${res.written_count.toLocaleString()} traduction(s) écrite(s) dans ${out.split('/').pop()}${res.backup ? ' (ancienne version en .bak)' : ''}.`);
+      showToast(L("{toLocaleString} traduction(s) écrite(s) dans {pop}{v}.", { toLocaleString: res.written_count.toLocaleString(), pop: out.split('/').pop(), v: res.backup ? ' (ancienne version en .bak)' : '' }));
     } catch (err: any) {
       showToast(`Enregistrement impossible : ${err.message}`);
     } finally {
@@ -464,24 +465,24 @@ export default function App() {
       .filter((r) => r.xtId !== undefined && r.target.trim() && r.target !== r.source)
       .map((r) => ({ id: r.xtId as number, dest: r.target, source: r.source }));
     if (!rows.length) {
-      showToast('Aucune traduction à exporter (textes identiques à la VO).');
+      showToast(L("Aucune traduction à exporter (textes identiques à la VO)."));
       return;
     }
     const out = await pickFile({
       mode: 'save',
-      title: 'Exporter le dictionnaire SST',
+      title: L("Exporter le dictionnaire SST"),
       defaultName,
       directory: getXtDict(),
     }).catch((err) => {
-      showToast(`Sélecteur natif indisponible : ${err.message}`);
+      showToast(L("Sélecteur natif indisponible : {message}", { message: err.message }));
       return null;
     });
     if (!out) return;
     try {
       const res = await xt.sstExport(pluginPath, out, rows);
-      let msg = `SST exporté : ${res.entries.toLocaleString()} entrée(s) dans ${out.split('/').pop()}`;
+      let msg = L("SST exporté : {toLocaleString} entrée(s) dans {pop}", { toLocaleString: res.entries.toLocaleString(), pop: out.split('/').pop() });
       if (localDictStore.getSettings().autoLearnOnExportSST) {
-        msg += `, +${localDictStore.learnFromRecords(records, meta.game, 'sst_export')} dans la base locale`;
+        msg += L(", +{learnFromRecords} dans la base locale", { learnFromRecords: localDictStore.learnFromRecords(records, meta.game, 'sst_export') });
       }
       showToast(`${msg}.`);
     } catch (err: any) {
@@ -503,7 +504,7 @@ export default function App() {
     setRecords(sample.records);
     setSelectedId(sample.records[0]?.id || null);
     setIsFileLoaded(true);
-    showToast(`Projet d'exemple chargé : ${sample.meta.fileName} (${sample.meta.game})`);
+    showToast(L("Projet d'exemple chargé : {fileName} ({game})", { fileName: sample.meta.fileName, game: sample.meta.game }));
   };
 
   // Fermer le fichier actif pour revenir à l'accueil Codex
@@ -513,7 +514,7 @@ export default function App() {
     setTxtDoc(null);
     setOriginalBuffer(null);
     setIsFileLoaded(false);
-    showToast("Fermeture du projet. Prêt pour un nouveau fichier.");
+    showToast(L("Fermeture du projet. Prêt pour un nouveau fichier."));
   };
 
   // Annuler la modification sur la chaîne courante
@@ -534,9 +535,9 @@ export default function App() {
           return r;
         })
       );
-      showToast('Ligne réinitialisée au texte original VO.');
+      showToast(L("Ligne réinitialisée au texte original VO."));
     } else {
-      showToast('Sélectionnez une ligne pour annuler.');
+      showToast(L("Sélectionnez une ligne pour annuler."));
     }
   };
 
@@ -554,9 +555,9 @@ export default function App() {
       triggerFileDownload(xml, `${baseName}_${targetLocale.toUpperCase()}.sst`, 'application/xml;charset=utf-8');
       if (localDictStore.getSettings().autoLearnOnExportSST) {
         const learned = localDictStore.learnFromRecords(records, meta.game, 'sst_export');
-        showToast(`Export SST (${targetLang}) terminé (${records.length} entrées). +${learned} ajoutées à la base locale.`);
+        showToast(L("Export SST ({targetLang}) terminé ({length} entrées). +{learned} ajoutées à la base locale.", { targetLang, length: records.length, learned }));
       } else {
-        showToast(`Export du dictionnaire SST (${targetLang}) terminé (${records.length} entrées).`);
+        showToast(L("Export du dictionnaire SST ({targetLang}) terminé ({length} entrées).", { targetLang, length: records.length }));
       }
     } else if (format === 'TXT') {
       const txt = exportToTranslationTxt(records);
@@ -564,21 +565,21 @@ export default function App() {
       if (localDictStore.getSettings().autoLearnOnExportSST) {
         localDictStore.learnFromRecords(records, meta.game, 'txt_import');
       }
-      showToast('Export du fichier de traduction TXT Bethesda terminé (intégré au dictionnaire local).');
+      showToast(L("Export du fichier de traduction TXT Bethesda terminé (intégré au dictionnaire local)."));
     } else if (format === 'CSV') {
       const csv = exportToCSV(records);
       triggerFileDownload(csv, `${baseName}_export.csv`, 'text/csv;charset=utf-8');
-      showToast('Export CSV terminé.');
+      showToast(L("Export CSV terminé."));
     } else if (format === 'XML') {
       const xml = exportToXtXml(records, meta.fileName, 'en', targetLocale);
       const count = (xml.match(/<String /g) || []).length;
-      if (!count) return showToast('Aucune traduction à exporter.');
+      if (!count) return showToast(L("Aucune traduction à exporter."));
       triggerFileDownload(xml, `${baseName}_${targetLocale.toUpperCase()}.xml`, 'application/xml;charset=utf-8');
-      showToast(`Export XML xTranslator terminé (${count.toLocaleString()} traductions).`);
+      showToast(L("Export XML xTranslator terminé ({toLocaleString} traductions).", { toLocaleString: count.toLocaleString() }));
     } else if (format === 'JSON') {
       const jsonStr = JSON.stringify({ meta, records }, null, 2);
       triggerFileDownload(jsonStr, `${baseName}_project.json`, 'application/json;charset=utf-8');
-      showToast('Export du projet JSON terminé.');
+      showToast(L("Export du projet JSON terminé."));
     }
   };
 
@@ -588,7 +589,7 @@ export default function App() {
     e.target.value = '';
     if (!file) return;
     const entries = parseXtXml(await file.text());
-    if (!entries.length) return showToast(`${file.name} : aucune entrée xTranslator (<String>) trouvée.`);
+    if (!entries.length) return showToast(L("{name} : aucune entrée xTranslator (<String>) trouvée.", { name: file.name }));
     const matches = matchXtXml(records, entries);
     setRecords((prev) =>
       prev.map((r) => {
@@ -599,7 +600,7 @@ export default function App() {
         return { ...r, target: m.dest, status: ok ? 'translated' : 'partial', validated: ok, modified: true, tagWarnings };
       })
     );
-    showToast(`${file.name} : ${matches.size.toLocaleString()} ligne(s) traduite(s) sur ${entries.length.toLocaleString()} entrée(s) XML.`);
+    showToast(L("{name} : {toLocaleString} ligne(s) traduite(s) sur {toLocaleString2} entrée(s) XML.", { name: file.name, toLocaleString: matches.size.toLocaleString(), toLocaleString2: entries.length.toLocaleString() }));
   };
 
   // Application des dictionnaires SST (100% ou fuzzy)
@@ -662,9 +663,9 @@ export default function App() {
       );
 
       if (appliedCount > 0) {
-        showToast(`${appliedCount.toLocaleString()} traduction(s) SST (100% exactes) appliquée(s) instantanément.`);
+        showToast(L("{toLocaleString} traduction(s) SST (100% exactes) appliquée(s) instantanément.", { toLocaleString: appliedCount.toLocaleString() }));
       } else {
-        showToast('Aucune nouvelle correspondance exacte SST trouvée.');
+        showToast(L("Aucune nouvelle correspondance exacte SST trouvée."));
       }
 
       return { appliedCount };
@@ -734,9 +735,9 @@ export default function App() {
       );
 
       if (appliedCount > 0) {
-        showToast(`${appliedCount.toLocaleString()} suggestion(s) floue(s) (>75%) appliquée(s).`);
+        showToast(L("{toLocaleString} suggestion(s) floue(s) (>75%) appliquée(s).", { toLocaleString: appliedCount.toLocaleString() }));
       } else {
-        showToast('Aucune correspondance floue supérieure à 75% trouvée.');
+        showToast(L("Aucune correspondance floue supérieure à 75% trouvée."));
       }
 
       return { appliedCount };
@@ -747,7 +748,7 @@ export default function App() {
   const applyDictionaryXt = async (matchType: 'exact' | 'fuzzy') => {
     if (!pluginPath) return { appliedCount: 0 };
     const dict = getXtDict();
-    setLoadingProgress({ percent: 30, message: `Recherche dans les dictionnaires SST (${dict.split('/').pop()})…` });
+    setLoadingProgress({ percent: 30, message: L("Recherche dans les dictionnaires SST ({pop})…", { pop: dict.split('/').pop() }) });
     try {
       const res = txtDoc
         ? await xt.txtTranslate(pluginPath, dict).then((t) => ({
@@ -780,7 +781,7 @@ export default function App() {
         })
       );
       showToast(
-        `xtcore : ${res.exact.toLocaleString()} exacte(s), ${res.heuristic.toLocaleString()} approchante(s) sur ${res.strings.toLocaleString()} chaînes (${res.search_ms} ms).`
+        L("xtcore : {toLocaleString} exacte(s), {toLocaleString2} approchante(s) sur {toLocaleString3} chaînes ({search_ms} ms).", { toLocaleString: res.exact.toLocaleString(), toLocaleString2: res.heuristic.toLocaleString(), toLocaleString3: res.strings.toLocaleString(), search_ms: res.search_ms })
       );
       return { appliedCount: matchType === 'exact' ? res.exact : res.exact + res.heuristic };
     } catch (err: any) {
@@ -799,9 +800,9 @@ export default function App() {
   // Importation d'un dictionnaire personnalisé (ou lot multi-fichiers)
   const handleImportDictionary = (entries: DictionaryEntry[], batchReport?: any) => {
     if (batchReport?.filesReport) {
-      showToast(`${batchReport.filesReport.length} fichier(s) SST traité(s) : ${entries.length.toLocaleString()} entrées intégrées à votre base locale.`);
+      showToast(L("{length} fichier(s) SST traité(s) : {toLocaleString} entrées intégrées à votre base locale.", { length: batchReport.filesReport.length, toLocaleString: entries.length.toLocaleString() }));
     } else {
-      showToast(`${entries.length.toLocaleString()} entrées de dictionnaire ajoutées à la base locale.`);
+      showToast(L("{toLocaleString} entrées de dictionnaire ajoutées à la base locale.", { toLocaleString: entries.length.toLocaleString() }));
     }
   };
 
@@ -812,7 +813,7 @@ export default function App() {
       localStorage.removeItem('mtranslator_custom_dictionaries');
       localStorage.removeItem('xtranslator_custom_dictionaries');
     } catch {}
-    showToast('Base de données SST réinitialisée aux dictionnaires officiels Bethesda.');
+    showToast(L("Base de données SST réinitialisée aux dictionnaires officiels Bethesda."));
   };
 
   // Application de la traduction IA par lot
@@ -838,7 +839,7 @@ export default function App() {
       })
     );
 
-    showToast(`${translations.length} chaînes traduites automatiquement intégrées.`);
+    showToast(L("{length} chaînes traduites automatiquement intégrées.", { length: translations.length }));
   };
 
   // Traduction d'une ligne individuelle via IA
@@ -847,17 +848,17 @@ export default function App() {
       const data = await translateBatch([{ id: record.id, text: record.source }], { game: meta.game });
       const t = data.translations[0]?.translatedText;
       if (t && t !== record.source) {
-        showToast(`Traduit par ${data.engine}.`);
+        showToast(L("Traduit par {engine}.", { engine: data.engine }));
         return sanitizeBethesdaTranslation(t, record.source);
       }
-      throw new Error('non traduit');
+      throw new Error(L("non traduit"));
     } catch {
       // Fallback gracieux sur le dictionnaire et l'heuristique
       const found = dictionaries.find(
         (d) => d.source.toLowerCase() === record.source.toLowerCase()
       );
       if (found) {
-        showToast('Traduction issue du glossaire SST local.');
+        showToast(L("Traduction issue du glossaire SST local."));
         return sanitizeBethesdaTranslation(found.target, record.source);
       }
       showToast('Traduction automatique locale (Mode Secours).');
@@ -909,14 +910,14 @@ export default function App() {
   // Fusion de nouvelles lignes depuis le Diff
   const handleMergeNewRecords = (newRecords: ModRecord[]) => {
     setRecords((prev) => [...prev, ...newRecords]);
-    showToast(`${newRecords.length} nouvelles chaînes injectées depuis la révision.`);
+    showToast(L("{length} nouvelles chaînes injectées depuis la révision.", { length: newRecords.length }));
   };
 
   // Traitement et chargement unifié d'un fichier mod ou traduction
   const handleProcessFile = async (file: File, handle?: any) => {
     try {
-      setLoadingProgress({ percent: 5, message: `Ouverture de ${file.name}...` });
-      showToast(`Chargement de ${file.name}...`);
+      setLoadingProgress({ percent: 5, message: L("Ouverture de {name}...", { name: file.name }) });
+      showToast(L("Chargement de {name}...", { name: file.name }));
       const buffer = await file.arrayBuffer();
       setOriginalBuffer(buffer);
       setPluginPath(null);
@@ -939,11 +940,11 @@ export default function App() {
         setIsFileLoaded(true);
         showToast(`${result.records.length.toLocaleString()} enregistrements extraits depuis ${file.name}`);
       } else {
-        showToast('Aucun texte ou chaîne traduisible trouvée dans ce fichier.');
+        showToast(L("Aucun texte ou chaîne traduisible trouvée dans ce fichier."));
       }
     } catch (err: any) {
       console.error('Erreur chargement fichier:', err);
-      showToast(`Erreur de lecture du fichier : ${err.message || 'Format invalide'}`);
+      showToast(L("Erreur de lecture du fichier : {v}", { v: err.message || 'Format invalide' }));
     } finally {
       setLoadingProgress(null);
     }
@@ -958,7 +959,7 @@ export default function App() {
   };
   const openPluginWithXt = async (path: string, preset?: BatchRow[]) => {
     const fileName = path.split('/').pop() || path;
-    setLoadingProgress({ percent: 20, message: `Extraction de ${fileName} (xtcore)…` });
+    setLoadingProgress({ percent: 20, message: L("Extraction de {fileName} (xtcore)…", { fileName }) });
     try {
       const res = await xt.extract(path);
       const recs: ModRecord[] = res.strings.map((s) => ({
@@ -973,7 +974,7 @@ export default function App() {
         status: 'untranslated',
         modified: false,
         validated: false,
-        ...(s.vmad ? { locked: true, notes: `Script ${s.vmad.script} · propriété ${s.vmad.prop}` } : {}),
+        ...(s.vmad ? { locked: true, notes: L("Script {script} · propriété {prop}", { script: s.vmad.script, prop: s.vmad.prop }) } : {}),
       }));
       // Traductions d'un lot : exactes validées, automatiques et approchantes à revoir
       const byId = new Map((preset ?? []).map((r) => [r.id, r]));
@@ -985,7 +986,7 @@ export default function App() {
         Object.assign(rec, { target: r.dest, status: ok ? 'translated' : 'partial', validated: ok, modified: true, tagWarnings: warnings });
       }
       if (recs.length === 0) {
-        showToast('Aucune chaîne traduisible trouvée dans ce plugin.');
+        showToast(L("Aucune chaîne traduisible trouvée dans ce plugin."));
         return;
       }
       const ext = (fileName.split('.').pop() || 'esp').toUpperCase() as ModFileMeta['fileType'];
@@ -999,8 +1000,8 @@ export default function App() {
       setSelectedId((recs.find((r) => !r.locked) ?? recs[0]).id);
       setIsFileLoaded(true);
       showToast(
-        `${(recs.length - scripts).toLocaleString()} chaînes extraites de ${fileName} (${res.localized ? 'localisé, ' : ''}${res.game})` +
-          (scripts ? `, ${scripts.toLocaleString()} chaîne(s) de scripts masquée(s) (filtre « Chaînes de scripts »).` : '.')
+        L("{toLocaleString} chaînes extraites de {fileName} ({v}{game})", { toLocaleString: (recs.length - scripts).toLocaleString(), fileName, v: res.localized ? 'localisé, ' : '', game: res.game }) +
+          (scripts ? L(", {toLocaleString} chaîne(s) de scripts masquée(s) (filtre « Chaînes de scripts »).", { toLocaleString: scripts.toLocaleString() }) : '.')
       );
     } catch (err: any) {
       showToast(`Lecture impossible : ${err.message}`);
@@ -1012,7 +1013,7 @@ export default function App() {
   // Ouverture d'un texte MCM (Interface/Translations/*.txt) ou d'un autre texte par xtcore
   const openTxtWithXt = async (path: string) => {
     const fileName = path.split('/').pop() || path;
-    setLoadingProgress({ percent: 20, message: `Lecture de ${fileName} (xtcore)…` });
+    setLoadingProgress({ percent: 20, message: L("Lecture de {fileName} (xtcore)…", { fileName }) });
     try {
       const res = await xt.txt(path);
       const recType = res.kind.toUpperCase();
@@ -1030,7 +1031,7 @@ export default function App() {
         validated: false,
       }));
       if (recs.length === 0) {
-        showToast('Aucune chaîne traduisible trouvée dans ce fichier.');
+        showToast(L("Aucune chaîne traduisible trouvée dans ce fichier."));
         return;
       }
       setFileHandle(null);
@@ -1041,7 +1042,7 @@ export default function App() {
       setRecords(recs);
       setSelectedId(recs[0].id);
       setIsFileLoaded(true);
-      showToast(`${recs.length.toLocaleString()} chaînes lues dans ${fileName} (type ${res.kind}, ${res.encoding}).`);
+      showToast(L("{toLocaleString} chaînes lues dans {fileName} (type {kind}, {encoding}).", { toLocaleString: recs.length.toLocaleString(), fileName, kind: res.kind, encoding: res.encoding }));
     } catch (err: any) {
       showToast(`Lecture impossible : ${err.message}`);
     } finally {
@@ -1055,9 +1056,9 @@ export default function App() {
       try {
         const path = await pickFile({
           mode: 'open',
-          title: 'Ouvrir un plugin ou un texte MCM',
+          title: L("Ouvrir un plugin ou un texte MCM"),
           directory: pluginPath ? pluginPath.slice(0, pluginPath.lastIndexOf('/')) : undefined,
-          fileTypes: ['Plugins Bethesda (*.esp;*.esm;*.esl)', 'Textes MCM et autres (*.txt;*.ini;*.xml)', 'Tous les fichiers (*.*)'],
+          fileTypes: ['Plugins Bethesda (*.esp;*.esm;*.esl)', L("Textes MCM et autres (*.txt;*.ini;*.xml)"), L("Tous les fichiers (*.*)")],
         });
         if (!path) return;
         if (/\.(esp|esm|esl)$/i.test(path)) {
@@ -1068,9 +1069,9 @@ export default function App() {
           await openTxtWithXt(path);
           return;
         }
-        showToast('Autre format : choisissez-le à nouveau dans le sélecteur du navigateur.');
+        showToast(L("Autre format : choisissez-le à nouveau dans le sélecteur du navigateur."));
       } catch (err: any) {
-        showToast(`Sélecteur natif indisponible : ${err.message}`);
+        showToast(L("Sélecteur natif indisponible : {message}", { message: err.message }));
       }
     }
     if (typeof window !== 'undefined' && 'showOpenFilePicker' in window) {
@@ -1078,7 +1079,7 @@ export default function App() {
         const [handle] = await (window as any).showOpenFilePicker({
           types: [
             {
-              description: 'Plugins Bethesda et fichiers traduisibles',
+              description: L("Plugins Bethesda et fichiers traduisibles"),
               accept: {
                 'application/octet-stream': ['.esp', '.esm', '.esl', '.strings', '.dlstrings', '.ilstrings'],
                 'text/plain': ['.txt', '.sst', '.csv', '.json'],
@@ -1203,7 +1204,7 @@ export default function App() {
           <div className="bg-[#1a1a1a] border border-[#333333] p-6 rounded-xl shadow-2xl flex flex-col items-center space-y-4 max-w-sm w-full animate-in fade-in zoom-in-95 duration-150">
             <div className="w-10 h-10 rounded-full border-2 border-[#38bdf8] border-t-transparent animate-spin" />
             <div className="text-center w-full">
-              <h3 className="text-sm font-semibold text-white mb-1">Importation en cours</h3>
+              <h3 className="text-sm font-semibold text-white mb-1">{L("Importation en cours")}</h3>
               <p className="text-xs text-[#aaaaaa] truncate">{loadingProgress.message}</p>
             </div>
             <div className="w-full bg-[#181818] h-2 rounded-full overflow-hidden border border-[#2e2e2e]">
@@ -1222,8 +1223,8 @@ export default function App() {
         <div className="absolute inset-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-2 border-dashed border-[#0ea5e9] flex flex-col items-center justify-center pointer-events-none">
           <div className="bg-[#262626] p-6 rounded-lg border border-[#0ea5e9]/50 shadow-2xl flex flex-col items-center space-y-3">
             <span className="text-4xl">📂</span>
-            <div className="text-base font-semibold text-white">Déposer votre fichier ici</div>
-            <div className="text-xs text-[#aaaaaa]">Supporte .ESP, .ESM, .ESL, .STRINGS, .SST, .TXT, .CSV, .JSON</div>
+            <div className="text-base font-semibold text-white">{L("Déposer votre fichier ici")}</div>
+            <div className="text-xs text-[#aaaaaa]">{L("Supporte .ESP, .ESM, .ESL, .STRINGS, .SST, .TXT, .CSV, .JSON")}</div>
           </div>
         </div>
       )}
@@ -1246,7 +1247,7 @@ export default function App() {
         isFileLoaded={isFileLoaded}
         onSelectGame={(newGame: GameEngine) => {
           setMeta((prev) => ({ ...prev, game: newGame }));
-          showToast(`Profil de jeu basculé sur : ${newGame}`);
+          showToast(L("Profil de jeu basculé sur : {newGame}", { newGame }));
         }}
         onSave={handleSave}
         onCloseFile={handleCloseFile}
@@ -1311,7 +1312,7 @@ export default function App() {
             dictionaries={dictionaries}
             onQuickApplySuggestion={(recordId, suggestion) => {
               handleUpdateTarget(recordId, suggestion, true);
-              showToast('Suggestion du dictionnaire appliquée avec succès !');
+              showToast(L("Suggestion du dictionnaire appliquée avec succès !"));
             }}
             onApplyExactSstMatches={() => handleApplyDictionary('exact')}
             onXtTranslate={pluginPath && xtReady ? () => void applyDictionaryXt('fuzzy') : undefined}
@@ -1336,8 +1337,8 @@ export default function App() {
           {/* Barre de statut macOS inférieure */}
           {simpleMode ? (
           <div className="h-7 bg-[#181818] border-t border-[#2e2e2e] px-4 flex items-center justify-between text-[13px] text-[#aaaaaa]">
-            <span>{stats.translated} traduites sur {stats.total} · {stats.untranslated} à traduire</span>
-            <span>F10 : valider et passer à la suivante · ⌘S : enregistrer</span>
+            <span>{stats.translated} {L("traduites sur")} {stats.total} · {stats.untranslated} {L("à traduire")}</span>
+            <span>{L("F10 : valider et passer à la suivante · ⌘S : enregistrer")}</span>
           </div>
           ) : (
           <div className="h-6 bg-[#181818] border-t border-[#2e2e2e] px-3 flex items-center justify-between text-[12px] text-[#666666]">
@@ -1347,17 +1348,17 @@ export default function App() {
                 <span>mTRANSLATOR v2.5</span>
               </span>
               <span>•</span>
-              <span>{displayedRecords.length} / {records.length} enregistrements</span>
+              <span>{displayedRecords.length} / {records.length} {L("enregistrements")}</span>
               <span>•</span>
-              <span>Format : {meta.fileType}</span>
+              <span>{L("Format :")} {meta.fileType}</span>
               <span>•</span>
-              <span>Jeu : {meta.game}</span>
+              <span>{L("Jeu :")} {meta.game}</span>
             </div>
 
             <div className="flex items-center space-x-3">
-              <span>Raccourcis : F10 (Valider & Suivant) | ⌘S (Enregistrer) | ▲▼ (Naviguer)</span>
+              <span>{L("Raccourcis : F10 (Valider & Suivant) | ⌘S (Enregistrer) | ▲▼ (Naviguer)")}</span>
               <span>•</span>
-              <span className="text-[#38bdf8] font-medium">{stats.percentage}% Traduit</span>
+              <span className="text-[#38bdf8] font-medium">{stats.percentage}{L("% Traduit")}</span>
             </div>
           </div>
           )}

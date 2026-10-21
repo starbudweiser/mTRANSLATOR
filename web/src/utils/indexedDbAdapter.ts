@@ -4,6 +4,7 @@
  */
 
 import { LearnedEntryMeta } from './localDictionaryStore';
+import { L } from '../i18n/L';
 
 const DB_NAME = 'mTranslator_DB_v2';  // nom historique : ne pas renommer (données des utilisateurs)
 const DB_VERSION = 1;
@@ -17,7 +18,7 @@ class IndexedDbAdapter {
 
     this.dbPromise = new Promise((resolve, reject) => {
       if (typeof window === 'undefined' || !window.indexedDB) {
-        return reject(new Error('IndexedDB non disponible dans cet environnement'));
+        return reject(new Error(L("IndexedDB non disponible dans cet environnement")));
       }
 
       const req = window.indexedDB.open(DB_NAME, DB_VERSION);
