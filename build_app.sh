@@ -105,7 +105,15 @@ fi
 cp -f "$ICON_ICNS" "${APP_TMP}/Contents/Resources/AppIcon.icns" 2>/dev/null || true
 
 echo "Signature de l'application..."
-"$(cd "$ROOT/.." && pwd)/_tools/sign_app.sh" "$APP_TMP"  # signature stable (_tools)
+# Signature stable avec _tools/sign_app.sh (certificat local) ; sans lui (compilation depuis
+# le dépôt GitHub seul), signature ad hoc pour que l'appli se lance quand même.
+SIGN_APP="$(cd "$ROOT/.." && pwd)/_tools/sign_app.sh"
+if [ -x "$SIGN_APP" ]; then
+    "$SIGN_APP" "$APP_TMP"
+else
+    echo "_tools/sign_app.sh absent : signature ad hoc."
+    codesign --force --deep --sign - "$APP_TMP"
+fi
 
 mv "$APP_TMP" "$APP_FINAL"
 
