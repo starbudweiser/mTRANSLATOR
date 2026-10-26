@@ -20,6 +20,7 @@ import webbrowser
 import time
 
 import mt_engines
+import update_check
 
 VERSION = '1.0.0'  # version unique de l'appli (lue par build_app.sh ; web/package.json identique)
 
@@ -510,6 +511,7 @@ def launch_native_window(app_url: str):
             zoomable=False,  # le zoom est géré par l'interface (⌘+ / ⌘− / ⌘0)
         )
         window.events.loaded += lambda: watch_drops(window)
+        window.events.shown += lambda: update_check.start_webview(window, 'mTRANSLATOR', lang=MENU_LANG)  # nouvelle version ?
         os.makedirs(STORAGE_DIR, exist_ok=True)
         webview.start(
             debug=False,
