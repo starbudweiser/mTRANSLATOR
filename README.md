@@ -26,6 +26,13 @@ mTRANSLATOR opens Bethesda plugins (.esp, .esm, .esl) and string tables, and let
 - Interface language independent from the translation language (FR, EN, IT, ES).
 - Interface in **English, French, Italian and Spanish** (follows your Mac's language; can be changed in the app).
 
+### What's new in 1.0.1
+
+
+### Updates
+
+From version 1.0.1 the app checks once a day whether a newer release exists on GitHub and offers to open the Nexus page, remind you later or skip that version. Nothing is downloaded or installed automatically. The full history is in [CHANGELOG.md](CHANGELOG.md).
+
 ### Screenshots
 
 ![Welcome screen](docs/screenshots/01_home.png)
@@ -98,6 +105,13 @@ mTRANSLATOR ouvre les plugins Bethesda (.esp, .esm, .esl) et les tables de chaî
 - Exports : plugin traduit (avec sauvegarde horodatée), SST, XML xTranslator, CSV, TXT, JSON.
 - Langue de l'interface indépendante de la langue de traduction (FR, EN, IT, ES).
 - Interface en **français, anglais, italien et espagnol** (suit la langue du Mac ; modifiable dans l'appli).
+
+### Nouveautés de la 1.0.1
+
+
+### Mises à jour
+
+À partir de la version 1.0.1, l'appli vérifie une fois par jour si une version plus récente existe sur GitHub et propose d'ouvrir la page Nexus, de rappeler plus tard ou d'ignorer cette version. Rien n'est téléchargé ni installé automatiquement. L'historique complet est dans [CHANGELOG.md](CHANGELOG.md).
 
 ### Captures d'écran
 
