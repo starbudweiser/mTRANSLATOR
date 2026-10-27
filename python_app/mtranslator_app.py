@@ -119,12 +119,12 @@ def pick_file(payload):
     directory = payload.get('directory') or ''
     try:
         import webview
-        if webview.windows:
+        if MAIN_WINDOW:
             kind = {'save': webview.SAVE_DIALOG, 'folder': webview.FOLDER_DIALOG}.get(mode, webview.OPEN_DIALOG)
             types = tuple(payload.get('fileTypes') or ()) if mode == 'open' else ()
-            res = webview.windows[0].create_file_dialog(kind, directory=directory if os.path.isdir(directory) else '',
-                                                        save_filename=default_name, file_types=types,
-                                                        allow_multiple=multiple)
+            res = MAIN_WINDOW.create_file_dialog(kind, directory=directory if os.path.isdir(directory) else '',
+                                                 save_filename=default_name, file_types=types,
+                                                 allow_multiple=multiple)
             if not res:
                 return None
             if multiple:
@@ -404,8 +404,8 @@ def build_menu(webview):
 
     def call(action: str):
         def run():
-            if webview.windows:
-                webview.windows[0].evaluate_js(f"window.mtranslatorMenu && window.mtranslatorMenu('{action}')")
+            if MAIN_WINDOW:
+                MAIN_WINDOW.evaluate_js(f"window.mtranslatorMenu && window.mtranslatorMenu('{action}')")
         return run
 
     def item(title: str, action: str):
@@ -495,12 +495,58 @@ def window_size(webview):
     return size, (min(MIN_SIZE[0], size[0]), min(MIN_SIZE[1], size[1]))
 
 
+# Splash animé (règle Socle) : t = 0 splash visible → t = 2 s fenêtre de l'appli (ou dès qu'elle est
+# prête) → t = 4 s début de la sortie animée (600 ms), jamais avant que la fenêtre soit affichée.
+SPLASH_SIZE = (500, 190)  # carte de 476 × 166 et marge de 12 px pour son ombre
+SPLASH_MAIN_AT = 2.0
+SPLASH_LEAVE_AT = 4.0
+SPLASH_LEAVE_MS = 600
+MAIN_WINDOW = None  # fenêtre de l'appli (webview.windows[0] est le splash pendant le lancement)
+
+
+def run_splash(splash, window, splash_loaded, main_loaded, main_shown):
+    splash_loaded.wait(1.0)  # au-delà, on l'affiche quand même
+    splash.show()
+    t0 = time.monotonic()
+    log('splash : affiché')
+    time.sleep(SPLASH_MAIN_AT)
+    if not main_loaded.wait(30):
+        log('splash : interface lente, fenêtre affichée quand même')
+    window.show()
+    main_shown.wait(5)
+    log(f'splash : fenêtre affichée à {time.monotonic() - t0:.2f} s')
+    time.sleep(max(0.0, SPLASH_LEAVE_AT - (time.monotonic() - t0)))
+    log(f'splash : sortie à {time.monotonic() - t0:.2f} s')
+    try:
+        splash.evaluate_js('window.splashLeave && window.splashLeave()')
+    except Exception:
+        pass
+    time.sleep(SPLASH_LEAVE_MS / 1000 + 0.05)
+    splash.destroy()
+    log(f'splash : fermé à {time.monotonic() - t0:.2f} s')
+
+
 def launch_native_window(app_url: str):
+    global MAIN_WINDOW
     try:
         import webview
         (width, height), min_size = window_size(webview)
         print("[mTRANSLATOR] Moteur natif WebKit activé.")
-        window = webview.create_window(
+        splash = webview.create_window(
+            title='mTRANSLATOR',
+            url=f'{app_url}/splash.html?lang={MENU_LANG}&v={VERSION}',
+            width=SPLASH_SIZE[0],
+            height=SPLASH_SIZE[1],
+            resizable=False,
+            frameless=True,
+            easy_drag=False,
+            transparent=True,
+            on_top=True,
+            focus=False,
+            hidden=True,
+            background_color='#000000',
+        )
+        window = MAIN_WINDOW = webview.create_window(
             title='mTRANSLATOR',
             url=app_url,
             width=width,
@@ -509,11 +555,17 @@ def launch_native_window(app_url: str):
             background_color='#1e1e1e',
             text_select=True,
             zoomable=False,  # le zoom est géré par l'interface (⌘+ / ⌘− / ⌘0)
+            hidden=True,  # affichée par run_splash
         )
+        splash_loaded, main_loaded, main_shown = threading.Event(), threading.Event(), threading.Event()
+        splash.events.loaded += splash_loaded.set
+        window.events.loaded += main_loaded.set
+        window.events.shown += main_shown.set
         window.events.loaded += lambda: watch_drops(window)
         window.events.shown += lambda: update_check.start_webview(window, 'mTRANSLATOR', lang=MENU_LANG)  # nouvelle version ?
         os.makedirs(STORAGE_DIR, exist_ok=True)
         webview.start(
+            run_splash, (splash, window, splash_loaded, main_loaded, main_shown),
             debug=False,
             menu=build_menu(webview),
             private_mode=False,  # conserver dictionnaires et base locale d'un lancement à l'autre

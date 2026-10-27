@@ -2,6 +2,16 @@
 
 Notes de version / release notes (EN + FR). Translations in IT and ES: see the Nexus Mods page.
 
+## Next release / Prochaine version
+
+**English**
+
+- Animated splash screen at launch (same rule as the other Skyrim Tools apps): shown for 4 seconds, the app window opens after 2 seconds; still splash when "Reduce motion" is on.
+
+**Français**
+
+- Écran de lancement animé (même règle que les autres applis Skyrim Tools) : affiché 4 secondes, la fenêtre de l'appli s'ouvre au bout de 2 secondes ; splash fixe quand « Réduire les animations » est activé.
+
 ## 1.0.1
 
 **English**
