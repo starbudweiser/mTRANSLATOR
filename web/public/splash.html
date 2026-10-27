@@ -39,7 +39,8 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: 26px;
+                /* écart réduit : le nom (40px fixe) tient entre les marges de 24px */
+                gap: 18px;
                 /* marge identique des deux côtés (Socle space-6) */
                 padding: 0 24px;
                 border-radius: 16px;
@@ -193,10 +194,11 @@
             .title {
                 display: flex;
                 margin: 0;
-                font-size: 34px;
+                /* taille fixe commune aux splashs (Socle size-splash-title) */
+                font-size: 40px;
                 font-weight: 800;
                 line-height: 1;
-                letter-spacing: 0.3px;
+                letter-spacing: 0.5px;
                 color: var(--text);
                 perspective: 400px;
             }
@@ -516,15 +518,13 @@
             if (version) document.getElementById("footer").textContent = "v" + version;
 
             // Largeur du bloc titre mesurée sans animation (le sous-titre arrive très espacé) ;
-            // un nom trop long pour la zone utile est réduit jusqu'à tenir sur une ligne
+            // le nom garde sa taille fixe, seul un sous-titre trop long est réduit
             const text = document.querySelector(".text");
             const title = document.querySelector(".title");
             const subtitle = document.getElementById("subtitle");
             const fit = () => {
                 document.body.classList.add("measure");
-                const room = document.querySelector(".card").clientWidth - 48 - 108 - 26;
-                let size = parseFloat(getComputedStyle(title).fontSize);
-                while (title.scrollWidth > room && size > 12) title.style.fontSize = --size + "px";
+                const room = document.querySelector(".card").clientWidth - 48 - 108 - 18;
                 let sub = parseFloat(getComputedStyle(subtitle).fontSize);
                 while (subtitle.scrollWidth > room && sub > 8) subtitle.style.fontSize = --sub + "px";
                 text.style.width = Math.min(room, Math.max(title.scrollWidth, subtitle.scrollWidth)) + "px";
