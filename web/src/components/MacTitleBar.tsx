@@ -9,6 +9,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ModFileMeta, GameEngine } from '../types';
 import { BookLogo } from './BookLogo';
+import { AppName } from './AppName';
 import { ArrowRight, HardDrive, X, Check, HelpCircle, ChevronDown, Globe, CheckCircle2 } from 'lucide-react';
 import { useI18n } from '../i18n/LanguageContext';
 import { SupportedLocale } from '../i18n/types';
@@ -89,7 +90,7 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
             title={t('app.aboutTitle')}
           >
             <span className="font-bold text-white text-[15px] tracking-tight">
-              {t('app.title')}
+              <AppName />
             </span>
             <span className="text-[14px] text-[#aaaaaa]">
               {t('app.subtitle')}

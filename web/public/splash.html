@@ -44,10 +44,8 @@
                 /* marge identique des deux côtés (Socle space-6) */
                 padding: 0 24px;
                 border-radius: 16px;
-                overflow: hidden;
                 background: #1b1c21;
                 border: 1px solid rgb(255 255 255 / 8%);
-                transform-style: preserve-3d;
                 animation: card-in 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
             }
 
@@ -57,8 +55,9 @@
                 flex: 0 0 auto;
                 width: 108px;
                 height: 108px;
+                /* pas de preserve-3d : les pages en rotation se croiseraient en 3D et se couperaient
+                   l'une l'autre ; à plat, elles s'empilent dans l'ordre du document */
                 perspective: 500px;
-                transform-style: preserve-3d;
             }
 
             /* Page d'arrivée, grise, avec le caractère traduit */
@@ -136,7 +135,6 @@
                 position: relative;
                 flex: 0 1 auto;
                 min-width: 0;
-                transform-style: preserve-3d;
             }
 
             .title {
@@ -158,8 +156,9 @@
                 animation-delay: calc(450ms + var(--i) * 45ms);
             }
 
+            /* « m » en jaune Socle, comme le logo livre et le nom dans l'appli */
             .title .m {
-                color: var(--blue-1);
+                color: #fbbf24;
             }
 
             .rule {
@@ -195,7 +194,8 @@
 
             /* Sortie : zoom arrière avec rebond (easeInBack) — la carte gonfle un peu puis se replie */
             body.leaving .stage {
-                animation: leave 600ms cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+                /* rebond limité (−0,15) : la carte grossit d'au plus 4 % et reste dans la fenêtre de 500px */
+                animation: leave 600ms cubic-bezier(0.6, -0.15, 0.735, 0.045) forwards;
             }
 
             @keyframes leave {

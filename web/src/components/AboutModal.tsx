@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Info, Sparkles, Heart, Code2, ExternalLink, Cpu, BookOpen, Layers } from 'lucide-react';
 import { BookLogo } from './BookLogo';
+import { AppName } from './AppName';
 import { L } from '../i18n/L';
 
 interface AboutModalProps {
@@ -35,7 +36,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center space-x-2">
-                <h2 className="text-base font-bold text-white tracking-tight">mTRANSLATOR</h2>
+                <h2 className="text-base font-bold text-white tracking-tight"><AppName /></h2>
                 <span className="px-1.5 py-0.5 bg-[#0369a1] text-[#ffffff] text-[12px] font-mono rounded font-semibold">
                   v2.5 macOS
                 </span>
