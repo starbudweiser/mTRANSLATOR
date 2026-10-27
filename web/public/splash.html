@@ -38,8 +38,10 @@
                 inset: 0;
                 display: flex;
                 align-items: center;
+                justify-content: center;
                 gap: 26px;
-                padding: 0 30px 0 34px;
+                /* marge identique des deux côtés (Socle space-6) */
+                padding: 0 24px;
                 border-radius: 16px;
                 overflow: hidden;
                 background: linear-gradient(160deg, #34363d 0%, #1b1c21 55%, #121317 100%);
@@ -183,7 +185,7 @@
             /* ---- Titre ---- */
             .text {
                 position: relative;
-                flex: 1 1 auto;
+                flex: 0 1 auto;
                 min-width: 0;
                 transform-style: preserve-3d;
             }
@@ -234,7 +236,7 @@
 
             .footer {
                 position: absolute;
-                right: 18px;
+                right: 24px;
                 bottom: 10px;
                 font-size: 9.5px;
                 font-weight: 500;
@@ -438,6 +440,10 @@
                 }
             }
 
+            body.measure * {
+                animation: none !important;
+            }
+
             /* Splash fixe : tout est posé d'emblée, mêmes durées d'affichage */
             @media (prefers-reduced-motion: reduce) {
                 *,
@@ -508,6 +514,24 @@
             document.getElementById("subtitle").textContent = (TEXTS[lang] || TEXTS.en).subtitle;
             const version = params.get("v");
             if (version) document.getElementById("footer").textContent = "v" + version;
+
+            // Largeur du bloc titre mesurée sans animation (le sous-titre arrive très espacé) ;
+            // un nom trop long pour la zone utile est réduit jusqu'à tenir sur une ligne
+            const text = document.querySelector(".text");
+            const title = document.querySelector(".title");
+            const subtitle = document.getElementById("subtitle");
+            const fit = () => {
+                document.body.classList.add("measure");
+                const room = document.querySelector(".card").clientWidth - 48 - 108 - 26;
+                let size = parseFloat(getComputedStyle(title).fontSize);
+                while (title.scrollWidth > room && size > 12) title.style.fontSize = --size + "px";
+                let sub = parseFloat(getComputedStyle(subtitle).fontSize);
+                while (subtitle.scrollWidth > room && sub > 8) subtitle.style.fontSize = --sub + "px";
+                text.style.width = Math.min(room, Math.max(title.scrollWidth, subtitle.scrollWidth)) + "px";
+                document.body.classList.remove("measure");
+            };
+            fit();
+            document.fonts && document.fonts.ready.then(fit);
 
             // Appelée par l'appli (evaluate_js) au début de la sortie animée
             window.splashLeave = () => document.body.classList.add("leaving");
