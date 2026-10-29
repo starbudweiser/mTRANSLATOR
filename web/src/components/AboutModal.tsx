@@ -55,7 +55,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
               <strong>mTRANSLATOR</strong> {L("est inspiré et conçu sur la base de travail de référence du célèbre logiciel")}<span className="text-[#fbbf24] font-medium"> xTranslator</span> {L("(développé initialement pour Windows par")} <em>McGuffin</em>).
             </p>
             <p className="text-[#dddddd]">{L("Il a été intégralement redéveloppé et adapté pour l'écosystème")} <strong>macOS</strong> {L("par")}<span className="text-[#38bdf8] font-semibold"> Google AI Studio</span> &amp; 
-              <span className="text-[#4ade80] font-semibold"> {L("Stéphan Le Gac Savoye")}</span> (aka <em>Starbudweiser</em>).
+              <span className="text-[#4ade80] font-semibold"> Starbudweiser</span>.
             </p>
           </div>
 
