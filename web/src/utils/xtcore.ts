@@ -111,8 +111,8 @@ export async function pickFiles(o: { title?: string; directory?: string; fileTyp
   return Array.isArray(data.path) ? data.path : data.path ? [data.path] : [];
 }
 
-/** Dictionnaire par défaut : dossier de SST de xTranslator. */
-export const DEFAULT_XT_DICT = '/Volumes/SKYRIM/TOOLS/WINDOWS/_xTranslator/UserDictionaries/SkyrimSE';
+/** Dictionnaire par défaut : aucun, le dossier de SST de xTranslator est choisi par l'utilisateur. */
+export const DEFAULT_XT_DICT = '';
 const DICT_KEY = 'mtranslator_xtcore_dict';
 export const getXtDict = () => {
   try {

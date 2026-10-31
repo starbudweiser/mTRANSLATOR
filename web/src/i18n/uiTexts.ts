@@ -488,6 +488,8 @@ export const UI_TEXTS: Record<string, [string, string, string]> = {
   "Traduction VF Locale": ["Local translation","Traduzione locale","Traducción local"],
   "Origine": ["Origin","Origine","Origen"],
   "Action": ["Action","Azione","Acción"],
+  "Simple": ["Simple","Semplice","Sencillo"],
+  "Expert": ["Expert","Esperto","Experto"],
   "Mode d'affichage": ["Display mode","Modalità di visualizzazione","Modo de visualización"],
   "Source :": ["Source:","Sorgente:","Origen:"],
   "Plugin ouvert": ["Open plugin","Plugin aperto","Plugin abierto"],

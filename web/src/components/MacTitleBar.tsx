@@ -148,7 +148,7 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
                   simpleMode === value ? 'bg-[#0369a1] text-white font-semibold' : 'text-[#aaaaaa] hover:text-white'
                 }`}
               >
-                {label}
+                {L(label)}
               </button>
             ))}
           </div>
