@@ -72,6 +72,9 @@ XTCORE_BIN="core/target/release/xtcore"
 mkdir -p "$BUILD_TMP"
 rm -rf "$APP_FINAL"
 
+# Lanceur PyInstaller compilé depuis les sources, contre les faux positifs antivirus (absent hors de ce dossier d'outils : lanceur standard).
+PYI_SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/_tools/pyinstaller_source.sh"
+if [ -x "$PYI_SRC" ]; then "$PYI_SRC" python3; fi
 pyinstaller \
     --noconfirm \
     --clean \

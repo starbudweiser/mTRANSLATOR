@@ -2,25 +2,25 @@
 
 Notes de version / release notes (EN + FR). Translations in IT and ES: see the Nexus Mods page.
 
-## Next release / Prochaine version
+## 1.3.0
 
 **English**
 
-- Animated splash screen at launch (same rule as the other Skyrim Tools apps): shown for 4 seconds, the app window opens after 2 seconds; still splash when "Reduce motion" is on.
+- Signed with a Developer ID and notarized by Apple: macOS now opens the app without a security warning.
+- The app's launcher is now compiled from source when the app is built, instead of using PyInstaller's generic prebuilt launcher, which antivirus scanners tend to flag. No change in features.
+- New animated splash screen at launch.
+- The first letter of the app's name now uses the colour of its logo everywhere it appears.
+- About window: credits updated.
+- Version number aligned across the Skyrim Mac Toolkit.
 
 **Français**
 
-- Écran de lancement animé (même règle que les autres applis Skyrim Tools) : affiché 4 secondes, la fenêtre de l'appli s'ouvre au bout de 2 secondes ; splash fixe quand « Réduire les animations » est activé.
-
-## 1.0.1
-
-**English**
-
-- New-version notice: the app checks the latest GitHub release once a day and offers to open the Nexus page, remind you later or skip that version. Nothing is downloaded or installed.
-
-**Français**
-
-- Avertissement de nouvelle version : l'appli consulte la dernière release GitHub une fois par jour et propose d'ouvrir la page Nexus, de rappeler plus tard ou d'ignorer cette version. Rien n'est téléchargé ni installé.
+- Signée avec un certificat Developer ID et notarisée par Apple : macOS ouvre désormais l'appli sans avertissement de sécurité.
+- Le lanceur de l'appli est maintenant compilé depuis les sources à la construction de l'appli, au lieu du lanceur générique précompilé de PyInstaller, souvent signalé par les antivirus. Aucun changement de fonctionnalités.
+- Nouvel écran de lancement animé.
+- La première lettre du nom de l'appli prend la couleur de son logo partout où il est écrit.
+- Fenêtre À propos : crédits mis à jour.
+- Numéro de version commun à tout le Skyrim Mac Toolkit.
 
 <!-- gen_changelogs : entrées ci-dessous conservées -->
 
