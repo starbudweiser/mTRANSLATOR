@@ -570,7 +570,7 @@ def launch_native_window(app_url: str):
             menu=build_menu(webview),
             private_mode=False,  # conserver dictionnaires et base locale d'un lancement à l'autre
             storage_path=STORAGE_DIR,
-            localization=MENU_LOCALIZATION.get(MENU_LANG),
+            localization=MENU_LOCALIZATION.get(MENU_LANG, {}),
         )
         return
     except ImportError:
