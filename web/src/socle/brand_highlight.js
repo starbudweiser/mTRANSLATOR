@@ -1,6 +1,6 @@
 /**
- * Socle — nom de l'appli : son initiale en minuscule (le « m » de mORTEX, le « s » de sKYCRASH,
- * « cs » de csSETTINGS…) prend la couleur de son logo partout où le nom est écrit dans la page.
+ * Socle — nom de l'appli : sa lettre minuscule, à toute place (le « m » de mORTEX, le « s » de sKYCRASH,
+ * le « e » de CAREERDeSK…) prend la couleur de son logo partout où le nom est écrit dans la page.
  * La CSS Custom Highlight API colore une plage de texte sans toucher au DOM (React garde ses nœuds).
  * Recopié par sync_apps.sh dans chaque dossier « socle/ » qui en contient une copie.
  *
@@ -10,12 +10,12 @@
 const HIGHLIGHT = "socle-brand";
 const REFRESH_MS = 250;
 
-/** Une plage sur l'initiale minuscule de chaque occurrence d'un des noms, hors mots, chemins et adresses. */
+/** Une plage sur chaque lettre minuscule de chaque occurrence d'un des noms, hors mots, chemins et adresses. */
 export function brandRanges(root, names) {
   const doc = root.ownerDocument || root;
   const specs = names
-    .map((name) => ({ name, head: (name.match(/^[a-z]+/) || [""])[0].length }))
-    .filter((s) => s.head > 0);
+    .map((name) => ({ name, marks: [...name.matchAll(/\p{Ll}/gu)].map((m) => m.index) }))
+    .filter((s) => s.marks.length > 0);
   const ranges = [];
   const walker = doc.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
     acceptNode: (node) =>
@@ -25,15 +25,17 @@ export function brandRanges(root, names) {
   });
   for (let node = walker.nextNode(); node !== null; node = walker.nextNode()) {
     const text = node.nodeValue || "";
-    for (const { name, head } of specs) {
+    for (const { name, marks } of specs) {
       for (let idx = text.indexOf(name); idx !== -1; idx = text.indexOf(name, idx + name.length)) {
         const before = text[idx - 1] || "";
         const after = text[idx + name.length] || "";
         if (/[\p{L}\p{N}./@_-]/u.test(before) || /[\p{L}\p{N}_-]/u.test(after)) continue;
-        const range = doc.createRange();
-        range.setStart(node, idx);
-        range.setEnd(node, idx + head);
-        ranges.push(range);
+        for (const mark of marks) {
+          const range = doc.createRange();
+          range.setStart(node, idx + mark);
+          range.setEnd(node, idx + mark + 1);
+          ranges.push(range);
+        }
       }
     }
   }
