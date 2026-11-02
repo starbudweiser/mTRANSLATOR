@@ -20,8 +20,9 @@ import webbrowser
 import time
 
 import mt_engines
-import update_check
+import updater
 
+UPDATER = None  # contrôleur de mise à jour (updater.start_webview), branché sur le menu Aide
 VERSION = '1.3.0'  # version unique de l'appli (lue par build_app.sh ; web/package.json identique)
 
 
@@ -441,6 +442,7 @@ def build_menu(webview):
         ]),
         Menu(M('Aide'), [
             item('À propos de mTRANSLATOR', 'about'),
+            MenuAction(updater.texts(MENU_LANG)['menu'], lambda: UPDATER and UPDATER.check_manual()),
         ]),
     ]
 
@@ -557,12 +559,15 @@ def launch_native_window(app_url: str):
             zoomable=False,  # le zoom est géré par l'interface (⌘+ / ⌘− / ⌘0)
             hidden=True,  # affichée par run_splash
         )
+        def start_updates():
+            global UPDATER
+            UPDATER = updater.start_webview(window, 'mTRANSLATOR', lang=MENU_LANG, brand='#fbbf24')
         splash_loaded, main_loaded, main_shown = threading.Event(), threading.Event(), threading.Event()
         splash.events.loaded += splash_loaded.set
         window.events.loaded += main_loaded.set
         window.events.shown += main_shown.set
         window.events.loaded += lambda: watch_drops(window)
-        window.events.shown += lambda: update_check.start_webview(window, 'mTRANSLATOR', lang=MENU_LANG)  # nouvelle version ?
+        window.events.shown += start_updates  # nouvelle version ? (au plus une fois par jour)
         os.makedirs(STORAGE_DIR, exist_ok=True)
         webview.start(
             run_splash, (splash, window, splash_loaded, main_loaded, main_shown),
