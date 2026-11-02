@@ -23,7 +23,7 @@ import mt_engines
 import updater
 
 UPDATER = None  # contrôleur de mise à jour (updater.start_webview), branché sur le menu Aide
-VERSION = '1.3.0'  # version unique de l'appli (lue par build_app.sh ; web/package.json identique)
+VERSION = '1.3.1'  # version unique de l'appli (lue par build_app.sh ; web/package.json identique)
 
 
 def ensure_web_assets() -> str:

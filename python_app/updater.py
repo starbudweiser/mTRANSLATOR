@@ -596,8 +596,9 @@ def _qt():
     return core, widgets, gui, socle
 
 
-def start_qt(window, repo: str, lang=None, page: str | None = None):
-    """PyQt6 : vérification en arrière-plan, puis fenêtre Socle quand l'appli est au premier plan. Renvoie le contrôleur."""
+def start_qt(window, repo: str, lang=None, page: str | None = None, menu: bool = True):
+    """PyQt6 : vérification en arrière-plan, puis fenêtre Socle quand l'appli est au premier plan. Renvoie le contrôleur.
+    `menu` : ajoute « Rechercher les mises à jour… » au menu de l'appli (barre de menus de la fenêtre, ou barre macOS)."""
     engine = Engine(repo, lang)
     core, widgets, gui, socle = _qt()
 
@@ -740,6 +741,15 @@ def start_qt(window, repo: str, lang=None, page: str | None = None):
 
     ctl = Controller()
     window._updater = ctl  # garde l'objet en vie
+    if menu:
+        bar = getattr(window, "menu_bar", None) or (window.menuBar() if hasattr(window, "menuBar") else None)
+        if bar is None:
+            bar = widgets.QMenuBar()
+            window._update_menubar = bar
+        action = gui.QAction(texts(engine.lang)["menu"], bar)
+        action.setMenuRole(gui.QAction.MenuRole.ApplicationSpecificRole)  # macOS la range dans le menu de l'appli
+        action.triggered.connect(ctl.check_manual)
+        bar.addMenu(engine.name).addAction(action)
     if not os.environ.get("SKYRIM_TOOLS_NO_UPDATE_CHECK"):
         ctl.check_auto()
     return ctl

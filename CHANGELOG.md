@@ -2,6 +2,16 @@
 
 Notes de version / release notes (EN + FR). Translations in IT and ES: see the Nexus Mods page.
 
+## 1.3.1
+
+**English**
+
+- The counter of unsaved changes is now translated in English, Spanish and Italian.
+
+**Français**
+
+- Le compteur de modifications non enregistrées est maintenant traduit en anglais, espagnol et italien.
+
 ## 1.3.0
 
 **English**
