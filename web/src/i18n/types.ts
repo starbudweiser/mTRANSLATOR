@@ -22,7 +22,7 @@ export interface I18nContextType {
   locale: SupportedLocale;
   uiLocale: 'fr' | 'en' | 'it' | 'es';
   setUiLanguage: (code: 'fr' | 'en' | 'it' | 'es') => void;
-  uiLanguages: { code: 'fr' | 'en' | 'it' | 'es'; name: string; flag: string }[];
+  uiLanguages: { code: 'fr' | 'en' | 'it' | 'es'; name: string }[];
   sourceLang: string;
   targetLang: string;
   targetLocale: SupportedLocale;

@@ -1,7 +1,7 @@
 /**
  * Barre de titre et d'en-tête macOS native pour mTRANSLATOR
- * En-tête d'application avec logo livre "A", titre "mTRANSLATOR" et sélecteur interactif de langue
- * permettant de changer la langue des traductions et la localisation globale de l'interface.
+ * En-tête d'application avec logo livre "A", titre "mTRANSLATOR" et sélecteur de la langue des traductions.
+ * La langue de l'interface se choisit dans le menu natif « Langue » (python_app/mtranslator_app.py).
  * La barre de titre est celle de la fenêtre macOS native ; « Fermer le fichier » et « À propos »
  * sont dans les menus natifs (python_app/mtranslator_app.py).
  */
@@ -40,9 +40,7 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
   simpleMode,
   onSimpleModeChange,
 }) => {
-  const { t, sourceLang, targetLang, targetLocale, setTargetLanguage, languages, uiLocale, setUiLanguage, uiLanguages } = useI18n();
-  const [isUiMenuOpen, setIsUiMenuOpen] = useState(false);
-  const uiMenuRef = useRef<HTMLDivElement>(null);
+  const { t, sourceLang, targetLang, targetLocale, setTargetLanguage, languages } = useI18n();
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const langMenuRef = useRef<HTMLDivElement>(null);
 
@@ -52,17 +50,14 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
       if (langMenuRef.current && !langMenuRef.current.contains(e.target as Node)) {
         setIsLangMenuOpen(false);
       }
-      if (uiMenuRef.current && !uiMenuRef.current.contains(e.target as Node)) {
-        setIsUiMenuOpen(false);
-      }
     };
-    if (isLangMenuOpen || isUiMenuOpen) {
+    if (isLangMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isLangMenuOpen, isUiMenuOpen]);
+  }, [isLangMenuOpen]);
 
   // Récupérer le drapeau actuel
   const currentLangObj = languages.find((l) => l.code === targetLocale);
@@ -100,38 +95,6 @@ export const MacTitleBar: React.FC<MacTitleBarProps> = ({
 
         {/* Côté droit : état du fichier, mode d'affichage et sélecteur de langue */}
         <div className="flex items-center space-x-3 shrink-0">
-          {/* Langue de l'interface (drapeau), indépendante de la langue des traductions */}
-          <div className="relative" ref={uiMenuRef}>
-            <button
-              type="button"
-              onClick={() => setIsUiMenuOpen(!isUiMenuOpen)}
-              className="text-base leading-none px-1.5 py-1 rounded hover:bg-[#262626] transition-colors"
-              title={L("Langue de l'interface")}
-            >
-              {uiLanguages.find((l) => l.code === uiLocale)?.flag}
-            </button>
-            {isUiMenuOpen && (
-              <div className="absolute right-0 top-full mt-1.5 w-44 bg-[#1e1e1e] border border-[#333333] rounded-lg shadow-2xl py-1 z-50 text-[13px] text-[#dddddd]">
-                {uiLanguages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    type="button"
-                    onClick={() => {
-                      setUiLanguage(lang.code);
-                      setIsUiMenuOpen(false);
-                    }}
-                    className={`w-full flex items-center justify-between px-3 py-1.5 text-left transition-colors ${
-                      lang.code === uiLocale ? 'text-[#38bdf8] font-medium' : 'hover:bg-[#2c2c2c]'
-                    }`}
-                  >
-                    <span>{lang.flag}  {lang.name}</span>
-                    {lang.code === uiLocale && <Check className="w-3.5 h-3.5 text-[#38bdf8]" />}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
           {/* Commutateur Simple / Expert */}
           <div
             className="flex items-center bg-[#222222] border border-[#333333] rounded-md p-0.5 text-[13px]"

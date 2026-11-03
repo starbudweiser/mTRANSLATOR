@@ -20,6 +20,7 @@ import webbrowser
 import time
 
 import mt_engines
+import lang_menu
 import updater
 
 UPDATER = None  # contrôleur de mise à jour (updater.start_webview), branché sur le menu Aide
@@ -237,7 +238,7 @@ def create_mtranslator_handler(web_directory: str):
             super().do_GET()
 
         def do_POST(self):
-            if self.path in ('/api/xtcore', '/api/pick-file', '/api/save-text', '/api/ui-lang'):
+            if self.path in ('/api/xtcore', '/api/pick-file', '/api/save-text'):
                 # En-tête personnalisé : bloque les requêtes envoyées par d'autres sites (pré-vérification CORS).
                 if self.headers.get('X-mTRANSLATOR') != '1':
                     self.send_json({'error': 'En-tête X-mTRANSLATOR requis'}, 403)
@@ -249,10 +250,6 @@ def create_mtranslator_handler(web_directory: str):
                         path = pick_file(payload)
                         log(f"sélecteur {payload.get('mode', 'open')} : {path!r}")
                         self.send_json({'path': path})
-                        return
-                    if self.path == '/api/ui-lang':
-                        save_ui_lang(payload.get('lang', ''))
-                        self.send_json({'ok': True})
                         return
                     if self.path == '/api/save-text':
                         self.send_json({'path': save_text(payload)})
@@ -305,35 +302,12 @@ def run_local_server(web_dir: str, port: int = PREFERRED_PORT) -> int:
     return httpd.server_address[1]
 
 
-# Langue des menus natifs : celle choisie dans l'interface (mémorisée par /api/ui-lang),
-# sinon la langue du Mac. Appliquée au lancement suivant (les menus sont construits au démarrage).
+# Langue de l'interface (page et menus natifs) : choix du menu « Langue » (« auto » = langue du Mac, par défaut),
+# mémorisé dans ~/Library/Application Support/mTRANSLATOR/language.json (module commun lang_menu). La page change
+# tout de suite ; les menus natifs, construits au démarrage, suivent au lancement suivant.
+# Indépendante de la langue cible des traductions, choisie dans l'interface.
 UI_LANGS = ('fr', 'en', 'it', 'es')
-UI_LANG_FILE = os.path.join(os.path.expanduser('~/Library/Application Support'), 'mTRANSLATOR', 'ui_lang')
-
-
-def save_ui_lang(code: str):
-    if code in UI_LANGS:
-        os.makedirs(os.path.dirname(UI_LANG_FILE), exist_ok=True)
-        with open(UI_LANG_FILE, 'w', encoding='utf-8') as f:
-            f.write(code)
-
-
-def menu_lang() -> str:
-    try:
-        with open(UI_LANG_FILE, encoding='utf-8') as f:
-            code = f.read().strip()
-        if code in UI_LANGS:
-            return code
-    except OSError:
-        pass
-    try:
-        from Foundation import NSLocale
-        for lang in NSLocale.preferredLanguages():
-            if str(lang)[:2] in UI_LANGS:
-                return str(lang)[:2]
-    except Exception:
-        pass
-    return 'en'
+LANG_STORE = lang_menu.FileStore('mTRANSLATOR')
 
 
 # Titres des menus : {texte français: (anglais, italien, espagnol)}
@@ -361,7 +335,7 @@ MENU_TEXTS = {
     'Aide': ('Help', 'Aiuto', 'Ayuda'),
     'À propos de mTRANSLATOR': ('About mTRANSLATOR', 'Informazioni su mTRANSLATOR', 'Acerca de mTRANSLATOR'),
 }
-MENU_LANG = menu_lang()
+MENU_LANG = lang_menu.resolve(LANG_STORE.get())
 
 
 def M(text: str) -> str:
@@ -396,6 +370,12 @@ MENU_LOCALIZATION = {'fr': {
     'cocoa.menu.cut': 'Cortar', 'cocoa.menu.copy': 'Copiar', 'cocoa.menu.paste': 'Pegar',
     'cocoa.menu.selectAll': 'Seleccionar todo',
 }}
+
+
+def push_ui_lang(code: str):
+    """Langue d'interface choisie dans le menu « Langue » : appliquée à la page (window.mtranslatorSetUiLang)."""
+    if MAIN_WINDOW:
+        MAIN_WINDOW.evaluate_js(f"window.mtranslatorSetUiLang && window.mtranslatorSetUiLang({json.dumps(code)})")
 
 
 def build_menu(webview):
@@ -440,6 +420,7 @@ def build_menu(webview):
             item('Statistiques…', 'stats'),
             item('Comparer les versions…', 'diff'),
         ]),
+        lang_menu.web_menu(LANG_STORE.get, LANG_STORE.set, push_ui_lang, MENU_LANG),
         Menu(M('Aide'), [
             item('À propos de mTRANSLATOR', 'about'),
             MenuAction(updater.texts(MENU_LANG)['menu'], lambda: UPDATER and UPDATER.check_manual()),
@@ -550,7 +531,7 @@ def launch_native_window(app_url: str):
         )
         window = MAIN_WINDOW = webview.create_window(
             title='mTRANSLATOR',
-            url=app_url,
+            url=f'{app_url}/?ui={MENU_LANG}',  # langue d'interface lue par web/src/i18n/L.ts
             width=width,
             height=height,
             min_size=min_size,
@@ -567,6 +548,7 @@ def launch_native_window(app_url: str):
         window.events.loaded += main_loaded.set
         window.events.shown += main_shown.set
         window.events.loaded += lambda: watch_drops(window)
+        window.events.shown += lambda: lang_menu.cocoa_mark(LANG_STORE.get)  # coche du menu « Langue »
         window.events.shown += start_updates  # nouvelle version ? (au plus une fois par jour)
         os.makedirs(STORAGE_DIR, exist_ok=True)
         webview.start(

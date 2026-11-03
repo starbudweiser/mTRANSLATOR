@@ -6,19 +6,24 @@ import { UI_TEXTS } from './uiTexts';
 
 export type UiLocale = 'fr' | 'en' | 'it' | 'es';
 
-export const UI_LANGUAGES: { code: UiLocale; name: string; flag: string }[] = [
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
+export const UI_LANGUAGES: { code: UiLocale; name: string }[] = [
+  { code: 'fr', name: 'Français' },
+  { code: 'en', name: 'English' },
+  { code: 'it', name: 'Italiano' },
+  { code: 'es', name: 'Español' },
 ];
 
 const STORAGE_KEY_UI = 'mtranslator_ui_lang';
 const INDEX: Record<Exclude<UiLocale, 'fr'>, number> = { en: 0, it: 1, es: 2 };
 const isUiLocale = (c: unknown): c is UiLocale => UI_LANGUAGES.some((l) => l.code === c);
 
-/** Langue mémorisée, sinon première langue prise en charge du Mac, sinon anglais. */
+/** Langue donnée par l'appli macOS (?ui=, menu « Langue »), sinon langue mémorisée (preview),
+ * sinon première langue prise en charge du navigateur, sinon anglais. */
 export function detectUiLocale(): UiLocale {
+  try {
+    const asked = new URLSearchParams(location.search).get('ui');
+    if (isUiLocale(asked)) return asked;
+  } catch {}
   try {
     const saved = localStorage.getItem(STORAGE_KEY_UI);
     if (isUiLocale(saved)) return saved;
