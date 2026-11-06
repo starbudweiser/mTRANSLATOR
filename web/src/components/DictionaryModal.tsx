@@ -285,15 +285,15 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      <div className="bg-[#1a1a1a] border border-[#333333] rounded-lg shadow-2xl w-full max-w-4xl flex flex-col h-[670px] overflow-hidden text-[#dddddd]">
+      <div className="bg-[#1a1a1a] border border-[#333333] rounded-lg shadow-2xl w-full max-w-5xl flex flex-col h-[670px] overflow-hidden text-[#dddddd]">
         {/* En-tête macOS */}
-        <div className="h-10 bg-[#222222] border-b border-[#333333] px-4 flex items-center justify-between">
-          <div className="flex items-center space-x-2.5">
+        <div className="h-12 bg-[#222222] border-b border-[#333333] px-5 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
             <BookMarked className="w-4 h-4 text-[#38bdf8]" />
-            <span className="font-semibold text-white">
+            <span className="font-semibold text-white text-[14px] whitespace-nowrap">
               {t('dict.modalTitle')}
             </span>
-            <span className={`px-2 py-0.5 rounded-full text-[12px] font-mono border ${
+            <span className={`px-2.5 py-0.5 rounded-full text-[12px] font-mono border whitespace-nowrap shrink-0 ${
               localStats.totalEntries === 0 
                 ? 'bg-[#262626] text-[#aaaaaa] border-[#444444]' 
                 : 'bg-[#14391f]/40 text-[#4ade80] border-[#22c55e]/50'
@@ -304,45 +304,25 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center space-x-2">
-            <button
-              type="button"
-              onClick={handleLoadDevTestDictionaries}
-              className="text-[13px] text-[#fbbf24] hover:text-[#fde68a] bg-[#3f2a0c]/50 hover:bg-[#3f2a0c] border border-[#f59e0b] px-2 py-0.5 rounded flex items-center space-x-1 transition-colors"
-              title={L("Charger les dictionnaires d'exemples Bethesda uniquement pour la phase de test et de développement")}
-            >
-              <FlaskConical className="w-3 h-3 text-[#fbbf24]" />
-              <span>{L("Dev : Charger tests")}</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={handleResetToCleanSlate}
-              className="text-[13px] text-[#aaaaaa] hover:text-[#f87171] bg-[#262626] hover:bg-[#262626] border border-[#333333] px-2 py-0.5 rounded flex items-center space-x-1 transition-colors"
-              title={L("Vider tous les dictionnaires et revenir à une version 100% vierge")}
-            >
-              <Trash2 className="w-3 h-3" />
-              <span>{L("Remise à zéro vierge")}</span>
-            </button>
-
+          <div className="flex items-center shrink-0">
             <button
               type="button"
               onClick={onClose}
-              className="text-[#aaaaaa] hover:text-white p-1 rounded hover:bg-[#303030] transition-colors ml-2"
+              className="text-[#aaaaaa] hover:text-white p-1.5 rounded hover:bg-[#303030] transition-colors"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
           </div>
         </div>
 
         {/* Barre d'onglets : Créer SST vs Base Locale vs Explorateur */}
-        <div className="bg-[#181818] border-b border-[#2e2e2e] px-3 flex items-center justify-between">
-          <div className="flex items-center space-x-1">
+        <div className="bg-[#181818] border-b border-[#2e2e2e] px-3 flex items-center justify-between gap-3">
+          <div className="flex items-center space-x-1 min-w-0 overflow-x-auto">
             {/* Onglet 1 : Créer un nouveau dictionnaire SST */}
             <button
               type="button"
               onClick={() => setActiveTab('create_sst')}
-              className={`px-3 py-2 text-xs font-semibold border-b-2 flex items-center space-x-1.5 transition-colors ${
+              className={`px-3 py-2.5 text-xs font-semibold border-b-2 flex items-center space-x-1.5 transition-colors whitespace-nowrap ${
                 activeTab === 'create_sst'
                   ? 'border-[#38bdf8] text-[#38bdf8] bg-[#222222]'
                   : 'border-transparent text-[#aaaaaa] hover:text-white'
@@ -356,7 +336,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
             <button
               type="button"
               onClick={() => setActiveTab('local_db')}
-              className={`px-3 py-2 text-xs font-semibold border-b-2 flex items-center space-x-1.5 transition-colors ${
+              className={`px-3 py-2.5 text-xs font-semibold border-b-2 flex items-center space-x-1.5 transition-colors whitespace-nowrap ${
                 activeTab === 'local_db'
                   ? 'border-[#38bdf8] text-[#38bdf8] bg-[#222222]'
                   : 'border-transparent text-[#aaaaaa] hover:text-white'
@@ -373,7 +353,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
             <button
               type="button"
               onClick={() => setActiveTab('all_entries')}
-              className={`px-3 py-2 text-xs font-semibold border-b-2 flex items-center space-x-1.5 transition-colors ${
+              className={`px-3 py-2.5 text-xs font-semibold border-b-2 flex items-center space-x-1.5 transition-colors whitespace-nowrap ${
                 activeTab === 'all_entries'
                   ? 'border-[#38bdf8] text-[#38bdf8] bg-[#222222]'
                   : 'border-transparent text-[#aaaaaa] hover:text-white'
@@ -389,7 +369,7 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
 
           {/* Raccourci rapide d'application de correspondance exacte */}
           {(xtMode || dictionaries.length > 0) && (
-            <div className="flex items-center space-x-1.5 py-1">
+            <div className="flex items-center space-x-1.5 py-1 shrink-0 whitespace-nowrap">
               <button
                 type="button"
                 onClick={() => handleApply('exact')}
@@ -412,6 +392,30 @@ export const DictionaryModal: React.FC<DictionaryModalProps> = ({
               )}
             </div>
           )}
+        </div>
+
+        {/* Maintenance : actions rares, séparées de la fermeture */}
+        <div className="bg-[#1a1a1a] border-b border-[#2e2e2e] px-5 py-1.5 flex items-center justify-end gap-2">
+            <button
+              type="button"
+              onClick={handleLoadDevTestDictionaries}
+              className="text-[13px] text-[#fbbf24] hover:text-[#fde68a] bg-[#3f2a0c]/50 hover:bg-[#3f2a0c] border border-[#f59e0b] px-2.5 py-1 rounded flex items-center space-x-1.5 whitespace-nowrap transition-colors"
+              title={L("Charger les dictionnaires d'exemples Bethesda uniquement pour la phase de test et de développement")}
+            >
+              <FlaskConical className="w-3 h-3 text-[#fbbf24]" />
+              <span>{L("Dev : Charger tests")}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleResetToCleanSlate}
+              className="text-[13px] text-[#aaaaaa] hover:text-[#f87171] bg-[#262626] hover:bg-[#262626] border border-[#333333] px-2.5 py-1 rounded flex items-center space-x-1.5 whitespace-nowrap transition-colors"
+              title={L("Vider tous les dictionnaires et revenir à une version 100% vierge")}
+            >
+              <Trash2 className="w-3 h-3" />
+              <span>{L("Remise à zéro vierge")}</span>
+            </button>
+
         </div>
 
         {/* Message de notification */}
