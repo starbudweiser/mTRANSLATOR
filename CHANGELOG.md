@@ -7,10 +7,12 @@ Notes de version / release notes (EN + FR). Translations in IT and ES: see the N
 **English**
 
 - The macOS app is now native Swift (AppKit + WebKit) instead of a packaged Python program, so antivirus scanners no longer flag it. Same interface, same dictionaries, same machine translation (Google, Gemini), same menus and languages.
+- The local dictionary is much lighter on disk (existing dictionaries are migrated automatically on first launch).
 
 **Français**
 
 - L'appli macOS est maintenant native en Swift (AppKit + WebKit) au lieu d'un programme Python empaqueté, ce qui évite les fausses alertes antivirus. Même interface, mêmes dictionnaires, même traduction automatique (Google, Gemini), mêmes menus et langues.
+- Le dictionnaire local est beaucoup plus léger sur le disque (les dictionnaires existants sont migrés automatiquement au premier lancement).
 
 ## 1.3.1
 
