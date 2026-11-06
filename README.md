@@ -28,14 +28,13 @@ mTRANSLATOR opens Bethesda plugins (.esp, .esm, .esl) and string tables, and let
 - Interface language independent from the translation language (FR, EN, IT, ES).
 - Interface in **English, French, Italian and Spanish** (follows your Mac's language; can be changed in the app).
 
-### What's new in 1.3.0
+### What's new in 1.4.0
 
-- Signed with a Developer ID and notarized by Apple: macOS now opens the app without a security warning.
-- The app's launcher is now compiled from source when the app is built, instead of using PyInstaller's generic prebuilt launcher, which antivirus scanners tend to flag. No change in features.
-- New animated splash screen at launch.
-- The first letter of the app's name now uses the colour of its logo everywhere it appears.
-- About window: credits updated.
-- Version number aligned across the Skyrim Mac Toolkit.
+- The macOS app is now native Swift (AppKit + WebKit) instead of a packaged Python program, so antivirus scanners no longer flag it. Same interface, same dictionaries, same machine translation (Google, Gemini), same menus and languages.
+- The local dictionary is much lighter on disk (existing dictionaries are migrated automatically on first launch).
+- Dictionaries window: header on one line, tabs no longer wrap, maintenance actions moved to a separate bar.
+- Automatic translation window: the batch size menu no longer overflows its card.
+- Local base: warning that xTranslator's .sst files are binary and must not be scanned there; set their folder in the editor's Suggestions panel instead (README updated).
 
 ### Updates
 
@@ -62,7 +61,7 @@ A Mac with **Apple Silicon** (M1 or later), **macOS 11 Big Sur** or later. No Py
 
 1. Choose the translation language with the **English → …** button at the top right (the flag next to it sets the interface language).
 2. Click **Open a file** (or drop a plugin on the window). Try a built-in demo project first if you like.
-3. Click **Translate with the SST dictionaries** to fill in everything the official dictionaries know.
+3. In the editor, point the **Suggestions** panel at your xTranslator dictionaries folder (folder icon, once). Then click **Translate with the SST dictionaries** to fill in everything the official dictionaries know.
 4. Translate the remaining lines by hand (F10 validates and moves to the next one) or with **Auto-translate**.
 5. Click **Save** (⌘S): overwrite with a backup, save a copy, or download a ZIP pack.
 
@@ -70,6 +69,9 @@ A Mac with **Apple Silicon** (M1 or later), **macOS 11 Big Sur** or later. No Py
 
 **Where do I get SST dictionaries?**  
 Use the official ones extracted from the game with xTranslator, or build your own from your translations (Dictionaries → Create).
+
+**Can I load my xTranslator dictionaries folder (`UserDictionaries`)?**  
+Yes: in the editor, click the folder icon in the **Suggestions** panel and choose the folder (for example `…/UserDictionaries/SkyrimSE`). Its `.sst` files are read directly (exact and close matches, official names for automatic translation). Do **not** use *Dictionaries → Local base → Scan a folder* on it: that button reads `.sst` files as XML text, while xTranslator's `.sst` files are binary, and it would fill the local base with unreadable entries. Use it only for text-based dictionaries (`.txt`, `.csv`, `.json`, XML `.sst`).
 
 **Is a Gemini key required?**  
 No. Without a key, free Google Translate is used. The Gemini key (free at aistudio.google.com) gives better results for dialogues and books.
@@ -112,14 +114,13 @@ mTRANSLATOR ouvre les plugins Bethesda (.esp, .esm, .esl) et les tables de chaî
 - Langue de l'interface indépendante de la langue de traduction (FR, EN, IT, ES).
 - Interface en **français, anglais, italien et espagnol** (suit la langue du Mac ; modifiable dans l'appli).
 
-### Nouveautés de la 1.3.0
+### Nouveautés de la 1.4.0
 
-- Signée avec un certificat Developer ID et notarisée par Apple : macOS ouvre désormais l'appli sans avertissement de sécurité.
-- Le lanceur de l'appli est maintenant compilé depuis les sources à la construction de l'appli, au lieu du lanceur générique précompilé de PyInstaller, souvent signalé par les antivirus. Aucun changement de fonctionnalités.
-- Nouvel écran de lancement animé.
-- La première lettre du nom de l'appli prend la couleur de son logo partout où il est écrit.
-- Fenêtre À propos : crédits mis à jour.
-- Numéro de version commun à tout le Skyrim Mac Toolkit.
+- L'appli macOS est maintenant native en Swift (AppKit + WebKit) au lieu d'un programme Python empaqueté, ce qui évite les fausses alertes antivirus. Même interface, mêmes dictionnaires, même traduction automatique (Google, Gemini), mêmes menus et langues.
+- Le dictionnaire local est beaucoup plus léger sur le disque (les dictionnaires existants sont migrés automatiquement au premier lancement).
+- Fenêtre Dictionnaires : en-tête sur une ligne, onglets sans retour à la ligne, actions de maintenance sur une barre à part.
+- Fenêtre de traduction automatique : le menu de taille des lots ne déborde plus de sa carte.
+- Base locale : avertissement indiquant que les .sst d'xTranslator sont binaires et ne doivent pas y être scannés ; indiquez plutôt leur dossier dans le panneau Suggestions de l'éditeur (README mis à jour).
 
 ### Mises à jour
 
@@ -146,7 +147,7 @@ Un Mac **Apple Silicon** (M1 ou plus récent), **macOS 11 Big Sur** ou plus réc
 
 1. Choisissez la langue de traduction avec le bouton **English → …** en haut à droite (le drapeau à côté règle la langue de l'interface).
 2. Cliquez sur **Ouvrir un fichier** (ou déposez un plugin sur la fenêtre). Essayez d'abord un projet de démo si vous voulez.
-3. Cliquez sur **Traduire avec les dictionnaires SST** pour remplir tout ce que connaissent les dictionnaires officiels.
+3. Dans l'éditeur, indiquez à **Suggestions** le dossier de vos dictionnaires xTranslator (icône dossier, une seule fois). Puis cliquez sur **Traduire avec les dictionnaires SST** pour remplir tout ce que connaissent les dictionnaires officiels.
 4. Traduisez les lignes restantes à la main (F10 valide et passe à la suivante) ou avec **Traduire automatiquement**.
 5. Cliquez sur **Enregistrer** (⌘S) : écraser avec sauvegarde, enregistrer une copie ou télécharger un pack ZIP.
 
@@ -154,6 +155,9 @@ Un Mac **Apple Silicon** (M1 ou plus récent), **macOS 11 Big Sur** ou plus réc
 
 **Où trouver des dictionnaires SST ?**  
 Utilisez les dictionnaires officiels extraits du jeu avec xTranslator, ou créez les vôtres à partir de vos traductions (Dictionnaires → Créer).
+
+**Puis-je charger mon dossier de dictionnaires xTranslator (`UserDictionaries`) ?**  
+Oui : dans l'éditeur, cliquez sur l'icône dossier du panneau **Suggestions** et choisissez le dossier (par exemple `…/UserDictionaries/SkyrimSE`). Ses fichiers `.sst` sont lus directement (correspondances exactes et proches, noms officiels pour la traduction automatique). N'utilisez **pas** *Dictionnaires → Base locale → Scanner un dossier* dessus : ce bouton lit les `.sst` comme du texte XML, alors que les `.sst` de xTranslator sont binaires, et il remplirait la base locale d'entrées illisibles. Il ne sert que pour des dictionnaires en texte (`.txt`, `.csv`, `.json`, `.sst` XML).
 
 **Faut-il une clé Gemini ?**  
 Non. Sans clé, Google Traduction gratuit est utilisé. La clé Gemini (gratuite sur aistudio.google.com) donne de meilleurs résultats pour les dialogues et les livres.

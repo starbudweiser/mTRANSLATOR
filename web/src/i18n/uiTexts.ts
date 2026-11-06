@@ -231,6 +231,7 @@ export const UI_TEXTS: Record<string, [string, string, string]> = {
   "Scannées en premier": ["Scanned first","Analizzate per prime","Analizadas primero"],
   "Dernière mise à jour": ["Last update","Ultimo aggiornamento","Última actualización"],
   "Prête": ["Ready","Pronta","Lista"],
+  "Les .sst d'xTranslator sont binaires : n'utilisez pas ce scan dessus (entrées illisibles). Indiquez leur dossier dans le panneau Suggestions de l'éditeur.": ["xTranslator .sst files are binary: do not use this scan on them (unreadable entries). Set their folder in the editor's Suggestions panel.","I file .sst di xTranslator sono binari: non usare questa scansione su di essi (voci illeggibili). Indica la loro cartella nel pannello Suggerimenti dell'editor.","Los .sst de xTranslator son binarios: no uses este análisis con ellos (entradas ilegibles). Indica su carpeta en el panel Sugerencias del editor."],
   "Scanner un dossier (SST / TXT)": ["Scan a folder (SST / TXT)","Analizza una cartella (SST / TXT)","Analizar una carpeta (SST / TXT)"],
   "Exporter tout le dictionnaire local au format JSON": ["Export the whole local dictionary as JSON","Esporta tutto il dizionario locale in JSON","Exportar todo el diccionario local en JSON"],
   "Règles d'auto-alimentation": ["Self-learning rules","Regole di autoapprendimento","Reglas de autoaprendizaje"],

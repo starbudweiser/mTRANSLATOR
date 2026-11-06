@@ -156,6 +156,10 @@ export const LocalDictionaryManager: React.FC<LocalDictionaryManagerProps> = ({
         </div>
       </div>
 
+      <p className="text-[12px] text-[#fbbf24] bg-[#3f2a0c]/40 border border-[#f59e0b]/40 rounded-lg px-3 py-2 leading-relaxed">
+        {L("Les .sst d'xTranslator sont binaires : n'utilisez pas ce scan dessus (entrées illisibles). Indiquez leur dossier dans le panneau Suggestions de l'éditeur.")}
+      </p>
+
       {/* Barre d'action rapide : Scan de dossier & Options */}
       <div className="bg-[#1e1e1e] border border-[#2e2e2e] p-3 rounded-lg flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center space-x-2">

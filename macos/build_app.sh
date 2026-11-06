@@ -11,7 +11,7 @@ OUT_DIR="${1:-$ROOT}"
 APP_NAME="mTRANSLATOR"
 # Inchangé : le stockage de l'interface (dictionnaires, base locale) est rattaché à cet identifiant
 BUNDLE_ID="com.mtranslator.macos"
-VERSION="1.3.1"
+VERSION="1.4.0"
 ICON="$ROOT/assets/icon.icns"
 APP="$OUT_DIR/$APP_NAME.app"
 
