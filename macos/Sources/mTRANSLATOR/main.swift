@@ -175,7 +175,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + SPLASH_MAIN_AT) { showMain(waited: 0) }
         }
         sp.onLoaded = { splashLoaded = true; begin() }
-        main.onLoaded = { mainLoaded = true }
+        main.onLoaded = { [self] in
+            mainLoaded = true
+            // Essais : MTRANSLATOR_TEST_DROP=<fichier> simule le dépôt de ce fichier (même appel que le glisser-déposer)
+            if let path = ProcessInfo.processInfo.environment["MTRANSLATOR_TEST_DROP"], let d = try? JSONSerialization.data(withJSONObject: path, options: .fragmentsAllowed) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { main.js("window.mtranslatorDropPath && window.mtranslatorDropPath(\(String(decoding: d, as: UTF8.self)))") }
+            }
+        }
         // Splash lent à charger : affiché quand même au bout d'une seconde
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { _ = splashLoaded; begin() }
     }
