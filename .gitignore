@@ -33,3 +33,6 @@ core/target/
 # Notes personnelles
 PASSATION_*.md
 /release/
+
+# Note de travail
+ETAT.md
