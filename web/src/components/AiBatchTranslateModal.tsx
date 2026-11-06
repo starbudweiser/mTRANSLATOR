@@ -314,15 +314,15 @@ export const AiBatchTranslateModal: React.FC<AiBatchTranslateModalProps> = ({
               </label>
             </div>
 
-            <div className="p-2.5 bg-[#181818] border border-[#2e2e2e] rounded flex items-center justify-between">
-              <div>
+            <div className="p-2.5 bg-[#181818] border border-[#2e2e2e] rounded flex flex-col gap-2">
+              <div className="min-w-0">
                 <span className="font-semibold text-[#ffffff] text-[13px] block">{L("Budget adaptatif")}</span>
                 <span className="text-[11px] text-[#aaaaaa] block">{L("Spécial gros mods & livres")}</span>
               </div>
               <select
                 value={batchSize}
                 onChange={(e) => setBatchSize(Number(e.target.value))}
-                className="bg-[#222222] border border-[#444444] rounded px-2 py-1 text-[#ffffff] text-[13px] outline-none"
+                className="bg-[#222222] border border-[#444444] rounded px-2 py-1 text-[#ffffff] text-[13px] outline-none w-full"
               >
                 <option value={80}>{L("Adaptatif (Recommandé)")}</option>
                 <option value={50}>{L("Prudent (Livres volumineux)")}</option>
