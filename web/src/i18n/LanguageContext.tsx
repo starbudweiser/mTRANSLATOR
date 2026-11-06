@@ -62,7 +62,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     document.documentElement.lang = uiLocale;
   }, [uiLocale]);
 
-  // Menu natif « Langue » de l'app macOS (python_app/mtranslator_app.py) : change la langue de l'interface.
+  // Menu natif « Langue » de l'app macOS (macos/Sources/mTRANSLATOR/main.swift) : change la langue de l'interface.
   useEffect(() => {
     (window as unknown as { mtranslatorSetUiLang?: (c: string) => void }).mtranslatorSetUiLang = (code: string) => {
       if (UI_LANGUAGES.some((l) => l.code === code)) setUiLanguage(code as UiLocale);

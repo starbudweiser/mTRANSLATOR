@@ -80,7 +80,7 @@ Plugins and dictionaries stay on your Mac. Only the texts you send to machine tr
 
 ### Building from source
 
-Requires Python 3.12 with PyQt6 and PyInstaller. From the repository folder:
+Requires Xcode (Swift 6), Node.js and Rust. The macOS app is native Swift (AppKit + WebKit) around the React interface and the Rust core. From the repository folder:
 
 ```bash
 ./build_app.sh
@@ -164,7 +164,7 @@ Les plugins et dictionnaires restent sur votre Mac. Seuls les textes envoyés à
 
 ### Compiler depuis les sources
 
-Nécessite Python 3.12 avec PyQt6 et PyInstaller. Depuis le dossier du dépôt :
+Nécessite Xcode (Swift 6), Node.js et Rust. L'appli macOS est native en Swift (AppKit + WebKit) autour de l'interface React et du cœur Rust. Depuis le dossier du dépôt :
 
 ```bash
 ./build_app.sh

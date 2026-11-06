@@ -362,7 +362,7 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedId, displayedRecords]);
 
-  // Pont vers les menus macOS natifs (python_app/mtranslator_app.py appelle window.mtranslatorMenu)
+  // Pont vers les menus macOS natifs (macos/Sources/mTRANSLATOR/main.swift appelle window.mtranslatorMenu)
   const menuActions = useRef<Record<string, () => void>>({});
   menuActions.current = {
     open: () => handleOpenFile(),

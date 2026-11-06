@@ -10,6 +10,10 @@ Icon?
 .vite/
 # macOS
 
+# Swift
+macos/.build/
+.swiftpm/
+
 # Python
 *.py[cod]
 .venv/

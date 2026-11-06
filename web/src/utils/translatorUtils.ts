@@ -280,7 +280,7 @@ function escapeXml(unsafe: string): string {
  */
 export function triggerFileDownload(content: string, filename: string, mimeType: string) {
   // Dans l'app (pywebview), un lien <a download> remplace la page par le fichier : on enregistre
-  // par le serveur Python (sélecteur natif). Hors de l'app, téléchargement classique.
+  // par le serveur local de l'app (sélecteur natif). Hors de l'app, téléchargement classique.
   fetch('/api/save-text', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-mTRANSLATOR': '1' },

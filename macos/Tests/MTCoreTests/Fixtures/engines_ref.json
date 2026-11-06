@@ -1,0 +1,1283 @@
+{
+ "texts": [
+  "Hello world",
+  "<Alias=Player> hits you for %d damage.",
+  "Line one\nLine two",
+  "[pagebreak]Next page",
+  "AonghusHousePlanterNPC",
+  "12345",
+  "",
+  "  padded text  ",
+  "Go to Whiterun and meet Aonghus.",
+  "See <font color='#fff'>Dawnstar</font> now",
+  "$Variable stays",
+  "<b>BREAK</b> now",
+  "FR: déjà traduit",
+  "Hello world",
+  "Ça va très bien, ñandú",
+  "{curly} text here",
+  "x\r\ny",
+  "Maliq arrives at the Hall of the Dead.",
+  "Visit Falkreath Hold, Whiterun and Solitude.",
+  "\\n literal newline\\nsecond",
+  "100% sure, %s ok",
+  "日本語のテキスト",
+  "Tab\tseparated words",
+  "nbsp text here",
+  "Whiterun's gate",
+  "In the Reach and the Rift"
+ ],
+ "glossary_entries": [
+  {
+   "rec": "CELL",
+   "field": "FULL",
+   "source": "Whiterun",
+   "dest": "Blancherive"
+  },
+  {
+   "rec": "CELL",
+   "field": "FULL",
+   "source": "Whiterun",
+   "dest": "Blancherive"
+  },
+  {
+   "rec": "LCTN",
+   "field": "FULL",
+   "source": "Falkreath Hold",
+   "dest": "Fief de Faillaise"
+  },
+  {
+   "rec": "LCTN",
+   "field": "FULL",
+   "source": "Hall of the Dead",
+   "dest": "Salle des Morts"
+  },
+  {
+   "rec": "WRLD",
+   "field": "FULL",
+   "source": "Solitude",
+   "dest": "Solitude"
+  },
+  {
+   "rec": "REGN",
+   "field": "FULL",
+   "source": "The Reach",
+   "dest": "Le Récif"
+  },
+  {
+   "rec": "REGN",
+   "field": "FULL",
+   "source": "The Rift",
+   "dest": "La Faille"
+  },
+  {
+   "rec": "REGN",
+   "field": "FULL",
+   "source": "The Rift",
+   "dest": "Le Gouffre"
+  },
+  {
+   "rec": "NPC_",
+   "field": "FULL",
+   "source": "Dawnstar",
+   "dest": "Aubétoile"
+  },
+  {
+   "rec": "FACT",
+   "field": "FULL",
+   "source": "Dawnstar",
+   "dest": "Aubétoile"
+  },
+  {
+   "rec": "FACT",
+   "field": "EDID",
+   "source": "Riften",
+   "dest": "Vendeaume"
+  },
+  {
+   "rec": "FACT",
+   "field": "FULL",
+   "source": "lowercase",
+   "dest": "x"
+  }
+ ],
+ "resolve_lang": {
+  "Français": "fr",
+  "Deutsch": "de",
+  "es": "es",
+  "Espagnol": "es",
+  "Italiano": "it",
+  "polish": "pl",
+  "Русский": "ru",
+  "English": "en",
+  "": "fr",
+  "zz": "fr",
+  "Anglais": "en",
+  " ES ": "es",
+  "german": "de",
+  "portuguese": "fr",
+  "DE": "de"
+ },
+ "split_runs": [
+  [
+   [
+    true,
+    "Hello world"
+   ]
+  ],
+  [
+   [
+    false,
+    "<Alias=Player>"
+   ],
+   [
+    false,
+    " "
+   ],
+   [
+    true,
+    "hits you for"
+   ],
+   [
+    false,
+    " "
+   ],
+   [
+    false,
+    "%d"
+   ],
+   [
+    false,
+    " "
+   ],
+   [
+    true,
+    "damage."
+   ]
+  ],
+  [
+   [
+    true,
+    "Line one"
+   ],
+   [
+    false,
+    "\n"
+   ],
+   [
+    true,
+    "Line two"
+   ]
+  ],
+  [
+   [
+    false,
+    "[pagebreak]"
+   ],
+   [
+    true,
+    "Next page"
+   ]
+  ],
+  [
+   [
+    true,
+    "AonghusHousePlanterNPC"
+   ]
+  ],
+  [
+   [
+    false,
+    "12345"
+   ]
+  ],
+  [],
+  [
+   [
+    false,
+    "  "
+   ],
+   [
+    true,
+    "padded text"
+   ],
+   [
+    false,
+    "  "
+   ]
+  ],
+  [
+   [
+    true,
+    "Go to Whiterun and meet Aonghus."
+   ]
+  ],
+  [
+   [
+    true,
+    "See"
+   ],
+   [
+    false,
+    " "
+   ],
+   [
+    false,
+    "<font color='#fff'>"
+   ],
+   [
+    true,
+    "Dawnstar"
+   ],
+   [
+    false,
+    "</font>"
+   ],
+   [
+    false,
+    " "
+   ],
+   [
+    true,
+    "now"
+   ]
+  ],
+  [
+   [
+    false,
+    "$Variable"
+   ],
+   [
+    false,
+    " "
+   ],
+   [
+    true,
+    "stays"
+   ]
+  ],
+  [
+   [
+    false,
+    "<b>"
+   ],
+   [
+    true,
+    "BREAK"
+   ],
+   [
+    false,
+    "</b>"
+   ],
+   [
+    false,
+    " "
+   ],
+   [
+    true,
+    "now"
+   ]
+  ],
+  [
+   [
+    true,
+    "FR: déjà traduit"
+   ]
+  ],
+  [
+   [
+    true,
+    "Hello world"
+   ]
+  ],
+  [
+   [
+    true,
+    "Ça va très bien, ñandú"
+   ]
+  ],
+  [
+   [
+    false,
+    "{curly}"
+   ],
+   [
+    false,
+    " "
+   ],
+   [
+    true,
+    "text here"
+   ]
+  ],
+  [
+   [
+    true,
+    "x"
+   ],
+   [
+    false,
+    "\r\n"
+   ],
+   [
+    true,
+    "y"
+   ]
+  ],
+  [
+   [
+    true,
+    "Maliq arrives at the Hall of the Dead."
+   ]
+  ],
+  [
+   [
+    true,
+    "Visit Falkreath Hold, Whiterun and Solitude."
+   ]
+  ],
+  [
+   [
+    false,
+    "\\n"
+   ],
+   [
+    false,
+    " "
+   ],
+   [
+    true,
+    "literal newline"
+   ],
+   [
+    false,
+    "\\n"
+   ],
+   [
+    true,
+    "second"
+   ]
+  ],
+  [
+   [
+    true,
+    "100% sure,"
+   ],
+   [
+    false,
+    " "
+   ],
+   [
+    false,
+    "%s"
+   ],
+   [
+    false,
+    " "
+   ],
+   [
+    true,
+    "ok"
+   ]
+  ],
+  [
+   [
+    true,
+    "日本語のテキスト"
+   ]
+  ],
+  [
+   [
+    true,
+    "Tab"
+   ],
+   [
+    false,
+    "\t"
+   ],
+   [
+    true,
+    "separated words"
+   ]
+  ],
+  [
+   [
+    true,
+    "nbsp text here"
+   ]
+  ],
+  [
+   [
+    true,
+    "Whiterun's gate"
+   ]
+  ],
+  [
+   [
+    true,
+    "In the Reach and the Rift"
+   ]
+  ]
+ ],
+ "tags_of": [
+  [],
+  [
+   "%d",
+   "<Alias=Player>"
+  ],
+  [
+   "\n"
+  ],
+  [
+   "[pagebreak]"
+  ],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [
+   "</font>",
+   "<font color='#fff'>"
+  ],
+  [
+   "$Variable"
+  ],
+  [
+   "</b>",
+   "<b>"
+  ],
+  [],
+  [],
+  [],
+  [
+   "{curly}"
+  ],
+  [
+   "\r\n"
+  ],
+  [],
+  [],
+  [
+   "\\n",
+   "\\n"
+  ],
+  [
+   "%s"
+  ],
+  [],
+  [
+   "\t"
+  ],
+  [],
+  [],
+  []
+ ],
+ "glossary_terms": {
+  "Whiterun": "Blancherive",
+  "Falkreath Hold": "Fief de Faillaise",
+  "The Reach": "Le Récif",
+  "Dawnstar": "Aubétoile"
+ },
+ "glossary_compound_alt": "(?<![\\w'-])(?:Falkreath\\ Hold|The\\ Reach)(?![\\w-]|'(?!s\\b))",
+ "glossary_single_alt": "(?<![\\w'-])(?:Whiterun|Dawnstar)(?![\\w-]|'(?!s\\b))",
+ "masked": {
+  "none": [
+   [
+    "Hello world",
+    []
+   ],
+   [
+    "⟦0⟧ hits you for ⟦1⟧ damage.",
+    [
+     "<Alias=Player>",
+     "%d"
+    ]
+   ],
+   [
+    "Line one",
+    []
+   ],
+   [
+    "Line two",
+    []
+   ],
+   [
+    "",
+    []
+   ],
+   [
+    "Next page",
+    []
+   ],
+   [
+    "⟦0⟧",
+    [
+     "AonghusHousePlanterNPC"
+    ]
+   ],
+   [
+    "12345",
+    []
+   ],
+   [
+    "",
+    []
+   ],
+   [
+    "padded text",
+    []
+   ],
+   [
+    "Go to Whiterun and meet Aonghus.",
+    []
+   ],
+   [
+    "See ⟦0⟧Dawnstar⟦1⟧ now",
+    [
+     "<font color='#fff'>",
+     "</font>"
+    ]
+   ],
+   [
+    "⟦0⟧ stays",
+    [
+     "$Variable"
+    ]
+   ],
+   [
+    "⟦0⟧BREAK⟦1⟧ now",
+    [
+     "<b>",
+     "</b>"
+    ]
+   ],
+   [
+    "FR: déjà traduit",
+    []
+   ],
+   [
+    "Hello world",
+    []
+   ],
+   [
+    "Ça va très bien, ñandú",
+    []
+   ],
+   [
+    "⟦0⟧ text here",
+    [
+     "{curly}"
+    ]
+   ],
+   [
+    "x",
+    []
+   ],
+   [
+    "y",
+    []
+   ],
+   [
+    "Maliq arrives at the Hall of the Dead.",
+    []
+   ],
+   [
+    "Visit Falkreath Hold, Whiterun and Solitude.",
+    []
+   ],
+   [
+    "",
+    []
+   ],
+   [
+    "literal newline",
+    []
+   ],
+   [
+    "second",
+    []
+   ],
+   [
+    "100% sure, ⟦0⟧ ok",
+    [
+     "%s"
+    ]
+   ],
+   [
+    "日本語のテキスト",
+    []
+   ],
+   [
+    "Tab⟦0⟧separated words",
+    [
+     "\t"
+    ]
+   ],
+   [
+    "nbsp text here",
+    []
+   ],
+   [
+    "Whiterun's gate",
+    []
+   ],
+   [
+    "In the Reach and the Rift",
+    []
+   ]
+  ],
+  "gloss": [
+   [
+    "Hello world",
+    []
+   ],
+   [
+    "⟦0⟧ hits you for ⟦1⟧ damage.",
+    [
+     "<Alias=Player>",
+     "%d"
+    ]
+   ],
+   [
+    "Line one",
+    []
+   ],
+   [
+    "Line two",
+    []
+   ],
+   [
+    "",
+    []
+   ],
+   [
+    "Next page",
+    []
+   ],
+   [
+    "⟦0⟧",
+    [
+     "AonghusHousePlanterNPC"
+    ]
+   ],
+   [
+    "12345",
+    []
+   ],
+   [
+    "",
+    []
+   ],
+   [
+    "padded text",
+    []
+   ],
+   [
+    "Go to Whiterun and meet Aonghus.",
+    []
+   ],
+   [
+    "See ⟦0⟧Dawnstar⟦1⟧ now",
+    [
+     "<font color='#fff'>",
+     "</font>"
+    ]
+   ],
+   [
+    "⟦0⟧ stays",
+    [
+     "$Variable"
+    ]
+   ],
+   [
+    "⟦0⟧BREAK⟦1⟧ now",
+    [
+     "<b>",
+     "</b>"
+    ]
+   ],
+   [
+    "FR: déjà traduit",
+    []
+   ],
+   [
+    "Hello world",
+    []
+   ],
+   [
+    "Ça va très bien, ñandú",
+    []
+   ],
+   [
+    "⟦0⟧ text here",
+    [
+     "{curly}"
+    ]
+   ],
+   [
+    "x",
+    []
+   ],
+   [
+    "y",
+    []
+   ],
+   [
+    "Maliq arrives at the Hall of the Dead.",
+    []
+   ],
+   [
+    "Visit ⟦0⟧, Whiterun and Solitude.",
+    [
+     "Fief de Faillaise"
+    ]
+   ],
+   [
+    "",
+    []
+   ],
+   [
+    "literal newline",
+    []
+   ],
+   [
+    "second",
+    []
+   ],
+   [
+    "100% sure, ⟦0⟧ ok",
+    [
+     "%s"
+    ]
+   ],
+   [
+    "日本語のテキスト",
+    []
+   ],
+   [
+    "Tab⟦0⟧separated words",
+    [
+     "\t"
+    ]
+   ],
+   [
+    "nbsp text here",
+    []
+   ],
+   [
+    "Whiterun's gate",
+    []
+   ],
+   [
+    "In the Reach and the Rift",
+    []
+   ]
+  ]
+ },
+ "google": {
+  "fr_none": {
+   "out": [
+    "~Hello world~",
+    "~<Alias=Player> hits you for %d damage.~",
+    "~Line one~\n~Line two~",
+    "[pagebreak]~Next page~",
+    "AonghusHousePlanterNPC",
+    "12345",
+    "",
+    "  ~padded text~  ",
+    "~Go to Whiterun and meet Aonghus.~",
+    "~See <font color='#fff'>Dawnstar</font> now~",
+    "~$Variable stays~",
+    "<b>~BREAK~</b> ~now~",
+    "FR: déjà traduit",
+    "~Hello world~",
+    "~Ça va très bien, ñandú~",
+    "~{curly} text here~",
+    "~x~\r\n~y~",
+    "~Maliq arrives at the Hall of the Dead.~",
+    "~Visit Falkreath Hold, Whiterun and Solitude.~",
+    "\\n ~literal newline~\\n~second~",
+    "~100% sure, %s ok~",
+    "~日本語のテキスト~",
+    "~Tab\tseparated words~",
+    "~nbsp text here~",
+    "~Whiterun's gate~",
+    "~In the Reach and the Rift~"
+   ],
+   "requests": [
+    [
+     "https://translate.googleapis.com/translate_a/t?client=gtx&sl=auto&tl=fr",
+     "q=BREAK&q=now"
+    ],
+    [
+     "https://translate.googleapis.com/translate_a/t?client=gtx&sl=auto&tl=fr",
+     "q=Hello+world&q=%E2%9F%A60%E2%9F%A7+hits+you+for+%E2%9F%A61%E2%9F%A7+damage.&q=Line+one&q=Line+two&q=Next+page&q=padded+text&q=Go+to+Whiterun+and+meet+Aonghus.&q=See+%E2%9F%A60%E2%9F%A7Dawnstar%E2%9F%A61%E2%9F%A7+now&q=%E2%9F%A60%E2%9F%A7+stays&q=%E2%9F%A60%E2%9F%A7BREAK%E2%9F%A61%E2%9F%A7+now&q=FR%3A+d%C3%A9j%C3%A0+traduit&q=%C3%87a+va+tr%C3%A8s+bien%2C+%C3%B1and%C3%BA&q=%E2%9F%A60%E2%9F%A7+text+here&q=x&q=y&q=Maliq+arrives+at+the+Hall+of+the+Dead.&q=Visit+Falkreath+Hold%2C+Whiterun+and+Solitude.&q=literal+newline&q=second&q=100%25+sure%2C+%E2%9F%A60%E2%9F%A7+ok&q=%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%81%AE%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88&q=Tab%E2%9F%A60%E2%9F%A7separated+words&q=nbsp%C2%A0text+here&q=Whiterun%27s+gate&q=In+the+Reach+and+the+Rift"
+    ]
+   ]
+  },
+  "fr_gloss": {
+   "out": [
+    "~Hello world~",
+    "~<Alias=Player> hits you for %d damage.~",
+    "~Line one~\n~Line two~",
+    "[pagebreak]~Next page~",
+    "AonghusHousePlanterNPC",
+    "12345",
+    "",
+    "  ~padded text~  ",
+    "~Go to Blancherive and meet Aonghus.~",
+    "~See <font color='#fff'>Aubétoile</font> now~",
+    "~$Variable stays~",
+    "<b>~BREAK~</b> ~now~",
+    "FR: déjà traduit",
+    "~Hello world~",
+    "~Ça va très bien, ñandú~",
+    "~{curly} text here~",
+    "~x~\r\n~y~",
+    "~Maliq arrives at the Hall of the Dead.~",
+    "~Visit Fief de Faillaise, Blancherive and Solitude.~",
+    "\\n ~literal newline~\\n~second~",
+    "~100% sure, %s ok~",
+    "~日本語のテキスト~",
+    "~Tab\tseparated words~",
+    "~nbsp text here~",
+    "~Blancherive's gate~",
+    "~In the Reach and the Rift~"
+   ],
+   "requests": [
+    [
+     "https://translate.googleapis.com/translate_a/t?client=gtx&sl=auto&tl=fr",
+     "q=BREAK&q=now"
+    ],
+    [
+     "https://translate.googleapis.com/translate_a/t?client=gtx&sl=auto&tl=fr",
+     "q=Hello+world&q=%E2%9F%A60%E2%9F%A7+hits+you+for+%E2%9F%A61%E2%9F%A7+damage.&q=Line+one&q=Line+two&q=Next+page&q=padded+text&q=Go+to+Whiterun+and+meet+Aonghus.&q=See+%E2%9F%A60%E2%9F%A7Dawnstar%E2%9F%A61%E2%9F%A7+now&q=%E2%9F%A60%E2%9F%A7+stays&q=%E2%9F%A60%E2%9F%A7BREAK%E2%9F%A61%E2%9F%A7+now&q=FR%3A+d%C3%A9j%C3%A0+traduit&q=%C3%87a+va+tr%C3%A8s+bien%2C+%C3%B1and%C3%BA&q=%E2%9F%A60%E2%9F%A7+text+here&q=x&q=y&q=Maliq+arrives+at+the+Hall+of+the+Dead.&q=Visit+%E2%9F%A60%E2%9F%A7%2C+Whiterun+and+Solitude.&q=literal+newline&q=second&q=100%25+sure%2C+%E2%9F%A60%E2%9F%A7+ok&q=%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%81%AE%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88&q=Tab%E2%9F%A60%E2%9F%A7separated+words&q=nbsp%C2%A0text+here&q=Whiterun%27s+gate&q=In+the+Reach+and+the+Rift"
+    ]
+   ]
+  },
+  "es_none": {
+   "out": [
+    "~Hello world~",
+    "~<Alias=Player> hits you for %d damage.~",
+    "~Line one~\n~Line two~",
+    "[pagebreak]~Next page~",
+    "AonghusHousePlanterNPC",
+    "12345",
+    "",
+    "  ~padded text~  ",
+    "~Go to Whiterun and meet Aonghus.~",
+    "~See <font color='#fff'>Dawnstar</font> now~",
+    "~$Variable stays~",
+    "<b>~BREAK~</b> ~now~",
+    "~FR: déjà traduit~",
+    "~Hello world~",
+    "~Ça va très bien, ñandú~",
+    "~{curly} text here~",
+    "~x~\r\n~y~",
+    "~Maliq arrives at the Hall of the Dead.~",
+    "~Visit Falkreath Hold, Whiterun and Solitude.~",
+    "\\n ~literal newline~\\n~second~",
+    "~100% sure, %s ok~",
+    "~日本語のテキスト~",
+    "~Tab\tseparated words~",
+    "~nbsp text here~",
+    "~Whiterun's gate~",
+    "~In the Reach and the Rift~"
+   ],
+   "requests": [
+    [
+     "https://translate.googleapis.com/translate_a/t?client=gtx&sl=auto&tl=es",
+     "q=BREAK&q=now"
+    ],
+    [
+     "https://translate.googleapis.com/translate_a/t?client=gtx&sl=auto&tl=es",
+     "q=Hello+world&q=%E2%9F%A60%E2%9F%A7+hits+you+for+%E2%9F%A61%E2%9F%A7+damage.&q=Line+one&q=Line+two&q=Next+page&q=padded+text&q=Go+to+Whiterun+and+meet+Aonghus.&q=See+%E2%9F%A60%E2%9F%A7Dawnstar%E2%9F%A61%E2%9F%A7+now&q=%E2%9F%A60%E2%9F%A7+stays&q=%E2%9F%A60%E2%9F%A7BREAK%E2%9F%A61%E2%9F%A7+now&q=FR%3A+d%C3%A9j%C3%A0+traduit&q=%C3%87a+va+tr%C3%A8s+bien%2C+%C3%B1and%C3%BA&q=%E2%9F%A60%E2%9F%A7+text+here&q=x&q=y&q=Maliq+arrives+at+the+Hall+of+the+Dead.&q=Visit+Falkreath+Hold%2C+Whiterun+and+Solitude.&q=literal+newline&q=second&q=100%25+sure%2C+%E2%9F%A60%E2%9F%A7+ok&q=%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%81%AE%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88&q=Tab%E2%9F%A60%E2%9F%A7separated+words&q=nbsp%C2%A0text+here&q=Whiterun%27s+gate&q=In+the+Reach+and+the+Rift"
+    ]
+   ]
+  }
+ },
+ "restore": [
+  [
+   "Meet Aonghus and Maliq",
+   "Rencontrez Angus et Malik",
+   "Rencontrez Aonghus et Maliq"
+  ],
+  [
+   "Aonghus",
+   "Angus",
+   "Aonghus"
+  ],
+  [
+   "Hello Thalmor there",
+   "Bonjour Talmor ici",
+   "Bonjour Thalmor ici"
+  ],
+  [
+   "Sven and Faendal",
+   "Sven et Faendale",
+   "Sven et Faendal"
+  ],
+  [
+   "Ysolda",
+   "Isolda",
+   "Ysolda"
+  ],
+  [
+   "Nothing here",
+   "Rien ici",
+   "Rien ici"
+  ]
+ ],
+ "rename": [
+  [
+   "Go to Whiterun now",
+   "Allez à Whiterun maintenant",
+   "Allez à Blancherive maintenant"
+  ],
+  [
+   "Whiterun and Solitude",
+   "Whiterun et Solitude",
+   "Blancherive et Solitude"
+  ],
+  [
+   "Nothing",
+   "Whiterun",
+   "Whiterun"
+  ]
+ ],
+ "seq_ratio": [
+  [
+   "angus",
+   "aonghus",
+   0.8333333333333334
+  ],
+  [
+   "malik",
+   "maliq",
+   0.8
+  ],
+  [
+   "",
+   "",
+   1.0
+  ],
+  [
+   "abc",
+   "",
+   0.0
+  ],
+  [
+   "faendale",
+   "faendal",
+   0.9333333333333333
+  ],
+  [
+   "talmor",
+   "thalmor",
+   0.9230769230769231
+  ]
+ ],
+ "gemini": {
+  "ok": {
+   "texts": [
+    "Hello world",
+    "<Alias=Player> hits you for %d",
+    "DROP <b>this</b> one",
+    "Ça va"
+   ],
+   "out": [
+    "G:Hello world",
+    "G:<Alias=Player> hits you for %d",
+    null,
+    "G:Ça va"
+   ],
+   "warning": null,
+   "requests": [
+    [
+     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=k3y",
+     "{\"contents\": [{\"parts\": [{\"text\": \"Tu traduis des textes du jeu Skyrim de l'anglais vers le fran\\u00e7ais, pour un mod. Respecte la terminologie officielle fran\\u00e7aise de la s\\u00e9rie (Bordeciel, Blancherive, Solitude, Faillaise, Vendeaume, Markarth, Aub\\u00e9toile, Rougegarde, Br\\u00e9tonne, Elfe des bois\\u2026). Conserve STRICTEMENT \\u00e0 l'identique toutes les balises et codes : <\\u2026>, [pagebreak], %d, %s, $Variables, {\\u2026}, sauts de ligne. Ne traduis pas l'int\\u00e9rieur des balises. R\\u00e9ponds uniquement par un tableau JSON de cha\\u00eenes, une traduction par texte, dans le m\\u00eame ordre.\\n\\nTextes :\\n[\\\"Hello world\\\", \\\"<Alias=Player> hits you for %d\\\", \\\"DROP <b>this</b> one\\\", \\\"\\u00c7a va\\\"]\"}]}], \"generationConfig\": {\"temperature\": 0.2, \"responseMimeType\": \"application/json\"}}"
+    ]
+   ]
+  },
+  "bad": {
+   "texts": [
+    "Hello world",
+    "<Alias=Player> hits you for %d",
+    "DROP <b>this</b> one",
+    "Ça va"
+   ],
+   "out": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "warning": "Gemini 429 : quota",
+   "requests": [
+    [
+     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=badkey",
+     "{\"contents\": [{\"parts\": [{\"text\": \"Tu traduis des textes du jeu Fallout 4 de l'anglais vers le fran\\u00e7ais, pour un mod. Respecte la terminologie officielle fran\\u00e7aise de la s\\u00e9rie (Bordeciel, Blancherive, Solitude, Faillaise, Vendeaume, Markarth, Aub\\u00e9toile, Rougegarde, Br\\u00e9tonne, Elfe des bois\\u2026). Conserve STRICTEMENT \\u00e0 l'identique toutes les balises et codes : <\\u2026>, [pagebreak], %d, %s, $Variables, {\\u2026}, sauts de ligne. Ne traduis pas l'int\\u00e9rieur des balises. R\\u00e9ponds uniquement par un tableau JSON de cha\\u00eenes, une traduction par texte, dans le m\\u00eame ordre.\\n\\nTextes :\\n[\\\"Hello world\\\", \\\"<Alias=Player> hits you for %d\\\", \\\"DROP <b>this</b> one\\\", \\\"\\u00c7a va\\\"]\"}]}], \"generationConfig\": {\"temperature\": 0.2, \"responseMimeType\": \"application/json\"}}"
+    ]
+   ]
+  },
+  "big": {
+   "texts": [
+    "Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 ",
+    "Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 ",
+    "Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 ",
+    "Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 ",
+    "Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 ",
+    "Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 ",
+    "Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 ",
+    "Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 ",
+    "Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 ",
+    "Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 ",
+    "Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 ",
+    "Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 ",
+    "Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 ",
+    "Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 ",
+    "Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 ",
+    "Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 ",
+    "Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 ",
+    "Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 ",
+    "Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 ",
+    "Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 ",
+    "Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 ",
+    "Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 ",
+    "Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 ",
+    "Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 ",
+    "Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 ",
+    "Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 ",
+    "Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 ",
+    "Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 ",
+    "Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 ",
+    "Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 ",
+    "Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 ",
+    "Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 ",
+    "Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 ",
+    "Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 ",
+    "Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 ",
+    "Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 ",
+    "Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 ",
+    "Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 ",
+    "Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 ",
+    "Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 ",
+    "Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 ",
+    "Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 ",
+    "Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 ",
+    "Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 ",
+    "Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 ",
+    "Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 ",
+    "Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 ",
+    "Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 ",
+    "Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 ",
+    "Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 ",
+    "Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 ",
+    "Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 ",
+    "Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 ",
+    "Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 ",
+    "Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 ",
+    "Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 ",
+    "Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 ",
+    "Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 ",
+    "Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 ",
+    "Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 ",
+    "Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 ",
+    "Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 ",
+    "Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 ",
+    "Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 ",
+    "Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 ",
+    "Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 ",
+    "Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 ",
+    "Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 ",
+    "Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 ",
+    "Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 ",
+    "Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 ",
+    "Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 ",
+    "Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 ",
+    "Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 ",
+    "Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 ",
+    "Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 ",
+    "Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 ",
+    "Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 ",
+    "Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 ",
+    "Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 ",
+    "Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 ",
+    "Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 ",
+    "Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 ",
+    "Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 ",
+    "Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 ",
+    "Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 ",
+    "Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 ",
+    "Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 ",
+    "Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 ",
+    "Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 ",
+    "Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 ",
+    "Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 ",
+    "Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 ",
+    "Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 ",
+    "Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 ",
+    "Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 ",
+    "Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 ",
+    "Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 ",
+    "Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 ",
+    "Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 "
+   ],
+   "out": [
+    "G:Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 Texte numéro 0 ",
+    "G:Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 Texte numéro 1 ",
+    "G:Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 Texte numéro 2 ",
+    "G:Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 Texte numéro 3 ",
+    "G:Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 Texte numéro 4 ",
+    "G:Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 Texte numéro 5 ",
+    "G:Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 Texte numéro 6 ",
+    "G:Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 Texte numéro 7 ",
+    "G:Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 Texte numéro 8 ",
+    "G:Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 Texte numéro 9 ",
+    "G:Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 Texte numéro 10 ",
+    "G:Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 Texte numéro 11 ",
+    "G:Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 Texte numéro 12 ",
+    "G:Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 Texte numéro 13 ",
+    "G:Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 Texte numéro 14 ",
+    "G:Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 Texte numéro 15 ",
+    "G:Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 Texte numéro 16 ",
+    "G:Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 Texte numéro 17 ",
+    "G:Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 Texte numéro 18 ",
+    "G:Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 Texte numéro 19 ",
+    "G:Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 Texte numéro 20 ",
+    "G:Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 Texte numéro 21 ",
+    "G:Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 Texte numéro 22 ",
+    "G:Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 Texte numéro 23 ",
+    "G:Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 Texte numéro 24 ",
+    "G:Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 Texte numéro 25 ",
+    "G:Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 Texte numéro 26 ",
+    "G:Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 Texte numéro 27 ",
+    "G:Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 Texte numéro 28 ",
+    "G:Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 Texte numéro 29 ",
+    "G:Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 Texte numéro 30 ",
+    "G:Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 Texte numéro 31 ",
+    "G:Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 Texte numéro 32 ",
+    "G:Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 Texte numéro 33 ",
+    "G:Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 Texte numéro 34 ",
+    "G:Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 Texte numéro 35 ",
+    "G:Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 Texte numéro 36 ",
+    "G:Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 Texte numéro 37 ",
+    "G:Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 Texte numéro 38 ",
+    "G:Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 Texte numéro 39 ",
+    "G:Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 Texte numéro 40 ",
+    "G:Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 Texte numéro 41 ",
+    "G:Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 Texte numéro 42 ",
+    "G:Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 Texte numéro 43 ",
+    "G:Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 Texte numéro 44 ",
+    "G:Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 Texte numéro 45 ",
+    "G:Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 Texte numéro 46 ",
+    "G:Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 Texte numéro 47 ",
+    "G:Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 Texte numéro 48 ",
+    "G:Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 Texte numéro 49 ",
+    "G:Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 Texte numéro 50 ",
+    "G:Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 Texte numéro 51 ",
+    "G:Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 Texte numéro 52 ",
+    "G:Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 Texte numéro 53 ",
+    "G:Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 Texte numéro 54 ",
+    "G:Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 Texte numéro 55 ",
+    "G:Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 Texte numéro 56 ",
+    "G:Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 Texte numéro 57 ",
+    "G:Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 Texte numéro 58 ",
+    "G:Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 Texte numéro 59 ",
+    "G:Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 Texte numéro 60 ",
+    "G:Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 Texte numéro 61 ",
+    "G:Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 Texte numéro 62 ",
+    "G:Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 Texte numéro 63 ",
+    "G:Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 Texte numéro 64 ",
+    "G:Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 Texte numéro 65 ",
+    "G:Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 Texte numéro 66 ",
+    "G:Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 Texte numéro 67 ",
+    "G:Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 Texte numéro 68 ",
+    "G:Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 Texte numéro 69 ",
+    "G:Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 Texte numéro 70 ",
+    "G:Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 Texte numéro 71 ",
+    "G:Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 Texte numéro 72 ",
+    "G:Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 Texte numéro 73 ",
+    "G:Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 Texte numéro 74 ",
+    "G:Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 Texte numéro 75 ",
+    "G:Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 Texte numéro 76 ",
+    "G:Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 Texte numéro 77 ",
+    "G:Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 Texte numéro 78 ",
+    "G:Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 Texte numéro 79 ",
+    "G:Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 Texte numéro 80 ",
+    "G:Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 Texte numéro 81 ",
+    "G:Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 Texte numéro 82 ",
+    "G:Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 Texte numéro 83 ",
+    "G:Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 Texte numéro 84 ",
+    "G:Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 Texte numéro 85 ",
+    "G:Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 Texte numéro 86 ",
+    "G:Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 Texte numéro 87 ",
+    "G:Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 Texte numéro 88 ",
+    "G:Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 Texte numéro 89 ",
+    "G:Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 Texte numéro 90 ",
+    "G:Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 Texte numéro 91 ",
+    "G:Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 Texte numéro 92 ",
+    "G:Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 Texte numéro 93 ",
+    "G:Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 Texte numéro 94 ",
+    "G:Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 Texte numéro 95 ",
+    "G:Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 Texte numéro 96 ",
+    "G:Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 Texte numéro 97 ",
+    "G:Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 Texte numéro 98 ",
+    "G:Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 Texte numéro 99 "
+   ],
+   "warning": null,
+   "requests": [
+    [
+     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=k3y",
+     "{\"contents\": [{\"parts\": [{\"text\": \"Tu traduis des textes du jeu Skyrim de l'anglais vers le fran\\u00e7ais, pour un mod. Respecte la terminologie officielle fran\\u00e7aise de la s\\u00e9rie (Bordeciel, Blancherive, Solitude, Faillaise, Vendeaume, Markarth, Aub\\u00e9toile, Rougegarde, Br\\u00e9tonne, Elfe des bois\\u2026). Conserve STRICTEMENT \\u00e0 l'identique toutes les balises et codes : <\\u2026>, [pagebreak], %d, %s, $Variables, {\\u2026}, sauts de ligne. Ne traduis pas l'int\\u00e9rieur des balises. R\\u00e9ponds uniquement par un tableau JSON de cha\\u00eenes, une traduction par texte, dans le m\\u00eame ordre.\\n\\nTextes :\\n[\\\"Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 Texte num\\u00e9ro 0 \\\", \\\"Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 Texte num\\u00e9ro 1 \\\", \\\"Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 Texte num\\u00e9ro 2 \\\", \\\"Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 Texte num\\u00e9ro 3 \\\", \\\"Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 Texte num\\u00e9ro 4 \\\", \\\"Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 Texte num\\u00e9ro 5 \\\", \\\"Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 Texte num\\u00e9ro 6 \\\", \\\"Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 Texte num\\u00e9ro 7 \\\", \\\"Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 Texte num\\u00e9ro 8 \\\", \\\"Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 Texte num\\u00e9ro 9 \\\", \\\"Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 Texte num\\u00e9ro 10 \\\", \\\"Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 Texte num\\u00e9ro 11 \\\", \\\"Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 Texte num\\u00e9ro 12 \\\"]\"}]}], \"generationConfig\": {\"temperature\": 0.2, \"responseMimeType\": \"application/json\"}}"
+    ],
+    [
+     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=k3y",
+     "{\"contents\": [{\"parts\": [{\"text\": \"Tu traduis des textes du jeu Skyrim de l'anglais vers le fran\\u00e7ais, pour un mod. Respecte la terminologie officielle fran\\u00e7aise de la s\\u00e9rie (Bordeciel, Blancherive, Solitude, Faillaise, Vendeaume, Markarth, Aub\\u00e9toile, Rougegarde, Br\\u00e9tonne, Elfe des bois\\u2026). Conserve STRICTEMENT \\u00e0 l'identique toutes les balises et codes : <\\u2026>, [pagebreak], %d, %s, $Variables, {\\u2026}, sauts de ligne. Ne traduis pas l'int\\u00e9rieur des balises. R\\u00e9ponds uniquement par un tableau JSON de cha\\u00eenes, une traduction par texte, dans le m\\u00eame ordre.\\n\\nTextes :\\n[\\\"Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 Texte num\\u00e9ro 13 \\\", \\\"Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 Texte num\\u00e9ro 14 \\\", \\\"Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 Texte num\\u00e9ro 15 \\\", \\\"Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 Texte num\\u00e9ro 16 \\\", \\\"Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 Texte num\\u00e9ro 17 \\\", \\\"Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 Texte num\\u00e9ro 18 \\\", \\\"Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 Texte num\\u00e9ro 19 \\\", \\\"Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 Texte num\\u00e9ro 20 \\\", \\\"Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 Texte num\\u00e9ro 21 \\\", \\\"Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 Texte num\\u00e9ro 22 \\\", \\\"Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 Texte num\\u00e9ro 23 \\\", \\\"Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 Texte num\\u00e9ro 24 \\\"]\"}]}], \"generationConfig\": {\"temperature\": 0.2, \"responseMimeType\": \"application/json\"}}"
+    ],
+    [
+     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=k3y",
+     "{\"contents\": [{\"parts\": [{\"text\": \"Tu traduis des textes du jeu Skyrim de l'anglais vers le fran\\u00e7ais, pour un mod. Respecte la terminologie officielle fran\\u00e7aise de la s\\u00e9rie (Bordeciel, Blancherive, Solitude, Faillaise, Vendeaume, Markarth, Aub\\u00e9toile, Rougegarde, Br\\u00e9tonne, Elfe des bois\\u2026). Conserve STRICTEMENT \\u00e0 l'identique toutes les balises et codes : <\\u2026>, [pagebreak], %d, %s, $Variables, {\\u2026}, sauts de ligne. Ne traduis pas l'int\\u00e9rieur des balises. R\\u00e9ponds uniquement par un tableau JSON de cha\\u00eenes, une traduction par texte, dans le m\\u00eame ordre.\\n\\nTextes :\\n[\\\"Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 Texte num\\u00e9ro 25 \\\", \\\"Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 Texte num\\u00e9ro 26 \\\", \\\"Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 Texte num\\u00e9ro 27 \\\", \\\"Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 Texte num\\u00e9ro 28 \\\", \\\"Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 Texte num\\u00e9ro 29 \\\", \\\"Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 Texte num\\u00e9ro 30 \\\", \\\"Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 Texte num\\u00e9ro 31 \\\", \\\"Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 Texte num\\u00e9ro 32 \\\", \\\"Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 Texte num\\u00e9ro 33 \\\", \\\"Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 Texte num\\u00e9ro 34 \\\", \\\"Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 Texte num\\u00e9ro 35 \\\", \\\"Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 Texte num\\u00e9ro 36 \\\"]\"}]}], \"generationConfig\": {\"temperature\": 0.2, \"responseMimeType\": \"application/json\"}}"
+    ],
+    [
+     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=k3y",
+     "{\"contents\": [{\"parts\": [{\"text\": \"Tu traduis des textes du jeu Skyrim de l'anglais vers le fran\\u00e7ais, pour un mod. Respecte la terminologie officielle fran\\u00e7aise de la s\\u00e9rie (Bordeciel, Blancherive, Solitude, Faillaise, Vendeaume, Markarth, Aub\\u00e9toile, Rougegarde, Br\\u00e9tonne, Elfe des bois\\u2026). Conserve STRICTEMENT \\u00e0 l'identique toutes les balises et codes : <\\u2026>, [pagebreak], %d, %s, $Variables, {\\u2026}, sauts de ligne. Ne traduis pas l'int\\u00e9rieur des balises. R\\u00e9ponds uniquement par un tableau JSON de cha\\u00eenes, une traduction par texte, dans le m\\u00eame ordre.\\n\\nTextes :\\n[\\\"Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 Texte num\\u00e9ro 37 \\\", \\\"Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 Texte num\\u00e9ro 38 \\\", \\\"Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 Texte num\\u00e9ro 39 \\\", \\\"Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 Texte num\\u00e9ro 40 \\\", \\\"Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 Texte num\\u00e9ro 41 \\\", \\\"Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 Texte num\\u00e9ro 42 \\\", \\\"Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 Texte num\\u00e9ro 43 \\\", \\\"Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 Texte num\\u00e9ro 44 \\\", \\\"Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 Texte num\\u00e9ro 45 \\\", \\\"Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 Texte num\\u00e9ro 46 \\\", \\\"Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 Texte num\\u00e9ro 47 \\\", \\\"Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 Texte num\\u00e9ro 48 \\\"]\"}]}], \"generationConfig\": {\"temperature\": 0.2, \"responseMimeType\": \"application/json\"}}"
+    ],
+    [
+     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=k3y",
+     "{\"contents\": [{\"parts\": [{\"text\": \"Tu traduis des textes du jeu Skyrim de l'anglais vers le fran\\u00e7ais, pour un mod. Respecte la terminologie officielle fran\\u00e7aise de la s\\u00e9rie (Bordeciel, Blancherive, Solitude, Faillaise, Vendeaume, Markarth, Aub\\u00e9toile, Rougegarde, Br\\u00e9tonne, Elfe des bois\\u2026). Conserve STRICTEMENT \\u00e0 l'identique toutes les balises et codes : <\\u2026>, [pagebreak], %d, %s, $Variables, {\\u2026}, sauts de ligne. Ne traduis pas l'int\\u00e9rieur des balises. R\\u00e9ponds uniquement par un tableau JSON de cha\\u00eenes, une traduction par texte, dans le m\\u00eame ordre.\\n\\nTextes :\\n[\\\"Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 Texte num\\u00e9ro 49 \\\", \\\"Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 Texte num\\u00e9ro 50 \\\", \\\"Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 Texte num\\u00e9ro 51 \\\", \\\"Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 Texte num\\u00e9ro 52 \\\", \\\"Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 Texte num\\u00e9ro 53 \\\", \\\"Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 Texte num\\u00e9ro 54 \\\", \\\"Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 Texte num\\u00e9ro 55 \\\", \\\"Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 Texte num\\u00e9ro 56 \\\", \\\"Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 Texte num\\u00e9ro 57 \\\", \\\"Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 Texte num\\u00e9ro 58 \\\", \\\"Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 Texte num\\u00e9ro 59 \\\", \\\"Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 Texte num\\u00e9ro 60 \\\"]\"}]}], \"generationConfig\": {\"temperature\": 0.2, \"responseMimeType\": \"application/json\"}}"
+    ],
+    [
+     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=k3y",
+     "{\"contents\": [{\"parts\": [{\"text\": \"Tu traduis des textes du jeu Skyrim de l'anglais vers le fran\\u00e7ais, pour un mod. Respecte la terminologie officielle fran\\u00e7aise de la s\\u00e9rie (Bordeciel, Blancherive, Solitude, Faillaise, Vendeaume, Markarth, Aub\\u00e9toile, Rougegarde, Br\\u00e9tonne, Elfe des bois\\u2026). Conserve STRICTEMENT \\u00e0 l'identique toutes les balises et codes : <\\u2026>, [pagebreak], %d, %s, $Variables, {\\u2026}, sauts de ligne. Ne traduis pas l'int\\u00e9rieur des balises. R\\u00e9ponds uniquement par un tableau JSON de cha\\u00eenes, une traduction par texte, dans le m\\u00eame ordre.\\n\\nTextes :\\n[\\\"Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 Texte num\\u00e9ro 61 \\\", \\\"Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 Texte num\\u00e9ro 62 \\\", \\\"Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 Texte num\\u00e9ro 63 \\\", \\\"Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 Texte num\\u00e9ro 64 \\\", \\\"Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 Texte num\\u00e9ro 65 \\\", \\\"Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 Texte num\\u00e9ro 66 \\\", \\\"Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 Texte num\\u00e9ro 67 \\\", \\\"Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 Texte num\\u00e9ro 68 \\\", \\\"Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 Texte num\\u00e9ro 69 \\\", \\\"Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 Texte num\\u00e9ro 70 \\\", \\\"Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 Texte num\\u00e9ro 71 \\\", \\\"Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 Texte num\\u00e9ro 72 \\\"]\"}]}], \"generationConfig\": {\"temperature\": 0.2, \"responseMimeType\": \"application/json\"}}"
+    ],
+    [
+     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=k3y",
+     "{\"contents\": [{\"parts\": [{\"text\": \"Tu traduis des textes du jeu Skyrim de l'anglais vers le fran\\u00e7ais, pour un mod. Respecte la terminologie officielle fran\\u00e7aise de la s\\u00e9rie (Bordeciel, Blancherive, Solitude, Faillaise, Vendeaume, Markarth, Aub\\u00e9toile, Rougegarde, Br\\u00e9tonne, Elfe des bois\\u2026). Conserve STRICTEMENT \\u00e0 l'identique toutes les balises et codes : <\\u2026>, [pagebreak], %d, %s, $Variables, {\\u2026}, sauts de ligne. Ne traduis pas l'int\\u00e9rieur des balises. R\\u00e9ponds uniquement par un tableau JSON de cha\\u00eenes, une traduction par texte, dans le m\\u00eame ordre.\\n\\nTextes :\\n[\\\"Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 Texte num\\u00e9ro 73 \\\", \\\"Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 Texte num\\u00e9ro 74 \\\", \\\"Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 Texte num\\u00e9ro 75 \\\", \\\"Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 Texte num\\u00e9ro 76 \\\", \\\"Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 Texte num\\u00e9ro 77 \\\", \\\"Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 Texte num\\u00e9ro 78 \\\", \\\"Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 Texte num\\u00e9ro 79 \\\", \\\"Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 Texte num\\u00e9ro 80 \\\", \\\"Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 Texte num\\u00e9ro 81 \\\", \\\"Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 Texte num\\u00e9ro 82 \\\", \\\"Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 Texte num\\u00e9ro 83 \\\", \\\"Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 Texte num\\u00e9ro 84 \\\"]\"}]}], \"generationConfig\": {\"temperature\": 0.2, \"responseMimeType\": \"application/json\"}}"
+    ],
+    [
+     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=k3y",
+     "{\"contents\": [{\"parts\": [{\"text\": \"Tu traduis des textes du jeu Skyrim de l'anglais vers le fran\\u00e7ais, pour un mod. Respecte la terminologie officielle fran\\u00e7aise de la s\\u00e9rie (Bordeciel, Blancherive, Solitude, Faillaise, Vendeaume, Markarth, Aub\\u00e9toile, Rougegarde, Br\\u00e9tonne, Elfe des bois\\u2026). Conserve STRICTEMENT \\u00e0 l'identique toutes les balises et codes : <\\u2026>, [pagebreak], %d, %s, $Variables, {\\u2026}, sauts de ligne. Ne traduis pas l'int\\u00e9rieur des balises. R\\u00e9ponds uniquement par un tableau JSON de cha\\u00eenes, une traduction par texte, dans le m\\u00eame ordre.\\n\\nTextes :\\n[\\\"Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 Texte num\\u00e9ro 85 \\\", \\\"Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 Texte num\\u00e9ro 86 \\\", \\\"Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 Texte num\\u00e9ro 87 \\\", \\\"Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 Texte num\\u00e9ro 88 \\\", \\\"Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 Texte num\\u00e9ro 89 \\\", \\\"Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 Texte num\\u00e9ro 90 \\\", \\\"Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 Texte num\\u00e9ro 91 \\\", \\\"Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 Texte num\\u00e9ro 92 \\\", \\\"Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 Texte num\\u00e9ro 93 \\\", \\\"Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 Texte num\\u00e9ro 94 \\\", \\\"Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 Texte num\\u00e9ro 95 \\\", \\\"Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 Texte num\\u00e9ro 96 \\\"]\"}]}], \"generationConfig\": {\"temperature\": 0.2, \"responseMimeType\": \"application/json\"}}"
+    ],
+    [
+     "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=k3y",
+     "{\"contents\": [{\"parts\": [{\"text\": \"Tu traduis des textes du jeu Skyrim de l'anglais vers le fran\\u00e7ais, pour un mod. Respecte la terminologie officielle fran\\u00e7aise de la s\\u00e9rie (Bordeciel, Blancherive, Solitude, Faillaise, Vendeaume, Markarth, Aub\\u00e9toile, Rougegarde, Br\\u00e9tonne, Elfe des bois\\u2026). Conserve STRICTEMENT \\u00e0 l'identique toutes les balises et codes : <\\u2026>, [pagebreak], %d, %s, $Variables, {\\u2026}, sauts de ligne. Ne traduis pas l'int\\u00e9rieur des balises. R\\u00e9ponds uniquement par un tableau JSON de cha\\u00eenes, une traduction par texte, dans le m\\u00eame ordre.\\n\\nTextes :\\n[\\\"Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 Texte num\\u00e9ro 97 \\\", \\\"Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 Texte num\\u00e9ro 98 \\\", \\\"Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 Texte num\\u00e9ro 99 \\\"]\"}]}], \"generationConfig\": {\"temperature\": 0.2, \"responseMimeType\": \"application/json\"}}"
+    ]
+   ]
+  },
+  "models": {
+   "out": [
+    "gemini-2.5-pro",
+    "gemini-2.5-flash",
+    "gemini-1.5-flash"
+   ],
+   "requests": [
+    [
+     "https://generativelanguage.googleapis.com/v1beta/models?pageSize=200&key=k/3%20y",
+     null
+    ]
+   ]
+  }
+ }
+}

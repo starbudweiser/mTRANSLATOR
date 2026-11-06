@@ -1,6 +1,6 @@
 import { L } from '../i18n/L';
 // Client du cœur Rust xtcore (servi par l'app macOS sur /api/xtcore).
-// Disponible seulement dans l'app compilée ou avec le serveur Python local.
+// Disponible seulement dans l'app compilée ou avec le serveur local (--serve).
 
 export interface XtString {
   id: number;

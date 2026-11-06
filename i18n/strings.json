@@ -1,0 +1,237 @@
+{
+ "Fichier": [
+  "File",
+  "File",
+  "Archivo"
+ ],
+ "Ouvrir un fichier…  (⌘O)": [
+  "Open a file…  (⌘O)",
+  "Apri un file…  (⌘O)",
+  "Abrir un archivo…  (⌘O)"
+ ],
+ "Enregistrer  (⌘S)": [
+  "Save  (⌘S)",
+  "Salva  (⌘S)",
+  "Guardar  (⌘S)"
+ ],
+ "Exporter": [
+  "Export",
+  "Esporta",
+  "Exportar"
+ ],
+ "Dictionnaire SST (.sst)": [
+  "SST dictionary (.sst)",
+  "Dizionario SST (.sst)",
+  "Diccionario SST (.sst)"
+ ],
+ "Texte MCM (.txt)": [
+  "MCM text (.txt)",
+  "Testo MCM (.txt)",
+  "Texto MCM (.txt)"
+ ],
+ "Tableur (.csv)": [
+  "Spreadsheet (.csv)",
+  "Foglio di calcolo (.csv)",
+  "Hoja de cálculo (.csv)"
+ ],
+ "JSON (.json)": [
+  "JSON (.json)",
+  "JSON (.json)",
+  "JSON (.json)"
+ ],
+ "Plugin traduit (.esp / .esm)…": [
+  "Translated plugin (.esp / .esm)…",
+  "Plugin tradotto (.esp / .esm)…",
+  "Plugin traducido (.esp / .esm)…"
+ ],
+ "Traduction par lots…": [
+  "Batch translation…",
+  "Traduzione in batch…",
+  "Traducción por lotes…"
+ ],
+ "Fermer le fichier": [
+  "Close file",
+  "Chiudi il file",
+  "Cerrar el archivo"
+ ],
+ "Traduction": [
+  "Translation",
+  "Traduzione",
+  "Traducción"
+ ],
+ "Traduire…": [
+  "Translate…",
+  "Traduci…",
+  "Traducir…"
+ ],
+ "Valider et passer au suivant  (F10)": [
+  "Validate and go to next  (F10)",
+  "Convalida e passa al successivo  (F10)",
+  "Validar y pasar al siguiente  (F10)"
+ ],
+ "Rechercher et remplacer…": [
+  "Find and replace…",
+  "Trova e sostituisci…",
+  "Buscar y reemplazar…"
+ ],
+ "Annuler la dernière modification": [
+  "Undo last change",
+  "Annulla l'ultima modifica",
+  "Deshacer el último cambio"
+ ],
+ "Outils": [
+  "Tools",
+  "Strumenti",
+  "Herramientas"
+ ],
+ "Dictionnaires…": [
+  "Dictionaries…",
+  "Dizionari…",
+  "Diccionarios…"
+ ],
+ "Statistiques…": [
+  "Statistics…",
+  "Statistiche…",
+  "Estadísticas…"
+ ],
+ "Comparer les versions…": [
+  "Compare versions…",
+  "Confronta le versioni…",
+  "Comparar versiones…"
+ ],
+ "Aide": [
+  "Help",
+  "Aiuto",
+  "Ayuda"
+ ],
+ "À propos de mTRANSLATOR": [
+  "About mTRANSLATOR",
+  "Informazioni su mTRANSLATOR",
+  "Acerca de mTRANSLATOR"
+ ],
+ "Masquer les autres": [
+  "Hide Others",
+  "Nascondi altri",
+  "Ocultar otros"
+ ],
+ "Tout afficher": [
+  "Show All",
+  "Mostra tutto",
+  "Mostrar todo"
+ ],
+ "Fenêtre": [
+  "Window",
+  "Finestra",
+  "Ventana"
+ ],
+ "Réduire": [
+  "Minimize",
+  "Riduci",
+  "Minimizar"
+ ],
+ "OK": [
+  "OK",
+  "OK",
+  "OK"
+ ],
+ "Édition": [
+  "Edit",
+  "Modifica",
+  "Edición"
+ ],
+ "Tout sélectionner": [
+  "Select All",
+  "Seleziona tutto",
+  "Seleccionar todo"
+ ],
+ "Copier": [
+  "Copy",
+  "Copia",
+  "Copiar"
+ ],
+ "Coller": [
+  "Paste",
+  "Incolla",
+  "Pegar"
+ ],
+ "Langue": [
+  "Language",
+  "Lingua",
+  "Idioma"
+ ],
+ "Automatique (système)": [
+  "Automatic (system)",
+  "Automatica (sistema)",
+  "Automático (sistema)"
+ ],
+ "Version {v} ({b})": [
+  "Version {v} ({b})",
+  "Versione {v} ({b})",
+  "Versión {v} ({b})"
+ ],
+ "Licence MIT. © 2026 Starbudweiser.": [
+  "MIT License. © 2026 Starbudweiser.",
+  "Licenza MIT. © 2026 Starbudweiser.",
+  "Licencia MIT. © 2026 Starbudweiser."
+ ],
+ "Fourni en l'état, sans garantie d'aucune sorte.": [
+  "Provided as is, without warranty of any kind.",
+  "Fornito così com'è, senza garanzie di alcun tipo.",
+  "Se proporciona tal cual, sin garantía de ningún tipo."
+ ],
+ "Annuler": [
+  "Cancel",
+  "Annulla",
+  "Cancelar"
+ ],
+ "Masquer mTRANSLATOR": [
+  "Hide mTRANSLATOR",
+  "Nascondi mTRANSLATOR",
+  "Ocultar mTRANSLATOR"
+ ],
+ "Quitter mTRANSLATOR": [
+  "Quit mTRANSLATOR",
+  "Esci da mTRANSLATOR",
+  "Salir de mTRANSLATOR"
+ ],
+ "Plein écran": [
+  "Enter Full Screen",
+  "Attiva schermo intero",
+  "Entrar en pantalla completa"
+ ],
+ "Choisir un fichier": [
+  "Choose a file",
+  "Scegli un file",
+  "Elegir un archivo"
+ ],
+ "Traducteur de mods Bethesda (Skyrim, Fallout 4, Starfield) : extraction, traduction automatique et dictionnaires des textes des plugins, archives, scripts et fichiers MCM.": [
+  "Bethesda mod translator (Skyrim, Fallout 4, Starfield): extraction, automatic translation and dictionaries for the texts of plugins, archives, scripts and MCM files.",
+  "Traduttore di mod Bethesda (Skyrim, Fallout 4, Starfield): estrazione, traduzione automatica e dizionari per i testi di plugin, archivi, script e file MCM.",
+  "Traductor de mods de Bethesda (Skyrim, Fallout 4, Starfield): extracción, traducción automática y diccionarios de los textos de plugins, archivos, scripts y archivos MCM."
+ ],
+ "mTRANSLATOR – Traducteur de mods": [
+  "mTRANSLATOR – Mod translator",
+  "mTRANSLATOR – Traduttore di mod",
+  "mTRANSLATOR – Traductor de mods"
+ ],
+ "Impossible de démarrer le serveur local.": [
+  "Unable to start the local server.",
+  "Impossibile avviare il server locale.",
+  "No se puede iniciar el servidor local."
+ ],
+ "Présentation": [
+  "View",
+  "Vista",
+  "Visualización"
+ ],
+ "Couper": [
+  "Cut",
+  "Taglia",
+  "Cortar"
+ ],
+ "Interface introuvable : lancez 'npm run build' dans web/.": [
+  "Interface not found: run 'npm run build' in web/.",
+  "Interfaccia non trovata: esegui 'npm run build' in web/.",
+  "Interfaz no encontrada: ejecuta 'npm run build' en web/."
+ ]
+}

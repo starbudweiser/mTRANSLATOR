@@ -4,7 +4,7 @@
 
 Le projet dispose de **deux versions complémentaires** :
 1. **La version Web universelle** (React + Vite + Express + Gemini AI + Glossaire SST local)
-2. **L'application macOS native** (Python + pywebview, affiche l'interface Web compilée)
+2. **L'application macOS native** (Swift : AppKit + WebKit, affiche l'interface Web compilée)
 
 ---
 
@@ -33,13 +33,13 @@ Interface moderne "Flat Fusion" issue de Google AI Studio avec édition en direc
 
 ## 2. Application macOS native
 
-Fenêtre native macOS (Python 3 + pywebview) qui affiche l'interface Web compilée (`dist/`), sans Node.js.
+Fenêtre native macOS (Swift : AppKit + WKWebView) qui affiche l'interface Web compilée (`dist/`) servie par un petit serveur local (127.0.0.1:47821), avec le cœur Rust `xtcore` embarqué. Aucun Python.
 
 ### Lancement direct :
-- **Méthode 1-clic :** Double-cliquez sur `python_app/mtranslator.command` dans le Finder.
-- **Méthode Terminal :**
+- **Application compilée :** ouvrez `mTRANSLATOR.app`.
+- **Serveur seul, sans fenêtre** (essais, préversion) :
   ```bash
-  python3 python_app/mtranslator_app.py
+  mTRANSLATOR.app/Contents/MacOS/mTRANSLATOR --serve [--port N]
   ```
 
 ### Compilation en application macOS `.app` :

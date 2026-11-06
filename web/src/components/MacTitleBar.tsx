@@ -1,9 +1,9 @@
 /**
  * Barre de titre et d'en-tête macOS native pour mTRANSLATOR
  * En-tête d'application avec logo livre "A", titre "mTRANSLATOR" et sélecteur de la langue des traductions.
- * La langue de l'interface se choisit dans le menu natif « Langue » (python_app/mtranslator_app.py).
+ * La langue de l'interface se choisit dans le menu natif « Langue » (macos/Sources/mTRANSLATOR/main.swift).
  * La barre de titre est celle de la fenêtre macOS native ; « Fermer le fichier » et « À propos »
- * sont dans les menus natifs (python_app/mtranslator_app.py).
+ * sont dans les menus natifs (macos/Sources/mTRANSLATOR/main.swift).
  */
 
 import React, { useState, useRef, useEffect } from 'react';
