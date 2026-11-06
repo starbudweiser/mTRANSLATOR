@@ -1345,7 +1345,7 @@ export default function App() {
             <div className="flex items-center space-x-3">
               <span className="flex items-center space-x-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
-                <span>mTRANSLATOR v2.5</span>
+                <span>mTRANSLATOR v{__APP_VERSION__}</span>
               </span>
               <span>•</span>
               <span>{displayedRecords.length} / {records.length} {L("enregistrements")}</span>

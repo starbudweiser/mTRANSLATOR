@@ -2,10 +2,13 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
+import pkg from './package.json';
 
 export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss()],
+    // Version unique de l'appli (package.json, identique à macos/build_app.sh)
+    define: { __APP_VERSION__: JSON.stringify(pkg.version) },
     resolve: {
       alias: {
         '@': path.resolve(import.meta.dirname, '.'),

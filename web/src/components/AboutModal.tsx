@@ -38,7 +38,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
               <div className="flex items-center space-x-2">
                 <h2 className="text-base font-bold text-white tracking-tight"><AppName /></h2>
                 <span className="px-1.5 py-0.5 bg-[#0369a1] text-[#ffffff] text-[12px] font-mono rounded font-semibold">
-                  v2.5 macOS
+                  v{__APP_VERSION__} macOS
                 </span>
               </div>
               <p className="text-xs text-[#aaaaaa] mt-0.5">{L("Environnement complet et moderne de traduction de mods Bethesda pour macOS")}</p>
@@ -54,7 +54,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
             <p className="text-[#dddddd]">
               <strong>mTRANSLATOR</strong> {L("est inspiré et conçu sur la base de travail de référence du célèbre logiciel")}<span className="text-[#fbbf24] font-medium"> xTranslator</span> {L("(développé initialement pour Windows par")} <em>McGuffin</em>).
             </p>
-            <p className="text-[#dddddd]">{L("Il a été intégralement redéveloppé et adapté pour l'écosystème")} <strong>macOS</strong> {L("par")}<span className="text-[#38bdf8] font-semibold"> Google AI Studio</span> &amp; 
+            <p className="text-[#dddddd]">{L("Il a été intégralement redéveloppé et adapté pour l'écosystème")} <strong>macOS</strong> {L("par")}<span className="text-[#38bdf8] font-semibold"> Claude Code (Anthropic)</span> &amp; 
               <span className="text-[#4ade80] font-semibold"> Starbudweiser</span>.
             </p>
           </div>
