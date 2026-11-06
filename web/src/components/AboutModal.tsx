@@ -82,7 +82,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ onClose }) => {
                 <Sparkles className="w-3.5 h-3.5 text-[#fbbf24]" />
                 <span>{L("Moteur IA Haute Vitesse")}</span>
               </div>
-              <p className="text-[13px] text-[#aaaaaa]">{L("Intégration optimisée de Gemini 3.1 Flash-Lite & 3.8 Flash avec préservation stricte des balises Papyrus et [pagebreak].")}</p>
+              <p className="text-[13px] text-[#aaaaaa]">{L("Intégration optimisée de Gemini avec préservation stricte des balises Papyrus et [pagebreak].")}</p>
             </div>
 
             <div className="p-3 bg-[#181818] border border-[#2e2e2e] rounded-md space-y-1">

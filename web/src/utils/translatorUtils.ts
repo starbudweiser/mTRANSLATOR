@@ -90,7 +90,7 @@ export function validateTags(source: string, target: string): string[] {
   if (sourceHasPagebreak && !targetHasPagebreak) {
     // Vérifier si traduit accidentellement
     if (/saut\s*de\s*page|sautdepage/i.test(target)) {
-      warnings.push(L("Attention : [pagebreak] a été traduit en français ! Rétablissez le mot-clé [pagebreak] exact."));
+      warnings.push(L("Attention : [pagebreak] a été traduit ! Rétablissez le mot-clé [pagebreak] exact."));
     } else {
       warnings.push(L("Saut de page de livre manquant : \"[pagebreak]\" doit être conservé tel quel."));
     }
@@ -284,7 +284,7 @@ export function triggerFileDownload(content: string, filename: string, mimeType:
   fetch('/api/save-text', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'X-mTRANSLATOR': '1' },
-    body: JSON.stringify({ content, defaultName: filename, title: `Exporter ${filename}` }),
+    body: JSON.stringify({ content, defaultName: filename, title: L("Exporter {name}", { name: filename }) }),
   })
     .then((r) => {
       if (!r.ok) throw new Error(String(r.status));
@@ -301,7 +301,7 @@ export async function triggerBlobDownload(blob: Blob, filename: string) {
     const r = await fetch('/api/save-text', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-mTRANSLATOR': '1' },
-      body: JSON.stringify({ base64: btoa(bin), defaultName: filename, title: `Enregistrer ${filename}` }),
+      body: JSON.stringify({ base64: btoa(bin), defaultName: filename, title: L("Enregistrer {name}", { name: filename }) }),
     });
     if (!r.ok) throw new Error(String(r.status));
   } catch {

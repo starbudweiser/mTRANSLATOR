@@ -452,7 +452,7 @@ export default function App() {
       setMeta((prev) => ({ ...prev, lastSaved: new Date().toLocaleString() }));
       showToast(L("{toLocaleString} traduction(s) écrite(s) dans {pop}{v}.", { toLocaleString: res.written_count.toLocaleString(), pop: out.split('/').pop(), v: res.backup ? ' (ancienne version en .bak)' : '' }));
     } catch (err: any) {
-      showToast(`Enregistrement impossible : ${err.message}`);
+      showToast(L("Enregistrement impossible : {message}", { message: err.message }));
     } finally {
       setLoadingProgress(null);
     }
@@ -486,7 +486,7 @@ export default function App() {
       }
       showToast(`${msg}.`);
     } catch (err: any) {
-      showToast(`Export SST impossible : ${err.message}`);
+      showToast(L("Export SST impossible : {message}", { message: err.message }));
     }
   };
 
@@ -785,7 +785,7 @@ export default function App() {
       );
       return { appliedCount: matchType === 'exact' ? res.exact : res.exact + res.heuristic };
     } catch (err: any) {
-      showToast(`Traduction xtcore impossible : ${err.message}`);
+      showToast(L("Traduction xtcore impossible : {message}", { message: err.message }));
       return { appliedCount: 0 };
     } finally {
       setLoadingProgress(null);
@@ -861,7 +861,7 @@ export default function App() {
         showToast(L("Traduction issue du glossaire SST local."));
         return sanitizeBethesdaTranslation(found.target, record.source);
       }
-      showToast('Traduction automatique locale (Mode Secours).');
+      showToast(L("Traduction automatique locale (mode secours)."));
       return sanitizeBethesdaTranslation(translateFallbackText(record.source), record.source);
     }
   };
@@ -938,7 +938,7 @@ export default function App() {
         setRecords(result.records);
         setSelectedId(result.records[0].id);
         setIsFileLoaded(true);
-        showToast(`${result.records.length.toLocaleString()} enregistrements extraits depuis ${file.name}`);
+        showToast(L("{count} enregistrements extraits depuis {name}", { count: result.records.length.toLocaleString(), name: file.name }));
       } else {
         showToast(L("Aucun texte ou chaîne traduisible trouvée dans ce fichier."));
       }
@@ -1004,7 +1004,7 @@ export default function App() {
           (scripts ? L(", {toLocaleString} chaîne(s) de scripts masquée(s) (filtre « Chaînes de scripts »).", { toLocaleString: scripts.toLocaleString() }) : '.')
       );
     } catch (err: any) {
-      showToast(`Lecture impossible : ${err.message}`);
+      showToast(L("Lecture impossible : {message}", { message: err.message }));
     } finally {
       setLoadingProgress(null);
     }
@@ -1044,7 +1044,7 @@ export default function App() {
       setIsFileLoaded(true);
       showToast(L("{toLocaleString} chaînes lues dans {fileName} (type {kind}, {encoding}).", { toLocaleString: recs.length.toLocaleString(), fileName, kind: res.kind, encoding: res.encoding }));
     } catch (err: any) {
-      showToast(`Lecture impossible : ${err.message}`);
+      showToast(L("Lecture impossible : {message}", { message: err.message }));
     } finally {
       setLoadingProgress(null);
     }

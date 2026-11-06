@@ -135,7 +135,7 @@ function computeRecordDiagnostic(
       dotColor: localSearch.isLocalLearned ? '#0ea5e9' : '#22c55e',
       detailedReason: localSearch.isLocalLearned
         ? L("Trouvé dans votre dictionnaire local auto-alimenté (« {target} »). Cliquez sur ⚡ pour l'appliquer.", { target: localSearch.match.target })
-        : L("Une traduction officielle existe dans la Database SST (« {target} »). Cliquez sur ⚡ pour l'appliquer.", { target: localSearch.match.target }),
+        : L("Une traduction officielle existe dans la base SST (« {target} »). Cliquez sur ⚡ pour l'appliquer.", { target: localSearch.match.target }),
       suggestion: localSearch.match.target,
       score: 100,
       canQuickApply: true,
@@ -156,7 +156,7 @@ function computeRecordDiagnostic(
       shortLabel: 'SST 100% dispo',
       badgeClass: 'bg-[#14391f] text-[#4ade80] border-[#22c55e]',
       dotColor: '#22c55e',
-      detailedReason: L("Une traduction officielle existe dans la Database SST (« {target} »). Cliquez sur ⚡ pour l'appliquer.", { target: exactEntry.target }),
+      detailedReason: L("Une traduction officielle existe dans la base SST (« {target} »). Cliquez sur ⚡ pour l'appliquer.", { target: exactEntry.target }),
       suggestion: exactEntry.target,
       score: 100,
       canQuickApply: true,
@@ -201,7 +201,7 @@ function computeRecordDiagnostic(
     shortLabel: L("Inédit mod (0% SST)"),
     badgeClass: 'bg-[#1e1e1e] text-[#38bdf8] border-[#0369a1]',
     dotColor: '#0ea5e9',
-    detailedReason: L("Ce texte est exclusif à ce mod (création originale de l'auteur). Absent de la Database SST de base. Traduction IA ou manuelle requise."),
+    detailedReason: L("Ce texte est exclusif à ce mod (création originale de l'auteur). Absent de la base SST. Traduction IA ou manuelle requise."),
     canQuickApply: false,
   };
 }
