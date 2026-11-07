@@ -20,7 +20,7 @@ public struct HTTPResponse {
 }
 
 public final class Router: @unchecked Sendable {
-    public static let version = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "1.4.0"
+    public static let version = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "2.0.0"
     public static let preferredPort: UInt16 = 47821
 
     let webDir: String
