@@ -2,6 +2,8 @@
 
 # mTRANSLATOR
 
+[![Listed on OpenMacApps](https://openmacapps.com/badge.svg)](https://openmacapps.com/apps/mtranslator/)
+
 **Translation suite for Bethesda mods (Skyrim SE, Fallout 4, Starfield), native on macOS.**  
 *Suite de traduction de mods Bethesda (Skyrim SE, Fallout 4, Starfield), native sur macOS.*
 
