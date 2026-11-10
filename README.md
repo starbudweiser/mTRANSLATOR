@@ -2,25 +2,21 @@
 
 # mTRANSLATOR
 
-[![Listed on OpenMacApps](https://openmacapps.com/badge.svg)](https://openmacapps.com/apps/mtranslator/)
+[![Listed on OpenMacApps](https://openmacapps.com/badge.svg)](https://openmacapps.com/apps/mtranslator/) [![Latest release](https://img.shields.io/github/v/release/starbudweiser/mTRANSLATOR)](https://github.com/starbudweiser/mTRANSLATOR/releases/latest) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
-**Translation suite for Bethesda mods (Skyrim SE, Fallout 4, Starfield), native on macOS.**  
-*Suite de traduction de mods Bethesda (Skyrim SE, Fallout 4, Starfield), native sur macOS.*
+**Translation suite for Bethesda mods (Skyrim SE, Fallout 4, Starfield), native on macOS.**
 
-🍏 **Native Mac app written in Swift, signed and notarized by Apple.** · *Appli Mac native écrite en Swift, signée et notarisée par Apple.*
+🇬🇧 English · 🇫🇷 [Français](#français)
 
-🇬🇧 [English](#-english) · 🇫🇷 [Français](#-français)
+## About
 
-💬 **Support & community:** [Discord](https://discord.gg/xdDVDPQsYs) · *Aide et communauté : [Discord](https://discord.gg/xdDVDPQsYs)*
+mTRANSLATOR — Translation suite for Bethesda mods (Skyrim SE, Fallout 4, Starfield), native on macOS. By Starbudweiser & Claude Code (Anthropic). MIT License, © 2026 Starbudweiser. Provided as is, without warranty of any kind. See **About mTRANSLATOR** in the app menu.
 
----
-## 🇬🇧 English
-
-### What it does
+🍏 **Native Mac app written in Swift, signed and notarized by Apple.**
 
 mTRANSLATOR opens Bethesda plugins (.esp, .esm, .esl) and string tables, and lets you translate them with xTranslator-compatible SST dictionaries, a self-learning local memory and optional machine translation (Google Translate or Gemini), while protecting game tags. It is inspired by the reference Windows tool xTranslator (by McGuffin) and rebuilt for the Mac.
 
-### Features
+## Features
 
 - Native reading and writing of **.esp / .esm / .esl** plugins and **.strings / .dlstrings / .ilstrings** tables, plus MCM `.txt` files.
 - **SST dictionaries** (xTranslator format): exact matches applied instantly, close matches suggested for review.
@@ -40,10 +36,6 @@ mTRANSLATOR opens Bethesda plugins (.esp, .esm, .esl) and string tables, and let
 - Automatic translation window: the batch size menu no longer overflows its card.
 - Local base: warning that xTranslator's .sst files are binary and must not be scanned there; set their folder in the editor's Suggestions panel instead (README updated).
 
-### Updates
-
-The app checks once a day whether a newer release exists on GitHub and offers to open the Nexus page, remind you later or skip that version. Nothing is downloaded or installed automatically. The full history is in [CHANGELOG.md](CHANGELOG.md).
-
 ### Screenshots
 
 ![Welcome screen](docs/screenshots/01_home.png)
@@ -52,9 +44,17 @@ The app checks once a day whether a newer release exists on GitHub and offers to
 ![Translation table, tag protection and line editor](docs/screenshots/02_project.png)
 *Translation table, tag protection and line editor*
 
+### Privacy
+
+Plugins and dictionaries stay on your Mac. Only the texts you send to machine translation leave it (to Google). The Gemini key is kept on this Mac.
+
+## Install
+
+**[Download the latest notarized release](https://github.com/starbudweiser/mTRANSLATOR/releases/latest)** · requires **macOS 15 Sequoia** or later on Apple Silicon.
+
 ### Requirements
 
-A Mac with **Apple Silicon** (M1 or later), **macOS 11 Big Sur** or later. Native Mac app written in Swift and notarized by Apple: no Python, no Wine, no virtual machine needed.
+A Mac with **Apple Silicon** (M1 or later), **macOS 15 Sequoia** or later. Native Mac app written in Swift and notarized by Apple: no Python, no Wine, no virtual machine needed.
 
 ### Installation
 
@@ -69,6 +69,28 @@ A Mac with **Apple Silicon** (M1 or later), **macOS 11 Big Sur** or later. Nativ
 4. Translate the remaining lines by hand (F10 validates and moves to the next one) or with **Auto-translate**.
 5. Click **Save** (⌘S): overwrite with a backup, save a copy, or download a ZIP pack.
 
+### Updates
+
+The app checks once a day whether a newer release exists on GitHub and offers to open the Nexus page, remind you later or skip that version. Nothing is downloaded or installed automatically. The full history is in [CHANGELOG.md](CHANGELOG.md).
+
+## Build
+
+Requires Xcode (Swift 6), Node.js and Rust. The macOS app is native Swift (AppKit + WebKit) around the React interface and the Rust core. From the repository folder:
+
+```bash
+./build_app.sh
+```
+
+→ [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)
+
+## Languages
+
+English, French, Spanish and Italian. The app follows your Mac's preferred language automatically (English if it is none of these four).
+
+## Support
+
+💬 Help and community: [Skyrim Mac Toolkit Discord](https://discord.gg/jRS4rvynx6) · bug reports: [GitHub Issues](https://github.com/starbudweiser/mTRANSLATOR/issues).
+
 ### FAQ
 
 **Where do I get SST dictionaries?**  
@@ -80,27 +102,19 @@ Yes: in the editor, click the folder icon in the **Suggestions** panel and choos
 **Is a Gemini key required?**  
 No. Without a key, free Google Translate is used. The Gemini key (free at aistudio.google.com) gives better results for dialogues and books.
 
-### Privacy
+## License
 
-Plugins and dictionaries stay on your Mac. Only the texts you send to machine translation leave it (to Google). The Gemini key is kept on this Mac.
-
-### Building from source
-
-Requires Xcode (Swift 6), Node.js and Rust. The macOS app is native Swift (AppKit + WebKit) around the React interface and the Rust core. From the repository folder:
-
-```bash
-./build_app.sh
-```
-
-→ [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)
-
-### License
-
-Released under the **MIT License**: free to use, modify and share. Part of the **Skyrim Mac Toolkit**, a set of modding tools built for Skyrim players on Mac.
+Released under the **MIT License**: free to use, modify and share. Part of the **Skyrim Mac Toolkit**, a set of modding tools built for Skyrim players on Mac. See [LICENSE](LICENSE).
 
 ---
 
-## 🇫🇷 Français
+## Français
+
+**Suite de traduction de mods Bethesda (Skyrim SE, Fallout 4, Starfield), native sur macOS.**
+
+🍏 *Appli Mac native écrite en Swift, signée et notarisée par Apple.*
+
+💬 Aide et communauté : [Discord du Skyrim Mac Toolkit](https://discord.gg/jRS4rvynx6)
 
 ### À quoi ça sert
 
@@ -140,7 +154,7 @@ L'appli vérifie une fois par jour si une version plus récente existe sur GitHu
 
 ### Configuration requise
 
-Un Mac **Apple Silicon** (M1 ou plus récent), **macOS 11 Big Sur** ou plus récent. Appli Mac native écrite en Swift et notarisée par Apple : ni Python, ni Wine, ni machine virtuelle.
+Un Mac **Apple Silicon** (M1 ou plus récent), **macOS 15 Sequoia** ou plus récent. Appli Mac native écrite en Swift et notarisée par Apple : ni Python, ni Wine, ni machine virtuelle.
 
 ### Installation
 
