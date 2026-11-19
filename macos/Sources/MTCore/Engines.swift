@@ -40,7 +40,7 @@ public struct URLSessionTransport: Transport {
         req.httpBody = body
         for (k, v) in headers { req.setValue(v, forHTTPHeaderField: k) }
         let sem = DispatchSemaphore(value: 0)
-        nonisolated(unsafe) var result: Result<HTTPResult, Error> = .failure(NetError.other("aucune réponse"))
+        nonisolated(unsafe) var result: Result<HTTPResult, Error> = .failure(NetError.other(L("aucune réponse")))
         let task = URLSession.shared.dataTask(with: req) { data, resp, err in
             if let err { result = .failure(err) }
             else if let http = resp as? HTTPURLResponse { result = .success(HTTPResult(status: http.statusCode, data: data ?? Data())) }
@@ -247,7 +247,7 @@ public enum Engines {
         headers["Content-Type"] = "application/x-www-form-urlencoded"
         let res = try transport.send(url: req.url, body: Data(req.body.utf8), headers: headers, timeout: 30)
         if res.status >= 400 { throw NetError.http(res.status, res.data) }
-        guard let data = try? JSONSerialization.jsonObject(with: res.data) as? [Any] else { throw NetError.other("réponse invalide") }
+        guard let data = try? JSONSerialization.jsonObject(with: res.data) as? [Any] else { throw NetError.other(L("réponse invalide")) }
         var out: [String] = []
         for (r, d) in zip(runs, data) {
             let text: String, lang: String
@@ -433,9 +433,9 @@ public enum Engines {
         guard let data = try JSONSerialization.jsonObject(with: res.data) as? [String: Any],
               let cands = data["candidates"] as? [[String: Any]], let first = cands.first,
               let content = first["content"] as? [String: Any], let parts = content["parts"] as? [[String: Any]],
-              let p0 = parts.first, let text = p0["text"] as? String else { throw GeminiError(description: "réponse Gemini illisible") }
+              let p0 = parts.first, let text = p0["text"] as? String else { throw GeminiError(description: L("réponse Gemini illisible")) }
         guard let arr = try JSONSerialization.jsonObject(with: Data(text.utf8), options: .fragmentsAllowed) as? [Any],
-              arr.count == texts.count else { throw GeminiError(description: "réponse Gemini incomplète") }
+              arr.count == texts.count else { throw GeminiError(description: L("réponse Gemini incomplète")) }
         return arr.map { pyStr($0) }
     }
 

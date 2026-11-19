@@ -106,7 +106,7 @@ public final class Router: @unchecked Sendable {
         let guarded = ["/api/xtcore", "/api/pick-file", "/api/save-text", "/api/translate/batch", "/api/translate/models"]
         guard guarded.contains(path) else { return Router.error("Route inconnue", 404) }
         // En-tête personnalisé : bloque les requêtes envoyées par d'autres sites (pré-vérification CORS).
-        guard req.headers["x-mtranslator"] == "1" else { return Router.error("En-tête X-mTRANSLATOR requis", 403) }
+        guard req.headers["x-mtranslator"] == "1" else { return Router.error(L("En-tête X-mTRANSLATOR requis"), 403) }
         do {
             guard let payload = try JSONSerialization.jsonObject(with: req.body) as? [String: Any] else {
                 return Router.error("'list' object has no attribute 'get'", 500)
@@ -170,7 +170,7 @@ public final class Router: @unchecked Sendable {
             out = res
             warning = warn ?? NSNull()
             engine = "Gemini (\(model))"
-            if out.contains(where: { $0 == nil }) { engine += " + Google pour le reste" }
+            if out.contains(where: { $0 == nil }) { engine += " " + L("+ Google pour le reste") }
         }
         let missing = out.indices.filter { out[$0] == nil }
         if !missing.isEmpty {

@@ -17,7 +17,7 @@ public final class LocalServer: @unchecked Sendable {
         signal(SIGPIPE, SIG_IGN)
         var sock = try Self.bindLoopback(preferredPort)
         if sock < 0 { sock = try Self.bindLoopback(0) }
-        guard sock >= 0 else { throw NetError.other("Impossible de démarrer le serveur local.") }
+        guard sock >= 0 else { throw NetError.other(L("Impossible de démarrer le serveur local.")) }
         fd = sock
         var addr = sockaddr_in()
         var len = socklen_t(MemoryLayout<sockaddr_in>.size)

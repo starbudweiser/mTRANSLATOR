@@ -39,11 +39,11 @@ public enum XtCore {
     /// Lance xtcore avec ces arguments ; 200 (code 0), 422 (code ≠ 0 avec JSON), 500 (sortie illisible), 400 (refusé).
     public static func run(args: Any?, stdin: Any?, timeout: TimeInterval = 600) -> Result {
         guard let exe = find() else {
-            return Result(body: errorBody("xtcore introuvable (cargo build --release dans core/)"), status: 500)
+            return Result(body: errorBody(L("xtcore introuvable (cargo build --release dans core/)")), status: 500)
         }
         guard let list = args as? [Any], let first = list.first as? String, commands.contains(first),
               list.allSatisfy({ $0 is String }) else {
-            return Result(body: errorBody("Commande xtcore refusée"), status: 400)
+            return Result(body: errorBody(L("Commande xtcore refusée")), status: 400)
         }
         let argv = list.map { $0 as! String }
         let proc = Process()
@@ -81,7 +81,7 @@ public enum XtCore {
         }
         let se = String(decoding: errData, as: UTF8.self), so = String(decoding: outData, as: UTF8.self)
         var msg = pyStrip(!se.isEmpty ? se : so)
-        if msg.isEmpty { msg = "réponse vide" }
+        if msg.isEmpty { msg = L("réponse vide") }
         return Result(body: errorBody(String(msg.unicodeScalars.prefix(2000))), status: 500)
     }
 
